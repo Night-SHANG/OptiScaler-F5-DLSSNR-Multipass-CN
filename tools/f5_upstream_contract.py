@@ -402,6 +402,19 @@ def _verify_worktree(root: Path, commit: str, tree: dict, blobs: dict[str, bytes
             raise ValueError(f'Pristine worktree missing/unreadable: {relative}') from exc
 
 
+def same_worktree_root(reported_root: str, expected_root: Path | str) -> bool:
+    """Compare actual directory identity across Git/native Windows spellings.
+
+    Git emits forward slashes; Windows additionally has case and 8.3 aliases.
+    Native file identity avoids both false rejection and textual prefix matches.
+    Missing/unreadable paths remain a failed gate.
+    """
+    try:
+        return os.path.samefile(reported_root, expected_root)
+    except (OSError, ValueError):
+        return False
+
+
 def verify_source(source_root: Path | str, cfg: dict, contract: dict, *, verify_worktree: bool = True) -> dict:
     """Verify the candidate without execution/mutation; return portable evidence.
 
@@ -414,7 +427,7 @@ def verify_source(source_root: Path | str, cfg: dict, contract: dict, *, verify_
     root = Path(source_root).absolute()
     if root.is_symlink() or not root.is_dir():
         raise ValueError('Source root must be a real Git checkout directory')
-    if _git(root, 'rev-parse', '--show-toplevel').decode().strip() != str(root.resolve()):
+    if not same_worktree_root(_git(root, 'rev-parse', '--show-toplevel').decode().strip(), root):
         raise ValueError('Source root is not the Git worktree root')
     if _git(root, 'remote', 'get-url', 'origin').decode().strip() != REPOSITORY:
         raise ValueError('Candidate origin is not the fixed F5 repository')

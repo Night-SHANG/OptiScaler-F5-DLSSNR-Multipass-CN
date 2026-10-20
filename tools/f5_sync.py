@@ -49,7 +49,8 @@ def read_json(path: Path):
 
 def write_json(path: Path, value) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    with path.open('w', encoding='utf-8', newline='\n') as stream:
+        stream.write(json.dumps(value, ensure_ascii=False, indent=2) + '\n')
 
 
 def git(*args: str, root: Path = ROOT) -> str:

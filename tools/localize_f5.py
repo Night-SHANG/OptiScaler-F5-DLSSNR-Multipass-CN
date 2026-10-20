@@ -79,6 +79,14 @@ def patch_file(path,root,names):
     write_source_text(path,text,encoding)
     return len(changes)
 
+def write_boundary_report(path, files):
+    # Filesystem traversal order differs between clones and operating systems.
+    # Keep the report byte-stable without masking changed paths or call counts.
+    ordered = sorted(files, key=lambda record: record['file'])
+    report = {'calls': sum(record['display_calls'] for record in ordered), 'files': ordered}
+    with path.open('w', encoding='utf-8', newline='\n') as stream:
+        stream.write(json.dumps(report, indent=2) + '\n')
+
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('--source',required=True,type=Path);ap.add_argument('--channel',default='master');args=ap.parse_args()
     from f5_installer_patch import patch_installer_scripts
@@ -87,7 +95,7 @@ def main():
     subprocess.run([sys.executable,str(ROOT/'tools/generate_cpp.py'),'--channel',args.channel,'--out',str(dst/'generated/Strings.generated.h')],check=True)
     names=json.loads((ROOT/'tools/f5_boundaries.json').read_text())['imgui_calls']
     count=0;files=[]
-    for path in (args.source/'OptiScaler').rglob('*'):
+    for path in sorted((args.source/'OptiScaler').rglob('*')):
         if path.suffix not in ('.h','.cpp','.inl','.hpp'):continue
         rel=path.relative_to(args.source).as_posix()
         if '/localization/' in rel:continue
@@ -97,6 +105,6 @@ def main():
     patch_font_and_init(args.source/'OptiScaler/menu/menu_common.cpp')
     patch_hash(args.source/'OptiScaler/include/imgui/imgui.cpp')
     reports=ROOT/'reports';reports.mkdir(exist_ok=True)
-    (reports/'display-boundaries.json').write_text(json.dumps({'calls':count,'files':files},indent=2)+'\n')
+    write_boundary_report(reports/'display-boundaries.json', files)
     print(f'Adapted {count} display boundaries in {len(files)} files; upstream strings retained')
 if __name__=='__main__':main()

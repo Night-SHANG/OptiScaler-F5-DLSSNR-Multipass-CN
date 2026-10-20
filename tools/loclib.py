@@ -32,7 +32,8 @@ def load_json(path: Path, default=None):
 
 def save_json(path: Path, data):
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(data, ensure_ascii=False, indent=2, sort_keys=False) + "\n", encoding="utf-8")
+    with path.open("w", encoding="utf-8", newline="\n") as stream:
+        stream.write(json.dumps(data, ensure_ascii=False, indent=2, sort_keys=False) + "\n")
 
 def read_source_text(path: Path) -> tuple[str, str]:
     """Read upstream C/C++ text while preserving its original byte encoding.

@@ -9,6 +9,8 @@ from pathlib import Path
 import subprocess
 import tempfile
 import unittest
+from unittest import mock
+import os
 
 ROOT = Path(__file__).resolve().parents[1]
 MODULE = ROOT / 'tools/f5_upstream_contract.py'
@@ -73,6 +75,26 @@ class ContractTests(unittest.TestCase):
     def commit(self):
         git(self.root, '-c', 'user.name=Fixture', '-c', 'user.email=fixture@example.invalid', 'commit', '--allow-empty', '-m', 'fixture')
         return git(self.root, 'rev-parse', 'HEAD')
+
+    def test_git_root_uses_filesystem_identity_not_path_spelling(self):
+        same = self.contract_module.same_worktree_root
+        self.assertTrue(same(self.root.as_posix(), self.root))
+        self.assertFalse(same(str(self.root / 'absent'), self.root))
+        with tempfile.TemporaryDirectory() as other:
+            self.assertFalse(same(other, self.root))
+        # Git for Windows uses '/', pathlib uses '\\'; native samefile must
+        # resolve separators, case and 8.3 aliases without text normalization.
+        with mock.patch.object(self.contract_module.os.path, 'samefile', return_value=True) as native:
+            self.assertTrue(same('D:/a/Source Root', r'd:\a\SOURCE ROOT'))
+            native.assert_called_once_with('D:/a/Source Root', r'd:\a\SOURCE ROOT')
+        if os.name == 'nt':
+            self.assertTrue(same(str(self.root).swapcase(), self.root))
+            import ctypes
+            buffer = ctypes.create_unicode_buffer(32768)
+            count = ctypes.windll.kernel32.GetShortPathNameW(str(self.root), buffer, len(buffer))
+            self.assertGreater(count, 0)
+            self.assertLess(count, len(buffer))
+            self.assertTrue(same(buffer.value, self.root))
 
     def change(self, name, data=None):
         path = self.root / name
