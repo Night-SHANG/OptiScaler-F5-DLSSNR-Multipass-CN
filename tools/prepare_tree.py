@@ -101,13 +101,14 @@ def main() -> int:
             if not args.clean:
                 raise ValueError("_upstream exists; use --clean only for this tool's owned scratch tree")
             clean_owned_worktree(ROOT, path)
-        run("git", "clone", "--no-checkout", "--no-tags", "--depth=1", "-c", "core.autocrlf=false", REPOSITORY, str(path))
+        # text=auto still honors core.eol when autocrlf=false; pin LF on Windows too.
+        run("git", "clone", "--no-checkout", "--no-tags", "--depth=1", "-c", "core.autocrlf=false", "-c", "core.eol=lf", REPOSITORY, str(path))
         (path / MARKER).write_text(json.dumps({"schema": 1, "root": str(ROOT.resolve()),
             "repository": REPOSITORY, "commit": PIN}, indent=2) + "\n", encoding="utf-8")
         run("git", "fetch", "--no-tags", "--depth=1", "origin", PIN, cwd=path)
         run("git", "checkout", "--detach", PIN, cwd=path)
         # Never use --remote: the superproject and each nested tree own the gitlink pins.
-        run("git", "-c", "core.autocrlf=false", "submodule", "update", "--init", "--recursive", cwd=path)
+        run("git", "-c", "core.autocrlf=false", "-c", "core.eol=lf", "submodule", "update", "--init", "--recursive", cwd=path)
         status = verify_checkout(path)
     reports = ROOT / "reports"
     reports.mkdir(exist_ok=True)

@@ -49,6 +49,25 @@ class PrepareTreeSafetyTests(unittest.TestCase):
                 prepare.clean_owned_worktree(root, tree)
             self.assertEqual(precious.read_text(), 'keep')
 
+    def test_checkout_pins_lf_even_with_a_crlf_default(self):
+        source = (ROOT / 'tools/prepare_tree.py').read_text(encoding='utf-8')
+        self.assertEqual(source.count('"core.eol=lf"'), 2)
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td).resolve()
+            origin = root / 'origin'; origin.mkdir()
+            def git(*args, cwd=origin):
+                return subprocess.check_output(['git', *args], cwd=cwd, stderr=subprocess.STDOUT)
+            git('init')
+            (origin / '.gitattributes').write_bytes(b'* text=auto\n')
+            (origin / 'test.cpp').write_bytes(b'#include "pch.h"\nint x;\n')
+            git('-c', 'core.autocrlf=false', 'add', '.')
+            git('-c', 'user.name=Fixture', '-c', 'user.email=fixture@example.invalid', 'commit', '-m', 'fixture')
+            # Simulate Windows/native or an inherited CRLF checkout policy.
+            git('-c', 'core.eol=crlf', 'clone', '--no-checkout', '-c', 'core.autocrlf=false',
+                '-c', 'core.eol=lf', str(origin), str(root / 'tree'))
+            git('checkout', '--detach', 'HEAD', cwd=root / 'tree')
+            self.assertEqual((root / 'tree/test.cpp').read_bytes(), b'#include "pch.h"\nint x;\n')
+
     def test_submodules_must_be_initialized_at_exact_gitlinks(self):
         self.assertTrue(hasattr(prepare, 'validate_submodule_status'), 'recursive pin checking is required')
         prepare.validate_submodule_status(' ' + 'a'*40 + ' external/test (heads/main)\n')
