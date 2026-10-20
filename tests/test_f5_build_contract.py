@@ -127,6 +127,15 @@ class BuildContractTests(unittest.TestCase):
                           'AcceptAmpereMfgLicenses', 'EnableRtx40Mfg', 'patchedPackagerText']:
             self.assertNotIn(forbidden, text)
 
+    def test_build_import_exception_is_not_used_for_public_stage(self):
+        text = self.text('tools/package.ps1')
+        self.assertIn('Assert-NoForbiddenPayload $builtStage -AllowForwarderBuildImports', text)
+        self.assertIn('Assert-NoForbiddenPayload $stage\n', text)
+        self.assertNotIn('Assert-NoForbiddenPayload $stage -AllowForwarderBuildImports', text)
+        self.assertEqual(text.count('-AllowForwarderBuildImports'), 1)
+        self.assertIn("'nvngx.dll_dlssnr.lib'", text)
+        self.assertIn("'nvngx.dll_dlssnr.exp'", text)
+
     def test_package_records_cn_upstream_and_binary_hashes(self):
         text = self.text('tools/package.ps1')
         for token in ['cn_commit', 'upstream_commit', 'upstream_version', 'SHA256',
@@ -204,6 +213,24 @@ class PowerShellValidationTests(unittest.TestCase):
                     script += (f"$rejected=$false; try {{ Assert-SafeArchive '{path}' }} catch {{ $rejected=$true }}; "
                                f"if (-not $rejected) {{ throw 'Accepted unsafe archive: {name}' }}; ")
             self.invoke(script)
+
+    def test_import_libraries_allowed_only_in_build_root_never_public_package(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td).resolve()
+            for name in ('nvngx.dll_dlssnr.lib', 'nvngx.dll_dlssnr.exp'):
+                (root / name).write_bytes(b'compiler intermediate')
+            path = str(root).replace("'", "''")
+            prefix = self.load_functions()
+            self.invoke(prefix + f"Assert-NoForbiddenPayload '{path}' -AllowForwarderBuildImports")
+            reject = (f"$rejected=$false; try {{ Assert-NoForbiddenPayload '{path}' {{flag}} }} "
+                      "catch { $rejected=$true }; if (-not $rejected) { throw 'Unsafe payload accepted' }")
+            self.invoke(prefix + reject.replace('{flag}', ''))
+            for name in ('other.lib', 'OptiScaler.pdb', 'nvngx_dlssnr.dll', 'sl.common.dll',
+                         'child/nvngx.dll_dlssnr.lib'):
+                file = root / name; file.parent.mkdir(parents=True, exist_ok=True)
+                file.write_bytes(b'must never be accepted')
+                self.invoke(prefix + reject.replace('{flag}', '-AllowForwarderBuildImports'))
+                file.unlink()
 
     def test_pe_validator_requires_real_x64_dll_headers(self):
         with tempfile.TemporaryDirectory() as td:

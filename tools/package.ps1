@@ -66,13 +66,21 @@ function Assert-SafeArchive([string]$Path) {
         }
     } finally { $archive.Dispose() }
 }
-function Assert-NoForbiddenPayload([string]$Stage) {
+function Assert-NoForbiddenPayload([string]$Stage, [switch]$AllowForwarderBuildImports) {
     $items = @(Get-ChildItem -LiteralPath $Stage -Recurse -Force)
     if ($items | Where-Object { $_.Attributes -band [IO.FileAttributes]::ReparsePoint }) { throw 'Linked package payload' }
     $bad = @($items | Where-Object { -not $_.PSIsContainer -and (
         $_.Name -ieq 'nvngx_dlssnr.dll' -or $_.Name -match '^(nvngx_dlss.*|sl\..*)\.dll$' -or
         $_.Name -match '\.(pdb|exp|lib|ilk|asi)$|latewarp|nrtrace' -or $_.Name -ieq 'dlssg_sm86.dll'
     ) })
+    # MSVC writes these two import/link products next to the built forwarder.
+    # The upstream explicit packaging allowlist does not copy them. Never allow
+    # this exception for the final stage, nested files, or other build artifacts.
+    if ($AllowForwarderBuildImports) {
+        $root = [IO.Path]::GetFullPath($Stage)
+        $allowed = @((Join-Path $root 'nvngx.dll_dlssnr.lib'), (Join-Path $root 'nvngx.dll_dlssnr.exp'))
+        $bad = @($bad | Where-Object { $allowed -inotcontains $_.FullName })
+    }
     if ($bad.Count) { throw "Forbidden public payload: $($bad.Name -join ', ')" }
 }
 function Assert-StagedDependencies([string]$Stage) {
@@ -145,7 +153,7 @@ foreach ($dll in @('OptiScaler.dll', 'nvngx.dll_dlssnr.dll')) {
     Assert-Hash (Join-Path $builtStage $dll) $proof[0].sha256
 }
 Assert-StagedDependencies $builtStage
-Assert-NoForbiddenPayload $builtStage
+Assert-NoForbiddenPayload $builtStage -AllowForwarderBuildImports
 foreach ($required in @('README.zh-CN.md', 'UPSTREAM.md', 'Localization/OptiScalerCN.ini',
                        'reports/upstream-materialization.json', 'reports/build-scan.md',
                        'reports/display-boundaries.json', 'reports/strict-localization.log',
