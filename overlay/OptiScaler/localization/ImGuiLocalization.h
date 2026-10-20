@@ -80,8 +80,10 @@ inline const char* Pass(const StringArgument& value) { return value.isNull ? nul
 template<class T> inline T Pass(const T& value) { return value; }
 inline void SuppressPointPlural(StringArgument& value) { if (value.value == "s") value.value.clear(); }
 template<class T> inline void SuppressPointPlural(T&) {}
-template<class... Args> inline auto Begin(const char* label, Args&&... args)
-{ return ImGui::Begin(LabelValue(label).c_str(), std::forward<Args>(args)...); }
+// Keep concrete pointer parameters: upstream uses Windows NULL (integer 0),
+// whose null-pointer conversion would be lost through a forwarding reference.
+inline bool Begin(const char* label, bool* open = nullptr, ImGuiWindowFlags flags = 0)
+{ return ImGui::Begin(LabelValue(label).c_str(), open, flags); }
 template<class... Args> inline auto Button(const char* label, Args&&... args)
 { return ImGui::Button(LabelValue(label).c_str(), std::forward<Args>(args)...); }
 template<class... Args> inline auto SmallButton(const char* label, Args&&... args)
@@ -158,8 +160,11 @@ template<class... Args> inline auto InputFloat4(const char* label, Args&&... arg
 { const auto values = std::make_tuple(Wrap(args)...); return std::apply([&](const auto&... value) { return ImGui::InputFloat4(LabelValue(label).c_str(), Pass(value)...); }, values); }
 template<class... Args> inline auto InputInt(const char* label, Args&&... args)
 { const auto values = std::make_tuple(Wrap(args)...); return std::apply([&](const auto&... value) { return ImGui::InputInt(LabelValue(label).c_str(), Pass(value)...); }, values); }
-template<class... Args> inline auto InputScalar(const char* label, Args&&... args)
-{ const auto values = std::make_tuple(Wrap(args)...); return std::apply([&](const auto&... value) { return ImGui::InputScalar(LabelValue(label).c_str(), Pass(value)...); }, values); }
+inline bool InputScalar(const char* label, ImGuiDataType type, void* data,
+                        const void* step = nullptr, const void* fastStep = nullptr,
+                        const char* format = nullptr, ImGuiInputTextFlags flags = 0)
+{ const auto translated = Wrap(format);
+  return ImGui::InputScalar(LabelValue(label).c_str(), type, data, step, fastStep, Pass(translated), flags); }
 template<class... Args> inline auto InputText(const char* label, Args&&... args)
 { return ImGui::InputText(LabelValue(label).c_str(), std::forward<Args>(args)...); }
 template<class... Args> inline auto InputTextMultiline(const char* label, Args&&... args)
@@ -289,6 +294,11 @@ inline void PlotLines(const char* label, const float* values, int count, int off
                       ImVec2 size = ImVec2(0, 0), int stride = sizeof(float))
 { ImGui::PlotLines(LabelValue(label).c_str(), values, count, offset,
                    overlay ? TextValue(overlay).c_str() : nullptr, low, high, size, stride); }
+inline void PlotLines(const char* label, float (*getter)(void*, int), void* data, int count,
+                      int offset = 0, const char* overlay = nullptr, float low = FLT_MAX,
+                      float high = FLT_MAX, ImVec2 size = ImVec2(0, 0))
+{ ImGui::PlotLines(LabelValue(label).c_str(), getter, data, count, offset,
+                   overlay ? TextValue(overlay).c_str() : nullptr, low, high, size); }
 inline void AddText(ImDrawList* draw, const ImVec2& position, ImU32 color, const char* text, const char* end = nullptr)
 { const auto value = Slice(text, end); draw->AddText(position, color, value.c_str()); }
 inline void AddText(ImDrawList* draw, ImFont* font, float size, const ImVec2& position, ImU32 color,

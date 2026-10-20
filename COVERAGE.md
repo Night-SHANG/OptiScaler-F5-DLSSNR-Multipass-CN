@@ -1,6 +1,6 @@
 # F5 简体中文覆盖与验收清单
 
-固定上游：`janblade/OptiScaler-F5-DLSSNR-Multipass@fadc3bf67f6c8548e94914baec3f2e551ba8d8a4`（v0.1.32）。本记录截至 2026-10-20 12:23（北京时间），属于源码与可移植测试证据；Windows 构建结果以对应 Actions run 为准。
+固定上游：`janblade/OptiScaler-F5-DLSSNR-Multipass@fadc3bf67f6c8548e94914baec3f2e551ba8d8a4`（v0.1.32）。本记录截至 2026-10-20 12:40（北京时间），属于源码与可移植测试证据；Windows 构建结果以对应 Actions run 为准。
 
 ## 扫描分母与来源
 
@@ -37,8 +37,9 @@
 ## 已完成的检查
 
 - 严格词库检查：所有活动条目源文哈希、printf/C++ 格式字段、顺序和隐藏后缀一致；0 缺失/0 过期。
-- 当前 120 项单元测试：云端 Linux 115 通过，5 项因缺少 PowerShell/cmd.exe 明确跳过。Windows CI 已验证 cmd 代码页恢复与 PowerShell 解析/许可拒绝路径；其余平台 fixture 修复后需以最新 CI 为准。测试通过不代表 Windows GPU 游戏验证。
-- 独立可移植显示契约：144 项断言，使用当前上游真实 `ImHashStr` 与非零作用域 seed；包装器主要重载按真实 ImGui 头文件编译。验证 plain/`##`/`###`/动态标签/显式切片、语言回退、输入缓冲和选中索引、原数组、格式与 raw 数据。
+- 当前 121 项单元测试：云端 Linux 116 通过，5 项因缺少 PowerShell/cmd.exe 明确跳过；Windows CI run 39369855580 全部 121 项通过，零跳过，包括字体与安装脚本交互测试。测试通过不代表 Windows GPU 游戏验证。
+- 独立可移植显示契约：168 项断言，使用当前上游真实 `ImHashStr` 与非零作用域 seed；包装器主要重载按真实 ImGui 头文件编译。验证 plain/`##`/`###`/动态标签/显式切片、语言回退、输入缓冲和选中索引、原数组、格式与 raw 数据。
+- MSVC 首次完整编译发现的 Begin/InputScalar `NULL` 转换和 PlotLines 回调重载缺口已补齐；新增 24 项实际调用行为回归，旧头负对照会明确失败。此修复仍须由最新 Windows 编译结果确认。
 - 58 条固定预期的真实运行时样本在 C++17/C++20 各通过 58/58，包含旧多行 tooltip、嵌套异常、路径、状态和组合语序。
 - 204 条独立可见源文代表探针全部命中，3 个持久化键正确排除。它们证明代表性条目的纳入，不证明穷举覆盖。
 - 字体适配的编译 stub 检查涵盖 HQ 开/关、三字体、配置字体、初始化回退与上下文重建；额外云端真实 ImGui/STB smoke 检查过 CJK 字形与 Hack 等宽数字、主题切换。它们不是 Windows FreeType/GPU 截图。
