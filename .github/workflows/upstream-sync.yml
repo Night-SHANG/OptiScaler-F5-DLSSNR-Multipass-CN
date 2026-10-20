@@ -11,6 +11,7 @@ on:
       - 'tools/f5_sync.py'
       - 'tools/f5_upstream_contract.py'
       - 'upstream-contract.json'
+      - 'tests/**'
 
 permissions:
   contents: read

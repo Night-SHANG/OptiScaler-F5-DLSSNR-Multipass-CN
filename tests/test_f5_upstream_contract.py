@@ -272,13 +272,48 @@ class ContractTests(unittest.TestCase):
 
     def test_unsafe_windows_paths_fail_before_checkout(self):
         blob = git(self.root, 'rev-parse', 'HEAD:README.md')
+        baseline_tree = git(self.root, 'rev-parse', self.baseline + '^{tree}')
+        before_index = git(self.root, 'ls-files', '-s')
+        before_status = git(self.root, 'status', '--porcelain')
+
+        def object_tree_with_path(tree, components):
+            # Build only Git objects, never unsafe index/worktree paths. Git for
+            # Windows correctly rejects CON/aux/? during update-index already,
+            # which would prevent testing our independent pre-checkout gate.
+            entries = {}
+            if tree:
+                raw = subprocess.check_output(['git', 'ls-tree', '-z', tree], cwd=self.root)
+                for entry in raw.split(b'\0'):
+                    if not entry:
+                        continue
+                    metadata, name = entry.split(b'\t', 1)
+                    mode, _, oid = metadata.decode('ascii').split()
+                    entries[name] = (mode, oid)
+            name = components[0].encode('utf-8')
+            if len(components) == 1:
+                entries[name] = ('100644', blob)
+            else:
+                child = entries.get(name, (None, None))[1]
+                entries[name] = ('040000', object_tree_with_path(child, components[1:]))
+            ordered = sorted(entries, key=lambda name: name + (b'/' if entries[name][0] == '040000' else b''))
+            raw = b''.join(
+                f'{int(entries[name][0], 8):o} '.encode('ascii') + name + b'\0'
+                + bytes.fromhex(entries[name][1]) for name in ordered)
+            return subprocess.check_output(
+                ['git', 'hash-object', '-t', 'tree', '-w', '--stdin'],
+                input=raw, cwd=self.root).decode().strip()
+
         for name in ('docs/CON.md', 'docs/bad?.md', 'docs/aux/guide.md'):
             with self.subTest(name=name):
-                git(self.root, 'reset', '--hard', self.baseline)
-                git(self.root, 'update-index', '--add', '--cacheinfo', f'100644,{blob},{name}')
-                self.cfg['commit'] = self.commit()
+                tree = object_tree_with_path(baseline_tree, name.split('/'))
+                self.cfg['commit'] = git(
+                    self.root, '-c', 'user.name=Fixture', '-c', 'user.email=fixture@example.invalid',
+                    'commit-tree', tree, '-p', self.baseline, '-m', 'unsafe path object fixture')
                 with self.assertRaisesRegex(ValueError, 'path'):
                     self.contract_module.verify_source(self.root, self.cfg, self.contract, verify_worktree=False)
+                self.assertEqual(git(self.root, 'ls-files', '-s'), before_index)
+                self.assertEqual(git(self.root, 'status', '--porcelain'), before_status)
+                self.assertFalse((self.root / 'docs').exists())
 
     def test_nonmutable_raw_string_preserves_physical_line_splices(self):
         literal_digest = self.contract_module.cpp_literal_sha256

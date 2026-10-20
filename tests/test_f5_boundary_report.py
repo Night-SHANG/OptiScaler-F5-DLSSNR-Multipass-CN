@@ -2,6 +2,7 @@
 from pathlib import Path
 import itertools
 import json
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -48,7 +49,12 @@ class BoundaryReportTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / 'report.json'
             write_boundary_report(path, report['files'])
-            self.assertEqual(path.read_bytes(), committed.read_bytes())
+            # Git for Windows may materialize tracked text as CRLF. Verify
+            # canonical repository bytes, plus only that permitted EOL mapping.
+            blob = subprocess.check_output(
+                ['git', 'show', 'HEAD:reports/display-boundaries.json'], cwd=ROOT)
+            self.assertEqual(path.read_bytes(), blob)
+            self.assertEqual(path.read_bytes(), committed.read_bytes().replace(b'\r\n', b'\n'))
 
     def test_sync_and_catalog_json_writers_share_exact_utf8_lf_bytes(self):
         value = {'z': ['中文', 'line\nbreak'], 'a': 1}
