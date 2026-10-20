@@ -1,0 +1,333 @@
+{
+  "include_globs": [
+    "OptiScaler/**/*.cpp",
+    "OptiScaler/**/*.h",
+    "OptiScaler/**/*.inl",
+    "OptiScaler/include/imgui/ImGuiNotify.hpp"
+  ],
+  "exclude_globs": [
+    "OptiScaler/localization/**",
+    "**/external/**",
+    "**/imgui/**"
+  ],
+  "calls": {
+    "ImGui::Text": [
+      0
+    ],
+    "ImGui::TextUnformatted": [
+      0
+    ],
+    "ImGui::TextWrapped": [
+      0
+    ],
+    "ImGui::TextDisabled": [
+      0
+    ],
+    "ImGui::BulletText": [
+      0
+    ],
+    "ImGui::TextColored": [
+      1
+    ],
+    "ImGui::TextLink": [
+      0
+    ],
+    "ImGui::TextLinkOpenURL": [
+      0
+    ],
+    "ImGui::Button": [
+      0
+    ],
+    "ImGui::SmallButton": [
+      0
+    ],
+    "ImGui::Checkbox": [
+      0
+    ],
+    "ImGui::RadioButton": [
+      0
+    ],
+    "ImGui::SeparatorText": [
+      0
+    ],
+    "ImGui::Selectable": [
+      0
+    ],
+    "ImGui::TreeNode": [
+      0
+    ],
+    "ImGui::TreeNodeEx": [
+      0
+    ],
+    "ImGui::CollapsingHeader": [
+      0
+    ],
+    "ImGui::Begin": [
+      0
+    ],
+    "ImGui::BeginChild": [
+      0
+    ],
+    "ImGui::BeginCombo": [
+      0
+    ],
+    "ImGui::BeginListBox": [
+      0
+    ],
+    "ImGui::BeginTabItem": [
+      0
+    ],
+    "ImGui::BeginMenu": [
+      0
+    ],
+    "ImGui::MenuItem": [
+      0
+    ],
+    "ImGui::SliderFloat": [
+      0
+    ],
+    "ImGui::SliderInt": [
+      0
+    ],
+    "ImGui::SliderScalar": [
+      0
+    ],
+    "ImGui::DragFloat": [
+      0
+    ],
+    "ImGui::DragInt": [
+      0
+    ],
+    "ImGui::DragScalar": [
+      0
+    ],
+    "ImGui::InputFloat": [
+      0
+    ],
+    "ImGui::InputInt": [
+      0
+    ],
+    "ImGui::InputScalar": [
+      0
+    ],
+    "ImGui::InputText": [
+      0
+    ],
+    "ImGui::ColorEdit3": [
+      0
+    ],
+    "ImGui::ColorEdit4": [
+      0
+    ],
+    "ImGui::LabelText": [
+      0,
+      1
+    ],
+    "ImGui::TableSetupColumn": [
+      0
+    ],
+    "ImGui::SetTooltip": [
+      0
+    ],
+    "ShowTooltip": [
+      0
+    ],
+    "ShowHelpMarker": [
+      0
+    ],
+    "HelpMarker": [
+      0
+    ],
+    "SeparatorWithHelpMarker": [
+      0,
+      1
+    ],
+    "ScopedCollapsingHeader": [
+      0
+    ],
+    "PipelineUi::CheckboxWrapped": [
+      0
+    ],
+    "PopulateCombo": [
+      0
+    ],
+    ".setTitle": [
+      0
+    ],
+    ".setContent": [
+      0
+    ],
+    ".set_disabled": [
+      1
+    ],
+    "ImGui::Combo": [
+      0
+    ],
+    "ImGui::PlotLines": [
+      0,
+      4
+    ],
+    "ImGui::ProgressBar": [
+      2
+    ],
+    ".setButtonLabel": [
+      0
+    ]
+  },
+  "scan_containers": [
+    "splashText",
+    "std::vector<MenuOption",
+    "std::vector<MenuOption<",
+    "const char* q[]",
+    "std::vector<FlagDefinition>"
+  ],
+  "exclude_exact": [
+    "",
+    "R",
+    "(?)",
+    "##",
+    "MFG",
+    "DLSS",
+    "FSR",
+    "XeSS",
+    "XeFG",
+    "DLSSG",
+    "OptiFG",
+    "RTV",
+    "SRV",
+    "UAV",
+    "OM",
+    "SCR",
+    "SGR",
+    "DI",
+    "DII",
+    "DX11",
+    "DX12",
+    "Vulkan",
+    "HDR10",
+    "DLAA"
+  ],
+  "exclude_prefixes": [
+    "##"
+  ],
+  "technical_regex": [
+    "^[A-Za-z]:\\\\",
+    "^(dxgi|winmm|version|dbghelp|d3d12|wininet|winhttp)\\.dll$",
+    "^https?://.*$"
+  ],
+  "scoped_calls": [
+    {
+      "glob": "OptiScaler/menu/*.cpp",
+      "calls": {
+        "StrFmt": [
+          0
+        ]
+      }
+    },
+    {
+      "glob": "OptiScaler/dlssnr/**/*.cpp",
+      "calls": {
+        "StrFmt": [
+          0
+        ]
+      }
+    },
+    {
+      "glob": "OptiScaler/dlssnr/DlssNr_MenuModel.cpp",
+      "calls": {
+        "DeferredSlider": [
+          0
+        ],
+        "InheritedProfileCombo": [
+          0
+        ],
+        "std::strcmp": [
+          1
+        ]
+      }
+    },
+    {
+      "glob": "OptiScaler/dlssnr/DlssNr_MenuBlend.cpp",
+      "calls": {
+        "slider": [
+          0
+        ]
+      }
+    },
+    {
+      "glob": "OptiScaler/dlssnr/DlssNr_Menu*.cpp",
+      "calls": {
+        "snprintf": [
+          2
+        ]
+      }
+    },
+    {
+      "glob": "OptiScaler/dlssnr/DlssNr_PipelineUi.h",
+      "calls": {
+        "tool": [
+          0
+        ],
+        "add": [
+          2,
+          3
+        ]
+      }
+    }
+  ],
+  "scoped_literal_calls": [
+    {
+      "glob": "OptiScaler/dlssnr/DlssNr_PipelineUi.h",
+      "calls": {
+        "add": 2
+      }
+    }
+  ],
+  "return_literal_functions": [
+    {
+      "glob": "OptiScaler/dlssnr/DlssNr_PipelineUi.h",
+      "functions": [
+        "SectionName"
+      ]
+    }
+  ],
+  "literal_assignments": [
+    {
+      "glob": "OptiScaler/dlssnr/DlssNr_MenuOverlay.cpp",
+      "names": [
+        "leftText",
+        "rightText"
+      ]
+    }
+  ],
+  "vararg_literal_calls": {
+    "ImGui::Text": 1,
+    "ImGui::TextDisabled": 1,
+    "ImGui::TextWrapped": 1,
+    "ImGui::BulletText": 1,
+    "ImGui::TextColored": 2,
+    "ImGui::LabelText": 2,
+    "ImGui::SetTooltip": 1
+  },
+  "member_assignments": [
+    "label",
+    "tooltip"
+  ],
+  "nested_ui_calls": {
+    "std::format": [
+      0
+    ]
+  },
+  "c_string_array_globs": [
+    "OptiScaler/menu/*.cpp",
+    "OptiScaler/dlssnr/**/*.cpp",
+    "OptiScaler/dlssnr/*.cpp",
+    "OptiScaler/native/*.cpp"
+  ],
+  "conditional_literal_calls": [
+    "ScopedCollapsingHeader"
+  ],
+  "c_string_array_exclude_regex": [
+    "^[A-Z][A-Z0-9]+(?:_[A-Z0-9]+)+$"
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "reviewed_utc": "2026-10-19T16:14:06.448773+00:00",
+  "upstream_sha": "fadc3bf67f6c8548e94914baec3f2e551ba8d8a4",
+  "verdict": "PASS independent source and display-boundary review; no unresolved P0/P1 identified in reviewed paths",
+  "checks": {
+    "portable_boundary_assertions": 144,
+    "portable_boundary_failures": 0,
+    "wrapper_overload_syntax": "pass",
+    "active_catalog_entries": 2385,
+    "representative_visible_sources": 204,
+    "representative_visible_failures": 0,
+    "excluded_persisted_keys": 3,
+    "real_rendered_fixed_goldens_cpp17": 58,
+    "real_rendered_fixed_goldens_cpp20": 58,
+    "real_rendered_failures": 0,
+    "materialized_runtime_ui_dictionary_synchronization": "pass",
+    "source_boundary_integration": "pass"
+  },
+  "limitations": [
+    "Representative tests are not exhaustive coverage or a 100% localization percentage.",
+    "Windows MSVC DLL build, actual DX11/DX12/Vulkan GPU execution and rendered UI screenshots are not performed by this audit.",
+    "Three-font/theme/scale glyph rendering and clipping remain visual acceptance gates.",
+    "Arbitrary external library/OS diagnostics and user filenames may remain original; catalog glyph validation does not prove arbitrary filename glyph coverage.",
+    "Installer shell/batch interaction localization is a separately pending increment; original long documents and INI comments are an explicitly documented boundary."
+  ],
+  "sha256": {
+    "Localization/master/catalog.json": "9fc5c263ed575d2afc04f08eabfcaeb94700831ae68ff0b5af6a5a96c6bf50a8",
+    "Localization/zh-CN.json": "17f1bfc8f138ba5bb582110a4aa58d5e03330658a7d05f0bbdc5af9cc35ec942",
+    "overlay/OptiScaler/localization/ImGuiLocalization.h": "9ccf5a4d1a70fd581673289fafaf3d05f60b3b42aab70cd3841ec81c57620735",
+    "overlay/OptiScaler/localization/Localization.h": "357c28a3c762d0b2d2b32789bb12fcb7ac6d7e0b79af5d0bd77a8cc75d607b62",
+    "overlay/OptiScaler/localization/RuntimeText.h": "dfe65b20c70bac052e9b9770ed4f09ae02b46a1a7c92285326aa34c3fdb29fc7",
+    "tools/check_localization.py": "5f4a03d22e5bfeda4c8d42c25594f0f71da4d89cb8d3f5d095e58edafaf4825e",
+    "tools/f5_boundaries.json": "8c81d906bf565418885bd223560fbccd31c2772b615b790e8cdd159dcf77b4ea",
+    "tools/f5_font_patch.py": "fcfe6ae29654b2accaa681b4a7150c0af433eeb31e6dac7e86bd7537ffbe109c",
+    "tools/f5_scan.py": "5f58a190e13c65e27cca0c79b0d101eeb8efdf3fa51c93fe5e7f4e9cb9e0c557",
+    "tools/generate_cpp.py": "75345e0f2d1ac687908379091ffe43616fcf9a67b80670479ceb35e76edf2f10",
+    "tools/localize_f5.py": "4ef24344ec720d746aa1c9e988300559aebbbc3b23c77660c55289f25fcf9269",
+    "tools/localize_source.py": "cf4c725b37c88ba5a56246463c3360e428607a02db31c2a629de777305cbf02f",
+    "tools/loclib.py": "b5c59a841f075bae6ef82367b80711694758d48a9f2bb2ea393f35f29cbf6fe1",
+    "tools/package.ps1": "c3d94729d989aeea3a6828ac1ff8d922b8ab4cf9d91fa0849b4310ba2304fe93",
+    "tools/prepare_tree.py": "e2f1712e9f850076b7b372e3e449e3e9bdf77b92cccf907a3fcb69aba8dbc629",
+    "tools/scan_ui.py": "87fe484d515381f420fb95c7a97c6ad0dc585e681e35e9da99cf1f0a93f7739e",
+    "tools/translate_missing.py": "b20462d4af3bd7c8e11eb0997ae434124f393104cd473a8e83203e18da81c722",
+    "tools/ui_scan.py": "d3d2e2f043620c602020229182b52f4df5322336d1dc475854767e732ec4ec81",
+    "tools/update_translation_memory.py": "5315a364529283808d1c9fce968ed277a406a0c3eb970f7b377f611a67105880",
+    "upstream.json": "5d487536bb545e46d254faff2265e4f093fa7aabe9dedb463d3728fa470cc141"
+  },
+  "materialized_sha256": {
+    "RuntimeText.h": "dfe65b20c70bac052e9b9770ed4f09ae02b46a1a7c92285326aa34c3fdb29fc7",
+    "ImGuiLocalization.h": "9ccf5a4d1a70fd581673289fafaf3d05f60b3b42aab70cd3841ec81c57620735",
+    "generated/Strings.generated.h": "fbf54d6058d02ffe8a5a9a12006d1fa1a46b01b00bf72e89a74a2098a4d17988"
+  },
+  "audit_fixture_sha256": {
+    "test_display_boundary_fixture.py": "17c6f0ae7f8eeccea1a96252d37f27a8edbc282a2323b11d8d3665bdae151a5c",
+    "test_catalog_representative_fixture.py": "791ced553c88b4127ee99c41931d14c7d3f4b0e90aea5015f1aa81679534ceb7",
+    "test_real_display_samples.py": "127e6d69f4ac070dd6ea76bd56960c14fef28605eb1771cae366ded59f3691ea"
+  }
+}

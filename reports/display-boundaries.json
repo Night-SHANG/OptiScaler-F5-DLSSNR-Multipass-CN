@@ -1,0 +1,49 @@
+{
+  "calls": 962,
+  "files": [
+    {
+      "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
+      "display_calls": 16
+    },
+    {
+      "file": "OptiScaler/resource_tracking/GenericDepth_Vk.cpp",
+      "display_calls": 12
+    },
+    {
+      "file": "OptiScaler/resource_tracking/GenericDepth_Dx11.cpp",
+      "display_calls": 11
+    },
+    {
+      "file": "OptiScaler/native/NativeDriverDx12.cpp",
+      "display_calls": 4
+    },
+    {
+      "file": "OptiScaler/native/NativeDriverDx11.cpp",
+      "display_calls": 1
+    },
+    {
+      "file": "OptiScaler/native/NativeDriverVk.cpp",
+      "display_calls": 4
+    },
+    {
+      "file": "OptiScaler/native/NativeDriver.cpp",
+      "display_calls": 45
+    },
+    {
+      "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+      "display_calls": 330
+    },
+    {
+      "file": "OptiScaler/menu/menu_common.cpp",
+      "display_calls": 530
+    },
+    {
+      "file": "OptiScaler/menu/menu_common.h",
+      "display_calls": 1
+    },
+    {
+      "file": "OptiScaler/include/imgui/ImGuiNotify.hpp",
+      "display_calls": 8
+    }
+  ]
+}

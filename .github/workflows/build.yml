@@ -1,0 +1,147 @@
+name: Build pinned F5 Chinese artifact
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  portable-contracts:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Materialize pinned source for portable ImGui contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p reports
+          python -c "import json,sys; sys.path.insert(0,'tools'); from prepare_tree import validate_config; validate_config(json.load(open('upstream.json')))"
+          pin=$(python -c "import json; print(json.load(open('upstream.json'))['commit'])")
+          # This job tests tracked ImGui/source contracts only. The Windows job
+          # independently materializes and verifies all recursive dependencies.
+          git clone --no-checkout --no-tags --depth=1 https://github.com/janblade/OptiScaler-F5-DLSSNR-Multipass.git _upstream
+          git -C _upstream fetch --no-tags --depth=1 origin "$pin"
+          git -C _upstream checkout --detach "$pin"
+          test "$(git -C _upstream rev-parse HEAD)" = "$pin"
+      - name: Strict portable preflight and display runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/scan_ui.py --source _upstream --channel master --upstream-ref v0.1.32 --update --report reports/portable-scan.md 2>&1 | tee reports/portable-scan.log
+          git diff --exit-code -- Localization 2>&1 | tee reports/portable-catalog-drift.log
+          python tools/check_localization.py --strict --channel master 2>&1 | tee reports/portable-strict.log
+          python -m unittest discover -s tests -v 2>&1 | tee reports/portable-tests.log
+          python tools/localize_f5.py --source _upstream --channel master 2>&1 | tee reports/portable-localize.log
+          g++ --version | tee reports/portable-compiler.log
+          python tests/test_f5_display_runtime.py --repo . 2>&1 | tee reports/portable-runtime.log
+          python tests/test_f5_catalog_representatives.py --repo . 2>&1 | tee reports/portable-catalog.log
+          python tests/test_f5_real_display_samples.py --repo . 2>&1 | tee reports/portable-real-samples.log
+      - name: Upload portable contract diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: portable-contracts-${{ github.run_id }}-${{ github.run_attempt }}
+          path: reports/
+          if-no-files-found: error
+          retention-days: 14
+  build:
+    runs-on: windows-2022
+    timeout-minutes: 120
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Initialize diagnostics
+        run: New-Item -ItemType Directory -Force reports | Out-Null
+      - name: Materialize audited upstream and recursive gitlinks
+        run: |
+          python tools/prepare_tree.py 2>&1 | Tee-Object reports/prepare.log
+          if ($LASTEXITCODE -ne 0) { throw 'Pinned upstream materialization failed' }
+      - name: Strict localization preflight
+        run: |
+          python tools/scan_ui.py --source _upstream --channel master --upstream-ref v0.1.32 --update --report reports/build-scan.md 2>&1 | Tee-Object reports/scan.log
+          if ($LASTEXITCODE -ne 0) { throw 'Source scan failed' }
+          git diff --exit-code -- Localization 2>&1 | Tee-Object reports/catalog-drift.log
+          if ($LASTEXITCODE -ne 0) { throw 'Committed catalog or translations differ from the pinned source scan' }
+          python tools/check_localization.py --strict --channel master 2>&1 | Tee-Object reports/strict-localization.log
+          if ($LASTEXITCODE -ne 0) { throw 'Missing, stale, or unsafe Chinese translations' }
+          python -m unittest discover -s tests -v 2>&1 | Tee-Object reports/tests.log
+          if ($LASTEXITCODE -ne 0) { throw 'Repository tests failed' }
+          python tools/prepare_tree.py --verify 2>&1 | Tee-Object reports/verify-upstream.log
+          if ($LASTEXITCODE -ne 0) { throw 'Upstream changed during preflight' }
+      - name: Apply F5 display boundaries and Chinese font chain
+        run: |
+          python tools/localize_f5.py --source _upstream --channel master 2>&1 | Tee-Object reports/localize.log
+          if ($LASTEXITCODE -ne 0) { throw 'F5 localization failed' }
+      - uses: microsoft/setup-msbuild@v2
+        with:
+          vs-version: '[17.0,18.0)'
+          msbuild-architecture: x64
+      - name: Build real Release x64 with MSVC v143
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $solutionDir = (Resolve-Path _upstream).Path + '\'
+          # Preserve the pinned PostBuildEvent. Its FidelityFX v1 license copy needs
+          # this directory before the event stages the rest of x64/Release/a.
+          New-Item -ItemType Directory -Force _upstream/x64/Release/a/OptiScaler/Licenses | Out-Null
+          msbuild _upstream\OptiScaler\dlssnr\forwarder\dlssnr_forwarder.vcxproj /m /t:Rebuild /p:Configuration=Release /p:Platform=x64 /p:PlatformToolset=v143 "/p:SolutionDir=$solutionDir" /v:minimal /bl:reports/forwarder.binlog 2>&1 | Tee-Object reports/forwarder-build.log
+          if ($LASTEXITCODE -ne 0) { throw 'Forwarder MSBuild failed' }
+          msbuild _upstream\OptiScaler.sln /m /t:Build /p:Configuration=Release /p:Platform=x64 /p:PlatformToolset=v143 /v:minimal /bl:reports/solution.binlog 2>&1 | Tee-Object reports/solution-build.log
+          if ($LASTEXITCODE -ne 0) { throw 'Solution MSBuild failed' }
+          $binaries = @('OptiScaler.dll', 'nvngx.dll_dlssnr.dll') | ForEach-Object {
+            $path = Join-Path '_upstream/x64/Release/a' $_
+            if (-not (Test-Path -LiteralPath $path -PathType Leaf)) { throw "Missing build output: $path" }
+            @{ name = $_; sha256 = (Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash.ToLowerInvariant() }
+          }
+          $cnCommit = (git rev-parse HEAD).Trim()
+          if ($LASTEXITCODE -ne 0) { throw 'Cannot read CN commit' }
+          $upstreamCommit = (git -C _upstream rev-parse HEAD).Trim()
+          if ($LASTEXITCODE -ne 0) { throw 'Cannot read upstream commit' }
+          $msbuildVersion = (& msbuild -nologo -version | Select-Object -Last 1).Trim()
+          if ($LASTEXITCODE -ne 0) { throw 'Cannot read MSBuild version' }
+          @{ configuration = 'Release'; platform = 'x64'; toolset = 'v143';
+             cn_commit = $cnCommit; upstream_commit = $upstreamCommit;
+             msbuild_version = $msbuildVersion; binaries = @($binaries);
+             built_at_utc = [DateTime]::UtcNow.ToString('o') } |
+            ConvertTo-Json -Depth 6 | Set-Content reports/build-evidence.json -Encoding utf8
+      - name: Package verified downloader-only artifact
+        run: |
+          & ./tools/package.ps1 -SourceRoot ./_upstream -OutputDir ./dist 2>&1 | Tee-Object reports/package.log
+          if (-not $?) { throw 'CN packaging failed' }
+      - name: Upload verified package
+        uses: actions/upload-artifact@v4
+        with:
+          name: OptiScaler-F5-CN-v0.1.32-${{ github.sha }}
+          path: |
+            dist/*.zip
+            dist/*.sha256
+            dist/build-metadata.json
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 14
+      - name: Upload build-diagnostics even on failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-diagnostics-${{ github.run_id }}-${{ github.run_attempt }}
+          path: reports/
+          if-no-files-found: error
+          retention-days: 14

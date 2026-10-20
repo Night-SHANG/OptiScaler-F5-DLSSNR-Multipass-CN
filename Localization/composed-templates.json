@@ -1,0 +1,326 @@
+[
+  {
+    "source": "Auto ({})",
+    "text": "自动（{}）",
+    "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+    "reason": "White-point and game exposure source previews assembled by concatenation"
+  },
+  {
+    "source": "Auto ({} on this GPU)",
+    "text": "自动（此 GPU 使用 {}）",
+    "file": "OptiScaler/menu/menu_common.cpp",
+    "reason": "MFG auto kernel image preview"
+  },
+  {
+    "source": "Compress screen edges: {}",
+    "text": "压缩画面边缘：{}",
+    "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+    "reason": "Edge compression status prefix plus runtime description"
+  },
+  {
+    "source": "Bottleneck reuse: {}",
+    "text": "瓶颈复用：{}",
+    "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+    "reason": "Reuse status prefix plus runtime description"
+  },
+  {
+    "source": "off for this session ({})",
+    "text": "本次会话已关闭（{}）",
+    "file": "OptiScaler/dlssnr/DlssNrVitReuse.h",
+    "reason": "Disabled status with nested failure cause"
+  },
+  {
+    "source": "{} (the view changed again: input detail {:.5f}, the run started at {:.5f})",
+    "text": "{}（画面再次变化：输入细节 {:.5f}，本次开始时为 {:.5f}）",
+    "file": "OptiScaler/shaders/dlssnr/DlssNr_ExposureCalibrate_Run.h",
+    "reason": "AbortText plus stop suffix"
+  },
+  {
+    "source": "{} (input change {:.5f} after {} tries, limit {:.5f})",
+    "text": "{}（输入变化为 {:.5f}，已尝试 {} 次，上限为 {:.5f}）",
+    "file": "OptiScaler/shaders/dlssnr/DlssNr_ExposureCalibrate_Run.h",
+    "reason": "AbortText plus stop suffix; preserve token order in translation"
+  },
+  {
+    "source": "Shadows ({:.0f}% of the picture): {}",
+    "text": "阴影（占画面 {:.0f}%）：{}",
+    "file": "OptiScaler/shaders/dlssnr/DlssNr_ExposureCalibrate_Run.h",
+    "reason": "Shadow share header plus measurement clause"
+  },
+  {
+    "source": "could not open {}",
+    "text": "无法打开 {}",
+    "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
+    "reason": "Explicit display-only runtime composition; preserve raw external data",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "LUT_3D_SIZE is missing its number (line {:d})",
+    "text": "LUT_3D_SIZE 缺少数值（第 {:d} 行）",
+    "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
+    "reason": "Explicit display-only runtime composition; preserve raw external data"
+  },
+  {
+    "source": "LUT_3D_SIZE {:d} is out of range (2..{:d})",
+    "text": "LUT_3D_SIZE {:d} 超出范围（2..{:d}）",
+    "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
+    "reason": "Explicit display-only runtime composition; preserve raw external data"
+  },
+  {
+    "source": "{} needs three numbers (line {:d})",
+    "text": "{} 需要三个数值（第 {:d} 行）",
+    "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
+    "reason": "Explicit display-only runtime composition; preserve raw external data",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "could not parse line {:d}: {}",
+    "text": "无法解析第 {:d} 行：{}",
+    "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
+    "reason": "Explicit display-only runtime composition; preserve raw external data",
+    "raw_fields": [
+      1
+    ]
+  },
+  {
+    "source": "data row on line {:d} needs three numbers",
+    "text": "第 {:d} 行的数据需要三个数值",
+    "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
+    "reason": "Explicit display-only runtime composition; preserve raw external data"
+  },
+  {
+    "source": "a data row appeared before LUT_3D_SIZE (line {:d})",
+    "text": "在 LUT_3D_SIZE 之前出现了数据行（第 {:d} 行）",
+    "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
+    "reason": "Explicit display-only runtime composition; preserve raw external data"
+  },
+  {
+    "source": "more data rows than LUT_3D_SIZE {:d} calls for",
+    "text": "数据行数超过 LUT_3D_SIZE {:d} 所需数量",
+    "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
+    "reason": "Explicit display-only runtime composition; preserve raw external data"
+  },
+  {
+    "source": "expected {:d} data rows for LUT_3D_SIZE {:d}, found {:d}",
+    "text": "预期 {:d} 行数据（LUT_3D_SIZE {:d}），实际为 {:d} 行",
+    "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
+    "reason": "Explicit display-only runtime composition; preserve raw external data"
+  },
+  {
+    "source": "{} (worse)",
+    "text": "{}（变差）",
+    "file": "OptiScaler/shaders/dlssnr/DlssNr_ExposureCalibrate_Run.h",
+    "reason": "Explicit display-only runtime composition; preserve raw external data"
+  },
+  {
+    "source": "{} | rewritten original launches: {:d} | candidate split contractions: {:d}",
+    "text": "{} | 已重写的原始启动次数：{:d} | 候选拆分收缩次数：{:d}",
+    "file": "OptiScaler/dlssnr/DlssNrNative.cpp",
+    "reason": "Native status suffix plus two runtime counters"
+  },
+  {
+    "source": "{} (NR frames {:d}, skipped {:d})",
+    "text": "{}（NR 帧数 {:d}，跳过 {:d}）",
+    "file": "OptiScaler/shaders/dlssnr/DlssNr_DeferredSr.inl",
+    "reason": "Deferred status plus native-rendering frame counters"
+  },
+  {
+    "source": "Original FP8 fallback: M={:d} dims={:d}x{:d}{}",
+    "text": "回退至原始 FP8：M={:d}，尺寸={:d}x{:d}{}",
+    "file": "OptiScaler/dlssnr/DlssNrNative.cpp",
+    "reason": "Hybrid runtime status/exception composition, keeping producer comparisons unchanged"
+  },
+  {
+    "source": "Original FP8 fallback: hybrid init failed: {}",
+    "text": "回退至原始 FP8：混合模式初始化失败：{}",
+    "file": "OptiScaler/dlssnr/DlssNrNative.cpp",
+    "reason": "Hybrid runtime status/exception composition, keeping producer comparisons unchanged"
+  },
+  {
+    "source": "Original FP8 fallback: {}",
+    "text": "回退至原始 FP8：{}",
+    "file": "OptiScaler/dlssnr/DlssNrNative.cpp",
+    "reason": "Hybrid runtime status/exception composition, keeping producer comparisons unchanged"
+  },
+  {
+    "source": "Restart required: hybrid failed after replacement: {}",
+    "text": "需要重启：替换后混合模式失败：{}",
+    "file": "OptiScaler/dlssnr/DlssNrNative.cpp",
+    "reason": "Hybrid runtime status/exception composition, keeping producer comparisons unchanged"
+  },
+  {
+    "source": "M={:d} dims={:d}x{:d} {}",
+    "text": "M={:d}，尺寸={:d}x{:d}，{}",
+    "file": "OptiScaler/dlssnr/DlssNrNative.cpp",
+    "reason": "Hybrid runtime status/exception composition, keeping producer comparisons unchanged"
+  },
+  {
+    "source": " initialization: {}",
+    "text": " 初始化：{}",
+    "file": "OptiScaler/dlssnr/DlssNrNative.cpp",
+    "reason": "Hybrid runtime status/exception composition, keeping producer comparisons unchanged"
+  },
+  {
+    "source": "D3D12 status {:d}",
+    "text": "D3D12 状态码 {:d}",
+    "file": "OptiScaler/dlssnr/DlssNrNative.cpp",
+    "reason": "Hybrid runtime status/exception composition, keeping producer comparisons unchanged"
+  },
+  {
+    "source": "NVAPI status {:d}",
+    "text": "NVAPI 状态码 {:d}",
+    "file": "OptiScaler/dlssnr/DlssNrNative.cpp",
+    "reason": "Hybrid runtime status/exception composition, keeping producer comparisons unchanged"
+  },
+  {
+    "source": "Missing asset {}",
+    "text": "缺少资源 {}",
+    "file": "OptiScaler/dlssnr/DlssNrNative.cpp",
+    "reason": "Hybrid runtime status/exception composition, keeping producer comparisons unchanged",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "Hybrid asset checksum mismatch: {}",
+    "text": "混合模式资源校验和不匹配：{}",
+    "file": "OptiScaler/dlssnr/DlssNrNative.cpp",
+    "reason": "Hybrid runtime status/exception composition, keeping producer comparisons unchanged",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "Unknown/out-of-range vendor binding {}",
+    "text": "未知或越界的厂商绑定 {}",
+    "file": "OptiScaler/dlssnr/DlssNrNative.cpp",
+    "reason": "Hybrid runtime status/exception composition, keeping producer comparisons unchanged",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "Missing fused helper/driver export {}",
+    "text": "缺少融合助手/驱动导出 {}",
+    "file": "OptiScaler/dlssnr/DlssNrNative.cpp",
+    "reason": "Hybrid runtime status/exception composition, keeping producer comparisons unchanged",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "Cannot load fused params_builder.dll: {:d}",
+    "text": "无法加载融合模式 params_builder.dll：{:d}",
+    "file": "OptiScaler/dlssnr/DlssNrNative.cpp",
+    "reason": "Hybrid runtime status/exception composition, keeping producer comparisons unchanged"
+  },
+  {
+    "source": "Unsupported fused Params/workspace ABI status {:d}",
+    "text": "不支持的融合 Params/工作区 ABI，状态码 {:d}",
+    "file": "OptiScaler/dlssnr/DlssNrNative.cpp",
+    "reason": "Hybrid runtime status/exception composition, keeping producer comparisons unchanged"
+  },
+  {
+    "source": "Fused D3D-address encoding failed status {:d} pop {:d}",
+    "text": "融合 D3D 地址编码失败，状态码 {:d}，弹出上下文状态 {:d}",
+    "file": "OptiScaler/dlssnr/DlssNrNative.cpp",
+    "reason": "Hybrid runtime status/exception composition, keeping producer comparisons unchanged"
+  },
+  {
+    "source": "Candidate hybrid M={:d} dims={:d}x{:d} expansion block {:d}",
+    "text": "候选混合模式 M={:d}，尺寸={:d}x{:d}，扩展块 {:d}",
+    "file": "OptiScaler/dlssnr/DlssNrNative.cpp",
+    "reason": "Hybrid runtime status/exception composition, keeping producer comparisons unchanged"
+  },
+  {
+    "source": "Candidate hybrid M={:d} dims={:d}x{:d} FFN pairs recorded {:d}/8 ({:d}/16 original launches); other operators FP8",
+    "text": "候选混合模式 M={:d}，尺寸={:d}x{:d}，已记录 FFN 对 {:d}/8（原始启动次数 {:d}/16）；其他算子使用 FP8",
+    "file": "OptiScaler/dlssnr/DlssNrNative.cpp",
+    "reason": "Hybrid runtime status/exception composition, keeping producer comparisons unchanged"
+  },
+  {
+    "source": "Fused hybrid M={:d} dims={:d}x{:d} expansion block {:d}",
+    "text": "融合混合模式 M={:d}，尺寸={:d}x{:d}，扩展块 {:d}",
+    "file": "OptiScaler/dlssnr/DlssNrNative.cpp",
+    "reason": "Hybrid runtime status/exception composition, keeping producer comparisons unchanged"
+  },
+  {
+    "source": "Fused hybrid M={:d} dims={:d}x{:d} FFN pairs recorded {:d}/8 ({:d}/16 original launches); other operators FP8",
+    "text": "融合混合模式 M={:d}，尺寸={:d}x{:d}，已记录 FFN 对 {:d}/8（原始启动次数 {:d}/16）；其他算子使用 FP8",
+    "file": "OptiScaler/dlssnr/DlssNrNative.cpp",
+    "reason": "Hybrid runtime status/exception composition, keeping producer comparisons unchanged"
+  },
+  {
+    "source": "no bytecode for {}",
+    "text": "缺少 {} 的字节码",
+    "file": "OptiScaler/motion/OpticalFlow_Dx12.cpp",
+    "reason": "Actual status producer concatenation; external identifiers/reasons remain raw",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "creating the pipeline {}",
+    "text": "正在创建管线 {}",
+    "file": "OptiScaler/motion/OpticalFlow_Dx12.cpp",
+    "reason": "Actual status producer concatenation; external identifiers/reasons remain raw",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "Error writing dlssg_sm86.ini: {}",
+    "text": "写入 dlssg_sm86.ini 时出错：{}",
+    "file": "OptiScaler/framegen/dlssg/AmpereMfgLoader.cpp",
+    "reason": "Actual status producer concatenation; external identifiers/reasons remain raw"
+  },
+  {
+    "source": "Failed to load dlssg_sm86.dll (error code {:d}).",
+    "text": "加载 dlssg_sm86.dll 失败（错误码 {:d}）。",
+    "file": "OptiScaler/framegen/dlssg/AmpereMfgLoader.cpp",
+    "reason": "Actual status producer concatenation; external identifiers/reasons remain raw"
+  },
+  {
+    "source": "buffer, {:d} bytes",
+    "text": "缓冲区，{:d} 字节",
+    "file": "OptiScaler/dlssnr/DlssNr_ExposureScan.cpp",
+    "reason": "Actual status producer concatenation; external identifiers/reasons remain raw"
+  },
+  {
+    "source": "%s scan %.4f  ->  white %.2f   [editing]",
+    "text": "%s 扫描 %.4f  ->  白点 %.2f   [编辑中]",
+    "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+    "reason": "Explicit selected scan-row variant avoids numeric padding consuming the suffix"
+  },
+  {
+    "source": "You are missing the following dlls from the streamline folder:\n{}",
+    "text": "streamline 文件夹中缺少以下 DLL：\n{}",
+    "file": "OptiScaler/hooks/Streamline_Hooks.cpp",
+    "reason": "Missing-DLL toast prefix plus unchanged filename list",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "Original FP8 fallback: M={:d} dims={:d}x{:d} unsupported original module hash",
+    "text": "回退至原始 FP8：M={:d}，尺寸={:d}x{:d}；原始模块哈希不受支持",
+    "file": "OptiScaler/dlssnr/DlssNrNative.cpp",
+    "reason": "Finite fallback suffix; avoid ambiguous adjacent number/string padding"
+  },
+  {
+    "source": "Original FP8 fallback: M={:d} dims={:d}x{:d} no supplied contraction template",
+    "text": "回退至原始 FP8：M={:d}，尺寸={:d}x{:d}；未提供收缩运算模板",
+    "file": "OptiScaler/dlssnr/DlssNrNative.cpp",
+    "reason": "Finite fallback suffix; avoid ambiguous adjacent number/string padding"
+  },
+  {
+    "source": "Original FP8 fallback: M={:d} dims={:d}x{:d} initialization: {}",
+    "text": "回退至原始 FP8：M={:d}，尺寸={:d}x{:d}；初始化：{}",
+    "file": "OptiScaler/dlssnr/DlssNrNative.cpp",
+    "reason": "Finite fallback suffix; avoid ambiguous adjacent number/string padding"
+  }
+]

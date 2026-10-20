@@ -1,0 +1,5 @@
+{
+  "channel": "master",
+  "upstream_ref": "v0.1.32",
+  "upstream_commit": "fadc3bf67f6c8548e94914baec3f2e551ba8d8a4"
+}

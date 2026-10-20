@@ -7,6 +7,7 @@
 - [中文安装、依赖与构建说明](README.zh-CN.md)
 - [来源、固定版本与许可](UPSTREAM.md)
 - [翻译范围、实现与验收边界](TRANSLATION.md)
+- [覆盖清单与未验证范围](COVERAGE.md)
 - [贡献与检查步骤](CONTRIBUTING.md)
 - [构建工作流](.github/workflows/build.yml)
 

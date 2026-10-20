@@ -1,0 +1,10 @@
+
+*.pyc
+.vs/
+.worktrees/
+__pycache__/
+_upstream/
+dist/
+reports/*.log
+x64/
+x86/

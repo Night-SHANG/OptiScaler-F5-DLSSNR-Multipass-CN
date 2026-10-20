@@ -1,0 +1,3596 @@
+{
+  "upstream_commit": "fadc3bf67f6c8548e94914baec3f2e551ba8d8a4",
+  "note": "Retained entries include technical catalog noise; this is not a count of untranslated prose.",
+  "entries": [
+    {
+      "key": "ui.auto.347cd9c53ff7",
+      "source": "%s",
+      "reason": "数值/占位符/技术单位格式；保持参数和显示记法。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
+          "line": 1495,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
+          "line": 1512,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Vk.cpp",
+          "line": 837,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx11.cpp",
+          "line": 707,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriverVk.cpp",
+          "line": 239,
+          "callee": "ImGui::TextColored",
+          "arg": 1
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 277,
+          "callee": "ImGui::TextDisabled",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 322,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 356,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 361,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 367,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 372,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 378,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 389,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 393,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 401,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 406,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 285,
+          "callee": "ImGui::TextWrapped",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 339,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 479,
+          "callee": "ImGui::TextWrapped",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 480,
+          "callee": "ImGui::TextWrapped",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 481,
+          "callee": "ImGui::TextWrapped",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 482,
+          "callee": "ImGui::TextWrapped",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 1156,
+          "callee": "ImGui::TextWrapped",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 1263,
+          "callee": "ImGui::TextWrapped",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 1309,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 1463,
+          "callee": "ImGui::TextWrapped",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 1634,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 2575,
+          "callee": "ImGui::TextDisabled",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 2687,
+          "callee": "ImGui::TextWrapped",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3439,
+          "callee": "ImGui::TextWrapped",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3445,
+          "callee": "ImGui::TextWrapped",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 926,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 2296,
+          "callee": "StrFmt",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 5444,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 6854,
+          "callee": "ImGui::TextWrapped",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.9bda272dbc2b",
+      "source": "%s%s",
+      "reason": "数值/占位符/技术单位格式；保持参数和显示记法。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 1703,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.a0f1490a20d0",
+      "source": "s",
+      "reason": "英文复数后缀仅保留在上游数据中；已确认 point%s 的中文展示边界抑制该 s。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 2111,
+          "callee": "ImGui::TextColored:vararg",
+          "arg": 5
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.11f6ad8ec52a",
+      "source": "x",
+      "reason": "尺寸/倍数分隔符；保留技术记法。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 2519,
+          "callee": "ImGui::SmallButton",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNrNative.cpp",
+          "line": 190,
+          "callee": "f5:status-assignment",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNrNative.cpp",
+          "line": 214,
+          "callee": "f5:status-assignment",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNrNative.cpp",
+          "line": 225,
+          "callee": "f5:status-assignment",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/shaders/dlssnr/DlssNr_DeferredSr.inl",
+          "line": 692,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/shaders/dlssnr/DlssNr_DeferredSr.inl",
+          "line": 693,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.80cf900e44c2",
+      "source": "LUT",
+      "reason": "品牌、API、算法、模型或行业技术名称；保持可识别性和与上游文档的对应。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 2897,
+          "callee": "ImGui::BeginCombo",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.0d1750a881d1",
+      "source": " | %s -> %s %u.%u.%u%s",
+      "reason": "数值/占位符/技术单位格式；保持参数和显示记法。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 2252,
+          "callee": "StrFmt",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.f53b37ebb548",
+      "source": "%6.1f/%5.1f ",
+      "reason": "数值/占位符/技术单位格式；保持参数和显示记法。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 2265,
+          "callee": "StrFmt",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.d40f160e7590",
+      "source": "%6.1f ",
+      "reason": "数值/占位符/技术单位格式；保持参数和显示记法。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 2282,
+          "callee": "StrFmt",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.9e01d34ff0c0",
+      "source": "%s | %s%s%s",
+      "reason": "数值/占位符/技术单位格式；保持参数和显示记法。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 2298,
+          "callee": "StrFmt",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.f2ecf2910a61",
+      "source": "%-12s %4.1fms",
+      "reason": "数值/占位符/技术单位格式；保持参数和显示记法。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 2450,
+          "callee": "ImGui::TextColored",
+          "arg": 1
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 2539,
+          "callee": "ImGui::TextColored",
+          "arg": 1
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.9450c62c0a0a",
+      "source": "D3D11 %s| %s %d.%d.%d%s",
+      "reason": "数值/占位符/技术单位格式；保持参数和显示记法。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 2806,
+          "callee": "ImGui::Text",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.37e3c89eee78",
+      "source": "(DXVK) ",
+      "reason": "品牌、API、算法、模型或行业技术名称；保持可识别性和与上游文档的对应。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 2806,
+          "callee": "ImGui::Text:vararg",
+          "arg": 1
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 2825,
+          "callee": "ImGui::Text:vararg",
+          "arg": 1
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 2843,
+          "callee": "ImGui::Text:vararg",
+          "arg": 1
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.666ef182f3bc",
+      "source": " w/Dx12",
+      "reason": "Dx12 桥接技术缩写；保留用于与上游路由标识对应。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 2255,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 2809,
+          "callee": "ImGui::Text:vararg",
+          "arg": 6
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 2846,
+          "callee": "ImGui::Text:vararg",
+          "arg": 6
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.2d38879e1bc3",
+      "source": "D3D12 %s| %s %d.%d.%d",
+      "reason": "数值/占位符/技术单位格式；保持参数和显示记法。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 2825,
+          "callee": "ImGui::Text",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.af2560d8a3aa",
+      "source": "Vulkan %s| %s %d.%d.%d%s",
+      "reason": "数值/占位符/技术单位格式；保持参数和显示记法。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 2843,
+          "callee": "ImGui::Text",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.6bcf6a3c9f4d",
+      "source": "KPSS",
+      "reason": "品牌、API、算法、模型或行业技术名称；保持可识别性和与上游文档的对应。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 2961,
+          "callee": "c-string-array",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.e140c7ecc890",
+      "source": "SPLAT",
+      "reason": "品牌、API、算法、模型或行业技术名称；保持可识别性和与上游文档的对应。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 2961,
+          "callee": "c-string-array",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.65cd088575e0",
+      "source": "FSR %s",
+      "reason": "数值/占位符/技术单位格式；保持参数和显示记法。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 3022,
+          "callee": "StrFmt",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 4400,
+          "callee": "StrFmt",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 4405,
+          "callee": "StrFmt",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 5491,
+          "callee": "StrFmt",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 5496,
+          "callee": "StrFmt",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.5ab1c0463054",
+      "source": "FSR %s##%d",
+      "reason": "数值/占位符/技术单位格式；保持参数和显示记法。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 3027,
+          "callee": "StrFmt",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.af7293504996",
+      "source": "Retarget",
+      "reason": "内核重定向技术名称；存储 Auto/Retarget/Ptx 不改变。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 3480,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 3484,
+          "callee": "c-string-array",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.77251bbc9d5e",
+      "source": "Ptx",
+      "reason": "PTX 内核路径技术标识；存储 Auto/Retarget/Ptx 不改变。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 3480,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 3484,
+          "callee": "c-string-array",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.8b313c08bd90",
+      "source": "PTX",
+      "reason": "品牌、API、算法、模型或行业技术名称；保持可识别性和与上游文档的对应。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 3728,
+          "callee": "c-string-array",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 3730,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 3733,
+          "callee": "c-string-array",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.66cdaa0c02e6",
+      "source": "Cubin",
+      "reason": "品牌、API、算法、模型或行业技术名称；保持可识别性和与上游文档的对应。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 3728,
+          "callee": "c-string-array",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 3730,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 3733,
+          "callee": "c-string-array",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.c26a4d155d18",
+      "source": "FG Nvngx",
+      "reason": "品牌、API、算法、模型或行业技术名称；保持可识别性和与上游文档的对应。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 3972,
+          "callee": "PopulateCombo",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.59f2a904143a",
+      "source": "Opti",
+      "reason": "品牌、API、算法、模型或行业技术名称；保持可识别性和与上游文档的对应。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 4268,
+          "callee": "c-string-array",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.4e8d646301a0",
+      "source": "FFX FG",
+      "reason": "品牌、API、算法、模型或行业技术名称；保持可识别性和与上游文档的对应。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 4401,
+          "callee": "ImGui::BeginCombo",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 5492,
+          "callee": "ImGui::BeginCombo",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.56fa7b26816b",
+      "source": "(%d)",
+      "reason": "数值/占位符/技术单位格式；保持参数和显示记法。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 5127,
+          "callee": "ImGui::Text",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.dedd2c92c055",
+      "source": "OptiScaler",
+      "reason": "品牌、API、算法、模型或行业技术名称；保持可识别性和与上游文档的对应。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 5785,
+          "callee": "container:std::vector<MenuOption",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeLowLatencyRule.h",
+          "line": 690,
+          "callee": "f5:return:ActiveInputText",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.ec20c8376ecb",
+      "source": "fakenvapi",
+      "reason": "品牌、API、算法、模型或行业技术名称；保持可识别性和与上游文档的对应。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 6136,
+          "callee": "ImGui::SeparatorText",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.d06cc6bb6c7c",
+      "source": "Reflex ID",
+      "reason": "品牌、API、算法、模型或行业技术名称；保持可识别性和与上游文档的对应。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 6144,
+          "callee": "container:std::vector<MenuOption",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.8f5a570a90f3",
+      "source": "RCAS",
+      "reason": "品牌、API、算法、模型或行业技术名称；保持可识别性和与上游文档的对应。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 6233,
+          "callee": "ImGui::RadioButton",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.b3e8fe0e5ca4",
+      "source": "FSR1",
+      "reason": "品牌、API、算法、模型或行业技术名称；保持可识别性和与上游文档的对应。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3255,
+          "callee": "c-string-array",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 6537,
+          "callee": "container:std::vector<MenuOption",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.3279107a24ea",
+      "source": "Catmull-Rom",
+      "reason": "品牌、API、算法、模型或行业技术名称；保持可识别性和与上游文档的对应。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3255,
+          "callee": "c-string-array",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 6541,
+          "callee": "container:std::vector<MenuOption",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.e7e9ce58d787",
+      "source": "Lanczos2",
+      "reason": "品牌、API、算法、模型或行业技术名称；保持可识别性和与上游文档的对应。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3255,
+          "callee": "c-string-array",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 6543,
+          "callee": "container:std::vector<MenuOption",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.e2297fd7b3ee",
+      "source": "Lanczos3",
+      "reason": "品牌、API、算法、模型或行业技术名称；保持可识别性和与上游文档的对应。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3256,
+          "callee": "c-string-array",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 6545,
+          "callee": "container:std::vector<MenuOption",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.4f6d0008aeb1",
+      "source": "Kaiser2",
+      "reason": "品牌、API、算法、模型或行业技术名称；保持可识别性和与上游文档的对应。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3256,
+          "callee": "c-string-array",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 6547,
+          "callee": "container:std::vector<MenuOption",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.94eaa27055f0",
+      "source": "Kaiser3",
+      "reason": "品牌、API、算法、模型或行业技术名称；保持可识别性和与上游文档的对应。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3256,
+          "callee": "c-string-array",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 6549,
+          "callee": "container:std::vector<MenuOption",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.c716084845f6",
+      "source": "MAGIC",
+      "reason": "品牌、API、算法、模型或行业技术名称；保持可识别性和与上游文档的对应。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3256,
+          "callee": "c-string-array",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 6551,
+          "callee": "container:std::vector<MenuOption",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.0ce92088720d",
+      "source": "HDR",
+      "reason": "品牌、API、算法、模型或行业技术名称；保持可识别性和与上游文档的对应。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 6690,
+          "callee": "ImGui::Checkbox",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.5df29b80b97d",
+      "source": "%d",
+      "reason": "数值/占位符/技术单位格式；保持参数和显示记法。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 345,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 347,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 349,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 374,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 7646,
+          "callee": "StrFmt",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 8260,
+          "callee": "ImGui::Text",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.fea877d4f0f1",
+      "source": "nav",
+      "reason": "内部导航 ID；保留原标识。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 7974,
+          "callee": "ImGui::BeginChild",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.767013ce0ee0",
+      "source": "page",
+      "reason": "内部页面 ID；保留原标识。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 8058,
+          "callee": "ImGui::BeginChild",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.4a9c840d9f0c",
+      "source": "%7.2f ms / %6.1f fps",
+      "reason": "数值/占位符/技术单位格式；保持参数和显示记法。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 8139,
+          "callee": "StrFmt",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.b478a7f9f09d",
+      "source": "%7.2f ms",
+      "reason": "数值/占位符/技术单位格式；保持参数和显示记法。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 8173,
+          "callee": "StrFmt",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 8197,
+          "callee": "StrFmt",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 8222,
+          "callee": "StrFmt",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.fd0816e5b5c5",
+      "source": "%.2f ms",
+      "reason": "数值/占位符/技术单位格式；保持参数和显示记法。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 8211,
+          "callee": "StrFmt",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.cc0887be183e",
+      "source": "%dx%d -> %dx%d (%.1f) [%dx%d (%.1f)]",
+      "reason": "数值/占位符/技术单位格式；保持参数和显示记法。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 8252,
+          "callee": "ImGui::Text",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.f189d016e7de",
+      "source": "%dx%d -> %dx%d (%.1f) [%dx%d (%.1f)] %d",
+      "reason": "数值/占位符/技术单位格式；保持参数和显示记法。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 8275,
+          "callee": "StrFmt",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.62c2d95ce033",
+      "source": "%s - %s %s %s %s",
+      "reason": "数值/占位符/技术单位格式；保持参数和显示记法。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 8733,
+          "callee": "StrFmt",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.3448080dc136",
+      "source": "- %s",
+      "reason": "数值/占位符/技术单位格式；保持参数和显示记法。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 8734,
+          "callee": "StrFmt",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.b9112cf8e1b3",
+      "source": "DlssNrExposureScan",
+      "reason": "曝光扫描内部资源/状态标识；保留以对应源码。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 8844,
+          "callee": "ImGui::Begin",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.19700482e2de",
+      "source": "%3.0f%%  %.5f",
+      "reason": "数值/占位符/技术单位格式；保持参数和显示记法。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 8863,
+          "callee": "ImGui::TextColored",
+          "arg": 1
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.499f2d6c7fe7",
+      "source": "readback",
+      "reason": "一次性诊断消息的去重键（SayOnce），属于程序标识，保留以维持日志检索与去重语义。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
+          "line": 289,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.627ddd6f0d79",
+      "source": "footprint",
+      "reason": "一次性诊断消息的去重键（SayOnce），属于程序标识，保留以维持日志检索与去重语义。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
+          "line": 296,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.785987648f85",
+      "source": "format",
+      "reason": "一次性诊断消息的去重键（SayOnce），属于程序标识，保留以维持日志检索与去重语义。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
+          "line": 421,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.f3a929b3364b",
+      "source": "device",
+      "reason": "一次性诊断消息的去重键（SayOnce），属于程序标识，保留以维持日志检索与去重语义。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
+          "line": 429,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.2279d89057b4",
+      "source": "resolveList",
+      "reason": "一次性诊断消息的去重键（SayOnce），属于程序标识，保留以维持日志检索与去重语义。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
+          "line": 453,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.462854f9c73a",
+      "source": "slot",
+      "reason": "一次性诊断消息的去重键（SayOnce），属于程序标识，保留以维持日志检索与去重语义。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
+          "line": 464,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.3b3488380c9f",
+      "source": "copied",
+      "reason": "一次性诊断消息的去重键（SayOnce），属于程序标识，保留以维持日志检索与去重语义。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
+          "line": 470,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.8bb87312fc08",
+      "source": "resolveFailed",
+      "reason": "一次性诊断消息的去重键（SayOnce），属于程序标识，保留以维持日志检索与去重语义。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
+          "line": 490,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.ed21eb29a2cf",
+      "source": "DrawInstanced",
+      "reason": "图形 API 函数名，保留原始标识以便定位调用。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
+          "line": 707,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.cbed66d8e690",
+      "source": "DrawIndexedInstanced",
+      "reason": "图形 API 函数名，保留原始标识以便定位调用。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
+          "line": 707,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.11563b767576",
+      "source": "RSSetViewports",
+      "reason": "图形 API 函数名，保留原始标识以便定位调用。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
+          "line": 707,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.b7fcfc862212",
+      "source": "ClearDepthStencilView",
+      "reason": "图形 API 函数名，保留原始标识以便定位调用。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
+          "line": 708,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.18d6eb3ff4df",
+      "source": "ExecuteIndirect",
+      "reason": "图形 API 函数名，保留原始标识以便定位调用。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
+          "line": 708,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.e2dc8e79ac31",
+      "source": " {}={:X}",
+      "reason": "纯数值或占位符格式字符串，无自然语言可翻译，保留格式。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
+          "line": 857,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.57077e98504c",
+      "source": "direction",
+      "reason": "一次性诊断消息的去重键（SayOnce），属于程序标识，保留以维持日志检索与去重语义。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
+          "line": 1163,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.4e7a20843e2f",
+      "source": "resolve",
+      "reason": "一次性诊断消息的去重键（SayOnce），属于程序标识，保留以维持日志检索与去重语义。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
+          "line": 1246,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.026ab2fab046",
+      "source": "resolved",
+      "reason": "一次性诊断消息的去重键（SayOnce），属于程序标识，保留以维持日志检索与去重语义。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
+          "line": 1251,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.cad587188f8c",
+      "source": "previewMissed",
+      "reason": "一次性诊断消息的去重键（SayOnce），属于程序标识，保留以维持日志检索与去重语义。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
+          "line": 1277,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.88c750f68499",
+      "source": "previewCopied",
+      "reason": "一次性诊断消息的去重键（SayOnce），属于程序标识，保留以维持日志检索与去重语义。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
+          "line": 1287,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.89595ca61a27",
+      "source": "previewMap",
+      "reason": "一次性诊断消息的去重键（SayOnce），属于程序标识，保留以维持日志检索与去重语义。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
+          "line": 1356,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.edbf166104f5",
+      "source": "vkCreateImage",
+      "reason": "图形 API 函数名，保留原始标识以便定位调用。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Vk.cpp",
+          "line": 434,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.c72db2b8866c",
+      "source": "vkDestroyImage",
+      "reason": "图形 API 函数名，保留原始标识以便定位调用。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Vk.cpp",
+          "line": 435,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.7481d1ba199e",
+      "source": "vkCreateImageView",
+      "reason": "图形 API 函数名，保留原始标识以便定位调用。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Vk.cpp",
+          "line": 436,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.e051cc1448f3",
+      "source": "vkDestroyImageView",
+      "reason": "图形 API 函数名，保留原始标识以便定位调用。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Vk.cpp",
+          "line": 437,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.4f24aaaecbc3",
+      "source": "vkCreateFramebuffer",
+      "reason": "图形 API 函数名，保留原始标识以便定位调用。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Vk.cpp",
+          "line": 438,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.87d9aeaa6dcf",
+      "source": "vkDestroyFramebuffer",
+      "reason": "图形 API 函数名，保留原始标识以便定位调用。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Vk.cpp",
+          "line": 439,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.66360bb3ab36",
+      "source": "vkCreateRenderPass",
+      "reason": "图形 API 函数名，保留原始标识以便定位调用。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Vk.cpp",
+          "line": 441,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.de9d91f1176f",
+      "source": "vkCreateRenderPass2",
+      "reason": "图形 API 函数名，保留原始标识以便定位调用。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Vk.cpp",
+          "line": 442,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.a5993f2b28a7",
+      "source": "vkCreateRenderPass2KHR",
+      "reason": "图形 API 函数名，保留原始标识以便定位调用。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Vk.cpp",
+          "line": 443,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.796c17b290f3",
+      "source": "vkDestroyRenderPass",
+      "reason": "图形 API 函数名，保留原始标识以便定位调用。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Vk.cpp",
+          "line": 445,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.bd02d99f91b5",
+      "source": "unbind",
+      "reason": "深度快照事件的内部原因标签，与源码及日志对应。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx11.cpp",
+          "line": 235,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.168cbb2ea52b",
+      "source": "clear",
+      "reason": "深度快照事件的内部原因标签，与源码及日志对应。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx11.cpp",
+          "line": 288,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.50644481c7cd",
+      "source": "present",
+      "reason": "深度快照事件的内部原因标签，与源码及日志对应。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx11.cpp",
+          "line": 574,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.6543c81a2bf3",
+      "source": "NVIDIA Reflex",
+      "reason": "厂商技术、产品或模块名称，保留行业通用名称。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/native/NativeLowLatency.cpp",
+          "line": 370,
+          "callee": "f5:return:PathText",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeLowLatency.cpp",
+          "line": 376,
+          "callee": "f5:return:PathText",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeLowLatency.cpp",
+          "line": 389,
+          "callee": "f5:return:PathText",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeLowLatency.cpp",
+          "line": 393,
+          "callee": "f5:return:PathText",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 5821,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.3254e1f21859",
+      "source": "Anti-Lag Vk",
+      "reason": "厂商技术、产品或模块名称，保留行业通用名称。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/native/NativeLowLatency.cpp",
+          "line": 373,
+          "callee": "f5:return:PathText",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeLowLatency.cpp",
+          "line": 381,
+          "callee": "f5:return:PathText",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeLowLatency.cpp",
+          "line": 387,
+          "callee": "f5:return:PathText",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.ab56a6f53dda",
+      "source": "Anti-Lag 2",
+      "reason": "厂商技术、产品或模块名称，保留行业通用名称。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/native/NativeLowLatency.cpp",
+          "line": 373,
+          "callee": "f5:return:PathText",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeLowLatency.cpp",
+          "line": 381,
+          "callee": "f5:return:PathText",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 5823,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.f7aada4ef92b",
+      "source": "LatencyFlex",
+      "reason": "品牌、API、算法、模型或行业技术名称；保持可识别性和与上游文档的对应。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/native/NativeLowLatency.cpp",
+          "line": 383,
+          "callee": "f5:return:PathText",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 5837,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.4f103e2ec786",
+      "source": "XeLL",
+      "reason": "品牌、API、算法、模型或行业技术名称；保持可识别性和与上游文档的对应。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/native/NativeLowLatency.cpp",
+          "line": 385,
+          "callee": "f5:return:PathText",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeLowLatency.cpp",
+          "line": 411,
+          "callee": "f5:return:OutputText",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeLowLatency.cpp",
+          "line": 416,
+          "callee": "f5:return:OutputText",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 5819,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 5834,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.a1d1ef6c2d70",
+      "source": "%.4f",
+      "reason": "纯数值或占位符格式字符串，无自然语言可翻译，保留格式。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 381,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 409,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 6309,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 6331,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.339567ab11a3",
+      "source": "%.3f",
+      "reason": "纯数值或占位符格式字符串，无自然语言可翻译，保留格式。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 384,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 2756,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 2771,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 3266,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 3274,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 3282,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 3294,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 6396,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 6466,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 6473,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 6477,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 6481,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 6485,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 6489,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 6493,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.c85046977e3a",
+      "source": "LUTs",
+      "reason": "目录名或文件扩展名，必须与磁盘资源匹配。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 105,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.d010e330b79d",
+      "source": ".cube",
+      "reason": "目录名或文件扩展名，必须与磁盘资源匹配。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 126,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.fbb292ec93b7",
+      "source": "%+.1f EV",
+      "reason": "纯数值或占位符格式字符串，无自然语言可翻译，保留格式。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 160,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.3cf95181221a",
+      "source": "%.2f",
+      "reason": "纯数值或占位符格式字符串，无自然语言可翻译，保留格式。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 524,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 1802,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 2745,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 2750,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 2927,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3291,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3489,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3503,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3513,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3576,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3577,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3578,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3579,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3595,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3596,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3597,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3598,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3616,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3617,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3618,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3619,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3646,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3732,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3741,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 3255,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 4306,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 4589,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 4596,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 6369,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 6405,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 6413,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 6600,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 6741,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 7517,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 8522,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.65aafbc683a4",
+      "source": "pre",
+      "reason": "用于生成或区分控件的内部 ImGui ID，不属于显示文字。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 1830,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.9b466094ec99",
+      "source": "post",
+      "reason": "用于生成或区分控件的内部 ImGui ID，不属于显示文字。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 1836,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.479e7943edad",
+      "source": "%.2fx",
+      "reason": "纯数值或占位符格式字符串，无自然语言可翻译，保留格式。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 2132,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 2154,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 2379,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.9e2335f09123",
+      "source": "gameexposure",
+      "reason": "用于生成或区分控件的内部 ImGui ID，不属于显示文字。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 2201,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 2208,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.35dc24e74d93",
+      "source": "autoexposure",
+      "reason": "用于生成或区分控件的内部 ImGui ID，不属于显示文字。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 2216,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 2228,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.72f40d042857",
+      "source": "%.0f%%",
+      "reason": "纯数值或占位符格式字符串，无自然语言可翻译，保留格式。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 2329,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 2335,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 2343,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.ecc460a4475a",
+      "source": "%.2f s",
+      "reason": "纯数值或占位符格式字符串，无自然语言可翻译，保留格式。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 2356,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 2364,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.0e3834bfbb70",
+      "source": "%.1fx",
+      "reason": "纯数值或占位符格式字符串，无自然语言可翻译，保留格式。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 2396,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3723,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.726024fe61f9",
+      "source": "NVIDIA (FP8)",
+      "reason": "厂商技术、产品或模块名称，保留行业通用名称。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 2706,
+          "callee": "c-string-array",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.021a88f92eb5",
+      "source": "%.0f fps",
+      "reason": "纯数值或占位符格式字符串，无自然语言可翻译，保留格式。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 2781,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.91318ab68957",
+      "source": "%s (%.0f / %.0f)",
+      "reason": "纯数值或占位符格式字符串，无自然语言可翻译，保留格式。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3024,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3034,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.e24d9d89afc2",
+      "source": "%.1f%%",
+      "reason": "纯数值或占位符格式字符串，无自然语言可翻译，保留格式。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3100,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3106,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3113,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3120,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 6802,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 6806,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.38340be1e8a9",
+      "source": "%+.1f%%",
+      "reason": "纯数值或占位符格式字符串，无自然语言可翻译，保留格式。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3127,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3134,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3140,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3147,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.3701471b5e5c",
+      "source": "%d%%",
+      "reason": "纯数值或占位符格式字符串，无自然语言可翻译，保留格式。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3197,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.82eeae08eebf",
+      "source": "SGSR1",
+      "reason": "厂商技术、产品或模块名称，保留行业通用名称。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3401,
+          "callee": "c-string-array",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.1f3549973833",
+      "source": "PQ (HDR10)",
+      "reason": "厂商技术、产品或模块名称，保留行业通用名称。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3419,
+          "callee": "c-string-array",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/shaders/dlssnr/DlssNr_ColourEncoding.h",
+          "line": 60,
+          "callee": "f5:return:Name",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.d39889166f7e",
+      "source": "VERTEX_AND_CONSTANT_BUFFER",
+      "reason": "D3D12 资源状态常量名，保留 API 标识便于诊断。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 618,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.0596a49fe045",
+      "source": "INDEX_BUFFER",
+      "reason": "D3D12 资源状态常量名，保留 API 标识便于诊断。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 619,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.e9e1178d8f1b",
+      "source": "RENDER_TARGET",
+      "reason": "D3D12 资源状态常量名，保留 API 标识便于诊断。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 620,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.1e4a6ae877f5",
+      "source": "UNORDERED_ACCESS",
+      "reason": "D3D12 资源状态常量名，保留 API 标识便于诊断。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 621,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.d0d48b3ecd55",
+      "source": "DEPTH_WRITE",
+      "reason": "D3D12 资源状态常量名，保留 API 标识便于诊断。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 622,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.104458dab9ef",
+      "source": "DEPTH_READ",
+      "reason": "D3D12 资源状态常量名，保留 API 标识便于诊断。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 623,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.96dc30be3ee6",
+      "source": "NON_PIXEL_SHADER_RESOURCE",
+      "reason": "D3D12 资源状态常量名，保留 API 标识便于诊断。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 624,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.b959d0b00782",
+      "source": "PIXEL_SHADER_RESOURCE",
+      "reason": "D3D12 资源状态常量名，保留 API 标识便于诊断。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 625,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.3709b18fedc7",
+      "source": "STREAM_OUT",
+      "reason": "D3D12 资源状态常量名，保留 API 标识便于诊断。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 626,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.232112f5f293",
+      "source": "INDIRECT_ARGUMENT",
+      "reason": "D3D12 资源状态常量名，保留 API 标识便于诊断。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 627,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.7dee37cc2086",
+      "source": "COPY_DEST",
+      "reason": "D3D12 资源状态常量名，保留 API 标识便于诊断。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 628,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.5950a370cfc2",
+      "source": "COPY_SOURCE",
+      "reason": "D3D12 资源状态常量名，保留 API 标识便于诊断。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 629,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.39866d37e8f0",
+      "source": "RESOLVE_DEST",
+      "reason": "D3D12 资源状态常量名，保留 API 标识便于诊断。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 630,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.433e645ed80e",
+      "source": "RESOLVE_SOURCE",
+      "reason": "D3D12 资源状态常量名，保留 API 标识便于诊断。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 631,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.8c0c2d610a99",
+      "source": "RAYTRACING_ACCELERATION_STRUCTURE",
+      "reason": "D3D12 资源状态常量名，保留 API 标识便于诊断。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 632,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.d40586fb2e8a",
+      "source": "SHADING_RATE_SOURCE",
+      "reason": "D3D12 资源状态常量名，保留 API 标识便于诊断。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 633,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.24632c9c78b6",
+      "source": "GENERIC_READ",
+      "reason": "D3D12 资源状态常量名，保留 API 标识便于诊断。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 634,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.2fc24636e2cc",
+      "source": "ALL_SHADER_RESOURCE",
+      "reason": "D3D12 资源状态常量名，保留 API 标识便于诊断。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 635,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.0c0a22239670",
+      "source": "VIDEO_DECODE_READ",
+      "reason": "D3D12 资源状态常量名，保留 API 标识便于诊断。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 638,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.87cecc8aee18",
+      "source": "VIDEO_DECODE_WRITE",
+      "reason": "D3D12 资源状态常量名，保留 API 标识便于诊断。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 639,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.e8ba2ded38f1",
+      "source": "VIDEO_PROCESS_READ",
+      "reason": "D3D12 资源状态常量名，保留 API 标识便于诊断。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 640,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.3d86a9fdefe3",
+      "source": "VIDEO_PROCESS_WRITE",
+      "reason": "D3D12 资源状态常量名，保留 API 标识便于诊断。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 641,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.a0473dfa02ba",
+      "source": "VIDEO_ENCODE_READ",
+      "reason": "D3D12 资源状态常量名，保留 API 标识便于诊断。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 642,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.66b12296d9c6",
+      "source": "VIDEO_ENCODE_WRITE",
+      "reason": "D3D12 资源状态常量名，保留 API 标识便于诊断。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 643,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.bec1ed37d795",
+      "source": "dlss-enabler-headless.dll",
+      "reason": "目录名或文件扩展名，必须与磁盘资源匹配。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 1710,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.b0cd44f621ea",
+      "source": "dlssg_to_fsr3_amd_is_better.dll",
+      "reason": "目录名或文件扩展名，必须与磁盘资源匹配。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 1711,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.dacd97aa74b5",
+      "source": "DXVK",
+      "reason": "厂商技术、产品或模块名称，保留行业通用名称。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 2142,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.aa68b79a552a",
+      "source": "VKD3D",
+      "reason": "厂商技术、产品或模块名称，保留行业通用名称。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 2148,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.36ca85205da8",
+      "source": "VLK",
+      "reason": "厂商技术、产品或模块名称，保留行业通用名称。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 2155,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 2174,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.3c24e9a13f7e",
+      "source": "D3D11",
+      "reason": "厂商技术、产品或模块名称，保留行业通用名称。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 2159,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 2178,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.e8fe2279732a",
+      "source": "D3D12",
+      "reason": "厂商技术、产品或模块名称，保留行业通用名称。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 2166,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 2182,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.6f2734cbe666",
+      "source": " ({} x{})",
+      "reason": "纯数值或占位符格式字符串，无自然语言可翻译，保留格式。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 2216,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.f601466a9d7e",
+      "source": "Enabler",
+      "reason": "厂商技术、产品或模块名称，保留行业通用名称。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 2222,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 3904,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.d553a6cbaa38",
+      "source": "Nukems",
+      "reason": "厂商技术、产品或模块名称，保留行业通用名称。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 2226,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.a6f43456d76f",
+      "source": "FFX",
+      "reason": "厂商技术、产品或模块名称，保留行业通用名称。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 2230,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.de61da42b77b",
+      "source": "MODEL_3",
+      "reason": "模型枚举常量名，保留以对应程序选项。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 2961,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.58982898a14b",
+      "source": "MODEL_4",
+      "reason": "模型枚举常量名，保留以对应程序选项。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 2961,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.890882eaefa3",
+      "source": "MODEL_5",
+      "reason": "模型枚举常量名，保留以对应程序选项。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 2961,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.ee2f10a3fe58",
+      "source": "MODEL_6",
+      "reason": "模型枚举常量名，保留以对应程序选项。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 2961,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.eb3bfe56255f",
+      "source": "FSR 3.1 FG",
+      "reason": "厂商技术、产品或模块名称，保留行业通用名称。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 3772,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.bb451b06bba4",
+      "source": "FSR 3.0 FG",
+      "reason": "厂商技术、产品或模块名称，保留行业通用名称。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 3774,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.936c676a8416",
+      "source": "FSR FG",
+      "reason": "厂商技术、产品或模块名称，保留行业通用名称。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 3831,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.0183de320a81",
+      "source": "Nukem's",
+      "reason": "厂商技术、产品或模块名称，保留行业通用名称。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 3903,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.0ecf2b250d87",
+      "source": "FSR 3 FG",
+      "reason": "厂商技术、产品或模块名称，保留行业通用名称。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 3903,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.695e442bf97a",
+      "source": "FSR 3 MFG",
+      "reason": "厂商技术、产品或模块名称，保留行业通用名称。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 3904,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.1b9ee8be7d56",
+      "source": "FSR 3/4 FG",
+      "reason": "厂商技术、产品或模块名称，保留行业通用名称。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 3905,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.42a870de562d",
+      "source": "FFX + Enabler",
+      "reason": "厂商技术、产品或模块名称，保留行业通用名称。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 3906,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.dcbcbb66f880",
+      "source": "fgSelection",
+      "reason": "用于生成或区分控件的内部 ImGui ID，不属于显示文字。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 3959,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.c032adc1ff62",
+      "source": "X",
+      "reason": "关闭按钮通用符号，无需翻译。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 4041,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 4055,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 4740,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 4748,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 4914,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 4922,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.6e804fa3a3b1",
+      "source": "%.0f",
+      "reason": "纯数值或占位符格式字符串，无自然语言可翻译，保留格式。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 4102,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 4952,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 6074,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.da947023f33c",
+      "source": "FSR-FG",
+      "reason": "厂商技术、产品或模块名称，保留行业通用名称。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 4571,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.16b5d7df20f6",
+      "source": "%.1f",
+      "reason": "纯数值或占位符格式字符串，无自然语言可翻译，保留格式。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 5241,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 5700,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 5707,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 5719,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 5724,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 6319,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 6341,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.93963269c930",
+      "source": "%08X",
+      "reason": "纯数值或占位符格式字符串，无自然语言可翻译，保留格式。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 5419,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.55bfacf73955",
+      "source": "lowLatencySelection",
+      "reason": "用于生成或区分控件的内部 ImGui ID，不属于显示文字。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 5772,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.1166b320c83f",
+      "source": " (RTSS)",
+      "reason": "厂商技术、产品或模块名称，保留行业通用名称。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 5938,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.fd62812fbd9e",
+      "source": "init",
+      "reason": "用于生成或区分控件的内部 ImGui ID，不属于显示文字。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 6620,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.e86d1c50ff0c",
+      "source": "init2",
+      "reason": "用于生成或区分控件的内部 ImGui ID，不属于显示文字。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 6678,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.18acd078a530",
+      "source": "%dx",
+      "reason": "纯数值或占位符格式字符串，无自然语言可翻译，保留格式。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 6788,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.00c9e30cc7cd",
+      "source": "drs",
+      "reason": "用于生成或区分控件的内部 ImGui ID，不属于显示文字。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 6900,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.c4bd26a718fc",
+      "source": "%.6f",
+      "reason": "纯数值或占位符格式字符串，无自然语言可翻译，保留格式。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 7724,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 8531,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.e1e8c956414a",
+      "source": "plots",
+      "reason": "用于生成或区分控件的内部 ImGui ID，不属于显示文字。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 8135,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.446e0dc12274",
+      "source": "ShaderTimes",
+      "reason": "用于生成或区分控件的内部 ImGui ID，不属于显示文字。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 8161,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.deff8b7c7d2a",
+      "source": "0000x0000 -> 0000x0000 (0.0) [0000x0000 (0.0)] 0000000",
+      "reason": "纯数值或占位符格式字符串，无自然语言可翻译，保留格式。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 8270,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.734289e5e621",
+      "source": "%u",
+      "reason": "纯数值或占位符格式字符串，无自然语言可翻译，保留格式。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 8442,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 8528,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.13ec98eb7bf0",
+      "source": "HUDlessTable",
+      "reason": "用于生成或区分控件的内部 ImGui ID，不属于显示文字。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 8590,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.a38d7e01aee5",
+      "source": "(Q)",
+      "reason": "状态叠加层的固定缩写标记：Q 表示兼容修正，OP 表示 OptiPatcher。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 8735,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.426d844b1854",
+      "source": "(OP)",
+      "reason": "状态叠加层的固定缩写标记：Q 表示兼容修正，OP 表示 OptiPatcher。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 8735,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.bf654c3810ca",
+      "source": "TITLE",
+      "reason": "LUT 文件语法关键字，保留原始名称以对应文件内容。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
+          "line": 90,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.30cce3786194",
+      "source": "LUT_1D_SIZE",
+      "reason": "LUT 文件语法关键字，保留原始名称以对应文件内容。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
+          "line": 93,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.c2f5f40a8d22",
+      "source": "LUT_3D_SIZE",
+      "reason": "LUT 文件语法关键字，保留原始名称以对应文件内容。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
+          "line": 99,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.8de21a4a52d5",
+      "source": "LUT_3D_SIZE ",
+      "reason": "LUT 文件语法关键字，保留原始名称以对应文件内容。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
+          "line": 117,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.b639f12dcf8c",
+      "source": "DOMAIN_MIN",
+      "reason": "LUT 文件语法关键字，保留原始名称以对应文件内容。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
+          "line": 127,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
+          "line": 136,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.96830c7b75bc",
+      "source": "DOMAIN_MAX",
+      "reason": "LUT 文件语法关键字，保留原始名称以对应文件内容。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
+          "line": 127,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.f6201582c543",
+      "source": "Optical F5Low",
+      "reason": "厂商技术、产品或模块名称，保留行业通用名称。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/MenuPages.h",
+          "line": 45,
+          "callee": "f5:table:kPages",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.95b2b55eed28",
+      "source": "DLSSD.Depth",
+      "reason": "NGX 参数键名，保留以对应图形资源。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/shaders/dlssnr/DlssNr_Late.inl",
+          "line": 203,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/shaders/dlssnr/DlssNr_DeferredSr.inl",
+          "line": 310,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/shaders/dlssnr/DlssNr_DeferredSr.inl",
+          "line": 623,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.8594b6d1c97a",
+      "source": "DLSSD.MotionVectors",
+      "reason": "NGX 参数键名，保留以对应图形资源。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/shaders/dlssnr/DlssNr_Late.inl",
+          "line": 204,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/shaders/dlssnr/DlssNr_DeferredSr.inl",
+          "line": 311,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.68e7d53ae811",
+      "source": "DLSSD.Output",
+      "reason": "NGX 参数键名，保留以对应图形资源。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/shaders/dlssnr/DlssNr_Late.inl",
+          "line": 205,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/shaders/dlssnr/DlssNr_DeferredSr.inl",
+          "line": 309,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/shaders/dlssnr/DlssNr_DeferredSr.inl",
+          "line": 572,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/shaders/dlssnr/DlssNr_DeferredSr.inl",
+          "line": 577,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.4afdc3635c86",
+      "source": "HDR10 (PQ)",
+      "reason": "厂商技术、产品或模块名称，保留行业通用名称。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/shaders/dlssnr/DlssNr_Late.inl",
+          "line": 695,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.f0d37e0982f6",
+      "source": "scRGB",
+      "reason": "厂商技术、产品或模块名称，保留行业通用名称。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/shaders/dlssnr/DlssNr_Late.inl",
+          "line": 695,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.19fbd05fa6b8",
+      "source": "SDR",
+      "reason": "厂商技术、产品或模块名称，保留行业通用名称。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/shaders/dlssnr/DlssNr_Late.inl",
+          "line": 695,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.12ccdf955f4f",
+      "source": "DLSSD.Color",
+      "reason": "NGX 参数键名，保留以对应图形资源。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/shaders/dlssnr/DlssNr_DeferredSr.inl",
+          "line": 308,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.5bce0629fb77",
+      "source": "ExposureTexture",
+      "reason": "NGX 参数键名，保留以对应图形资源。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/shaders/dlssnr/DlssNr_DeferredSr.inl",
+          "line": 482,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.248f8c6c8203",
+      "source": "nr_vit_copy16",
+      "reason": "ViT 复制内核函数名；保留原标识。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNrNative.cpp",
+          "line": 160,
+          "callee": "f5:return:VitCopyRecord",
+          "arg": 0
+        }
+      ]
+    }
+  ]
+}
