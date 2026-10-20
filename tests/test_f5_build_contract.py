@@ -247,12 +247,14 @@ class PowerShellValidationTests(unittest.TestCase):
             child = root / 'child script.ps1'
             # The upstream directory summary intentionally relies on default
             # missing-property behavior; it must not inherit our strict mode.
+            # PSCustomObject itself synthesizes Length/Count, so use a truly
+            # absent fixture property to distinguish strict and default modes.
             child.write_bytes(b"param([string]$Expected)\nif ($Expected -ne 'space value') { exit 9 }\n"
-                              b"$null = ([pscustomobject]@{Name='directory'}).Length\nexit 0\n")
+                              b"$null = ([pscustomobject]@{Name='directory'}).MissingPropertyFixture\nexit 0\n")
             path = str(child).replace("'", "''")
             prefix = self.load_functions()
             self.invoke(prefix + f"Invoke-PinnedPowerShellScript '{path}' @('-Expected', 'space value'); "
-                        "$strict=$false; try { $null=([pscustomobject]@{Name='directory'}).Length } catch { $strict=$true }; "
+                        "$strict=$false; try { $null=([pscustomobject]@{Name='directory'}).MissingPropertyFixture } catch { $strict=$true }; "
                         "if (-not $strict) { throw 'Parent verifier lost StrictMode' }")
             child.write_bytes(b'exit 7\n')
             self.invoke(prefix + f"$rejected=$false; try {{ Invoke-PinnedPowerShellScript '{path}' @() }} "
