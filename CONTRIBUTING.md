@@ -1,6 +1,6 @@
 # 参与维护
 
-欢迎报告翻译语义、漏译来源、显示边界、字体和构建集成问题。请先阅读 [UPSTREAM.md](UPSTREAM.md) 与 [TRANSLATION.md](TRANSLATION.md)。本仓库固定 F5 v0.1.32，不能直接套用 PreSR 分支或旧版 Release 的假设。
+欢迎报告翻译语义、漏译来源、显示边界、字体和构建集成问题。请先阅读 [UPSTREAM.md](UPSTREAM.md) 与 [TRANSLATION.md](TRANSLATION.md)。本仓库以 F5 v0.1.32 为初始审计基线，当前完整 pin 见 `upstream.json`，不能直接套用 PreSR 分支或旧版 Release 的假设。
 
 ## 修改前
 
@@ -24,7 +24,7 @@ python tools/generate_cpp.py --channel master --out reports/Strings.F5.generated
 
 ```sh
 python tools/prepare_tree.py
-python tools/scan_ui.py --source _upstream --channel master --upstream-ref v0.1.32 --update --report reports/build-scan.md
+python tools/scan_ui.py --source _upstream --channel master --update --report reports/build-scan.md
 python tools/check_localization.py --strict --channel master
 python tools/prepare_tree.py --verify
 ```
@@ -39,4 +39,9 @@ python tools/prepare_tree.py --verify
 
 增加相应回归样例：原始配置/判断保持、普通与动态 ImGuiID、格式和组合状态、字体失败回退。修改后运行全部测试，并在 [build.yml](.github/workflows/build.yml) 中核验该提交的可移植契约测试、真实 MSVC Release x64 构建及安装包检查。游戏内 GPU/排版测试另行记录，未执行的环节明确注明。
 
-不要提交密钥、令牌、个人路径日志、`_upstream/`、编译输出或无再分发依据的第三方二进制。保留许可证与署名。当前流程仅上传 Actions artifacts 和诊断日志，不创建 GitHub Release；不要为方便发布而加入自动接受第三方许可的开关。
+不要提交密钥、令牌、个人路径日志、`_upstream/`、编译输出或无再分发依据的第三方二进制。保留许可证与署名。持续同步仅在全部门槛通过后创建独立测试 Pre-release，旧资产和标签不可替换；不要为方便发布而加入自动接受第三方许可的开关。
+
+
+## 持续同步维护
+
+先阅读 [同步契约](CONTINUOUS-LOCALIZATION.md)。不要扩大 `upstream-contract.json` 的可变字符串范围来绕开兼容性失败。新词缺译时查看同步 artifact 内 `Localization/master/pending.json`，核对实际显示路径后补充译文并保持来源状态。源文没有变化的 CI 重扫保留最近一次上游切换的 `scan.added/changed/removed`，统计只表示扫描器候选变化。翻译服务凭据不在此仓库中；未配置时不会调用付费或外部 AI 翻译接口。

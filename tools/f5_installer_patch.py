@@ -13,10 +13,25 @@ import json
 from pathlib import Path
 import re
 
+from f5_upstream_contract import load_contract, validate_config
+
 ROOT = Path(__file__).resolve().parents[1]
 CATALOG = ROOT / 'Localization/installers.zh-CN.json'
-UPSTREAM_COMMIT = 'fadc3bf67f6c8548e94914baec3f2e551ba8d8a4'
+CONFIG = ROOT / 'upstream.json'
+CONTRACT = ROOT / 'upstream-contract.json'
 SCRIPT_NAMES = ('setup_windows.bat', 'setup_linux.sh', 'Streamlined_fetcher_windows.bat', 'get_streamline.ps1')
+# Historical reviewed input/output pairs are independent of the advancing pin
+# and catalog metadata. A catalog edit cannot silently authorize new shell code.
+SCRIPT_FINGERPRINTS = {
+    'setup_windows.bat': ('c4575c6e45b28c77bbd25cd0002cc6811b8bd6b20d9d1e6d9e03fc37530598da',
+                          '5e7c74ad829729752548c1e939a05047358aedaf3562b199973793918732d3cd'),
+    'setup_linux.sh': ('0571b0ae077d985616acf9f4101e8338fc225b1b22aa7b339100c7ea3f3022be',
+                       '398fad45097e9feb10ccb7b908e77bc161da71294249682964c419f38a7c0086'),
+    'Streamlined_fetcher_windows.bat': ('95169e64cd4707c0de00abf56fde2e6580516d5f8316ea4ed436048274116531',
+                                      'dc9b6279ddd9ea83682a5e510892e81ac9d0821f717463183f83395ab4432534'),
+    'get_streamline.ps1': ('b8fa9d2c92b43580e22aa05e964b268c72fb035621735085d7dc67cb29aaf1f7',
+                           '8e1300d5f5261a732fbebd7651c1fb1165633292014a3efdd5c33bc8bd65829f'),
+}
 
 # These ASCII lines execute before the first Chinese byte is interpreted by cmd.
 # Original exit codes and branches remain untouched. Batch termination also ends
@@ -143,14 +158,25 @@ def patch_installer_scripts(source: Path | str) -> None:
     changed output is rejected, including translations and executable code.
     """
     source = Path(source)
+    cfg = json.loads(CONFIG.read_text(encoding='utf-8'))
+    contract = load_contract(CONTRACT)
+    validate_config(cfg, contract)
     catalog = json.loads(CATALOG.read_text(encoding='utf-8'))
-    if catalog.get('upstream_commit') != UPSTREAM_COMMIT or tuple(r['path'] for r in catalog['scripts']) != SCRIPT_NAMES:
+    if catalog.get('upstream_commit') != cfg['commit'] or tuple(r['path'] for r in catalog['scripts']) != SCRIPT_NAMES:
         raise _conflict('catalog contract changed')
+    for record in catalog['scripts']:
+        name = record['path']
+        expected = SCRIPT_FINGERPRINTS[name]
+        if ((record['source_sha256'], record['localized_sha256']) != expected
+                or contract['protected_files'][name]['sha256'] != expected[0]):
+            raise _conflict(f'{name}: immutable installer fingerprints changed')
     pending: list[tuple[Path, bytes]] = []
     for record in catalog['scripts']:
         name = record['path']
         path = source / name
         try:
+            if path.is_symlink() or not path.is_file():
+                raise _conflict(f'{name}: missing or linked input')
             data = path.read_bytes()
             text = data.decode('utf-8-sig').replace('\r\n', '\n')
         except (OSError, UnicodeError) as exc:
@@ -163,7 +189,7 @@ def patch_installer_scripts(source: Path | str) -> None:
             if _digest(output) != record['localized_sha256']:
                 raise _conflict(f'{name}: generated output fingerprint changed')
         else:
-            raise _conflict(f'{name}: source drift or modified/partial localization; expected pinned {UPSTREAM_COMMIT}')
+            raise _conflict(f'{name}: source drift or modified/partial localization; expected pinned {cfg["commit"]}')
         encoded = _encode(output, name)
         if encoded != data:
             pending.append((path, encoded))

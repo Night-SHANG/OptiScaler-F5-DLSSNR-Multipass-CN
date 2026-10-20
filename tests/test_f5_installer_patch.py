@@ -14,7 +14,7 @@ from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
-PIN = 'fadc3bf67f6c8548e94914baec3f2e551ba8d8a4'
+PIN = json.loads((ROOT / 'upstream.json').read_text(encoding='utf-8'))['commit']
 SCRIPTS = ('setup_windows.bat', 'setup_linux.sh', 'Streamlined_fetcher_windows.bat', 'get_streamline.ps1')
 
 
@@ -100,6 +100,55 @@ class InstallerAdapterTests(unittest.TestCase):
                 self.assertRegex(data.decode('utf-8-sig'), '[\u4e00-\u9fff]', name)
             module.patch_installer_scripts(root)
             self.assertEqual(first, {name: (root / name).read_bytes() for name in SCRIPTS})
+
+    def test_current_full_pin_accepts_unchanged_audited_installer_bytes(self):
+        module = self.module()
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            self.checkout(root)
+            cfg = json.loads(module.CONFIG.read_text(encoding='utf-8'))
+            catalog = json.loads(module.CATALOG.read_text(encoding='utf-8'))
+            cfg.update(commit='a' * 40, upstream_version='v0.1.33')
+            catalog['upstream_commit'] = cfg['commit']
+            config_path, catalog_path = root / 'config.json', root / 'catalog.json'
+            config_path.write_text(json.dumps(cfg), encoding='utf-8')
+            catalog_path.write_text(json.dumps(catalog), encoding='utf-8')
+            with mock.patch.object(module, 'CONFIG', config_path), mock.patch.object(module, 'CATALOG', catalog_path):
+                module.patch_installer_scripts(root)
+                for record in catalog['scripts']:
+                    text = (root / record['path']).read_text(encoding='utf-8-sig')
+                    self.assertEqual(module._digest(text), record['localized_sha256'])
+
+    def test_current_identity_rejects_floating_injected_and_stale_catalog_values(self):
+        module = self.module()
+        for field, value in [('commit', 'main'), ('commit', '--upload-pack=evil'),
+                             ('upstream_version', 'v0.1.33; evil'), ('commit', 'a' * 40)]:
+            with self.subTest(field=field, value=value), tempfile.TemporaryDirectory() as temp:
+                root = Path(temp)
+                self.checkout(root)
+                cfg = json.loads(module.CONFIG.read_text(encoding='utf-8'))
+                cfg[field] = value
+                config_path = root / 'config.json'
+                config_path.write_text(json.dumps(cfg), encoding='utf-8')
+                before = {name: (root / name).read_bytes() for name in SCRIPTS}
+                with mock.patch.object(module, 'CONFIG', config_path), self.assertRaises((ValueError, RuntimeError)):
+                    module.patch_installer_scripts(root)
+                self.assertEqual(before, {name: (root / name).read_bytes() for name in SCRIPTS})
+
+    def test_catalog_cannot_reauthorize_changed_installer_fingerprints(self):
+        module = self.module()
+        for field in ('source_sha256', 'localized_sha256'):
+            with self.subTest(field=field), tempfile.TemporaryDirectory() as temp:
+                root = Path(temp)
+                self.checkout(root)
+                catalog = json.loads(module.CATALOG.read_text(encoding='utf-8'))
+                catalog['scripts'][0][field] = 'a' * 64
+                path = root / 'catalog.json'
+                path.write_text(json.dumps(catalog), encoding='utf-8')
+                before = {name: (root / name).read_bytes() for name in SCRIPTS}
+                with mock.patch.object(module, 'CATALOG', path), self.assertRaisesRegex(RuntimeError, 'immutable'):
+                    module.patch_installer_scripts(root)
+                self.assertEqual(before, {name: (root / name).read_bytes() for name in SCRIPTS})
 
     def test_source_drift_is_rejected_before_any_write(self):
         module = self.module()

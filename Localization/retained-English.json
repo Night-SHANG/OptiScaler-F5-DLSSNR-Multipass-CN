@@ -8,102 +8,6 @@
       "reason": "数值/占位符/技术单位格式；保持参数和显示记法。",
       "occurrences": [
         {
-          "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
-          "line": 1495,
-          "callee": "ImGui::SetTooltip",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
-          "line": 1512,
-          "callee": "ImGui::SetTooltip",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/resource_tracking/GenericDepth_Vk.cpp",
-          "line": 837,
-          "callee": "ImGui::SetTooltip",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/resource_tracking/GenericDepth_Dx11.cpp",
-          "line": 707,
-          "callee": "ImGui::SetTooltip",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/native/NativeDriverVk.cpp",
-          "line": 239,
-          "callee": "ImGui::TextColored",
-          "arg": 1
-        },
-        {
-          "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 277,
-          "callee": "ImGui::TextDisabled",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 322,
-          "callee": "ImGui::SetTooltip",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 356,
-          "callee": "ImGui::SetTooltip",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 361,
-          "callee": "ImGui::SetTooltip",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 367,
-          "callee": "ImGui::SetTooltip",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 372,
-          "callee": "ImGui::SetTooltip",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 378,
-          "callee": "ImGui::SetTooltip",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 389,
-          "callee": "ImGui::SetTooltip",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 393,
-          "callee": "ImGui::SetTooltip",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 401,
-          "callee": "ImGui::SetTooltip",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 406,
-          "callee": "ImGui::SetTooltip",
-          "arg": 0
-        },
-        {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
           "line": 285,
           "callee": "ImGui::TextWrapped",
@@ -216,6 +120,102 @@
           "line": 6854,
           "callee": "ImGui::TextWrapped",
           "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 277,
+          "callee": "ImGui::TextDisabled",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 322,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 356,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 361,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 367,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 372,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 378,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 389,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 393,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 401,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 406,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriverVk.cpp",
+          "line": 239,
+          "callee": "ImGui::TextColored",
+          "arg": 1
+        },
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx11.cpp",
+          "line": 707,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
+          "line": 1495,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
+          "line": 1512,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Vk.cpp",
+          "line": 837,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
         }
       ]
     },
@@ -251,12 +251,6 @@
       "reason": "尺寸/倍数分隔符；保留技术记法。",
       "occurrences": [
         {
-          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 2519,
-          "callee": "ImGui::SmallButton",
-          "arg": 0
-        },
-        {
           "file": "OptiScaler/dlssnr/DlssNrNative.cpp",
           "line": 190,
           "callee": "f5:status-assignment",
@@ -272,6 +266,12 @@
           "file": "OptiScaler/dlssnr/DlssNrNative.cpp",
           "line": 225,
           "callee": "f5:status-assignment",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 2519,
+          "callee": "ImGui::SmallButton",
           "arg": 0
         },
         {
@@ -893,6 +893,18 @@
       "reason": "数值/占位符/技术单位格式；保持参数和显示记法。",
       "occurrences": [
         {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 7646,
+          "callee": "StrFmt",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 8260,
+          "callee": "ImGui::Text",
+          "arg": 0
+        },
+        {
           "file": "OptiScaler/native/NativeDriver.cpp",
           "line": 345,
           "callee": "f5:display-data",
@@ -914,18 +926,6 @@
           "file": "OptiScaler/native/NativeDriver.cpp",
           "line": 374,
           "callee": "f5:display-data",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 7646,
-          "callee": "StrFmt",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 8260,
-          "callee": "ImGui::Text",
           "arg": 0
         }
       ]
@@ -1520,6 +1520,12 @@
       "reason": "厂商技术、产品或模块名称，保留行业通用名称。",
       "occurrences": [
         {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 5821,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
           "file": "OptiScaler/native/NativeLowLatency.cpp",
           "line": 370,
           "callee": "f5:return:PathText",
@@ -1541,12 +1547,6 @@
           "file": "OptiScaler/native/NativeLowLatency.cpp",
           "line": 393,
           "callee": "f5:return:PathText",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 5821,
-          "callee": "f5:display-data",
           "arg": 0
         }
       ]
@@ -1582,6 +1582,12 @@
       "reason": "厂商技术、产品或模块名称，保留行业通用名称。",
       "occurrences": [
         {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 5823,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
           "file": "OptiScaler/native/NativeLowLatency.cpp",
           "line": 373,
           "callee": "f5:return:PathText",
@@ -1592,12 +1598,6 @@
           "line": 381,
           "callee": "f5:return:PathText",
           "arg": 0
-        },
-        {
-          "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 5823,
-          "callee": "f5:display-data",
-          "arg": 0
         }
       ]
     },
@@ -1607,15 +1607,15 @@
       "reason": "品牌、API、算法、模型或行业技术名称；保持可识别性和与上游文档的对应。",
       "occurrences": [
         {
-          "file": "OptiScaler/native/NativeLowLatency.cpp",
-          "line": 383,
-          "callee": "f5:return:PathText",
-          "arg": 0
-        },
-        {
           "file": "OptiScaler/menu/menu_common.cpp",
           "line": 5837,
           "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeLowLatency.cpp",
+          "line": 383,
+          "callee": "f5:return:PathText",
           "arg": 0
         }
       ]
@@ -1625,6 +1625,18 @@
       "source": "XeLL",
       "reason": "品牌、API、算法、模型或行业技术名称；保持可识别性和与上游文档的对应。",
       "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 5819,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 5834,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
         {
           "file": "OptiScaler/native/NativeLowLatency.cpp",
           "line": 385,
@@ -1642,18 +1654,6 @@
           "line": 416,
           "callee": "f5:return:OutputText",
           "arg": 0
-        },
-        {
-          "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 5819,
-          "callee": "f5:display-data",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 5834,
-          "callee": "f5:display-data",
-          "arg": 0
         }
       ]
     },
@@ -1662,18 +1662,6 @@
       "source": "%.4f",
       "reason": "纯数值或占位符格式字符串，无自然语言可翻译，保留格式。",
       "occurrences": [
-        {
-          "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 381,
-          "callee": "f5:display-data",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 409,
-          "callee": "f5:display-data",
-          "arg": 0
-        },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
           "line": 6309,
@@ -1685,6 +1673,18 @@
           "line": 6331,
           "callee": "f5:display-data",
           "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 381,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 409,
+          "callee": "f5:display-data",
+          "arg": 0
         }
       ]
     },
@@ -1693,12 +1693,6 @@
       "source": "%.3f",
       "reason": "纯数值或占位符格式字符串，无自然语言可翻译，保留格式。",
       "occurrences": [
-        {
-          "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 384,
-          "callee": "f5:display-data",
-          "arg": 0
-        },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
           "line": 2756,
@@ -1780,6 +1774,12 @@
         {
           "file": "OptiScaler/menu/menu_common.cpp",
           "line": 6493,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 384,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -3445,12 +3445,6 @@
       "reason": "NGX 参数键名，保留以对应图形资源。",
       "occurrences": [
         {
-          "file": "OptiScaler/shaders/dlssnr/DlssNr_Late.inl",
-          "line": 203,
-          "callee": "f5:display-data",
-          "arg": 0
-        },
-        {
           "file": "OptiScaler/shaders/dlssnr/DlssNr_DeferredSr.inl",
           "line": 310,
           "callee": "f5:display-data",
@@ -3459,6 +3453,12 @@
         {
           "file": "OptiScaler/shaders/dlssnr/DlssNr_DeferredSr.inl",
           "line": 623,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/shaders/dlssnr/DlssNr_Late.inl",
+          "line": 203,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -3470,14 +3470,14 @@
       "reason": "NGX 参数键名，保留以对应图形资源。",
       "occurrences": [
         {
-          "file": "OptiScaler/shaders/dlssnr/DlssNr_Late.inl",
-          "line": 204,
+          "file": "OptiScaler/shaders/dlssnr/DlssNr_DeferredSr.inl",
+          "line": 311,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
-          "file": "OptiScaler/shaders/dlssnr/DlssNr_DeferredSr.inl",
-          "line": 311,
+          "file": "OptiScaler/shaders/dlssnr/DlssNr_Late.inl",
+          "line": 204,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -3488,12 +3488,6 @@
       "source": "DLSSD.Output",
       "reason": "NGX 参数键名，保留以对应图形资源。",
       "occurrences": [
-        {
-          "file": "OptiScaler/shaders/dlssnr/DlssNr_Late.inl",
-          "line": 205,
-          "callee": "f5:display-data",
-          "arg": 0
-        },
         {
           "file": "OptiScaler/shaders/dlssnr/DlssNr_DeferredSr.inl",
           "line": 309,
@@ -3509,6 +3503,12 @@
         {
           "file": "OptiScaler/shaders/dlssnr/DlssNr_DeferredSr.inl",
           "line": 577,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/shaders/dlssnr/DlssNr_Late.inl",
+          "line": 205,
           "callee": "f5:display-data",
           "arg": 0
         }

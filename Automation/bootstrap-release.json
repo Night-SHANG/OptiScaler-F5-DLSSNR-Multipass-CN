@@ -1,0 +1,30 @@
+{
+  "id": 418050844,
+  "tag_name": "v0.1.32-cn-test.1",
+  "target_commitish": "6c9128d67a8fb5a21303fabb8affd032806ab862",
+  "draft": false,
+  "prerelease": true,
+  "schema": 1,
+  "release_id": 418050844,
+  "identity": "7bba097197dfc840bd9dd2b10dc75e8cca53112e36471a8d55ead3a0867bd91e",
+  "assets": [
+    {
+      "id": 658409749,
+      "name": "build-metadata.json",
+      "size": 4463,
+      "digest": "sha256:478dbe51cfbb271328dc43fc0314092d345e84a10545c273615aab4c70daaf4a"
+    },
+    {
+      "id": 658409487,
+      "name": "OptiScaler-F5-DLSSNR-Multipass-CN-v0.1.32-cn-6c9128d67a8f-fadc3bf67f6c.zip",
+      "size": 175831647,
+      "digest": "sha256:3246a0b274636d62e2dcb1e4193b61ebcdcc0f20e482c854ba3fd4b3a74446ce"
+    },
+    {
+      "id": 658409699,
+      "name": "OptiScaler-F5-DLSSNR-Multipass-CN-v0.1.32-cn-6c9128d67a8f-fadc3bf67f6c.zip.sha256",
+      "size": 141,
+      "digest": "sha256:22d02c76721c72f1ce012dc93c700551ab2b37c3fe4c688c83c10705e5969492"
+    }
+  ]
+}

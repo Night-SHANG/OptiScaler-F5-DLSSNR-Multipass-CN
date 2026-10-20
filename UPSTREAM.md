@@ -1,6 +1,6 @@
 # 上游、复用与许可证
 
-## 固定基线
+## 初始审计基线
 
 - 上游：[janblade/OptiScaler-F5-DLSSNR-Multipass](https://github.com/janblade/OptiScaler-F5-DLSSNR-Multipass)
 - 版本：`v0.1.32`
@@ -8,7 +8,9 @@
 - 原分支：`main`，仅说明来源；实际构建以完整提交为准。
 - 本仓库：[Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN)
 
-`upstream.json` 与构建准备工具共同固定此基线。完整构建的子模块使用该提交记录的递归 gitlink，不执行 `submodule update --remote`。升级必须重新检查扫描范围、显示边界、字体锚点、构建和打包契约；当前没有自动上游同步或 Release 发布流程。
+`upstream-contract.json` 保存这个不可自动重写的审计基线；`upstream.json` 保存当前选定的完整构建 SHA。持续同步只能推进通过该契约的后续上游提交：完整源文件路径和语法结构、非显示字符串、脚本、项目、依赖 gitlink、许可证与资源指纹均受保护。仅少量明确审计过的显示字符串位置允许变化，且仍须完整扫描、零 missing/stale 与原有所有测试通过。具体见中文仓库 `CONTINUOUS-LOCALIZATION.md`。
+
+完整构建的子模块使用固定提交记录的递归 gitlink，不执行 `submodule update --remote`。不兼容升级必须人工复审扫描范围、显示边界、字体锚点、构建和打包契约，不能自动重新生成契约让失败消失。
 
 ## 改动范围
 

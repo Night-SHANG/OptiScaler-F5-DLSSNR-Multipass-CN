@@ -42,6 +42,15 @@ class ScanUiTests(unittest.TestCase):
         self.assertEqual(result.removed,['ui.old'])
 
 class DeterministicScanTests(unittest.TestCase):
+    def test_same_pin_rescan_preserves_last_upstream_delta_only_without_new_changes(self):
+        old = {'added': ['a'], 'changed': ['b'], 'removed': ['c']}
+        empty = {'added': [], 'changed': [], 'removed': []}
+        self.assertEqual(scan_ui.stable_scan_delta('a'*40, 'a'*40, old, empty), old)
+        self.assertEqual(scan_ui.stable_scan_delta('a'*40, 'b'*40, old, empty), empty)
+        new = {'added': ['d'], 'changed': [], 'removed': []}
+        self.assertEqual(scan_ui.stable_scan_delta('a'*40, 'a'*40, old, new), new)
+        self.assertEqual(scan_ui.stable_scan_delta('', '', old, empty), empty)
+
     def test_checkout_filesystem_order_does_not_change_catalog_bytes(self):
         import json
         found = [Candidate(file, 'f5:display-data', 0, source, 0, 1, line, '', False)

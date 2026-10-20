@@ -1,17 +1,23 @@
 # 简体中文测试版发布门槛
 
-本仓库只为一次明确授权的测试版开放窄范围发布入口：
+## 持续同步入口
+
+在首个固定测试标签之外，现有 `publish-synced-test-release` 任务可响应持续同步的精确 SHA 调度：`workflow_dispatch` 必须显式传入 `sync_publish=true` 和与运行 `github.sha` 相同的完整 `expected_sha`，且固定仓库/main、同次 portable/build 两项成功。它复用下文产物与远端摘要门禁，创建唯一 `cn-test-<上游SHA12>-<中文SHA12>` Pre-release，不设置 Latest，不替换历史标签或资产。覆盖说明从该提交词库生成，missing/stale 必须为零。详见 [持续同步说明](CONTINUOUS-LOCALIZATION.md)。
+
+## 首个历史测试版入口
+
+以下固定入口保留给已经发布的首个测试版；它不能被改为别的标签或资产：
 
 - 目标仓库：`Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN`
 - 唯一版本标签：`v0.1.32-cn-test.1`
 - 固定上游：`fadc3bf67f6c8548e94914baec3f2e551ba8d8a4`（F5 v0.1.32）
 - 唯一触发方式：推送到 `main`，该次推送的最后一个提交消息必须逐字等于 `release: publish v0.1.32-cn-test.1`
 
-消息不能有额外正文、空格、换行或大小写变化。普通推送、PR、手动运行均只构建和检查。请先合入安装脚本、发布器及工作流，完成前置检查后，再单独创建触发提交。触发后不要继续推进 `main`，否则发布器会拒绝过期提交。
+消息不能有额外正文、空格、换行或大小写变化。普通推送、PR 和未显式开启同步发布的手动运行均只构建和检查。请先合入安装脚本、发布器及工作流，完成前置检查后，再单独创建触发提交。触发后不要继续推进 `main`，否则发布器会拒绝过期提交。
 
 ## 工作流集成
 
-`.github/workflows/build.yml` 的 `jobs` 已集成以下任务，保持顶层 `permissions: contents: read`。`build` 和 `portable-contracts` 的任务 ID 与显示名均保持原样。下载步骤未指定其他运行 ID，因此只取**本次工作流**的指定 artifact。`actions: read` 用于独立核对同次运行的两个成功任务，只有此发布任务获得 `contents: write`。
+`.github/workflows/build.yml` 的 `jobs` 已集成以下任务，保持顶层 `permissions: contents: read`。`build` 和 `portable-contracts` 的任务 ID 与显示名均保持原样。下载步骤未指定其他运行 ID，因此只取**本次工作流**的指定 artifact。`actions: read` 用于独立核对同次运行的两个成功任务，两个发布任务分别获得最小 `contents: write` / `actions: read` 权限，构建任务仍只读。
 
 ```yaml
   publish-test-release:
@@ -39,7 +45,7 @@
           python-version: '3.12'
       - uses: actions/download-artifact@v4
         with:
-          name: OptiScaler-F5-CN-v0.1.32-${{ github.sha }}
+          name: ${{ needs.build.outputs.artifact_name }}
           path: release-artifact
       - name: Verify and publish the authorized test prerelease
         env:
@@ -78,10 +84,10 @@ GitHub 当前文档指出：如果目标提交相对于仓库默认分支修改�
 - 已发布版本只有在完整提交、标签、发布器标记和全部资产完全一致时才视为“已发布”，此时不会再写入。
 - 只有本发布器为同一提交、同一资产清单创建的草稿可继续。已存在且逐字节验证通过的资产会跳过，缺失的才上传。
 - 其他版本类型、不同提交或资产、额外资产、未验证的草稿、孤立标签、失败或不完整上传均停止；不会清理或覆盖冲突。
-- 创建、上传或发布响应不确定时，先读取远端状态并验证。若无法确认成功，保留草稿和现有内容，报错退出；不会盲目重复写入。重新运行前应先查看失败原因，通常应重新运行整个工作流，以获得同一尝试的完整成功证据。
+- 创建、上传或发布响应不确定时，先读取远端状态并验证。若无法确认成功，保留草稿和现有内容，报错退出；不会盲目重复写入。重新运行前应先查看失败原因，若只有发布失败，应先保留并核对原始同次运行产物，再重跑失败发布 job；GitHub 会带入已经成功的 build/portable 结果，发布器仍独立核对。
 - 同一标签的发布任务使用串行并发组。外部人员同时修改 Release 仍可能触发冲突；校验失败应人工检查，不能自动修复公开版本。
 
-重跑完整构建会重新生成时间戳，ZIP 或元数据哈希也可能变化。已经存在的草稿/Release 与新产物不完全相同时，流程会拒绝继续。不要以删除旧资产或改标签的方式强行重跑；应保留原始同次运行产物并审查恢复方案，或为后续版本另行授权和审查新门槛。
+构建 artifact 使用中文 SHA 与尝试编号命名，发布器仅下载成功 build job 输出的名称，不能覆盖旧 artifact。重跑完整构建会重新生成时间戳，ZIP 或元数据哈希也可能变化。已经存在的草稿/Release 与新产物不完全相同时，流程会拒绝继续。不要以删除旧资产或改标签的方式强行重跑；应保留原始同次运行产物并审查恢复方案，或为后续版本另行授权和审查新门槛。
 
 ## 测试范围声明
 

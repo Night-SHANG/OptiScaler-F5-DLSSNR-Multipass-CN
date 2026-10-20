@@ -1,0 +1,56 @@
+name: Synchronize audited F5 upstream
+
+on:
+  schedule:
+    - cron: '17 3 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/upstream-sync.yml'
+      - 'tools/f5_sync.py'
+      - 'tools/f5_upstream_contract.py'
+      - 'upstream-contract.json'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: f5-cn-upstream-sync
+  cancel-in-progress: false
+
+jobs:
+  synchronize:
+    if: >-
+      ${{ github.repository == 'Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN' &&
+          github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: write
+      actions: write
+    env:
+      PYTHONUTF8: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Scan, reject unsafe drift, test, and dispatch exact-commit Windows gates
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python tools/f5_sync.py --receipt reports/sync-result.json
+      - name: Preserve synchronization diagnostics, including untranslated candidates
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: f5-sync-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            reports/
+            Localization/master/pending.json
+          if-no-files-found: error
+          retention-days: 14

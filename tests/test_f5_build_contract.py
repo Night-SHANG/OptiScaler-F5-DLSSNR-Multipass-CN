@@ -7,8 +7,11 @@ import shutil
 import zipfile
 import tempfile
 import unittest
+from unittest import mock
+import sys
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / 'tools'))
 SPEC = importlib.util.spec_from_file_location('prepare_tree', ROOT / 'tools/prepare_tree.py')
 prepare = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(prepare)
@@ -17,14 +20,102 @@ REPOSITORY = 'https://github.com/janblade/OptiScaler-F5-DLSSNR-Multipass.git'
 
 
 class PrepareTreeSafetyTests(unittest.TestCase):
-    def test_config_requires_the_fixed_full_commit_and_repository(self):
-        valid = {'repository': REPOSITORY, 'commit': PIN, 'upstream_version': 'v0.1.32'}
-        self.assertTrue(hasattr(prepare, 'validate_config'), 'fixed-pin validation is required')
+    def test_config_requires_a_full_current_commit_and_fixed_repository(self):
+        valid = json.loads((ROOT / 'upstream.json').read_text(encoding='utf-8'))
+        self.assertTrue(hasattr(prepare, 'validate_config'), 'exact-pin validation is required')
         prepare.validate_config(valid)
-        for key, value in [('commit', 'main'), ('commit', 'auto'), ('commit', 'a'*40),
-                           ('repository', 'https://example.com/repo'), ('upstream_version', 'v0.7.7')]:
+        prepare.validate_config({**valid, 'commit': 'a' * 40, 'upstream_version': 'v0.1.33'})
+        prepare.validate_config({**valid, 'commit': 'a' * 40, 'upstream_version': 'main-' + 'a' * 12})
+        for key, value in [('commit', 'main'), ('commit', 'auto'), ('commit', 'a'*39),
+                           ('commit', 'A'*40), ('commit', 'a'*40 + '\n'), ('commit', '--upload-pack=evil'),
+                           ('repository', 'https://example.com/repo'), ('branch', 'other'),
+                           ('upstream_version', 'v0.1.33\n'),
+                           ('upstream_version', 'v0.1.33; Write-Host injected'),
+                           ('upstream_version', 'main-' + 'b' * 12)]:
             with self.subTest(key=key, value=value), self.assertRaises(ValueError):
                 prepare.validate_config({**valid, key: value})
+
+    def test_checkout_uses_current_pin_and_runs_pristine_contract(self):
+        cfg = json.loads((ROOT / 'upstream.json').read_text(encoding='utf-8'))
+        cfg.update(commit='a' * 40, upstream_version='v0.1.33')
+        contract = prepare.load_contract(ROOT / 'upstream-contract.json')
+        status = ' ' + 'b' * 40 + ' external/test\n'
+        with mock.patch.object(prepare, 'verify_source') as gate, \
+             mock.patch.object(prepare, 'run', return_value=''), \
+             mock.patch.object(prepare.subprocess, 'check_output', return_value=status):
+            self.assertEqual(prepare.verify_checkout(ROOT / '_upstream', cfg, contract), status)
+        gate.assert_called_once_with(ROOT / '_upstream', cfg, contract)
+
+    def test_materialization_gates_current_pin_before_recursive_submodules(self):
+        cfg = json.loads((ROOT / 'upstream.json').read_text(encoding='utf-8'))
+        cfg.update(commit='a' * 40, upstream_version='v0.1.33')
+        contract = prepare.load_contract(ROOT / 'upstream-contract.json')
+        for reject in (False, True):
+            with self.subTest(reject=reject), tempfile.TemporaryDirectory() as td:
+                root = Path(td).resolve()
+                (root / 'upstream.json').write_text(json.dumps(cfg), encoding='utf-8')
+                events = []
+                def run(*args, cwd=None):
+                    events.append(args)
+                    if args[:2] == ('git', 'clone'):
+                        Path(args[-1]).mkdir()
+                    return ''
+                def gate(path, actual_cfg, actual_contract):
+                    events.append(('contract', actual_cfg['commit']))
+                    self.assertEqual(actual_cfg, cfg)
+                    self.assertEqual(actual_contract, contract)
+                    owner = json.loads((path / prepare.MARKER).read_text(encoding='utf-8'))
+                    self.assertEqual(owner['commit'], cfg['commit'])
+                    if reject:
+                        raise ValueError('Untrusted candidate fixture')
+                with mock.patch.object(prepare, 'ROOT', root), \
+                     mock.patch.object(prepare, 'load_contract', return_value=contract), \
+                     mock.patch.object(prepare, 'run', side_effect=run), \
+                     mock.patch.object(prepare, 'verify_source', side_effect=gate), \
+                     mock.patch.object(prepare.subprocess, 'check_output', return_value=' ' + 'b' * 40 + ' external/test\n'), \
+                     mock.patch.object(sys, 'argv', ['prepare_tree.py']):
+                    if reject:
+                        with self.assertRaisesRegex(ValueError, 'Untrusted candidate'):
+                            prepare.main()
+                    else:
+                        self.assertEqual(prepare.main(), 0)
+                self.assertIn(('git', 'fetch', '--no-tags', '--depth=1', 'origin', cfg['commit']), events)
+                self.assertIn(('git', 'checkout', '--detach', cfg['commit']), events)
+                recursive = [index for index, event in enumerate(events) if 'submodule' in event]
+                if reject:
+                    self.assertEqual(recursive, [])
+                    self.assertFalse((root / 'reports/upstream-materialization.json').exists())
+                else:
+                    self.assertEqual(len(recursive), 1)
+                    self.assertLess(events.index(('contract', cfg['commit'])), recursive[0])
+                    self.assertGreater(len(events) - 1 - events[::-1].index(('contract', cfg['commit'])), recursive[0])
+                    report = json.loads((root / 'reports/upstream-materialization.json').read_text(encoding='utf-8'))
+                    self.assertEqual(report['upstream_commit'], cfg['commit'])
+                    self.assertEqual(report['upstream_version'], cfg['upstream_version'])
+
+    def test_owned_previous_exact_pin_can_be_replaced_but_mismatch_cannot(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td).resolve()
+            tree = root / '_upstream'
+            tree.mkdir()
+            def git(*args):
+                return subprocess.check_output(['git', *args], cwd=tree, stderr=subprocess.STDOUT).decode().strip()
+            git('init')
+            git('remote', 'add', 'origin', REPOSITORY)
+            (tree / 'owned.txt').write_text('owned fixture', encoding='utf-8')
+            git('add', 'owned.txt')
+            git('-c', 'user.name=Fixture', '-c', 'user.email=fixture@example.invalid', 'commit', '-m', 'fixture')
+            old_pin = git('rev-parse', 'HEAD')
+            owner = {'schema': 1, 'root': str(root), 'repository': REPOSITORY, 'commit': old_pin}
+            marker = tree / prepare.MARKER
+            for invalid in ('main', 'a' * 40):
+                marker.write_text(json.dumps({**owner, 'commit': invalid}), encoding='utf-8')
+                with self.assertRaises(ValueError):
+                    prepare.clean_owned_worktree(root, tree)
+                self.assertTrue((tree / 'owned.txt').exists())
+            marker.write_text(json.dumps(owner), encoding='utf-8')
+            prepare.clean_owned_worktree(root, tree)
+            self.assertFalse(tree.exists())
 
     def test_only_exact_owned_child_can_be_deleted(self):
         self.assertTrue(hasattr(prepare, 'bounded_worktree'), 'bounded path validation is required')
@@ -92,16 +183,40 @@ class BuildContractTests(unittest.TestCase):
                       'python tests/test_f5_display_runtime.py --repo .', 'set -euo pipefail']:
             self.assertIn(token, text)
         build, release = text.split('  publish-test-release:', 1)
+        release = release.split('  publish-synced-test-release:', 1)[0]
         self.assertNotIn('contents: write', build)
         self.assertEqual(release.count('contents: write'), 1)
         for token in ["needs: [portable-contracts, build]", "github.event_name == 'push'",
                       "github.ref == 'refs/heads/main'", "release: publish v0.1.32-cn-test.1",
                       "needs.portable-contracts.result == 'success'", "needs.build.result == 'success'",
-                      'actions/download-artifact@v4', 'OptiScaler-F5-CN-v0.1.32-${{ github.sha }}',
+                      'actions/download-artifact@v4', 'needs.build.outputs.artifact_name',
                       'python tools/publish_test_release.py --artifact-dir release-artifact']:
             self.assertIn(token, release)
         for forbidden in ['schedule:', 'actions: write', 'action-gh-release', 'gh release']:
             self.assertNotIn(forbidden, text)
+
+    def test_synced_publication_is_explicit_exact_sha_dispatch_with_both_build_gates(self):
+        text = self.text('.github/workflows/build.yml')
+        release = text.split('  publish-synced-test-release:', 1)[1]
+        for token in ["needs: [portable-contracts, build]", "github.event_name == 'workflow_dispatch'",
+                      "inputs.sync_publish == true", "inputs.expected_sha == github.sha",
+                      "github.ref == 'refs/heads/main'", "github.repository == 'Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN'",
+                      "needs.portable-contracts.result == 'success'", "needs.build.result == 'success'",
+                      'contents: write', 'actions: read', 'needs.build.outputs.artifact_name',
+                      'python tools/publish_synced_release.py']:
+            self.assertIn(token, release)
+        self.assertIn('expected_sha:', text)
+        self.assertIn('sync_publish:', text)
+        self.assertNotIn('schedule:', text)
+
+    def test_artifact_identity_is_attempt_qualified_and_bound_to_successful_build_output(self):
+        text = self.text('.github/workflows/build.yml')
+        build = text.split('  publish-test-release:', 1)[0]
+        self.assertIn('artifact_name: ${{ steps.package-identity.outputs.name }}', build)
+        self.assertIn('OptiScaler-F5-CN-${{ github.sha }}-${{ github.run_attempt }}', build)
+        self.assertIn('name: ${{ steps.package-identity.outputs.name }}', build)
+        self.assertEqual(text.count('name: ${{ needs.build.outputs.artifact_name }}'), 2)
+        self.assertNotIn('overwrite:', text)
 
     def test_strict_preflight_precedes_actual_msvc_build(self):
         text = self.text('.github/workflows/build.yml')
@@ -126,6 +241,21 @@ class BuildContractTests(unittest.TestCase):
         for forbidden in ['IncludeDlssFrameGeneration', 'AcceptNvidiaLicenses', 'IncludeAmpereMfg',
                           'AcceptAmpereMfgLicenses', 'EnableRtx40Mfg', 'patchedPackagerText']:
             self.assertNotIn(forbidden, text)
+
+    def test_packager_reads_current_identity_before_upstream_execution(self):
+        text = self.text('tools/package.ps1')
+        for token in ['$pin = [string]$cfg.commit', '$version = [string]$cfg.upstream_version',
+                      'Assert-UpstreamConfig $cfg', 'validate_config', 'load_contract',
+                      'upstream-contract.json']:
+            self.assertIn(token, text)
+        self.assertNotIn("$pin = '" + PIN + "'", text)
+        self.assertNotIn("$version = 'v0.1.32'", text)
+        self.assertLess(text.index('Assert-UpstreamConfig $cfg'),
+                        text.index('Invoke-PinnedPowerShellScript $hybridFetcher'))
+        for fingerprint in ('ceb7cf129a654591e70f897c0ba410039a94eb626c507fd252584969ff4a5a1c',
+                            '5fcd0c8018c1030e63e664d5df56e9a757bdafda77df688354cd4527e90172b1',
+                            '516fb296ea12deab12a2d35a1a96ea1a87955a3bfeb3e2bb1a033b0519c7d774'):
+            self.assertIn(fingerprint, text)
 
     def test_build_import_exception_is_not_used_for_public_stage(self):
         text = self.text('tools/package.ps1')
@@ -153,7 +283,11 @@ class BuildContractTests(unittest.TestCase):
 
     def test_prepare_has_no_ref_or_submodule_bypass(self):
         text = self.text('tools/prepare_tree.py')
-        self.assertIn('fadc3bf67f6c8548e94914baec3f2e551ba8d8a4', text)
+        self.assertIn('upstream-contract.json', text)
+        self.assertIn('verify_source(path, cfg, contract)', text)
+        self.assertNotIn('verify_worktree=False', text)
+        self.assertLess(text.index('verify_source(path, cfg, contract)', text.index('run("git", "checkout"')),
+                        text.index('"submodule", "update"'))
         self.assertIn('"--recursive"', text)
         self.assertNotIn('--no-submodules', text)
         self.assertNotIn("default='master'", text)
@@ -184,6 +318,27 @@ class PowerShellValidationTests(unittest.TestCase):
 
     def test_package_script_parses_and_functions_load(self):
         self.invoke(self.load_functions())
+
+    def test_package_config_accepts_exact_new_pin_and_rejects_injection(self):
+        valid = json.loads((ROOT / 'upstream.json').read_text(encoding='utf-8'))
+        valid.update(commit='a' * 40, upstream_version='v0.1.33')
+        values = [(None, None), ('commit', 'main'), ('commit', 'A' * 40),
+                  ('commit', 'a' * 39), ('commit', 'a' * 40 + '\n'),
+                  ('branch', 'release'), ('repository', 'https://example.com/repo'),
+                  ('upstream_version', 'v0.1.33; Write-Host injected'),
+                  ('upstream_version', 'v0.1.33\n'),
+                  ('upstream_version', 'main-' + 'b' * 12), ('package_prefix', '../escape')]
+        for key, value in values:
+            with self.subTest(key=key, value=value):
+                cfg = valid if key is None else {**valid, key: value}
+                serialized = json.dumps(cfg).replace("'", "''")
+                script = self.load_functions() + f"$cfg='{serialized}' | ConvertFrom-Json; "
+                if key is None:
+                    script += 'Assert-UpstreamConfig $cfg'
+                else:
+                    script += ("$rejected=$false; try { Assert-UpstreamConfig $cfg } catch { $rejected=$true }; "
+                               "if (-not $rejected) { throw 'Unsafe upstream config accepted' }")
+                self.invoke(script)
 
     def test_archive_validator_rejects_traversal_duplicate_and_absolute_paths(self):
         with tempfile.TemporaryDirectory() as td:

@@ -7,11 +7,28 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 $repo = [IO.Path]::GetFullPath((Split-Path -Parent $PSScriptRoot))
-$pin = 'fadc3bf67f6c8548e94914baec3f2e551ba8d8a4'
-$version = 'v0.1.32'
 $hybridArchiveHash = '3e735f825b85872d20c35c0d75404c1a28b7b6e11ca28ef06243a18225191037'
 $hybridArchiveUrl = 'https://github.com/wilsjo2/OptiScaler-DLSSNR-PreSR-Multipass/releases/download/v0.7.5-nr-fixes/OptiScaler-DLSSNR-v0.7.5-nr-fixes.zip'
 Add-Type -AssemblyName System.IO.Compression.FileSystem
+
+function Assert-UpstreamConfig($Config) {
+    # Check native values before string coercion; this must remain safe even when
+    # invoked independently by AST-based Windows regression tests.
+    if ($Config.repository -isnot [string] -or
+        $Config.repository -cne 'https://github.com/janblade/OptiScaler-F5-DLSSNR-Multipass.git' -or
+        $Config.branch -isnot [string] -or $Config.branch -cne 'main' -or $Config.commit -isnot [string] -or
+        $Config.commit -cnotmatch '\A[0-9a-f]{40}\z' -or
+        $Config.upstream_version -isnot [string] -or $Config.upstream_version.Length -gt 96 -or
+        $Config.package_prefix -isnot [string] -or
+        $Config.package_prefix -cne 'OptiScaler-F5-DLSSNR-Multipass-CN') {
+        throw 'Invalid exact F5 upstream identity'
+    }
+    $safeVersion = '\Av(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)(?:-[A-Za-z0-9]+(?:[.-][A-Za-z0-9]+)*)?\z'
+    if ($Config.upstream_version -cnotmatch $safeVersion -and
+        $Config.upstream_version -cne ('main-' + $Config.commit.Substring(0, 12))) {
+        throw 'Unsafe upstream version'
+    }
+}
 
 function Assert-Leaf([string]$Path) {
     if (-not (Test-Path -LiteralPath $Path -PathType Leaf)) { throw "Required file missing: $Path" }
@@ -130,8 +147,14 @@ if ($SourceRoot -ne (Join-Path $repo '_upstream') -or $OutputDir -ne (Join-Path 
 if ((Get-Item -LiteralPath $SourceRoot).Attributes -band [IO.FileAttributes]::ReparsePoint) { throw 'Linked source tree' }
 if (Test-Path -LiteralPath $OutputDir) { throw 'dist already exists; outputs are never overwritten or deleted' }
 $cfg = Get-Content -LiteralPath (Join-Path $repo 'upstream.json') -Raw | ConvertFrom-Json
-if ($cfg.commit -ne $pin -or $cfg.upstream_version -ne $version -or
-    $cfg.repository -ne 'https://github.com/janblade/OptiScaler-F5-DLSSNR-Multipass.git') { throw 'Unrecognized upstream pin' }
+Assert-UpstreamConfig $cfg
+# Share the Python contract validator rather than relying only on duplicated
+# PowerShell syntax checks. The source has already been intentionally localized.
+& python -c "import json,sys; from pathlib import Path; sys.path.insert(0,sys.argv[1]); from f5_upstream_contract import load_contract,validate_config; validate_config(json.loads(Path(sys.argv[2]).read_text(encoding='utf-8')),load_contract(sys.argv[3]))" `
+    $PSScriptRoot (Join-Path $repo 'upstream.json') (Join-Path $repo 'upstream-contract.json')
+if ($LASTEXITCODE -ne 0) { throw 'Upstream compatibility configuration rejected' }
+$pin = [string]$cfg.commit
+$version = [string]$cfg.upstream_version
 if ((Invoke-Git $SourceRoot @('rev-parse', 'HEAD')) -ne $pin) { throw 'Upstream commit mismatch' }
 $cnCommit = Invoke-Git $repo @('rev-parse', 'HEAD')
 if ($cnCommit -notmatch '^[0-9a-f]{40}$') { throw 'Missing full CN commit' }

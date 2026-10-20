@@ -134,6 +134,8 @@ class FakeGitHub:
                                  {'name': 'portable-contracts', 'conclusion': 'success', 'status': 'completed', 'run_id': 123}]}
             if tail.startswith('releases?'):
                 return [] if self.release is None else [deepcopy(self.release)]
+            if tail == 'releases/7':
+                return deepcopy(self.release)
             if tail.startswith('releases/7/assets?'):
                 return [self.asset_record(name) for name in self.assets]
             raise AssertionError(path)
@@ -273,6 +275,49 @@ class ReleaseGateTests(unittest.TestCase):
         self.assertTrue(github.mutations[0][2]['draft'])
         self.assertEqual(github.mutations[-1][0], 'PATCH')
         self.assertEqual(len(github.assets), 3)
+
+    def test_created_draft_is_read_back_by_id_despite_delayed_list_visibility(self):
+        package = self.package(); github = FakeGitHub(self.gate, package, self.context)
+        original_api = github.api
+        reads = []
+        def api(method, path, payload=None):
+            reads.append((method, path))
+            if method == 'GET' and '/releases?' in path:
+                return []
+            return original_api(method, path, payload)
+        github.api = api
+        self.gate.publish(package, self.context, github)
+        self.assertIs(github.release['draft'], False)
+        self.assertTrue(any(path.endswith('/releases/7') for method, path in reads if method == 'GET'))
+        self.assertEqual(sum(method == 'POST' for method, _ in reads), 1)
+
+    def test_created_draft_id_read_retries_only_reads(self):
+        package = self.package(); github = FakeGitHub(self.gate, package, self.context)
+        original_api = github.api
+        missing_reads = []
+        def api(method, path, payload=None):
+            if method == 'GET' and path.endswith('/releases/7') and len(missing_reads) < 2:
+                missing_reads.append(path)
+                raise self.gate.GitHubError('draft is not visible yet')
+            return original_api(method, path, payload)
+        github.api = api
+        self.gate.publish(package, self.context, github)
+        self.assertEqual(len(missing_reads), 2)
+        self.assertIs(github.release['draft'], False)
+        self.assertEqual(sum(item[0] == 'POST' for item in github.mutations), 1)
+
+    def test_malformed_successful_create_reply_never_triggers_another_mutation(self):
+        for bad_id in (None, True, 0, '7'):
+            package = self.package(); github = FakeGitHub(self.gate, package, self.context)
+            original_api = github.api
+            def api(method, path, payload=None):
+                value = original_api(method, path, payload)
+                if method == 'POST': value['id'] = bad_id
+                return value
+            github.api = api
+            with self.subTest(bad_id=bad_id), self.assertRaises(self.gate.GateError):
+                self.gate.publish(package, self.context, github)
+            self.assertEqual([item[0] for item in github.mutations], ['POST'])
 
     def test_exact_existing_release_is_no_op(self):
         package = self.package(); github = FakeGitHub(self.gate, package, self.context)

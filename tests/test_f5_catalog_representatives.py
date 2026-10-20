@@ -6,8 +6,7 @@ Run after scanning: python test_catalog_representative_fixture.py --repo target
 This proves catalog inclusion only, not translation, rendering or runtime coverage.
 """
 from pathlib import Path
-import argparse, json
-PIN = "fadc3bf67f6c8548e94914baec3f2e551ba8d8a4"
+import argparse, json, sys
 PERSISTED_KEYS = {"framegen", "nr.options", "nr.debug"}
 PROBES = [
     ('OptiScaler/menu/MenuPages.h', 39, 'framegen'),
@@ -220,8 +219,12 @@ PROBES = [
 ]
 
 def run(repo):
+    sys.path.insert(0, str(repo / 'tools'))
+    from f5_upstream_contract import load_contract, validate_config
+    cfg = json.loads((repo / 'upstream.json').read_text(encoding='utf-8'))
+    validate_config(cfg, load_contract(repo / 'upstream-contract.json'))
     catalog=json.loads((repo/"Localization/master/catalog.json").read_text())
-    assert catalog["upstream_commit"] == PIN, "Representative probes belong to another upstream commit"
+    assert catalog["upstream_commit"] == cfg['commit'], "Representative probes belong to another upstream commit"
     sources={entry["source"] for entry in catalog["entries"].values() if not entry.get("obsolete")}
     failures=[]; visible=0; keys=0
     for file,line,source in PROBES:

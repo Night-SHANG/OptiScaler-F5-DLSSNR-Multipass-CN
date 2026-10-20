@@ -10,3 +10,6 @@ x64/
 x86/
 
 release-artifact/
+reports/sync-*.json
+reports/sync-*.md
+reports/release-progress-readback.json

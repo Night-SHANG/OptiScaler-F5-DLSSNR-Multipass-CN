@@ -1,12 +1,14 @@
 # OptiScaler F5 中文版使用说明
 
-本项目为 **OptiScaler F5 DLSSNR Multipass v0.1.32** 提供简体中文显示适配，固定上游提交为 `fadc3bf67f6c8548e94914baec3f2e551ba8d8a4`。它是社区派生项目，不是上游官方发布。
+本项目为 **OptiScaler F5 DLSSNR Multipass v0.1.32** 建立初始简体中文审计基线，提交为 `fadc3bf67f6c8548e94914baec3f2e551ba8d8a4`。当前构建使用仓库 `upstream.json` 的完整 SHA；安装包以 `BUILD-INFO.CN.json` 为准。它是社区派生项目，不是上游官方发布。
 
 源代码与维护说明：[中文仓库](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN) · [固定上游](https://github.com/janblade/OptiScaler-F5-DLSSNR-Multipass/tree/fadc3bf67f6c8548e94914baec3f2e551ba8d8a4) · [上游安装指南](https://github.com/janblade/OptiScaler-F5-DLSSNR-Multipass/blob/fadc3bf67f6c8548e94914baec3f2e551ba8d8a4/INSTALL-DLSSNR.md)
 
 ## 下载内容与验证边界
 
-提供 GitHub Actions 构建流程；授权测试入口仅能发布固定标签 `v0.1.32-cn-test.1` 的 Pre-release，须先通过同次 Windows 编译、可移植测试及产物校验，详情见 [测试发布门槛](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/blob/main/TEST-RELEASE.md)。可从仓库 Releases 查找实际已发布的测试版，不能仅凭此说明认定发布已完成。从一次成功的 `Build pinned F5 Chinese artifact` 运行中取得 `OptiScaler-F5-CN-v0.1.32-<CN提交>` artifact；其中包含安装 ZIP、同名 `.sha256` 和 `build-metadata.json`。Actions 下载的外层 ZIP 需先解开，再解开里面的安装 ZIP。
+[首个测试 Pre-release v0.1.32-cn-test.1](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/releases/tag/v0.1.32-cn-test.1) 已发布，初始覆盖统计为 2385 个扫描候选 = 2191 项显示译文 + 194 项保留技术项，missing/stale 均为 0。后续持续同步测试版使用唯一的 `cn-test-<上游SHA12>-<中文SHA12>` 标签；发布必须通过同次 Windows 编译、可移植测试及产物校验，不覆盖旧包、不设为 Latest。详情见 [测试发布门槛](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/blob/main/TEST-RELEASE.md) 和 [持续同步说明](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/blob/main/CONTINUOUS-LOCALIZATION.md)。
+
+也可从成功的 `Build pinned F5 Chinese artifact` 运行取得 `OptiScaler-F5-CN-<CN提交>-<尝试次数>` artifact；包含安装 ZIP、同名 `.sha256` 和 `build-metadata.json`。Actions 下载的外层 ZIP 需先解开，再解开里面的安装 ZIP。
 
 安装 ZIP 中保留上游英文说明，并增加 `README.CN.zh-CN.md`、`UPSTREAM.CN.md`、`OptiScalerCN.ini`、`BUILD-INFO.CN.json` 和重新生成的 `SHA256SUMS.txt`。构建记录列出中文仓库提交、固定上游、子模块、工具链及文件哈希。
 
@@ -54,7 +56,7 @@ FontPath=
 
 ## 构建与核验
 
-推荐使用仓库 [build.yml 工作流](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/blob/main/.github/workflows/build.yml)：手动触发、`main` 推送和 PR 均可运行；两个构建任务只读仓库，不定时跟随上游。另有严格门控的测试发布任务，只有它具有 `contents: write` 与核对同次任务所需的 `actions: read`；不会自动发布普通提交或 PR。
+推荐使用仓库 [build.yml 工作流](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/blob/main/.github/workflows/build.yml)：手动触发、`main` 推送和 PR 均可运行；两个构建任务只读仓库。独立 `upstream-sync.yml` 每日 03:17 UTC 检查并审计上游，允许更新的只有固定 pin、词库与覆盖清单。实际新增未译文本、安装指纹或结构变化将停止，不会降低检查门槛。仅经过精确 SHA 和同次两项成功检查的测试发布 job 具有发布权限；普通 PR 不发布。
 
 - `portable-contracts`：Ubuntu 24.04 上检查固定源码、词库、Python 测试，并用 g++ 运行显示层/真实 ImGui 契约探针；不下载完整递归构建依赖。
 - `build`：Windows 2022、Python 3.12、Visual Studio 2022 / MSVC v143 与上游要求的 Windows SDK。先验证固定源码和递归子模块，再做扫描/严格检查和测试，应用显示适配，编译转发器与 `OptiScaler.sln` 的 Release x64。保留原有 PostBuildEvent，不用占位 DLL 或跳过编译伪造成功。
@@ -63,7 +65,7 @@ FontPath=
 
 ```sh
 python tools/prepare_tree.py
-python tools/scan_ui.py --source _upstream --channel master --upstream-ref v0.1.32 --update --report reports/build-scan.md
+python tools/scan_ui.py --source _upstream --channel master --update --report reports/build-scan.md
 git diff --exit-code -- Localization
 python tools/check_localization.py --strict --channel master
 python -m unittest discover -s tests -v

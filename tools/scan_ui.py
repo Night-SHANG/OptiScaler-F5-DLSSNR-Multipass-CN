@@ -9,6 +9,15 @@ def git_sha(root: Path):
     try: return subprocess.check_output(['git','-C',str(root),'rev-parse','HEAD'],text=True).strip()
     except Exception: return ''
 
+def stable_scan_delta(previous_commit: str, current_commit: str, previous: dict, current: dict) -> dict:
+    """Keep the last upstream-transition delta across a clean same-pin CI rescan."""
+    kinds = ('added', 'changed', 'removed')
+    if (re.fullmatch(r'[0-9a-f]{40}', current_commit) and current_commit == previous_commit
+            and all(not current.get(k) for k in kinds)
+            and all(isinstance(previous.get(k), list) and all(isinstance(v, str) for v in previous[k]) for k in kinds)):
+        return {k: list(previous[k]) for k in kinds}
+    return current
+
 @dataclass
 class ReconcileResult:
     catalog_entries: dict
@@ -107,7 +116,7 @@ def main():
     ap=argparse.ArgumentParser()
     ap.add_argument('--source',required=True,type=Path)
     ap.add_argument('--channel',choices=CHANNELS,default='master')
-    ap.add_argument('--upstream-ref',default='')
+    ap.add_argument('--upstream-ref',default=load_json(ROOT/'upstream.json',{}).get('upstream_version',''))
     ap.add_argument('--update',action='store_true')
     ap.add_argument('--report',type=Path,default=ROOT/'reports'/'localization-scan.md')
     args=ap.parse_args()
@@ -139,13 +148,16 @@ def main():
     current={k:e for k,e in entries.items() if not e.get('obsolete')}
     en_entries={k:{'text':e['source'],'source_hash':e['source_hash']} for k,e in current.items()}
 
+    commit=git_sha(args.source)
+    delta=stable_scan_delta(old.get('upstream_commit',''), commit,
+        load_json(paths['pending'],{}).get('scan',{}),
+        {'added':added,'changed':[k for k,_,_ in changed],'removed':removed})
     pending={
       'locale':'zh-CN',
-      'scan':{'added':added,'changed':[k for k,_,_ in changed],'removed':removed},
+      'scan':delta,
       'missing':[{'key':k,'source':current[k]['source'],'source_hash':current[k]['source_hash']} for k in missing],
       'changed':[{'key':k,'source':current[k]['source'],'source_hash':current[k]['source_hash'],'old_translation':zentries.get(k,{}).get('text',''),'state':zentries.get(k,{}).get('state','')} for k in stale]
     }
-    commit=git_sha(args.source)
     catalog={'schema':1,'channel':args.channel,'upstream_commit':commit,'entries':entries}
     coverage=(len(current)-len(missing)-len(stale))/len(current)*100 if current else 100.0
     report=[

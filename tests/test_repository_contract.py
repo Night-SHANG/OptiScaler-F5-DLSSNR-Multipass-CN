@@ -48,7 +48,7 @@ class RepositoryContractTests(unittest.TestCase):
 
     def test_documented_scan_matches_active_workflow(self):
         workflow = self.read('.github/workflows/build.yml')
-        scan = 'python tools/scan_ui.py --source _upstream --channel master --upstream-ref v0.1.32 --update --report reports/build-scan.md'
+        scan = 'python tools/scan_ui.py --source _upstream --channel master --update --report reports/build-scan.md'
         self.assertIn(scan, workflow)
         for doc in ('README.zh-CN.md', 'CONTRIBUTING.md'):
             self.assertIn(scan, self.read(doc))
@@ -66,10 +66,24 @@ class RepositoryContractTests(unittest.TestCase):
                 if path.name == 'build.yml':
                     build, release = text.split('  publish-test-release:', 1)
                     self.assertNotIn('contents: write', build)
-                    self.assertEqual(release.count('contents: write'), 1)
+                    self.assertEqual(release.count('contents: write'), 2)
                     self.assertIn('actions: read', release)
                     self.assertIn('release: publish v0.1.32-cn-test.1', release)
                     self.assertIn('python tools/publish_test_release.py', release)
+                    self.assertIn('python tools/publish_synced_release.py', release)
+                    self.assertIn('inputs.expected_sha == github.sha', release)
+                    self.assertIn('inputs.sync_publish == true', release)
+                elif path.name == 'upstream-sync.yml':
+                    self.assertEqual(text.count('contents: write'), 1)
+                    self.assertEqual(text.count('actions: write'), 1)
+                    self.assertIn('python tools/f5_sync.py', text)
+                    self.assertIn("github.ref == 'refs/heads/main'", text)
+                    self.assertNotIn('secrets.TRANSLATION', text)
+                elif path.name == 'update-release-notes.yml':
+                    self.assertEqual(text.count('contents: write'), 1)
+                    self.assertNotIn('actions: write', text)
+                    self.assertIn('python tools/update_release_progress.py', text)
+                    self.assertIn("github.ref == 'refs/heads/main'", text)
                 else:
                     self.assertNotIn('contents: write', text)
 

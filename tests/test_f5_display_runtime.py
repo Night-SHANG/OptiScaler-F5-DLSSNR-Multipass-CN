@@ -9,7 +9,6 @@ Can be copied to tests/ and invoked after materialization in CI.
 from pathlib import Path
 import argparse, importlib.util, json, shutil, subprocess, sys, tempfile
 
-PIN = 'fadc3bf67f6c8548e94914baec3f2e551ba8d8a4'
 WRAPPER_SHAPES = r'''
 #include "ImGuiLocalization.h"
 // Windows/MSVC uses an integer null-pointer constant, not std::nullptr_t.
@@ -66,11 +65,18 @@ def extract_hash(text, name):
     return text[start:end].replace('ImHashStr(', name+'(', 1)
 
 def run(repo, source):
+    sys.path.insert(0, str(repo/'tools'))
+    from f5_upstream_contract import load_contract, validate_config
+    cfg = json.loads((repo / 'upstream.json').read_text(encoding='utf-8'))
+    validate_config(cfg, load_contract(repo / 'upstream-contract.json'))
+    pin = cfg['commit']
+    if command(['git', '-C', str(source), 'rev-parse', 'HEAD']).strip() != pin:
+        raise RuntimeError('Portable probes require the configured exact upstream checkout')
     compiler = shutil.which('g++')
     if compiler is None:
         raise RuntimeError('g++ unavailable; portable probes have not run')
     path = 'OptiScaler/include/imgui/imgui.cpp'
-    upstream = command(['git','-C',str(source),'show',PIN+':'+path])
+    upstream = command(['git','-C',str(source),'show',pin+':'+path])
     patched = (source/path).read_text(encoding='utf-8-sig')
     start = upstream.index('static const ImU32 GCrc32LookupTable[256]')
     end = upstream.index('\n#endif', upstream.index('\n};', start)) + len('\n#endif')

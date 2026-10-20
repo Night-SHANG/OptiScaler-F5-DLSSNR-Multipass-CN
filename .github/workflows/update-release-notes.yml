@@ -1,0 +1,55 @@
+name: Update fixed F5 test release progress
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/update-release-notes.yml'
+      - 'tools/f5_release_notes.py'
+      - 'tools/update_release_progress.py'
+      - 'tests/test_f5_release_notes.py'
+      - 'tests/test_update_release_progress.py'
+
+permissions:
+  contents: read
+
+jobs:
+  update-progress:
+    if: >-
+      ${{ github.repository == 'Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN' &&
+          github.ref == 'refs/heads/main' &&
+          (github.event_name == 'push' || github.event_name == 'workflow_dispatch') }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    concurrency:
+      group: f5-cn-test-release-v0.1.32-cn-test.1
+      cancel-in-progress: false
+    env:
+      PYTHONUTF8: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify offline progress and fixed-target update contracts
+        run: |
+          python -m unittest discover -s tests -p test_f5_release_notes.py -v
+          python -m unittest discover -s tests -p test_update_release_progress.py -v
+      - name: Update only the existing release body and verify unchanged assets and tag
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python tools/update_release_progress.py --receipt reports/release-progress-readback.json
+      - name: Preserve verified readback receipt
+        uses: actions/upload-artifact@v4
+        with:
+          name: f5-release-progress-${{ github.run_id }}-${{ github.run_attempt }}
+          path: reports/release-progress-readback.json
+          if-no-files-found: error
+          retention-days: 14

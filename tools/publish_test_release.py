@@ -17,6 +17,7 @@ import struct
 import subprocess
 import sys
 import tempfile
+import time
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -115,13 +116,15 @@ def pe64(data, name):
             f'Expected x64 PE32+ DLL: {name}')
 
 
-def verify_artifact(directory, sha, catalog_path=ROOT / 'Localization/installers.zh-CN.json'):
+def verify_artifact(directory, sha, catalog_path=ROOT / 'Localization/installers.zh-CN.json',
+                    *, upstream=UPSTREAM, upstream_version='v0.1.32'):
     """Validate downloaded same-run package bytes without extracting any ZIP."""
     directory = Path(directory)
     require(directory.is_dir() and not directory.is_symlink(), 'Missing or linked artifact directory')
     require(re.fullmatch('[0-9a-f]{40}', sha), 'Invalid CN commit')
-    version = 'v0.1.32-cn-' + sha[:12]
-    name = f'OptiScaler-F5-DLSSNR-Multipass-CN-{version}-{UPSTREAM[:12]}.zip'
+    validate_upstream_identity(upstream, upstream_version)
+    version = upstream_version + '-cn-' + sha[:12]
+    name = f'OptiScaler-F5-DLSSNR-Multipass-CN-{version}-{upstream[:12]}.zip'
     expected = {name, name + '.sha256', 'build-metadata.json'}
     items = list(directory.iterdir())
     require({p.name for p in items} == expected and all(p.is_file() and not p.is_symlink() for p in items),
@@ -136,7 +139,7 @@ def verify_artifact(directory, sha, catalog_path=ROOT / 'Localization/installers
     require(paths[name + '.sha256'].read_bytes() in
             ((actual + ' *' + name + '\n').encode(), (actual + ' *' + name + '\r\n').encode()),
             'Package checksum sidecar mismatch')
-    identity = {'schema': 1, 'cn_commit': sha, 'upstream_commit': UPSTREAM, 'upstream_version': 'v0.1.32',
+    identity = {'schema': 1, 'cn_commit': sha, 'upstream_commit': upstream, 'upstream_version': upstream_version,
                 'upstream_repository': UPSTREAM_REPOSITORY, 'package_version': version,
                 'variant': 'downloader-only', 'configuration': 'Release', 'platform': 'x64', 'toolset': 'v143',
                 'hybrid_archive_sha256': HYBRID_HASH, 'game_runtime_validation': 'not performed by this workflow'}
@@ -226,7 +229,7 @@ def verify_artifact(directory, sha, catalog_path=ROOT / 'Localization/installers
         hybrid_paths.add(resource)
     catalog = object_json(Path(catalog_path).read_bytes(), 'installer catalog')
     records = catalog.get('scripts', [])
-    require(catalog.get('upstream_commit') == UPSTREAM and tuple(x.get('path') for x in records) == SCRIPTS,
+    require(catalog.get('upstream_commit') == upstream and tuple(x.get('path') for x in records) == SCRIPTS,
             'Installer catalog pin/entrypoints mismatch')
     require(tuple(x['path'] for x in records if x.get('packaged') is True) == PACKAGED_SCRIPTS,
             'Installer packaging contract mismatch')
@@ -247,8 +250,44 @@ def verify_artifact(directory, sha, catalog_path=ROOT / 'Localization/installers
     return {'assets': paths, 'hashes': {n: file_hash(p) for n, p in paths.items()}, 'metadata': metadata}
 
 
+def validate_upstream_identity(upstream, version):
+    require(isinstance(upstream, str) and re.fullmatch('[0-9a-f]{40}', upstream), 'Invalid full upstream commit')
+    require(isinstance(version, str) and len(version) <= 96
+            and (re.fullmatch(r'v(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)(?:-[A-Za-z0-9]+(?:[.-][A-Za-z0-9]+)*)?', version)
+                 or version == 'main-' + upstream[:12]), 'Invalid pinned upstream version')
+
+
+def validate_release_tag(tag):
+    require(isinstance(tag, str) and (tag == TAG or re.fullmatch(r'cn-test-[0-9a-f]{12}-[0-9a-f]{12}', tag)),
+            'Only fixed or deterministic sync test release tags are permitted')
+    return tag
+
+
+def context_tag(context):
+    tag = validate_release_tag(context.get('tag', TAG))
+    if tag != TAG:
+        validate_upstream_identity(context.get('upstream'), context.get('upstream_version'))
+        require(re.fullmatch('[0-9a-f]{40}', context.get('sha', ''))
+                and tag == 'cn-test-' + context['upstream'][:12] + '-' + context['sha'][:12]
+                and context.get('event') == 'workflow_dispatch', 'Sync tag/context identity mismatch')
+    else:
+        require(context.get('event', 'push') == 'push'
+                and context.get('upstream', UPSTREAM) == UPSTREAM
+                and context.get('upstream_version', 'v0.1.32') == 'v0.1.32', 'Fixed release context changed')
+    return tag
+
+
+def sync_marker(context):
+    identity = context.get('sync_identity')
+    require(isinstance(identity, str) and re.fullmatch('[0-9a-f]{64}', identity), 'Invalid sync content identity')
+    return f'<!-- f5-cn-sync:v1 identity={identity} cn_commit={context["sha"]} -->'
+
+
 class GitHub:
     """Fixed-host gh transport. Never prints subprocess output or reads secrets."""
+    def __init__(self, release_tag=TAG):
+        self.release_tag = validate_release_tag(release_tag)
+
     def _run(self, command, payload=None, output=None):
         try:
             result = subprocess.run(command, input=payload, stdout=output or subprocess.PIPE,
@@ -264,7 +303,7 @@ class GitHub:
         require(path.startswith(API_ROOT) and '://' not in path and '..' not in path, 'API destination outside fixed repository')
         if method == 'POST':
             require(path == API_ROOT + 'releases', 'Only draft creation is allowed')
-            require(payload and payload.get('tag_name') == TAG and payload.get('draft') is True
+            require(payload and payload.get('tag_name') == self.release_tag and payload.get('draft') is True
                     and payload.get('prerelease') is True and payload.get('make_latest') == 'false', 'Unsafe release creation')
         if method == 'PATCH':
             require(re.fullmatch(re.escape(API_ROOT) + r'releases/[1-9][0-9]*', path)
@@ -282,7 +321,7 @@ class GitHub:
             raise GitHubError('GitHub returned invalid JSON; inspect state before retrying') from exc
 
     def upload(self, path):
-        self._run(['gh', 'release', 'upload', TAG, str(path), '--repo', 'github.com/' + REPOSITORY])
+        self._run(['gh', 'release', 'upload', self.release_tag, str(path), '--repo', 'github.com/' + REPOSITORY])
 
     def download(self, asset_id, target):
         require(type(asset_id) is int and asset_id > 0, 'Invalid release asset ID')
@@ -306,7 +345,7 @@ def listing(github, endpoint, key=None):
 
 def verify_run(github, context):
     run = github.api('GET', API_ROOT + 'actions/runs/' + context['run_id'])
-    require(run.get('id') == int(context['run_id']) and run.get('event') == 'push'
+    require(run.get('id') == int(context['run_id']) and run.get('event') == context.get('event', 'push')
             and run.get('head_sha') == context['sha'] and run.get('head_branch') == 'main'
             and run.get('path') == '.github/workflows/build.yml'
             and run.get('repository', {}).get('full_name') == REPOSITORY
@@ -326,10 +365,11 @@ def verify_main(github, context):
             'main advanced or changed; do not release a stale trigger commit')
 
 
-def tag_commit(github):
-    refs = github.api('GET', API_ROOT + 'git/matching-refs/tags/' + TAG)
+def tag_commit(github, tag=TAG):
+    validate_release_tag(tag)
+    refs = github.api('GET', API_ROOT + 'git/matching-refs/tags/' + tag)
     require(isinstance(refs, list), 'Unexpected tag response')
-    exact = [ref for ref in refs if ref.get('ref') == 'refs/tags/' + TAG]
+    exact = [ref for ref in refs if ref.get('ref') == 'refs/tags/' + tag]
     require(len(exact) <= 1, 'Duplicate release tag')
     if not exact:
         return None
@@ -343,11 +383,28 @@ def tag_commit(github):
     raise GateError('Excessive annotated-tag nesting')
 
 
-def find_release(github):
+def find_release(github, tag=TAG):
+    validate_release_tag(tag)
     releases = listing(github, 'releases')  # Includes drafts for contents:write; tag lookup alone does not.
-    exact = [release for release in releases if release.get('tag_name') == TAG]
+    exact = [release for release in releases if release.get('tag_name') == tag]
     require(len(exact) <= 1, 'More than one release uses the fixed tag')
     return exact[0] if exact else None
+
+
+def read_release(github, release_id):
+    """Read a known release ID; eventual visibility never justifies another POST."""
+    require(type(release_id) is int and release_id > 0, 'Invalid release ID')
+    for attempt in range(3):
+        try:
+            release = github.api('GET', API_ROOT + f'releases/{release_id}')
+        except GitHubError:
+            if attempt == 2:
+                raise
+            time.sleep(attempt + 1)
+            continue
+        require(isinstance(release, dict) and type(release.get('id')) is int
+                and release['id'] == release_id, 'Release ID readback mismatch')
+        return release
 
 
 def ownership_marker(package, context):
@@ -357,12 +414,17 @@ def ownership_marker(package, context):
 
 def release_payload(package, context):
     meta = package['metadata']
+    tag_name = context_tag(context)
+    upstream = context.get('upstream', UPSTREAM)
+    upstream_version = context.get('upstream_version', 'v0.1.32')
+    require(meta.get('upstream_commit') == upstream and meta.get('upstream_version') == upstream_version,
+            'Package/release upstream identity mismatch')
     body = f'''## F5 简体中文测试版
 
-这是社区测试版（Pre-release），固定上游 F5 v0.1.32。请先备份原安装，勿用于带反作弊保护的多人游戏。
+这是社区测试版（Pre-release），固定上游 F5 {upstream_version}。请先备份原安装，勿用于带反作弊保护的多人游戏。
 
 - 中文仓库提交：`{context['sha']}`
-- 固定上游提交：`{UPSTREAM}`
+- 固定上游提交：`{upstream}`
 - [本次构建与检查](https://github.com/{REPOSITORY}/actions/runs/{context['run_id']})
 - 安装包：`{meta['package']}`
 - 安装包 SHA-256：`{meta['sha256']}`
@@ -379,20 +441,34 @@ def release_payload(package, context):
 - 下载 ZIP 及同名 `.sha256`，校验后完整解压到游戏 EXE 目录。中文安装入口为 `setup_windows.bat`，详细步骤见包内 `README.CN.zh-CN.md`。保留原始许可和署名。
 - 请用游戏名、GPU、驱动、渲染 API、语言/字体/主题/缩放、截图及复现步骤反馈问题；分享日志前检查个人路径。
 
-[中文说明](https://github.com/{REPOSITORY}/blob/{context['sha']}/README.zh-CN.md) · [固定上游安装指南](https://github.com/janblade/OptiScaler-F5-DLSSNR-Multipass/blob/{UPSTREAM}/INSTALL-DLSSNR.md)
+[中文说明](https://github.com/{REPOSITORY}/blob/{context['sha']}/README.zh-CN.md) · [固定上游安装指南](https://github.com/janblade/OptiScaler-F5-DLSSNR-Multipass/blob/{upstream}/INSTALL-DLSSNR.md)
 
 {ownership_marker(package, context)}
 '''
-    return {'tag_name': TAG, 'target_commitish': context['sha'], 'name': 'OptiScaler F5 简体中文测试版 ' + TAG,
+    if tag_name != TAG:
+        section = context.get('progress_section')
+        require(isinstance(section, str) and section, 'Static coverage section is required for sync releases')
+        body += '\n' + section + '\n\n' + sync_marker(context) + '\n'
+    return {'tag_name': tag_name, 'target_commitish': context['sha'], 'name': 'OptiScaler F5 简体中文测试版 ' + tag_name,
             'body': body, 'draft': True, 'prerelease': True, 'make_latest': 'false', 'generate_release_notes': False}
 
 
 def verify_release_header(release, package, context, tag):
     require(isinstance(release, dict) and type(release.get('id')) is int and release['id'] > 0, 'Invalid release ID')
-    require(release.get('tag_name') == TAG and release.get('target_commitish') == context['sha']
+    tag_name = context_tag(context)
+    require(release.get('tag_name') == tag_name and release.get('target_commitish') == context['sha']
             and release.get('prerelease') is True and type(release.get('draft')) is bool,
             'Existing release target/type conflicts; nothing will be replaced')
     require(ownership_marker(package, context) in (release.get('body') or ''), 'Existing release ownership/asset manifest differs')
+    if tag_name != TAG:
+        body = release.get('body') or ''
+        require(body.count(sync_marker(context)) == 1 and body.count('<!-- f5-cn-sync:') == 1,
+                'Existing sync release content identity differs')
+        require(isinstance(context.get('progress_section'), str) and context['progress_section']
+                and body.count(context['progress_section']) == 1
+                and body.count('<!-- f5-cn-static-catalog-progress:begin -->') == 1
+                and body.count('<!-- f5-cn-static-catalog-progress:end -->') == 1,
+                'Existing sync release static coverage differs')
     require(tag in (None, context['sha']), 'Existing tag points elsewhere; it will not be updated')
     require(release['draft'] or tag == context['sha'], 'Published release tag does not resolve to verified commit')
 
@@ -419,25 +495,28 @@ def verify_remote_assets(github, release, package, complete=False):
 
 
 def publish(package, context, github):
+    payload = release_payload(package, context)
+    tag_name = payload['tag_name']
     verify_run(github, context)
-    release = find_release(github)
-    tag = tag_commit(github)
+    release = find_release(github, tag_name)
+    tag = tag_commit(github, tag_name)
     if release is None:
         require(tag is None, 'A tag already exists without this verified release; refusing to reuse it')
         try:
-            github.api('POST', API_ROOT + 'releases', release_payload(package, context))
+            created = github.api('POST', API_ROOT + 'releases', payload)
         except GitHubError:
             # A timeout can mean the draft was created. Never issue a second POST blindly.
-            release = find_release(github)
+            release = find_release(github, tag_name)
             require(release is not None, 'Draft creation unresolved; inspect remote state before rerunning')
         else:
-            release = find_release(github)
-        tag = tag_commit(github)
+            verify_release_header(created, package, context, tag)
+            release = read_release(github, created['id'])
+        tag = tag_commit(github, tag_name)
     verify_release_header(release, package, context, tag)
     existing = verify_remote_assets(github, release, package, complete=not release['draft'])
     if not release['draft']:
         print('Already published: exact verified commit and assets; no changes made.')
-        return f'https://github.com/{REPOSITORY}/releases/tag/{TAG}'
+        return f'https://github.com/{REPOSITORY}/releases/tag/{tag_name}'
     for name, path in sorted(package['assets'].items()):
         if name in existing:
             continue
@@ -446,13 +525,13 @@ def publish(package, context, github):
             github.upload(path)  # No --clobber: an existing asset is never replaced.
         except GitHubError:
             # Re-read and verify exact bytes. If absent/partial/conflicting, fail and keep the draft.
-            current = find_release(github)
-            verify_release_header(current, package, context, tag_commit(github))
+            current = read_release(github, release['id'])
+            verify_release_header(current, package, context, tag_commit(github, tag_name))
             require(current['id'] == release['id'] and current['draft'], 'Release changed during upload')
             observed = verify_remote_assets(github, current, package)
             require(name in observed, 'Upload unresolved; draft retained for a state-checked rerun')
-    release_after = find_release(github)
-    verify_release_header(release_after, package, context, tag_commit(github))
+    release_after = read_release(github, release['id'])
+    verify_release_header(release_after, package, context, tag_commit(github, tag_name))
     require(release_after['id'] == release['id'] and release_after['draft'], 'Draft changed during uploads')
     verify_remote_assets(github, release_after, package, complete=True)
     verify_main(github, context)
@@ -462,11 +541,11 @@ def publish(package, context, github):
     except GitHubError:
         # Only the subsequent read decides whether publication actually succeeded.
         pass
-    published = find_release(github)
-    verify_release_header(published, package, context, tag_commit(github))
+    published = read_release(github, release['id'])
+    verify_release_header(published, package, context, tag_commit(github, tag_name))
     require(published['id'] == release['id'] and not published['draft'], 'Publication unresolved; draft retained, no blind retry')
     verify_remote_assets(github, published, package, complete=True)
-    return f'https://github.com/{REPOSITORY}/releases/tag/{TAG}'
+    return f'https://github.com/{REPOSITORY}/releases/tag/{tag_name}'
 
 
 def main():

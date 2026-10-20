@@ -12,10 +12,10 @@ import stat
 import subprocess
 import sys
 
+from f5_upstream_contract import load_contract, validate_config as validate_upstream_config, verify_source
+
 ROOT = Path(__file__).resolve().parents[1]
-PIN = "fadc3bf67f6c8548e94914baec3f2e551ba8d8a4"
 REPOSITORY = "https://github.com/janblade/OptiScaler-F5-DLSSNR-Multipass.git"
-VERSION = "v0.1.32"
 MARKER = ".f5-cn-managed.json"
 
 
@@ -23,11 +23,8 @@ def run(*args: str, cwd: Path | None = None) -> str:
     return subprocess.check_output(args, cwd=cwd, text=True, stderr=subprocess.STDOUT).strip()
 
 
-def validate_config(cfg: dict) -> None:
-    if cfg.get("commit") != PIN or not re.fullmatch(r"[0-9a-f]{40}", cfg["commit"]):
-        raise ValueError("upstream.json must name the audited full F5 commit; floating refs are forbidden")
-    if cfg.get("repository") != REPOSITORY or cfg.get("upstream_version") != VERSION:
-        raise ValueError("Upstream repository/version does not match the audited F5 pin")
+def validate_config(cfg: dict, contract: dict | None = None) -> None:
+    validate_upstream_config(cfg, contract if contract is not None else load_contract(ROOT / "upstream-contract.json"))
 
 
 def bounded_worktree(root: Path, path: Path) -> Path:
@@ -48,13 +45,20 @@ def clean_owned_worktree(root: Path, path: Path) -> None:
     if not marker.is_file() or marker.is_symlink():
         raise ValueError("Existing _upstream is not owned by this tool; refusing to remove it")
     owner = json.loads(marker.read_text(encoding="utf-8"))
-    expected = {"schema": 1, "root": str(root.resolve()), "repository": REPOSITORY, "commit": PIN}
-    if owner != expected or not (path / ".git").is_dir() or (path / ".git").is_symlink():
+    old_pin = owner.get("commit") if isinstance(owner, dict) else None
+    expected = {"schema": 1, "root": str(root.resolve()), "repository": REPOSITORY, "commit": old_pin}
+    if (owner != expected or type(owner.get("schema")) is not int
+            or not isinstance(old_pin, str) or not re.fullmatch(r"[0-9a-f]{40}", old_pin)
+            or not (path / ".git").is_dir() or (path / ".git").is_symlink()):
         raise ValueError("Managed-tree ownership does not match; refusing to remove it")
     if Path(run("git", "rev-parse", "--show-toplevel", cwd=path)).resolve() != path:
         raise ValueError("Refusing to remove a linked or parent Git worktree")
     if run("git", "remote", "get-url", "origin", cwd=path) != REPOSITORY:
         raise ValueError("Managed-tree origin changed; refusing to remove it")
+    # Configuration may advance, but this marker must still identify the exact
+    # earlier checkout this tool created. Never infer ownership from origin alone.
+    if run("git", "rev-parse", "HEAD", cwd=path) != old_pin:
+        raise ValueError("Managed-tree recorded commit changed; refusing to remove it")
 
     def readonly_retry(func, name, exc):
         # Git pack files are read-only on Windows. Never follow a link in the retry.
@@ -72,9 +76,8 @@ def validate_submodule_status(status: str) -> None:
         raise ValueError("Every recursive submodule must be initialized at its exact pinned gitlink")
 
 
-def verify_checkout(path: Path) -> str:
-    if run("git", "rev-parse", "HEAD", cwd=path) != PIN:
-        raise ValueError("Materialized upstream HEAD does not match the fixed pin")
+def verify_checkout(path: Path, cfg: dict, contract: dict) -> str:
+    verify_source(path, cfg, contract)
     if run("git", "status", "--porcelain", "--untracked-files=no", cwd=path):
         raise ValueError("Pinned upstream or a submodule has tracked modifications")
     # check_output .strip() would discard the leading clean-status space.
@@ -90,12 +93,14 @@ def main() -> int:
     parser.add_argument("--verify", action="store_true", help="verify a pristine materialized checkout without network access")
     args = parser.parse_args()
     cfg = json.loads((ROOT / "upstream.json").read_text(encoding="utf-8"))
-    validate_config(cfg)
+    contract = load_contract(ROOT / "upstream-contract.json")
+    validate_config(cfg, contract)
+    pin, version = cfg["commit"], cfg["upstream_version"]
     path = bounded_worktree(ROOT, args.worktree)
     if args.verify:
         if args.clean:
             raise ValueError("--verify cannot be combined with --clean")
-        status = verify_checkout(path)
+        status = verify_checkout(path, cfg, contract)
     else:
         if path.exists():
             if not args.clean:
@@ -104,19 +109,22 @@ def main() -> int:
         # text=auto still honors core.eol when autocrlf=false; pin LF on Windows too.
         run("git", "clone", "--no-checkout", "--no-tags", "--depth=1", "-c", "core.autocrlf=false", "-c", "core.eol=lf", REPOSITORY, str(path))
         (path / MARKER).write_text(json.dumps({"schema": 1, "root": str(ROOT.resolve()),
-            "repository": REPOSITORY, "commit": PIN}, indent=2) + "\n", encoding="utf-8")
-        run("git", "fetch", "--no-tags", "--depth=1", "origin", PIN, cwd=path)
-        run("git", "checkout", "--detach", PIN, cwd=path)
+            "repository": REPOSITORY, "commit": pin}, indent=2) + "\n", encoding="utf-8")
+        run("git", "fetch", "--no-tags", "--depth=1", "origin", pin, cwd=path)
+        run("git", "checkout", "--detach", pin, cwd=path)
+        # Validate actual checkout bytes and frozen dependency metadata before
+        # following any submodule URL or executing any upstream tool.
+        verify_source(path, cfg, contract)
         # Never use --remote: the superproject and each nested tree own the gitlink pins.
         run("git", "-c", "core.autocrlf=false", "-c", "core.eol=lf", "submodule", "update", "--init", "--recursive", cwd=path)
-        status = verify_checkout(path)
+        status = verify_checkout(path, cfg, contract)
     reports = ROOT / "reports"
     reports.mkdir(exist_ok=True)
     (reports / "upstream-materialization.json").write_text(json.dumps({
-        "repository": REPOSITORY, "upstream_commit": PIN, "upstream_version": VERSION,
+        "repository": REPOSITORY, "upstream_commit": pin, "upstream_version": version,
         "recursive_submodules": status.splitlines(), "verified_pristine": True,
     }, indent=2) + "\n", encoding="utf-8")
-    print(f"Verified {VERSION} at {PIN}, including all recursive gitlinks")
+    print(f"Verified {version} at {pin}, including all recursive gitlinks")
     return 0
 
 

@@ -1,7 +1,19 @@
 name: Build pinned F5 Chinese artifact
+run-name: ${{ inputs.sync_publish && format('F5 sync publish {0}', inputs.expected_sha) || 'F5 build checks' }}
 
 on:
   workflow_dispatch:
+    inputs:
+      expected_sha:
+        description: Exact main commit required by synchronization
+        required: false
+        default: ''
+        type: string
+      sync_publish:
+        description: Publish a distinct test Pre-release only after all gates
+        required: false
+        default: false
+        type: boolean
   push:
     branches: [main]
   pull_request:
@@ -12,6 +24,7 @@ permissions:
 
 env:
   PYTHONUTF8: '1'
+  EXPECTED_CN_SHA: ${{ inputs.expected_sha }}
 
 jobs:
   portable-contracts:
@@ -21,9 +34,12 @@ jobs:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Verify exact dispatch commit
+        run: python tools/f5_sync.py --verify-dispatch
       - name: Materialize pinned source for portable ImGui contracts
         shell: bash
         run: |
@@ -37,11 +53,12 @@ jobs:
           git -C _upstream fetch --no-tags --depth=1 origin "$pin"
           git -C _upstream checkout --detach "$pin"
           test "$(git -C _upstream rev-parse HEAD)" = "$pin"
+          python -c "import json,sys; from pathlib import Path; sys.path.insert(0,'tools'); from f5_upstream_contract import load_contract,verify_source; verify_source(Path('_upstream'),json.load(open('upstream.json')),load_contract(Path('upstream-contract.json')))"
       - name: Strict portable preflight and display runtime
         shell: bash
         run: |
           set -euo pipefail
-          python tools/scan_ui.py --source _upstream --channel master --upstream-ref v0.1.32 --update --report reports/portable-scan.md 2>&1 | tee reports/portable-scan.log
+          python tools/scan_ui.py --source _upstream --channel master --update --report reports/portable-scan.md 2>&1 | tee reports/portable-scan.log
           git diff --exit-code -- Localization 2>&1 | tee reports/portable-catalog-drift.log
           python tools/check_localization.py --strict --channel master 2>&1 | tee reports/portable-strict.log
           python -m unittest discover -s tests -v 2>&1 | tee reports/portable-tests.log
@@ -59,6 +76,8 @@ jobs:
           if-no-files-found: error
           retention-days: 14
   build:
+    outputs:
+      artifact_name: ${{ steps.package-identity.outputs.name }}
     runs-on: windows-2022
     timeout-minutes: 120
     defaults:
@@ -67,11 +86,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 1
           persist-credentials: false
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Verify exact dispatch commit
+        run: |
+          python tools/f5_sync.py --verify-dispatch
+          if ($LASTEXITCODE -ne 0) { throw 'Dispatch commit mismatch' }
       - name: Initialize diagnostics
         run: New-Item -ItemType Directory -Force reports | Out-Null
       - name: Materialize audited upstream and recursive gitlinks
@@ -80,7 +103,7 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Pinned upstream materialization failed' }
       - name: Strict localization preflight
         run: |
-          python tools/scan_ui.py --source _upstream --channel master --upstream-ref v0.1.32 --update --report reports/build-scan.md 2>&1 | Tee-Object reports/scan.log
+          python tools/scan_ui.py --source _upstream --channel master --update --report reports/build-scan.md 2>&1 | Tee-Object reports/scan.log
           if ($LASTEXITCODE -ne 0) { throw 'Source scan failed' }
           git diff --exit-code -- Localization 2>&1 | Tee-Object reports/catalog-drift.log
           if ($LASTEXITCODE -ne 0) { throw 'Committed catalog or translations differ from the pinned source scan' }
@@ -129,10 +152,13 @@ jobs:
         run: |
           & ./tools/package.ps1 -SourceRoot ./_upstream -OutputDir ./dist 2>&1 | Tee-Object reports/package.log
           if (-not $?) { throw 'CN packaging failed' }
+      - name: Name this successful attempt without replacing prior artifacts
+        id: package-identity
+        run: '"name=OptiScaler-F5-CN-${{ github.sha }}-${{ github.run_attempt }}" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8'
       - name: Upload verified package
         uses: actions/upload-artifact@v4
         with:
-          name: OptiScaler-F5-CN-v0.1.32-${{ github.sha }}
+          name: ${{ steps.package-identity.outputs.name }}
           path: |
             dist/*.zip
             dist/*.sha256
@@ -168,12 +194,13 @@ jobs:
         with:
           ref: ${{ github.sha }}
           persist-credentials: false
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - uses: actions/download-artifact@v4
         with:
-          name: OptiScaler-F5-CN-v0.1.32-${{ github.sha }}
+          name: ${{ needs.build.outputs.artifact_name }}
           path: release-artifact
       - name: Verify and publish the authorized test prerelease
         env:
@@ -181,3 +208,37 @@ jobs:
           BUILD_RESULT: ${{ needs.build.result }}
           PORTABLE_RESULT: ${{ needs.portable-contracts.result }}
         run: python tools/publish_test_release.py --artifact-dir release-artifact
+  publish-synced-test-release:
+    needs: [portable-contracts, build]
+    if: >-
+      ${{ github.repository == 'Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN' &&
+          github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' &&
+          inputs.sync_publish == true && inputs.expected_sha == github.sha &&
+          needs.portable-contracts.result == 'success' && needs.build.result == 'success' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: write
+      actions: read
+    concurrency:
+      group: f5-cn-synced-test-release-${{ github.sha }}
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: ${{ needs.build.outputs.artifact_name }}
+          path: release-artifact
+      - name: Verify exact synchronized package and publish a new test prerelease
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BUILD_RESULT: ${{ needs.build.result }}
+          PORTABLE_RESULT: ${{ needs.portable-contracts.result }}
+        run: python tools/publish_synced_release.py --artifact-dir release-artifact
