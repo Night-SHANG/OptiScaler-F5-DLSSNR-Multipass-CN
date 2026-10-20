@@ -118,7 +118,7 @@ class BuildContractTests(unittest.TestCase):
     def test_packager_uses_fixed_downloader_only_upstream_contract(self):
         text = self.text('tools/package.ps1')
         for token in ['package_release.ps1', 'get_hybrid_assets.ps1', 'HybridAssetsDirectory',
-                      'SkipBuild = $true', 'nvngx.dll_dlssnr.dll', 'nvngx_dlssnr.dll',
+                      "'-SkipBuild'", 'nvngx.dll_dlssnr.dll', 'nvngx_dlssnr.dll',
                       'asset-manifest.json', 'build-metadata.json', 'SHA256SUMS.txt',
                       'Assert-SafeArchive', 'Assert-StagedDependencies', 'HybridSource',
                       '3e735f825b85872d20c35c0d75404c1a28b7b6e11ca28ef06243a18225191037']:
@@ -135,6 +135,15 @@ class BuildContractTests(unittest.TestCase):
         self.assertEqual(text.count('-AllowForwarderBuildImports'), 1)
         self.assertIn("'nvngx.dll_dlssnr.lib'", text)
         self.assertIn("'nvngx.dll_dlssnr.exp'", text)
+
+    def test_upstream_scripts_run_in_isolated_powershell_with_exit_checks(self):
+        text = self.text('tools/package.ps1')
+        for token in ['Set-StrictMode -Version Latest', 'Invoke-PinnedPowerShellScript $upstreamPackager',
+                      'Invoke-PinnedPowerShellScript $hybridFetcher', '-NoProfile -NonInteractive -File',
+                      'if ($LASTEXITCODE -ne 0)', 'Assert-Hash $upstreamPackager', 'Assert-Hash $hybridFetcher']:
+            self.assertIn(token, text)
+        self.assertNotIn('Set-StrictMode -Off', text)
+        self.assertNotIn('& $upstreamPackager @', text)
 
     def test_package_records_cn_upstream_and_binary_hashes(self):
         text = self.text('tools/package.ps1')
@@ -231,6 +240,23 @@ class PowerShellValidationTests(unittest.TestCase):
                 file.write_bytes(b'must never be accepted')
                 self.invoke(prefix + reject.replace('{flag}', '-AllowForwarderBuildImports'))
                 file.unlink()
+
+    def test_child_powershell_does_not_inherit_strictmode_and_nonzero_exit_is_rejected(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td).resolve()
+            child = root / 'child script.ps1'
+            # The upstream directory summary intentionally relies on default
+            # missing-property behavior; it must not inherit our strict mode.
+            child.write_bytes(b"param([string]$Expected)\nif ($Expected -ne 'space value') { exit 9 }\n"
+                              b"$null = ([pscustomobject]@{Name='directory'}).Length\nexit 0\n")
+            path = str(child).replace("'", "''")
+            prefix = self.load_functions()
+            self.invoke(prefix + f"Invoke-PinnedPowerShellScript '{path}' @('-Expected', 'space value'); "
+                        "$strict=$false; try { $null=([pscustomobject]@{Name='directory'}).Length } catch { $strict=$true }; "
+                        "if (-not $strict) { throw 'Parent verifier lost StrictMode' }")
+            child.write_bytes(b'exit 7\n')
+            self.invoke(prefix + f"$rejected=$false; try {{ Invoke-PinnedPowerShellScript '{path}' @() }} "
+                        "catch { $rejected=$true }; if (-not $rejected) { throw 'Nonzero child exit accepted' }")
 
     def test_pe_validator_requires_real_x64_dll_headers(self):
         with tempfile.TemporaryDirectory() as td:

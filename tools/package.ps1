@@ -31,6 +31,14 @@ function Invoke-Git([string]$Root, [string[]]$Arguments) {
     if ($LASTEXITCODE -ne 0) { throw "Git verification failed: $($Arguments -join ' ')" }
     return ($result -join "`n").Trim()
 }
+function Invoke-PinnedPowerShellScript([string]$Script, [string[]]$ScriptArguments) {
+    # The audited upstream scripts do not opt into StrictMode. Isolate their
+    # original execution semantics, while keeping this verifier strict. A child
+    # process also makes an upstream `exit` observable rather than ending us.
+    $hostPath = (Get-Process -Id $PID).Path
+    & $hostPath -NoProfile -NonInteractive -File $Script @ScriptArguments
+    if ($LASTEXITCODE -ne 0) { throw "Pinned PowerShell script failed ($LASTEXITCODE): $Script" }
+}
 function Assert-Pe64([string]$Path) {
     Assert-Leaf $Path
     $bytes = [IO.File]::ReadAllBytes($Path)
@@ -169,16 +177,14 @@ Invoke-WebRequest -Uri $hybridArchiveUrl -OutFile $archivePath
 Assert-Hash $archivePath $hybridArchiveHash
 Assert-SafeArchive $archivePath
 $hybridScratch = Join-Path $work 'hybrid-assets' # Must not exist when the upstream helper starts.
-& $hybridFetcher -Destination $hybridScratch -Archive $archivePath
-if (-not $?) { throw 'Pinned hybrid helper failed' }
+Invoke-PinnedPowerShellScript $hybridFetcher @('-Destination', $hybridScratch, '-Archive', $archivePath)
 $hybridManifestPath = Join-Path $hybridScratch 'asset-manifest.json'
 $hybridManifest = Get-Content -LiteralPath $hybridManifestPath -Raw | ConvertFrom-Json
 if (@($hybridManifest.files).Count -ne 15) { throw 'Expected exactly 15 verified hybrid assets' }
 $packageVersion = "$version-cn-$($cnCommit.Substring(0, 12))"
-$packageArguments = @{ Version = $packageVersion; SkipBuild = $true; HybridAssetsDirectory = $hybridScratch }
+$packageArguments = @('-Version', $packageVersion, '-SkipBuild', '-HybridAssetsDirectory', $hybridScratch)
 # No proprietary or optional runtime switches are forwarded. The pinned defaults apply.
-& $upstreamPackager @packageArguments
-if (-not $?) { throw 'Pinned downloader-only packager failed' }
+Invoke-PinnedPowerShellScript $upstreamPackager $packageArguments
 $sourceZip = Join-Path $SourceRoot "release/OptiScaler-DLSSNR-F5-$packageVersion.zip"
 Assert-Leaf $sourceZip
 Assert-SafeArchive $sourceZip
