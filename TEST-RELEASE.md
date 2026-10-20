@@ -11,7 +11,7 @@
 
 ## 工作流集成
 
-在 `.github/workflows/build.yml` 的 `jobs` 下增加以下任务，保持顶层 `permissions: contents: read`。`build` 和 `portable-contracts` 的任务 ID 与显示名均保持原样。下载步骤未指定其他运行 ID，因此只取**本次工作流**的指定 artifact。`actions: read` 用于独立核对同次运行的两个成功任务，只有此发布任务获得 `contents: write`。
+`.github/workflows/build.yml` 的 `jobs` 已集成以下任务，保持顶层 `permissions: contents: read`。`build` 和 `portable-contracts` 的任务 ID 与显示名均保持原样。下载步骤未指定其他运行 ID，因此只取**本次工作流**的指定 artifact。`actions: read` 用于独立核对同次运行的两个成功任务，只有此发布任务获得 `contents: write`。
 
 ```yaml
   publish-test-release:

@@ -1,6 +1,6 @@
 # F5 简体中文覆盖与验收清单
 
-固定上游：`janblade/OptiScaler-F5-DLSSNR-Multipass@fadc3bf67f6c8548e94914baec3f2e551ba8d8a4`（v0.1.32）。本记录截至 2026-10-20 12:40（北京时间），属于源码与可移植测试证据；Windows 构建结果以对应 Actions run 为准。
+固定上游：`janblade/OptiScaler-F5-DLSSNR-Multipass@fadc3bf67f6c8548e94914baec3f2e551ba8d8a4`（v0.1.32）。本记录截至 2026-10-20 13:20（北京时间），属于源码与可移植测试证据；Windows 构建结果以对应 Actions run 为准。
 
 ## 扫描分母与来源
 
@@ -37,13 +37,19 @@
 ## 已完成的检查
 
 - 严格词库检查：所有活动条目源文哈希、printf/C++ 格式字段、顺序和隐藏后缀一致；0 缺失/0 过期。
-- 当前 121 项单元测试：云端 Linux 116 通过，5 项因缺少 PowerShell/cmd.exe 明确跳过；Windows CI run 39369855580 全部 121 项通过，零跳过，包括字体与安装脚本交互测试。测试通过不代表 Windows GPU 游戏验证。
+- 当前 125 项单元测试：[Windows CI 39373596303](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/actions/runs/39373596303) 全部 125 项通过，零跳过；云端 Linux 加官方 PowerShell 7.6.7 后 124 项通过，仅 cmd.exe 专用夹具跳过。测试通过不代表 Windows GPU 游戏验证。
 - 独立可移植显示契约：168 项断言，使用当前上游真实 `ImHashStr` 与非零作用域 seed；包装器主要重载按真实 ImGui 头文件编译。验证 plain/`##`/`###`/动态标签/显式切片、语言回退、输入缓冲和选中索引、原数组、格式与 raw 数据。
-- MSVC 首次完整编译发现的 Begin/InputScalar `NULL` 转换和 PlotLines 回调重载缺口已补齐；新增 24 项实际调用行为回归，旧头负对照会明确失败。此修复仍须由最新 Windows 编译结果确认。
+- MSVC 首次完整编译发现的 Begin/InputScalar `NULL` 转换和 PlotLines 回调重载缺口已补齐；新增 24 项实际调用行为回归，旧头负对照会明确失败。上述 Windows CI 已完成真实 MSVC v143 Release x64 编译确认。
 - 58 条固定预期的真实运行时样本在 C++17/C++20 各通过 58/58，包含旧多行 tooltip、嵌套异常、路径、状态和组合语序。
 - 204 条独立可见源文代表探针全部命中，3 个持久化键正确排除。它们证明代表性条目的纳入，不证明穷举覆盖。
 - 字体适配的编译 stub 检查涵盖 HQ 开/关、三字体、配置字体、初始化回退与上下文重建；额外云端真实 ImGui/STB smoke 检查过 CJK 字形与 Hack 等宽数字、主题切换。它们不是 Windows FreeType/GPU 截图。
 - 所有中文仍在动态显示副本中，未写回上游 48/96/192 字节固定缓冲；静态译文最长 571 UTF-8 字节。当前词库共有 948 个非 ASCII 码点，字体选择逐字验证当前集。
+
+## 已验证的 Windows 构建与安装包
+
+[基线提交 6f6195c54565](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/actions/runs/39373596303) 已完成两项 CI、真实 MSVC 编译、完整打包和上传。下载真实 Actions artifact 后，在另一云端进程用发布器离线重验 **106** 个包内文件、内部校验清单、两枚 DLL、15 项 Hybrid 资源与三个中文安装入口，全部通过。回执与关键文件 SHA-256 见 [Windows 构建回执](reports/windows-build-validation-2026-10-20.json)。
+
+测试 Release 会从精确发布提交重新运行同样检查，最终发布包以该次 CI 与包内 `BUILD-INFO.CN.json` 为准；上述基线包哈希不能代替最终发布包哈希。
 
 ## 尚未验证的运行时范围
 

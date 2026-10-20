@@ -1,0 +1,76 @@
+{
+  "schema": 1,
+  "verified_at_utc": "2026-10-20T05:20:00Z",
+  "source_commit": "6f6195c54565f5637643b4523b827f920f1a9124",
+  "upstream_commit": "fadc3bf67f6c8548e94914baec3f2e551ba8d8a4",
+  "workflow_run": "https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/actions/runs/39373596303",
+  "windows": {
+    "runner": "windows-2022",
+    "toolset": "MSVC v143",
+    "configuration": "Release x64",
+    "unit_tests": 125,
+    "skipped": 0,
+    "build": "success",
+    "package": "success"
+  },
+  "portable": {
+    "boundary_assertions": 168,
+    "representative_visible": 204,
+    "excluded_persisted_keys": 3,
+    "cxx17_goldens": 58,
+    "cxx20_goldens": 58
+  },
+  "downloaded_artifact": {
+    "id": 12241749007,
+    "sha256": "0052d435af56b3e27ea2675606ec8cf8762c9983b814e4d41a467b69ce4222ab",
+    "independent_offline_release_verifier": "passed",
+    "package": "OptiScaler-F5-DLSSNR-Multipass-CN-v0.1.32-cn-6f6195c54565-fadc3bf67f6c.zip",
+    "package_sha256": "e80b8fb66271a9a08fce12c3eb4f8a883b1033f59a063b548457f77952845104",
+    "verified_archive_files": 106,
+    "binaries": [
+      {
+        "sha256": "20fb2b618e332dd1b30ab3b88c13177d74ff359f803c1c9afb48fb3415fd0985",
+        "name": "OptiScaler.dll"
+      },
+      {
+        "sha256": "3fa1c33c53062b2c23b79e348c378f98ec07d6d5c5f909867579529800346a7b",
+        "name": "nvngx.dll_dlssnr.dll"
+      }
+    ]
+  },
+  "current_files_sha256": {
+    ".github/workflows/build.yml": "75d87ab62231b0c36cec3f91de6ba93d7d3042c8f19852fcc467d4b1af87e4c5",
+    "Localization/catalog.json": "2aadfc9b9d624d141493a5d14ce8f4b2bbf22d8162cb523073c41ee3a3ec81ba",
+    "Localization/installers.zh-CN.json": "3c9abeb57f6d44af3f4907cabef263452c3eb52a03ddf8f20096f6feacaeaeb6",
+    "Localization/zh-CN.json": "17f1bfc8f138ba5bb582110a4aa58d5e03330658a7d05f0bbdc5af9cc35ec942",
+    "overlay/OptiScaler/localization/ImGuiLocalization.h": "d8f9b4f6ee3d12eaf3bafca53451e5b0bd82a0baf7684c9c3bfde31364643163",
+    "overlay/OptiScaler/localization/Localization.h": "357c28a3c762d0b2d2b32789bb12fcb7ac6d7e0b79af5d0bd77a8cc75d607b62",
+    "overlay/OptiScaler/localization/RuntimeText.h": "dfe65b20c70bac052e9b9770ed4f09ae02b46a1a7c92285326aa34c3fdb29fc7",
+    "tests/test_f5_build_contract.py": "89503f0e105c9093ce2549b1cc51e0c02b59a2aae5e6822a3a492c096d166de2",
+    "tests/test_f5_catalog_representatives.py": "791ced553c88b4127ee99c41931d14c7d3f4b0e90aea5015f1aa81679534ceb7",
+    "tests/test_f5_display_runtime.py": "7d9ef7f5542aead063f2c19c0c17d9e58da7be7a15dcb46b7a491b8b13369ce8",
+    "tests/test_f5_real_display_samples.py": "127e6d69f4ac070dd6ea76bd56960c14fef28605eb1771cae366ded59f3691ea",
+    "tools/check_localization.py": "5f4a03d22e5bfeda4c8d42c25594f0f71da4d89cb8d3f5d095e58edafaf4825e",
+    "tools/f5_boundaries.json": "8c81d906bf565418885bd223560fbccd31c2772b615b790e8cdd159dcf77b4ea",
+    "tools/f5_font_patch.py": "fcfe6ae29654b2accaa681b4a7150c0af433eeb31e6dac7e86bd7537ffbe109c",
+    "tools/f5_installer_patch.py": "9dc74922ef493a0c16ddfad54b32fedfbf22965bc90d0b22e6a479ce4b13003f",
+    "tools/f5_scan.py": "5f58a190e13c65e27cca0c79b0d101eeb8efdf3fa51c93fe5e7f4e9cb9e0c557",
+    "tools/generate_cpp.py": "75345e0f2d1ac687908379091ffe43616fcf9a67b80670479ceb35e76edf2f10",
+    "tools/localize_f5.py": "f1756989d4f9623f61fe777dbf28290926f82d76fcf308a84fbe4b604bf5f916",
+    "tools/localize_source.py": "cf4c725b37c88ba5a56246463c3360e428607a02db31c2a629de777305cbf02f",
+    "tools/loclib.py": "b5c59a841f075bae6ef82367b80711694758d48a9f2bb2ea393f35f29cbf6fe1",
+    "tools/package.ps1": "2c1a93f6b86fc7be44eb83ac099b51c6af6dcbc68acb8e44effcfd45388af5aa",
+    "tools/prepare_tree.py": "78b7a887c108f4f3b2851dd49d5c8e8223fc1b129c34a0fb161d9a9971029841",
+    "tools/publish_test_release.py": "27332ce1abef2ca6cddbddaa3f524cf0762b6f86b812bfb5a233abd569ef9c3b",
+    "tools/scan_ui.py": "1faf246383f06a9bed59ea4a77a246f8fca366975d0dbb323387bfdac078bb4c",
+    "tools/translate_missing.py": "b20462d4af3bd7c8e11eb0997ae434124f393104cd473a8e83203e18da81c722",
+    "tools/ui_scan.py": "d3d2e2f043620c602020229182b52f4df5322336d1dc475854767e732ec4ec81",
+    "tools/update_translation_memory.py": "5315a364529283808d1c9fce968ed277a406a0c3eb970f7b377f611a67105880",
+    "upstream.json": "5d487536bb545e46d254faff2265e4f093fa7aabe9dedb463d3728fa470cc141"
+  },
+  "limitations": [
+    "No GPU/game, visual layout, or full install/uninstall runtime acceptance.",
+    "The release trigger rebuilds this code at its own final commit; final release hashes come from that run, not this baseline receipt.",
+    "Historical audit-receipt.json remains the earlier independent UI review and is not silently rewritten."
+  ]
+}

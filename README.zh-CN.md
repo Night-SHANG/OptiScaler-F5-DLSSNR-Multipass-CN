@@ -10,7 +10,7 @@
 
 安装 ZIP 中保留上游英文说明，并增加 `README.CN.zh-CN.md`、`UPSTREAM.CN.md`、`OptiScalerCN.ini`、`BUILD-INFO.CN.json` 和重新生成的 `SHA256SUMS.txt`。构建记录列出中文仓库提交、固定上游、子模块、工具链及文件哈希。
 
-**工作流存在或源码测试通过，不表示 Windows 编译已成功。Windows 游戏内 GPU 渲染、中文排版及真实硬件兼容性尚未验收。** 请以对应提交的 Actions 日志和产物为准，保留原安装备份。
+**[Windows 构建基线已通过](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/actions/runs/39373596303)：MSVC v143 Release x64、125 项测试、完整包校验。Windows 游戏内 GPU 渲染、中文排版及真实硬件兼容性尚未验收。** 请以对应提交的 Actions 日志和产物为准，保留原安装备份。
 
 ## 依赖与安装包差异
 
