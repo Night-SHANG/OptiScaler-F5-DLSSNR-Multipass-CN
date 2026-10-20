@@ -6,7 +6,7 @@
 
 ## 下载内容与验证边界
 
-当前提供 GitHub Actions 构建流程，**不创建 GitHub Release**。从一次成功的 `Build pinned F5 Chinese artifact` 运行中取得 `OptiScaler-F5-CN-v0.1.32-<CN提交>` artifact；其中包含安装 ZIP、同名 `.sha256` 和 `build-metadata.json`。Actions 下载的外层 ZIP 需先解开，再解开里面的安装 ZIP。
+提供 GitHub Actions 构建流程；授权测试入口仅能发布固定标签 `v0.1.32-cn-test.1` 的 Pre-release，须先通过同次 Windows 编译、可移植测试及产物校验，详情见 [测试发布门槛](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/blob/main/TEST-RELEASE.md)。可从仓库 Releases 查找实际已发布的测试版，不能仅凭此说明认定发布已完成。从一次成功的 `Build pinned F5 Chinese artifact` 运行中取得 `OptiScaler-F5-CN-v0.1.32-<CN提交>` artifact；其中包含安装 ZIP、同名 `.sha256` 和 `build-metadata.json`。Actions 下载的外层 ZIP 需先解开，再解开里面的安装 ZIP。
 
 安装 ZIP 中保留上游英文说明，并增加 `README.CN.zh-CN.md`、`UPSTREAM.CN.md`、`OptiScalerCN.ini`、`BUILD-INFO.CN.json` 和重新生成的 `SHA256SUMS.txt`。构建记录列出中文仓库提交、固定上游、子模块、工具链及文件哈希。
 
@@ -54,7 +54,7 @@ FontPath=
 
 ## 构建与核验
 
-推荐使用仓库 [build.yml 工作流](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/blob/main/.github/workflows/build.yml)：手动触发、`main` 推送和 PR 均可运行；仅授予读取仓库权限，不发布 Release、不定时跟随上游。
+推荐使用仓库 [build.yml 工作流](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/blob/main/.github/workflows/build.yml)：手动触发、`main` 推送和 PR 均可运行；两个构建任务只读仓库，不定时跟随上游。另有严格门控的测试发布任务，只有它具有 `contents: write` 与核对同次任务所需的 `actions: read`；不会自动发布普通提交或 PR。
 
 - `portable-contracts`：Ubuntu 24.04 上检查固定源码、词库、Python 测试，并用 g++ 运行显示层/真实 ImGui 契约探针；不下载完整递归构建依赖。
 - `build`：Windows 2022、Python 3.12、Visual Studio 2022 / MSVC v143 与上游要求的 Windows SDK。先验证固定源码和递归子模块，再做扫描/严格检查和测试，应用显示适配，编译转发器与 `OptiScaler.sln` 的 Release x64。保留原有 PostBuildEvent，不用占位 DLL 或跳过编译伪造成功。

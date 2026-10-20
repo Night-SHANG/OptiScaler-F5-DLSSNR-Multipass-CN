@@ -148,3 +148,36 @@ jobs:
           path: reports/
           if-no-files-found: error
           retention-days: 14
+  publish-test-release:
+    needs: [portable-contracts, build]
+    if: >-
+      ${{ github.repository == 'Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN' &&
+          github.event_name == 'push' && github.ref == 'refs/heads/main' &&
+          github.event.head_commit.message == 'release: publish v0.1.32-cn-test.1' &&
+          needs.portable-contracts.result == 'success' && needs.build.result == 'success' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: write
+      actions: read
+    concurrency:
+      group: f5-cn-test-release-v0.1.32-cn-test.1
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: OptiScaler-F5-CN-v0.1.32-${{ github.sha }}
+          path: release-artifact
+      - name: Verify and publish the authorized test prerelease
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BUILD_RESULT: ${{ needs.build.result }}
+          PORTABLE_RESULT: ${{ needs.portable-contracts.result }}
+        run: python tools/publish_test_release.py --artifact-dir release-artifact

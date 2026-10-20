@@ -29,7 +29,8 @@ class PrepareTreeSafetyTests(unittest.TestCase):
     def test_only_exact_owned_child_can_be_deleted(self):
         self.assertTrue(hasattr(prepare, 'bounded_worktree'), 'bounded path validation is required')
         with tempfile.TemporaryDirectory() as td:
-            root = Path(td)
+            # Windows temporary directories can contain an 8.3 alias; test the canonical owned root.
+            root = Path(td).resolve()
             self.assertEqual(prepare.bounded_worktree(root, root / '_upstream'), root / '_upstream')
             for unsafe in [root, root.parent, root / 'other', root / '_upstream/child']:
                 with self.subTest(unsafe=str(unsafe)), self.assertRaises(ValueError):
@@ -64,14 +65,23 @@ class BuildContractTests(unittest.TestCase):
         self.assertTrue(path.is_file(), relative)
         return path.read_text(encoding='utf-8')
 
-    def test_workflow_is_manual_or_main_push_and_read_only(self):
+    def test_workflow_keeps_build_read_only_and_gates_test_publication(self):
         text = self.text('.github/workflows/build.yml')
         for token in ['workflow_dispatch:', 'push:', 'branches: [main]', 'contents: read', 'windows-2022']:
             self.assertIn(token, text)
         for token in ['portable-contracts:', 'runs-on: ubuntu-24.04', 'g++ --version',
                       'python tests/test_f5_display_runtime.py --repo .', 'set -euo pipefail']:
             self.assertIn(token, text)
-        for forbidden in ['schedule:', 'contents: write', 'actions: write', 'action-gh-release', 'gh release']:
+        build, release = text.split('  publish-test-release:', 1)
+        self.assertNotIn('contents: write', build)
+        self.assertEqual(release.count('contents: write'), 1)
+        for token in ["needs: [portable-contracts, build]", "github.event_name == 'push'",
+                      "github.ref == 'refs/heads/main'", "release: publish v0.1.32-cn-test.1",
+                      "needs.portable-contracts.result == 'success'", "needs.build.result == 'success'",
+                      'actions/download-artifact@v4', 'OptiScaler-F5-CN-v0.1.32-${{ github.sha }}',
+                      'python tools/publish_test_release.py --artifact-dir release-artifact']:
+            self.assertIn(token, release)
+        for forbidden in ['schedule:', 'actions: write', 'action-gh-release', 'gh release']:
             self.assertNotIn(forbidden, text)
 
     def test_strict_preflight_precedes_actual_msvc_build(self):
@@ -154,7 +164,18 @@ class PowerShellValidationTests(unittest.TestCase):
             for name, contents in cases.items():
                 with zipfile.ZipFile(root / (name + '.zip'), 'w') as archive:
                     for filename, data in contents:
-                        archive.writestr(filename, data)
+                        # ZipInfo(filename) normalizes backslashes on Windows.
+                        # Set the raw member name after construction so this is
+                        # genuinely the hostile archive the validator must reject.
+                        info = zipfile.ZipInfo('fixture')
+                        info.filename = filename
+                        info.orig_filename = filename
+                        archive.writestr(info, data)
+                raw_zip = (root / (name + '.zip')).read_bytes()
+                for filename, _ in contents:
+                    # Inspect raw bytes: Python also normalizes names when
+                    # reopening ZIPs on Windows, unlike the .NET validator.
+                    self.assertIn(filename.encode('utf-8'), raw_zip)
             script = self.load_functions()
             for name in cases:
                 path = str(root / (name + '.zip')).replace("'", "''")

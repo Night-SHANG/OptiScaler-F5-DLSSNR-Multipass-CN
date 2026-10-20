@@ -8,3 +8,5 @@ dist/
 reports/*.log
 x64/
 x86/
+
+release-artifact/

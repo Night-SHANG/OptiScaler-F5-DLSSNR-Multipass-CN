@@ -10,11 +10,63 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
 PIN = 'fadc3bf67f6c8548e94914baec3f2e551ba8d8a4'
 SCRIPTS = ('setup_windows.bat', 'setup_linux.sh', 'Streamlined_fetcher_windows.bat', 'get_streamline.ps1')
+
+
+def find_bash_executable(platform=None):
+    """Avoid Windows' WSL bash.exe stub; use the installed Git Bash runtime."""
+    if (platform or os.name) != 'nt':
+        return shutil.which('bash')
+    git = shutil.which('git.exe')
+    if not git:
+        return None
+    # Git for Windows exposes git.exe from cmd/, bin/, or mingw64/bin/.
+    for directory in list(Path(git).resolve().parents)[:3]:
+        for relative in ('bin/bash.exe', 'usr/bin/bash.exe'):
+            candidate = directory / relative
+            if candidate.is_file():
+                return str(candidate)
+    return None
+
+
+class BashSelectionTests(unittest.TestCase):
+    def finder(self):
+        self.assertIn('find_bash_executable', globals(),
+                      'Select Git for Windows Bash explicitly instead of the WSL PATH stub')
+        return globals()['find_bash_executable']
+
+    def test_windows_prefers_git_bash_over_path_wsl_stub(self):
+        finder = self.finder()
+        for git_subdir in ('cmd', 'bin', 'mingw64/bin'):
+            with self.subTest(git_subdir=git_subdir), tempfile.TemporaryDirectory() as temp:
+                git_root = Path(temp).resolve() / 'Git'
+                git = git_root / git_subdir / 'git.exe'
+                bash = git_root / 'bin' / 'bash.exe'
+                git.parent.mkdir(parents=True, exist_ok=True)
+                bash.parent.mkdir(parents=True, exist_ok=True)
+                git.touch()
+                bash.touch()
+                with mock.patch.object(shutil, 'which', side_effect=lambda name:
+                                       str(git) if name == 'git.exe' else r'C:\Windows\System32\bash.exe') as which:
+                    self.assertEqual(finder('nt'), str(bash))
+                    which.assert_called_once_with('git.exe')
+
+    def test_windows_without_git_bash_does_not_use_wsl_stub(self):
+        finder = self.finder()
+        with mock.patch.object(shutil, 'which', side_effect=lambda name:
+                               None if name == 'git.exe' else r'C:\Windows\System32\bash.exe'):
+            self.assertIsNone(finder('nt'))
+
+    def test_linux_keeps_native_path_bash(self):
+        finder = self.finder()
+        with mock.patch.object(shutil, 'which', return_value='/usr/bin/bash') as which:
+            self.assertEqual(finder('posix'), '/usr/bin/bash')
+            which.assert_called_once_with('bash')
 
 
 class InstallerAdapterTests(unittest.TestCase):
@@ -249,19 +301,30 @@ class InstallerAdapterTests(unittest.TestCase):
 
     def test_bash_help_and_generated_uninstaller_help_are_safe_and_chinese(self):
         module = self.module()
-        if not shutil.which('bash'):
-            self.skipTest('bash is unavailable')
+        bash = find_bash_executable()
+        if not bash:
+            self.skipTest('Git for Windows Bash unavailable' if os.name == 'nt' else 'Native Bash unavailable')
+        try:
+            probe = subprocess.run([bash, '--noprofile', '--norc', '-c', 'printf BASH_READY'],
+                                   capture_output=True, timeout=10)
+        except (OSError, subprocess.TimeoutExpired) as exc:
+            self.skipTest(f'Bash runtime unavailable at {bash}: {exc}')
+        if probe.returncode != 0 or probe.stdout != b'BASH_READY':
+            self.skipTest(f'Bash runtime unavailable at {bash}: exit={probe.returncode}, stderr={probe.stderr!r}')
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
             self.checkout(root)
             module.patch_installer_scripts(root)
             source = (root / 'setup_linux.sh').read_text(encoding='utf-8')
             uninstaller = source.split("<< 'EOF'\n", 1)[1].split('\nEOF\n', 1)[0] + '\n'
-            (root / 'remove_optiscaler.sh').write_text(uninstaller, encoding='utf-8')
+            (root / 'remove_optiscaler.sh').write_bytes(uninstaller.encode('utf-8'))
             for name in ('setup_linux.sh', 'remove_optiscaler.sh'):
-                subprocess.run(['bash', '-n', str(root / name)], check=True, capture_output=True)
-                result = subprocess.run(['bash', str(root / name), '--help'], cwd=root,
-                                        capture_output=True, text=True, timeout=5)
+                # MSYS resolves a basename from cwd; a raw C:\... argument is
+                # not a POSIX path and must not be handed to bash.
+                subprocess.run([bash, '--noprofile', '--norc', '-n', name], cwd=root,
+                               check=True, capture_output=True, timeout=10)
+                result = subprocess.run([bash, '--noprofile', '--norc', name, '--help'], cwd=root,
+                                        capture_output=True, text=True, encoding='utf-8', timeout=10)
                 self.assertEqual(result.returncode, 0, result.stderr)
                 self.assertIn('用法', result.stdout)
                 self.assertIn('--help', result.stdout)

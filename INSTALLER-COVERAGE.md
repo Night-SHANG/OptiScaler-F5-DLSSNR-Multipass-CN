@@ -67,7 +67,11 @@
 5. 在云端 Linux 实际运行了 `bash -n`，以及安装脚本和从 heredoc 提取的卸载脚本的 `--help` 安全路径。未运行安装、卸载、删除、网络下载或接受许可证的操作路径。
 6. Windows 专用测试只运行人工构造的 `echo/chcp/exit` 夹具以及生成这些夹具的转义块，检查 437、936、65001 的代码页恢复和退出码；不执行原安装器或卸载器。PowerShell 专用测试只解析脚本并走未同意许可的早期拒绝路径。
 
-本次云端 Linux 没有 `cmd.exe` 或 PowerShell，这两项平台测试会明确跳过。尚未完成 Windows 实机终端观感、完整安装/卸载或游戏运行验证；不能将静态/帮助测试称为 Windows 安装验收。
+云端 Linux 没有 `cmd.exe` 或 PowerShell，这两项平台测试在 Linux 上明确跳过。Windows CI 运行 `39368495938` 已实际通过 `cmd.exe` 代码页/退出码夹具，以及 PowerShell 解析/未接受许可的拒绝路径；该次运行的 Bash 帮助用例因选中了 PATH 上的 WSL stub 并传入原生 `C:\...` 路径而失败。
+
+针对该问题，测试现从 `git.exe` 安装目录识别 Git for Windows 的 `bin/bash.exe` 或 `usr/bin/bash.exe`，不会回退到 Windows 的 WSL stub。语法检查和帮助调用均使用临时目录作为 `cwd`、只传脚本 basename，并明确按 UTF-8 解码输出。Linux 仍使用 PATH 上的原生 Bash。只有未找到或无法运行真实 Bash 时才附具体原因跳过，不因 Windows 平台整体跳过。新增选择器回归覆盖 Git 的 `cmd/`、`bin/`、`mingw64/bin/` 布局；Windows 修复后的帮助用例仍待后续 CI 验证。
+
+尚未完成 Windows 实机终端观感、完整安装/卸载或游戏运行验证；不能将无害夹具、静态解析或帮助测试称为完整 Windows 安装验收。
 
 ## 运行测试
 
@@ -79,4 +83,6 @@ python -m py_compile tools/f5_installer_patch.py tests/test_f5_installer_patch.p
 
 测试需要已经物化的固定上游 Git 检出，以便从固定提交读取原始脚本；不会把已汉化工作树当作原始夹具。
 
-本次云端验证记录（2026-10-20）：专用套件共 13 项，11 项通过、2 项按上述平台条件跳过；全仓套件共 93 项，88 项通过、5 项因缺少 Windows/PowerShell 跳过，无失败。另 3 项跳过属于既有打包器 PowerShell 测试。两个 Python 文件的 `py_compile` 通过。以上不替代后续 Windows CI 与实机验收。
+首次云端验证记录（2026-10-20）：专用套件共 13 项，11 项通过、2 项按上述平台条件跳过；全仓套件共 93 项，88 项通过、5 项因缺少 Windows/PowerShell 跳过，无失败。另 3 项跳过属于既有打包器 PowerShell 测试。两个 Python 文件的 `py_compile` 通过。
+
+Bash 选择器修复后的云端 Linux 回归（同日）：专用套件共 16 项，14 项通过、2 项平台跳过；全仓套件共 119 项，114 项通过、5 项平台跳过，无失败；测试文件 `py_compile` 通过。此记录不替代修复后的 Windows CI 或完整安装实机验收。

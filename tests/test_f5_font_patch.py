@@ -8,12 +8,17 @@ import shutil
 import subprocess
 import sys
 import tempfile
-import textwrap
 import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
+
+
+def runtime_path_argument(path):
+    """Keep Windows' narrow CRT argv from replacing Unicode path characters."""
+    return str(path).encode('utf-8').hex()
+
 
 # Recorded from Optical F5Low fadc3bf67f6c8548e94914baec3f2e551ba8d8a4.
 FONT_BLOCK = '''    if (io.Fonts->Fonts.empty())
@@ -83,6 +88,7 @@ FAKE_DEPENDENCIES = r'''
 #include <cassert>
 #include <filesystem>
 #include <fstream>
+#include <iostream>
 #include <limits>
 #include <optional>
 #include <stdexcept>
@@ -138,7 +144,8 @@ struct Config {
     std::optional<std::filesystem::path> TTFFontPath;
     static Config* Instance() { static Config c; return &c; }
 };
-inline std::string wstring_to_string(const std::filesystem::path& p) { return p.string(); }
+// The upstream SysUtils.h helper explicitly converts wide text with CP_UTF8.
+inline std::string wstring_to_string(const std::filesystem::path& p) { return p.u8string(); }
 struct MenuStyle { static ImFont* MonoFont(); };
 struct MenuCommon { static void Init(HWND, bool); static void ApplyThemeFont(); };
 namespace OptiScalerCN::Loc {
@@ -164,6 +171,20 @@ inline const char* T(const char*, const char* en) { return IsChineseActive() ? "
 '''
 
 RUNTIME = r'''
+static std::filesystem::path pathFromUtf8Hex(const char* argument) {
+    const std::string hex(argument);
+    if (hex.size() % 2 != 0) throw std::runtime_error("odd-length UTF-8 path hex");
+    const auto digit = [](char c) {
+        if (c >= '0' && c <= '9') return c - '0';
+        if (c >= 'a' && c <= 'f') return c - 'a' + 10;
+        throw std::runtime_error("non-hex UTF-8 path argument");
+    };
+    std::string utf8;
+    for (std::size_t i = 0; i < hex.size(); i += 2)
+        utf8.push_back(static_cast<char>((digit(hex[i]) << 4) | digit(hex[i + 1])));
+    return std::filesystem::u8path(utf8);
+}
+
 static void run(bool requested, bool hq, bool modern, bool configured, const std::filesystem::path& font,
                 int fail, bool expectChinese) {
     using namespace OptiScalerCN::Loc;
@@ -179,6 +200,16 @@ static void run(bool requested, bool hq, bool modern, bool configured, const std
     failAt = fail; loadCalls = 0;
     if (!requested) detail::activeLanguage = "en-US";
     MenuCommon::Init(nullptr, false);
+    if (IsChineseActive() != expectChinese) {
+        std::error_code ec;
+        const bool exists = std::filesystem::exists(font, ec);
+        std::cerr << "font matrix mismatch: requested=" << requested << " hq=" << hq
+                  << " modern=" << modern << " configured=" << configured
+                  << " failAt=" << fail << " loadCalls=" << loadCalls
+                  << " expectedChinese=" << expectChinese << " actualChinese=" << IsChineseActive()
+                  << " pathUtf8=" << font.u8string() << " exists=" << exists
+                  << " filesystemError=" << ec.message() << " warning=" << detail::warning << '\n';
+    }
     assert(IsChineseActive() == expectChinese);
     if (expectChinese) {
         assert(gHackFont && gInterFont && gClassicFont);
@@ -215,10 +246,18 @@ static void run(bool requested, bool hq, bool modern, bool configured, const std
     }
     ImGui::io = nullptr;
 }
-int main(int argc, char** argv) {
-    assert(argc == 3);
-    std::filesystem::path valid = std::filesystem::u8path(argv[1]);
-    std::filesystem::path invalid = std::filesystem::u8path(argv[2]);
+int main(int argc, char** argv) try {
+    if (argc != 3) throw std::runtime_error("expected valid and invalid UTF-8 path hex arguments");
+    // Python uses CreateProcessW on Windows, but main(char**) is still ACP-dependent.
+    // ASCII hex preserves the UTF-8 bytes until u8path creates the native wide path.
+    const std::filesystem::path valid = pathFromUtf8Hex(argv[1]);
+    const std::filesystem::path invalid = pathFromUtf8Hex(argv[2]);
+    const auto validBytes = OptiScalerCnReadF5Font(valid);
+    if (validBytes.size() != 128 || validBytes[0] != 66) {
+        std::cerr << "font fixture preflight failed: pathUtf8=" << valid.u8string()
+                  << " readableBytes=" << validBytes.size() << '\n';
+        return 2;
+    }
     for (bool hq : {false, true}) for (bool modern : {false, true}) {
         run(true, hq, modern, false, valid, -1, true);
         run(true, hq, modern, true, valid, -1, true);
@@ -235,11 +274,30 @@ int main(int argc, char** argv) {
         // A previous fallback must not leave Chinese disabled after re-init.
         run(true, hq, modern, false, valid, -1, true);
     }
+    return 0;
+} catch (const std::exception& error) {
+    std::cerr << "font fixture exception: " << error.what() << '\n';
+    return 2;
 }
 '''
 
 
 class F5FontPatchTests(unittest.TestCase):
+    def test_runtime_path_arguments_survive_windows_ansi_argv(self):
+        encoder = globals().get('runtime_path_argument')
+        self.assertTrue(callable(encoder), 'fixture paths need a lossless ASCII argv transport')
+        for original in (
+            'C:\\Users\\\u6d4b\u8bd5 \u76ee\u5f55\\\u5b57\u4f53.ttf',
+            '/tmp/\u5b57\u4f53 \u6d4b\u8bd5.ttf',
+        ):
+            with self.subTest(path=original):
+                path = Path(original)
+                argument = encoder(path)
+                self.assertTrue(argument.isascii())
+                # Western Windows CRT argv conversion must not lose any bytes.
+                ansi_argument = argument.encode('cp1252', 'replace').decode('cp1252')
+                self.assertEqual(bytes.fromhex(ansi_argument).decode('utf-8'), str(path))
+
     def adapter(self):
         spec = importlib.util.find_spec('f5_font_patch')
         self.assertIsNotNone(spec, 'the independent F5 adapter must exist')
@@ -337,12 +395,21 @@ class F5FontPatchTests(unittest.TestCase):
         font = td / '\u5b57\u4f53 \u6d4b\u8bd5.ttf'
         font.write_bytes(b'B' * 128)
         invalid = td / 'invalid.ttf'; invalid.write_bytes(b'bad')
+        runner = td / ('runner.exe' if sys.platform == 'win32' else 'runner')
         compile_result = subprocess.run(['g++', '-std=c++17', '-Wall', '-Wextra', '-Werror', '-Wno-unused-parameter',
-                                         '-I', str(td), str(td / 'runner.cpp'), '-o', str(td / 'runner')],
-                                        capture_output=True, text=True)
+                                         '-I', str(td), str(td / 'runner.cpp'), '-o', str(runner)],
+                                        capture_output=True, text=True, encoding='utf-8', errors='backslashreplace')
         self.assertEqual(compile_result.returncode, 0, compile_result.stdout + compile_result.stderr)
-        result = subprocess.run([str(td / 'runner'), str(font), str(invalid)], capture_output=True, text=True)
+        result = subprocess.run([str(runner), runtime_path_argument(font), runtime_path_argument(invalid)],
+                                capture_output=True, text=True, encoding='utf-8', errors='backslashreplace')
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        # A broken path must produce a readable fixture error before the matrix.
+        missing = td / '\u4e0d\u5b58\u5728.ttf'
+        result = subprocess.run([str(runner), runtime_path_argument(missing), runtime_path_argument(invalid)],
+                                capture_output=True, text=True, encoding='utf-8', errors='backslashreplace')
+        self.assertEqual(result.returncode, 2, result.stdout + result.stderr)
+        self.assertIn('font fixture preflight failed:', result.stderr)
+        self.assertIn('readableBytes=0', result.stderr)
 
 
 if __name__ == '__main__':

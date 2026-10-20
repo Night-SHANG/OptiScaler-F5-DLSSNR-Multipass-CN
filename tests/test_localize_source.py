@@ -11,7 +11,7 @@ CURRENT_MENU='''#include "pch.h"\n#include "menu_common.h"\n\nvoid MenuCommon::I
 
 class LocalizeSourceTests(unittest.TestCase):
     def temp_file(self,text):
-        td=tempfile.TemporaryDirectory(); p=Path(td.name)/'menu_common.cpp'; p.write_text(text,encoding='utf-8'); return td,p
+        td=tempfile.TemporaryDirectory(); p=Path(td.name)/'menu_common.cpp'; p.write_bytes(text.encode('utf-8')); return td,p
 
     def test_current_master_font_block_is_patched_and_idempotent(self):
         td,p=self.temp_file(CURRENT_MENU)

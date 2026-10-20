@@ -34,7 +34,7 @@ class RepositoryContractTests(unittest.TestCase):
         text = self.read('README.zh-CN.md')
         for token in ('nvngx.dll_dlssnr.dll', 'nvngx_dlssnr.dll', 'downloader-only',
                       'GPU', '尚未验收', 'get_streamline.ps1', 'FontPath', 'Language=en-US',
-                      'build-metadata.json', 'SHA256SUMS.txt', '不创建 GitHub Release'):
+                      'build-metadata.json', 'SHA256SUMS.txt', 'Pre-release', 'v0.1.32-cn-test.1', 'TEST-RELEASE.md'):
             self.assertIn(token, text)
 
     def test_provenance_and_non_human_review_are_explicit(self):
@@ -55,7 +55,7 @@ class RepositoryContractTests(unittest.TestCase):
         self.assertIn('python tools/localize_f5.py --source _upstream --channel master', workflow)
         self.assertIn('portable-contracts', self.read('README.zh-CN.md'))
 
-    def test_workflows_do_not_embed_translation_secrets_or_publish_releases(self):
+    def test_workflows_have_no_secrets_and_only_the_authorized_test_publisher(self):
         for path in (ROOT / '.github/workflows').glob('*.yml'):
             text = path.read_text(encoding='utf-8')
             with self.subTest(path=path.name):
@@ -63,7 +63,15 @@ class RepositoryContractTests(unittest.TestCase):
                 self.assertNotRegex(text, r'(?i)TRANSLATION_API_KEY\s*:\s*["\']?[A-Za-z0-9_-]{20,}')
                 self.assertNotIn('gh release', text)
                 self.assertNotIn('action-gh-release', text)
-                self.assertNotIn('contents: write', text)
+                if path.name == 'build.yml':
+                    build, release = text.split('  publish-test-release:', 1)
+                    self.assertNotIn('contents: write', build)
+                    self.assertEqual(release.count('contents: write'), 1)
+                    self.assertIn('actions: read', release)
+                    self.assertIn('release: publish v0.1.32-cn-test.1', release)
+                    self.assertIn('python tools/publish_test_release.py', release)
+                else:
+                    self.assertNotIn('contents: write', text)
 
 
 if __name__ == '__main__':

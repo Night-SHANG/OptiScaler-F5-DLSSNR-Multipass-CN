@@ -1,6 +1,6 @@
 # F5 简体中文覆盖与验收清单
 
-固定上游：`janblade/OptiScaler-F5-DLSSNR-Multipass@fadc3bf67f6c8548e94914baec3f2e551ba8d8a4`（v0.1.32）。本记录截至 2026-10-20 00:10（北京时间），属于源码与可移植测试证据；Windows 构建结果以对应 Actions run 为准。
+固定上游：`janblade/OptiScaler-F5-DLSSNR-Multipass@fadc3bf67f6c8548e94914baec3f2e551ba8d8a4`（v0.1.32）。本记录截至 2026-10-20 12:23（北京时间），属于源码与可移植测试证据；Windows 构建结果以对应 Actions run 为准。
 
 ## 扫描分母与来源
 
@@ -37,7 +37,7 @@
 ## 已完成的检查
 
 - 严格词库检查：所有活动条目源文哈希、printf/C++ 格式字段、顺序和隐藏后缀一致；0 缺失/0 过期。
-- 79 项单元测试：云端 Linux 76 通过，3 项 PowerShell 测试明确跳过，将在 Windows CI 执行。
+- 当前 120 项单元测试：云端 Linux 115 通过，5 项因缺少 PowerShell/cmd.exe 明确跳过。Windows CI 已验证 cmd 代码页恢复与 PowerShell 解析/许可拒绝路径；其余平台 fixture 修复后需以最新 CI 为准。测试通过不代表 Windows GPU 游戏验证。
 - 独立可移植显示契约：144 项断言，使用当前上游真实 `ImHashStr` 与非零作用域 seed；包装器主要重载按真实 ImGui 头文件编译。验证 plain/`##`/`###`/动态标签/显式切片、语言回退、输入缓冲和选中索引、原数组、格式与 raw 数据。
 - 58 条固定预期的真实运行时样本在 C++17/C++20 各通过 58/58，包含旧多行 tooltip、嵌套异常、路径、状态和组合语序。
 - 204 条独立可见源文代表探针全部命中，3 个持久化键正确排除。它们证明代表性条目的纳入，不证明穷举覆盖。
