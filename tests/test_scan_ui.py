@@ -41,6 +41,20 @@ class ScanUiTests(unittest.TestCase):
         self.assertTrue(result.catalog_entries['ui.old']['obsolete'])
         self.assertEqual(result.removed,['ui.old'])
 
+class DeterministicScanTests(unittest.TestCase):
+    def test_checkout_filesystem_order_does_not_change_catalog_bytes(self):
+        import json
+        found = [Candidate(file, 'f5:display-data', 0, source, 0, 1, line, '', False)
+                 for file, source, line in [('OptiScaler/z.cpp', 'Shared', 7),
+                                            ('OptiScaler/a.cpp', 'Another', 9),
+                                            ('OptiScaler/a.cpp', 'Shared', 2)]]
+        forward = scan_ui.reconcile(found, {}, {'entries': {}}, {})
+        reverse = scan_ui.reconcile(list(reversed(found)), {}, {'entries': {}}, {})
+        self.assertEqual(json.dumps(forward.catalog_entries), json.dumps(reverse.catalog_entries))
+        self.assertEqual(forward.added, reverse.added)
+        shared = forward.catalog_entries[scan_ui.key_for_source('Shared')]['occurrences']
+        self.assertEqual([o['file'] for o in shared], ['OptiScaler/a.cpp', 'OptiScaler/z.cpp'])
+
 if __name__ == '__main__':
     unittest.main()
 

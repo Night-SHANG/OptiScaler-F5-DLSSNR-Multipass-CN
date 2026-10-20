@@ -216,6 +216,10 @@ foreach ($required in @('LICENSE', 'README.md', 'INSTALL-DLSSNR.md', 'OptiScaler
                        '!! EXTRACT ALL FILES TO GAME FOLDER !!', 'Licenses/HybridSource/LICENSE')) {
     Assert-Leaf (Join-Path $stage $required)
 }
+# User-facing scripts must be the exact localized outputs, not stale staged originals.
+foreach ($script in @('setup_windows.bat', 'setup_linux.sh', 'get_streamline.ps1', 'redist/streamline/manifest.json')) {
+    Assert-Hash (Join-Path $stage $script) (Get-Sha (Join-Path $SourceRoot $script))
+}
 Write-Checksums $stage
 $zipName = "$($cfg.package_prefix)-$packageVersion-$($pin.Substring(0, 12)).zip"
 if ($zipName -notmatch '^[A-Za-z0-9][A-Za-z0-9._-]+\.zip$') { throw 'Unsafe package filename' }

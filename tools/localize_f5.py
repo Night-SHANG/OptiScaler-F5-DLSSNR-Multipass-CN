@@ -81,6 +81,8 @@ def patch_file(path,root,names):
 
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('--source',required=True,type=Path);ap.add_argument('--channel',default='master');args=ap.parse_args()
+    from f5_installer_patch import patch_installer_scripts
+    patch_installer_scripts(args.source)
     dst=args.source/'OptiScaler/localization';shutil.copytree(ROOT/'overlay/OptiScaler/localization',dst,dirs_exist_ok=True)
     subprocess.run([sys.executable,str(ROOT/'tools/generate_cpp.py'),'--channel',args.channel,'--out',str(dst/'generated/Strings.generated.h')],check=True)
     names=json.loads((ROOT/'tools/f5_boundaries.json').read_text())['imgui_calls']

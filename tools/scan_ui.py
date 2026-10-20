@@ -52,7 +52,9 @@ def reconcile(found: list[Candidate], old_entries: dict, zh: dict, tm: dict) -> 
 
     entries={k:{**v,'occurrences':[]} for k,v in old_entries.items()}
     used=set(); added=[]; changed=[]
-    for c in found:
+    # Filesystem traversal order differs across fresh clones and OSes.
+    # Stabilize both occurrence arrays and new source-key insertion order.
+    for c in sorted(found, key=lambda c: (c.file, c.line, c.callee, c.arg_index, c.source)):
         key=old_by_source.get(c.source)
         previous_source=None
         if key is None:
@@ -154,7 +156,7 @@ def main():
     if added: report += ['## Added','']+[f'- `{k}` — {current[k]["source"]!r}' for k in added[:100]]+['']
     if stale: report += ['## Changed / stale','']+[f'- `{k}` — {current[k]["source"]!r}' for k in stale[:100]]+['']
     if removed: report += ['## Removed','']+[f'- `{k}`' for k in removed[:100]]+['']
-    args.report.parent.mkdir(parents=True,exist_ok=True); args.report.write_text('\n'.join(report)+'\n',encoding='utf-8')
+    args.report.parent.mkdir(parents=True,exist_ok=True); args.report.write_text('\n'.join(report).rstrip()+'\n',encoding='utf-8')
     if args.update:
         save_json(paths['catalog'],catalog)
         save_json(paths['en'],{'locale':'en-US','channel':args.channel,'entries':en_entries})

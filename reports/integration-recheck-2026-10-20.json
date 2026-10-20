@@ -1,0 +1,35 @@
+{
+  "checked_utc": "2026-10-20T04:13:01.902896+00:00",
+  "base_cn_commit": "66a0ce6b8f924dd12103d3760dd551822f47c865",
+  "upstream_commit": "fadc3bf67f6c8548e94914baec3f2e551ba8d8a4",
+  "change": "Deterministic catalog occurrence order plus installer display integration",
+  "catalog_semantics_unchanged": true,
+  "catalog_active": 2385,
+  "installer_translated_prompt_occurrences": 235,
+  "installer_retained_technical_occurrences": 40,
+  "checks": {
+    "unit_tests": 93,
+    "passed": 88,
+    "platform_skipped": 5,
+    "display_boundary_assertions": 144,
+    "catalog_visible_representatives": 204,
+    "excluded_machine_keys": 3,
+    "fixed_rendered_goldens_cpp17": 58,
+    "fixed_rendered_goldens_cpp20": 58,
+    "fresh_materialized_display_calls": 962
+  },
+  "sha256": {
+    "Localization/master/catalog.json": "2aadfc9b9d624d141493a5d14ce8f4b2bbf22d8162cb523073c41ee3a3ec81ba",
+    "Localization/zh-CN.json": "17f1bfc8f138ba5bb582110a4aa58d5e03330658a7d05f0bbdc5af9cc35ec942",
+    "Localization/installers.zh-CN.json": "3c9abeb57f6d44af3f4907cabef263452c3eb52a03ddf8f20096f6feacaeaeb6",
+    "tools/scan_ui.py": "1faf246383f06a9bed59ea4a77a246f8fca366975d0dbb323387bfdac078bb4c",
+    "tools/localize_f5.py": "f1756989d4f9623f61fe777dbf28290926f82d76fcf308a84fbe4b604bf5f916",
+    "tools/f5_installer_patch.py": "9dc74922ef493a0c16ddfad54b32fedfbf22965bc90d0b22e6a479ce4b13003f",
+    "tools/package.ps1": "d8e44b0ae4b9aa7689d8230cb62dc826c9b21b445e8c10a3555ad24019abc84e"
+  },
+  "limitations": [
+    "Windows first CI stopped at catalog order drift before compile. A new Windows run is required.",
+    "No full installation, uninstallation, GPU/game or visual layout validation.",
+    "The original independent receipt is historical evidence for the main display implementation; this is its integration recheck addendum."
+  ]
+}

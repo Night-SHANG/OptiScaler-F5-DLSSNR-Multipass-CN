@@ -1,0 +1,1419 @@
+{
+  "schema": 1,
+  "upstream_commit": "fadc3bf67f6c8548e94914baec3f2e551ba8d8a4",
+  "description": "固定上游安装脚本的显示文本适配；除代码页与 pause 显示支持外，不更改命令、控制流或协议同意要求。",
+  "scripts": [
+    {
+      "path": "setup_windows.bat",
+      "packaged": true,
+      "source_sha256": "c4575c6e45b28c77bbd25cd0002cc6811b8bd6b20d9d1e6d9e03fc37530598da",
+      "localized_sha256": "5e7c74ad829729752548c1e939a05047358aedaf3562b199973793918732d3cd",
+      "preserved_english_reason": "保留文件名、品牌、GPU 型号、哈希、Discord 频道/帖子原名及 INI 键；它们用于准确定位或输入。ASCII 图案、纯版本号和开发注释不翻译。生成卸载脚本的命令保持原样，其显示提示另行翻译。",
+      "entries": [
+        {
+          "line": 12,
+          "source": "echo Coping is strong with this one...",
+          "translation": "echo 这次也要稳住..."
+        },
+        {
+          "line": 21,
+          "source": "    echo Detected OptiScaler.sln or .git files^^!",
+          "translation": "    echo 检测到 OptiScaler.sln 或 .git 文件^^!"
+        },
+        {
+          "line": 23,
+          "source": "    echo If .sln or .git files are in the folder, congratz, you have the source code.",
+          "translation": "    echo 如果文件夹中有 .sln 或 .git 文件，说明你下载的是源代码。"
+        },
+        {
+          "line": 24,
+          "source": "\techo Now please try properly downloading OptiScaler.",
+          "translation": "\techo 请重新下载正确的 OptiScaler 发行包。"
+        },
+        {
+          "line": 26,
+          "source": "    echo Hint - use the Releases page on GitHub, or RTFM :^)",
+          "translation": "    echo 提示 - 请使用 GitHub 的 Releases 页面，或阅读使用说明 :^)"
+        },
+        {
+          "line": 29,
+          "source": "\techo P.S. If you somehow have both the OptiScaler.dll and .sln file, then be nice, just delete the .sln file, re-run the BAT setup and hope for the best.",
+          "translation": "\techo 补充：如果同时存在 OptiScaler.dll 和 .sln 文件，请删除 .sln 文件后重新运行 BAT 安装脚本。"
+        },
+        {
+          "line": 35,
+          "source": "    echo OptiScaler \"OptiScaler.dll\" file is not found^^!",
+          "translation": "    echo 未找到 OptiScaler 文件 \"OptiScaler.dll\"^^!"
+        },
+        {
+          "line": 36,
+          "source": "    echo Detected a folder permissions issue most likely. Might have more luck running the BAT as admin.",
+          "translation": "    echo 可能存在文件夹权限问题，可以尝试以管理员身份运行 BAT 脚本。"
+        },
+        {
+          "line": 38,
+          "source": "\techo OR",
+          "translation": "\techo 或者"
+        },
+        {
+          "line": 40,
+          "source": "    echo If \"OptiScaler.dll\" exists, please manually rename to a supported filename ^(e.g. dxgi/winmm.dll^) and you are done^^!",
+          "translation": "    echo 如果 \"OptiScaler.dll\" 确实存在，请手动改为支持的文件名 ^(例如 dxgi/winmm.dll^) 即可^^!"
+        },
+        {
+          "line": 41,
+          "source": "\techo No need to run the setup BAT again after renaming.",
+          "translation": "\techo 重命名后无需再次运行 BAT 安装脚本。"
+        },
+        {
+          "line": 70,
+          "source": "    echo WARNING: Possible old OptiScaler file^(s^) detected^^!",
+          "translation": "    echo 警告：可能检测到了旧版 OptiScaler 文件^(一个或多个^)^^!"
+        },
+        {
+          "line": 76,
+          "source": "    for %%F in (!OPTI_DLL_LIST!) do echo   - %%F ^(original filename: OptiScaler.dll^)",
+          "translation": "    for %%F in (!OPTI_DLL_LIST!) do echo   - %%F ^(原始文件名：OptiScaler.dll^)"
+        },
+        {
+          "line": 78,
+          "source": "    echo These files may conflict with the current version of OptiScaler.",
+          "translation": "    echo 这些文件可能与当前版本的 OptiScaler 冲突。"
+        },
+        {
+          "line": 79,
+          "source": "    echo It is recommended to delete them.",
+          "translation": "    echo 建议删除这些文件。"
+        },
+        {
+          "line": 81,
+          "source": "    echo Do you want to delete these files?",
+          "translation": "    echo 要删除这些文件吗？"
+        },
+        {
+          "line": 83,
+          "source": "\techo [1] Yes",
+          "translation": "\techo [1] 是"
+        },
+        {
+          "line": 84,
+          "source": "    echo [2] No",
+          "translation": "    echo [2] 否"
+        },
+        {
+          "line": 86,
+          "source": "\tset /p \"USER_CHOICE=Waiting - \"",
+          "translation": "\tset /p \"USER_CHOICE=等待输入 - \""
+        },
+        {
+          "line": 91,
+          "source": "            echo Deleted nvapi64.dll",
+          "translation": "            echo 已删除 nvapi64.dll"
+        },
+        {
+          "line": 95,
+          "source": "            echo Deleted nvngx.dll",
+          "translation": "            echo 已删除 nvngx.dll"
+        },
+        {
+          "line": 99,
+          "source": "            echo Deleted OptiScaler.asi",
+          "translation": "            echo 已删除 OptiScaler.asi"
+        },
+        {
+          "line": 103,
+          "source": "            echo Deleted Remove OptiScaler.bat",
+          "translation": "            echo 已删除 Remove OptiScaler.bat"
+        },
+        {
+          "line": 107,
+          "source": "            echo Deleted Remove_OptiScaler.bat",
+          "translation": "            echo 已删除 Remove_OptiScaler.bat"
+        },
+        {
+          "line": 111,
+          "source": "            echo Deleted %%F",
+          "translation": "            echo 已删除 %%F"
+        },
+        {
+          "line": 113,
+          "source": "        echo Done^^!",
+          "translation": "        echo 完成^^!"
+        },
+        {
+          "line": 115,
+          "source": "        echo Skipping deletion. Note that these files may cause issues.",
+          "translation": "        echo 跳过删除。请注意，这些文件可能导致问题。"
+        },
+        {
+          "line": 127,
+          "source": "    echo Found Engine folder. If this is an Unreal Engine game, then please extract Optiscaler to #CODENAME#\\Binaries\\Win64",
+          "translation": "    echo 发现 Engine 文件夹。如果这是 Unreal Engine 游戏，请将 Optiscaler 解压到 #CODENAME#\\Binaries\\Win64"
+        },
+        {
+          "line": 128,
+          "source": "\techo Do not extract to the Engine folder^^!",
+          "translation": "\techo 不要解压到 Engine 文件夹^^!"
+        },
+        {
+          "line": 130,
+          "source": "\techo Example - \\Jedi Survivor\\SwGame\\Binaries\\Win64, \\Witchfire\\Witchfire\\Binaries\\Win64",
+          "translation": "\techo 示例 - \\Jedi Survivor\\SwGame\\Binaries\\Win64, \\Witchfire\\Witchfire\\Binaries\\Win64"
+        },
+        {
+          "line": 132,
+          "source": "    echo Continue installation to current folder?",
+          "translation": "    echo 继续安装到当前文件夹吗？"
+        },
+        {
+          "line": 134,
+          "source": "    echo [1] Yes",
+          "translation": "    echo [1] 是"
+        },
+        {
+          "line": 135,
+          "source": "    echo [2] No",
+          "translation": "    echo [2] 否"
+        },
+        {
+          "line": 137,
+          "source": "\tset /p continueChoice=\"Waiting - \"",
+          "translation": "\tset /p continueChoice=\"等待输入 - \""
+        },
+        {
+          "line": 150,
+          "source": "echo Choose a filename for OptiScaler (default is dxgi.dll, most compatible):",
+          "translation": "echo 请选择 OptiScaler 的文件名 (默认 dxgi.dll，兼容性最好)："
+        },
+        {
+          "line": 151,
+          "source": "echo (For Vulkan, use winmm.dll. For XGP/MS Store, winmm/version.dll may be better)",
+          "translation": "echo (Vulkan 请使用 winmm.dll；XGP/MS Store 使用 winmm/version.dll 可能更合适)"
+        },
+        {
+          "line": 162,
+          "source": "set /p filenameChoice=\"Enter 1-8 (or press Enter for default): \"",
+          "translation": "set /p filenameChoice=\"输入 1-8 (或按 Enter 使用默认值)： \""
+        },
+        {
+          "line": 183,
+          "source": "    echo Invalid choice. Please select a valid option.",
+          "translation": "    echo 选择无效，请选择有效选项。"
+        },
+        {
+          "line": 190,
+          "source": "    echo WARNING: %selectedFilename% already exists in the current folder.",
+          "translation": "    echo 警告：当前文件夹中已存在 %selectedFilename%。"
+        },
+        {
+          "line": 192,
+          "source": "\techo Do you want to overwrite %selectedFilename%?",
+          "translation": "\techo 要覆盖 %selectedFilename% 吗？"
+        },
+        {
+          "line": 194,
+          "source": "    echo [1] Yes",
+          "translation": "    echo [1] 是"
+        },
+        {
+          "line": 195,
+          "source": "    echo [2] No",
+          "translation": "    echo [2] 否"
+        },
+        {
+          "line": 197,
+          "source": "\tset /p overwriteChoice=\"Waiting - \"",
+          "translation": "\tset /p overwriteChoice=\"等待输入 - \""
+        },
+        {
+          "line": 211,
+          "source": "    echo WARNING: This proxy has a reported Streamline conflict that can grey out",
+          "translation": "    echo 警告：已有报告指出，此代理与 Streamline 冲突时，可能导致"
+        },
+        {
+          "line": 212,
+          "source": "    echo Cyberpunk's Ray Reconstruction option. Try dxgi.dll or another compatible",
+          "translation": "    echo Cyberpunk 的光线重建选项变灰。遇到此问题请尝试 dxgi.dll 或其他兼容"
+        },
+        {
+          "line": 213,
+          "source": "    echo proxy if that happens. Back up existing ReShade or other loaders first.",
+          "translation": "    echo 代理。请先备份现有的 ReShade 或其他加载器。"
+        },
+        {
+          "line": 214,
+          "source": "    echo See INSTALL-DLSSNR.md for the confirmed upstream report.",
+          "translation": "    echo 已确认的上游问题报告请参阅 INSTALL-DLSSNR.md。"
+        },
+        {
+          "line": 219,
+          "source": "    echo Using wine, skipping over spoofing checks.",
+          "translation": "    echo 检测到 Wine，跳过显卡身份伪装检查。"
+        },
+        {
+          "line": 220,
+          "source": "    echo If you need, you can disable spoofing by setting Dxgi=false in the config",
+          "translation": "    echo 如有需要，可在配置中设置 Dxgi=false 来禁用显卡身份伪装"
+        },
+        {
+          "line": 228,
+          "source": "    echo Nvidia driver files detected.",
+          "translation": "    echo 检测到 Nvidia 驱动文件。"
+        },
+        {
+          "line": 236,
+          "source": "echo Are you using an Nvidia GPU or AMD/Intel GPU?",
+          "translation": "echo 你使用的是 Nvidia 显卡，还是 AMD/Intel 显卡？"
+        },
+        {
+          "line": 244,
+          "source": "    set /p gpuChoice=\"Enter 1 or 2 (Detected Nvidia): \"",
+          "translation": "    set /p gpuChoice=\"输入 1 或 2 (检测到 Nvidia)： \""
+        },
+        {
+          "line": 246,
+          "source": "    set /p gpuChoice=\"Enter 1 or 2 (Detected AMD/Intel): \"",
+          "translation": "    set /p gpuChoice=\"输入 1 或 2 (检测到 AMD/Intel)： \""
+        },
+        {
+          "line": 251,
+          "source": "echo Invalid input. Please enter 1 or 2.",
+          "translation": "echo 输入无效，请输入 1 或 2。"
+        },
+        {
+          "line": 264,
+          "source": "echo Will you try to use DLSS inputs to replace with FSR/XeSS? (enables Nvidia spoofing, required for DLSS-FG, Reflex-^>AL2)",
+          "translation": "echo 是否通过 DLSS 输入使用 FSR/XeSS？ (这会启用 Nvidia 身份伪装；DLSS-FG、Reflex-^>AL2 需要此功能)"
+        },
+        {
+          "line": 265,
+          "source": "echo If you want to change the setting later, edit OptiScaler.ini and set Dxgi=false to disable spoofing and reverse.",
+          "translation": "echo 以后可编辑 OptiScaler.ini，将 Dxgi=false 设为禁用显卡身份伪装，反之则启用。"
+        },
+        {
+          "line": 267,
+          "source": "echo [1] Yes",
+          "translation": "echo [1] 是"
+        },
+        {
+          "line": 268,
+          "source": "echo [2] No",
+          "translation": "echo [2] 否"
+        },
+        {
+          "line": 270,
+          "source": "set /p enablingSpoofing=\"Enter 1 or 2 (or press Enter for Yes): \"",
+          "translation": "set /p enablingSpoofing=\"输入 1 或 2 (或按 Enter 选择“是”)： \""
+        },
+        {
+          "line": 275,
+          "source": "        echo Config file not found: %configFile%",
+          "translation": "        echo 未找到配置文件：%configFile%"
+        },
+        {
+          "line": 285,
+          "source": "    echo AMD/Intel GPU detected - running OptiPatcher check.",
+          "translation": "    echo 检测到 AMD/Intel 显卡 - 正在检查 OptiPatcher。"
+        },
+        {
+          "line": 297,
+          "source": "    echo OptiPatcher found: !foundOptiPatcher!",
+          "translation": "    echo 找到 OptiPatcher：!foundOptiPatcher!"
+        },
+        {
+          "line": 298,
+          "source": "    echo If the existing version works properly, might be best to keep it.",
+          "translation": "    echo 如果现有版本工作正常，建议保留。"
+        },
+        {
+          "line": 299,
+          "source": "\techo Do you want to re-download a possibly newer version?",
+          "translation": "\techo 是否重新下载可能更新的版本？"
+        },
+        {
+          "line": 301,
+          "source": "    echo [1] Yes",
+          "translation": "    echo [1] 是"
+        },
+        {
+          "line": 302,
+          "source": "    echo [2] No",
+          "translation": "    echo [2] 否"
+        },
+        {
+          "line": 304,
+          "source": "\tset /p optiRedownload=\"Waiting - \"",
+          "translation": "\tset /p optiRedownload=\"等待输入 - \""
+        },
+        {
+          "line": 308,
+          "source": "        echo Deleting !foundOptiPatcher!...",
+          "translation": "        echo 正在删除 !foundOptiPatcher!..."
+        },
+        {
+          "line": 313,
+          "source": "        echo Keeping existing OptiPatcher - skipping download.",
+          "translation": "        echo 保留现有 OptiPatcher - 跳过下载。"
+        },
+        {
+          "line": 324,
+          "source": "echo Checking for OptiPatcher compatibility...",
+          "translation": "echo 正在检查 OptiPatcher 兼容性..."
+        },
+        {
+          "line": 325,
+          "source": "echo Press Ctrl+C if this gets stuck to skip to setup completion.",
+          "translation": "echo 如果卡住，可按 Ctrl+C 跳过并完成安装。"
+        },
+        {
+          "line": 329,
+          "source": "    echo Offline or GitHub blocked. Skipping OptiPatcher check.",
+          "translation": "    echo 网络离线或 GitHub 无法访问，跳过 OptiPatcher 检查。"
+        },
+        {
+          "line": 340,
+          "source": "    echo OptiPatcher support detected^^!",
+          "translation": "    echo 检测到 OptiPatcher 支持^^!"
+        },
+        {
+          "line": 341,
+          "source": "    echo An Opti plugin used for unlocking DLSS/DLSS-FG inputs, avoiding spoofing and performance overhead in supported games.",
+          "translation": "    echo 该 Opti 插件可在支持的游戏中解锁 DLSS/DLSS-FG 输入，避免显卡身份伪装和性能开销。"
+        },
+        {
+          "line": 342,
+          "source": "    echo More info available on OptiPatcher Github",
+          "translation": "    echo 更多信息请参阅 OptiPatcher 的 Github 页面"
+        },
+        {
+          "line": 344,
+          "source": "\techo Download OptiPatcher.asi?",
+          "translation": "\techo 下载 OptiPatcher.asi 吗？"
+        },
+        {
+          "line": 346,
+          "source": "\techo [1] Yes",
+          "translation": "\techo [1] 是"
+        },
+        {
+          "line": 347,
+          "source": "    echo [2] No",
+          "translation": "    echo [2] 否"
+        },
+        {
+          "line": 349,
+          "source": "\tset /p downloadOptiPatcher=\"Waiting - \"",
+          "translation": "\tset /p downloadOptiPatcher=\"等待输入 - \""
+        },
+        {
+          "line": 354,
+          "source": "        echo Preparing plugins folder...",
+          "translation": "        echo 正在准备 plugins 文件夹..."
+        },
+        {
+          "line": 357,
+          "source": "        echo Downloading OptiPatcher...",
+          "translation": "        echo 正在下载 OptiPatcher..."
+        },
+        {
+          "line": 358,
+          "source": "        echo Press Ctrl+C if this gets stuck to skip to setup completion.",
+          "translation": "        echo 如果卡住，可按 Ctrl+C 跳过并完成安装。"
+        },
+        {
+          "line": 364,
+          "source": "            echo OptiPatcher.asi downloaded successfully.",
+          "translation": "            echo OptiPatcher.asi 下载成功。"
+        },
+        {
+          "line": 365,
+          "source": "            echo Enabling ASI loading in OptiScaler.ini...",
+          "translation": "            echo 正在 OptiScaler.ini 中启用 ASI 加载..."
+        },
+        {
+          "line": 368,
+          "source": "                echo Successfully enabled ASI loading in OptiScaler.ini^^!",
+          "translation": "                echo 已在 OptiScaler.ini 中成功启用 ASI 加载^^!"
+        },
+        {
+          "line": 370,
+          "source": "                echo Warning: OptiScaler.ini not found, could not enable LoadAsiPlugins.",
+          "translation": "                echo 警告：未找到 OptiScaler.ini，无法启用 LoadAsiPlugins。"
+        },
+        {
+          "line": 373,
+          "source": "            echo Failed to download OptiPatcher.asi.",
+          "translation": "            echo OptiPatcher.asi 下载失败。"
+        },
+        {
+          "line": 386,
+          "source": "    echo Removing previous %selectedFilename%...",
+          "translation": "    echo 正在移除旧的 %selectedFilename%..."
+        },
+        {
+          "line": 390,
+          "source": "echo Renaming OptiScaler file to %selectedFilename%...",
+          "translation": "echo 正在将 OptiScaler 文件重命名为 %selectedFilename%..."
+        },
+        {
+          "line": 394,
+          "source": "    echo ERROR: Failed to rename OptiScaler file to %selectedFilename%. Most likely due to folder permissions issues.",
+          "translation": "    echo 错误：无法将 OptiScaler 文件重命名为 %selectedFilename%。可能是文件夹权限问题。"
+        },
+        {
+          "line": 395,
+          "source": "    echo Please rename OptiScaler.dll manually to %selectedFilename%^^! No need to run setup BAT again after that.",
+          "translation": "    echo 请手动将 OptiScaler.dll 重命名为 %selectedFilename%^^! 此后无需再次运行 BAT 安装脚本。"
+        },
+        {
+          "line": 405,
+          "source": "echo  OptiScaler setup completed successfully...",
+          "translation": "echo  OptiScaler 安装成功..."
+        },
+        {
+          "line": 421,
+          "source": "echo   DLSS 5 Neural Rendering",
+          "translation": "echo   DLSS 5 神经渲染"
+        },
+        {
+          "line": 430,
+          "source": "    echo   nvngx_dlssnr.dll found here.",
+          "translation": "    echo   已在当前文件夹找到 nvngx_dlssnr.dll。"
+        },
+        {
+          "line": 434,
+          "source": "        echo   ShortFuse cross-generation runtime detected.",
+          "translation": "        echo   检测到 ShortFuse 跨代运行库。"
+        },
+        {
+          "line": 435,
+          "source": "        echo   This build supports RTX 20, 30, 40, and 50 series GPUs.",
+          "translation": "        echo   此版本支持 RTX 20、30、40 和 50 系列显卡。"
+        },
+        {
+          "line": 437,
+          "source": "        echo   Original NVIDIA 310.8 runtime detected.",
+          "translation": "        echo   检测到 NVIDIA 原版 310.8 运行库。"
+        },
+        {
+          "line": 438,
+          "source": "        echo   This file is for RTX 50. RTX 20, 30, and 40 users must replace",
+          "translation": "        echo   此文件适用于 RTX 50。RTX 20、30 和 40 用户必须将其替换为"
+        },
+        {
+          "line": 439,
+          "source": "        echo   it with ShortFuse's pinned cross-generation compatibility runtime.",
+          "translation": "        echo   ShortFuse 置顶帖子中的跨代兼容运行库。"
+        },
+        {
+          "line": 441,
+          "source": "        echo   WARNING: This runtime hash is not one documented by this release.",
+          "translation": "        echo   警告：此运行库的哈希不属于本发行版记录的已知哈希。"
+        },
+        {
+          "line": 442,
+          "source": "        echo   Do not assume that it supports your GPU or came from a trusted source.",
+          "translation": "        echo   不要据此认为它支持你的显卡，或来自可信来源。"
+        },
+        {
+          "line": 445,
+          "source": "    echo   nvngx_dlssnr.dll was NOT found in this folder.",
+          "translation": "    echo   当前文件夹中未找到 nvngx_dlssnr.dll。"
+        },
+        {
+          "line": 447,
+          "source": "    echo   Neural Rendering needs it, but it cannot be redistributed here.",
+          "translation": "    echo   神经渲染需要此文件，但本项目无法随包分发它。"
+        },
+        {
+          "line": 448,
+          "source": "    echo   Copy the GPU-appropriate 310.8 runtime into THIS folder - the",
+          "translation": "    echo   请将适合你显卡的 310.8 运行库复制到当前文件夹，也就是"
+        },
+        {
+          "line": 449,
+          "source": "    echo   same one holding the game executable and the renamed OptiScaler.",
+          "translation": "    echo   游戏可执行文件与重命名后的 OptiScaler 所在的文件夹。"
+        },
+        {
+          "line": 451,
+          "source": "    echo   One copy per game. There is no shared or system-wide location.",
+          "translation": "    echo   每个游戏都需要单独放置一份，没有共享或系统级位置。"
+        },
+        {
+          "line": 454,
+          "source": "echo   Two similarly named files matter here, one character apart:",
+          "translation": "echo   请区分以下两个仅相差一个字符的文件名："
+        },
+        {
+          "line": 456,
+          "source": "echo     nvngx.dll_dlssnr.dll   ships in this package  ^(about 13 KB^)",
+          "translation": "echo     nvngx.dll_dlssnr.dll   本发行包自带          ^(约 13 KB^)"
+        },
+        {
+          "line": 457,
+          "source": "echo     nvngx_dlssnr.dll       you supply it          ^(about 165 MB^)",
+          "translation": "echo     nvngx_dlssnr.dll       需要你自行提供        ^(约 165 MB^)"
+        },
+        {
+          "line": 459,
+          "source": "echo   Runtime required by GPU:",
+          "translation": "echo   各显卡所需的运行库："
+        },
+        {
+          "line": 460,
+          "source": "echo     RTX 50          original NVIDIA 310.8",
+          "translation": "echo     RTX 50          NVIDIA 原版 310.8"
+        },
+        {
+          "line": 462,
+          "source": "echo     RTX 20/30/40    ShortFuse cross-generation 310.8",
+          "translation": "echo     RTX 20/30/40    ShortFuse 跨代版 310.8"
+        },
+        {
+          "line": 465,
+          "source": "echo   Obtain the compatibility runtime only from ShortFuse's pinned thread",
+          "translation": "echo   兼容运行库请仅从 RenoDX Discord 中 ShortFuse 的置顶帖子获取"
+        },
+        {
+          "line": 466,
+          "source": "echo   in the RenoDX Discord: https://discord.com/invite/renodx",
+          "translation": "echo   RenoDX Discord 地址：https://discord.com/invite/renodx"
+        },
+        {
+          "line": 467,
+          "source": "echo   Channel: dlss5-forum ^> Patched DLSS-NR for RTX20, RTX30, and RTX40",
+          "translation": "echo   频道：dlss5-forum ^> Patched DLSS-NR for RTX20, RTX30, and RTX40"
+        },
+        {
+          "line": 469,
+          "source": "echo   The compatibility DLL is modified, so its NVIDIA signature does not",
+          "translation": "echo   兼容 DLL 经过修改，因此无法通过 NVIDIA 签名验证。"
+        },
+        {
+          "line": 470,
+          "source": "echo   validate. Keep security protection on and verify the exact hash above.",
+          "translation": "echo   请保持安全防护开启，并核对上述完整哈希。"
+        },
+        {
+          "line": 472,
+          "source": "echo   Neural Rendering is OFF by default. Turn it on in the OptiScaler",
+          "translation": "echo   神经渲染默认关闭。可在 OptiScaler 浮层菜单中开启"
+        },
+        {
+          "line": 473,
+          "source": "echo   overlay under \"DLSS Neural Rendering\", or set Enabled=true under",
+          "translation": "echo   \"DLSS Neural Rendering\"，或将 Enabled=true 写入"
+        },
+        {
+          "line": 474,
+          "source": "echo   the DlssNr section of OptiScaler.ini.",
+          "translation": "echo   OptiScaler.ini 的 DlssNr 配置节。"
+        },
+        {
+          "line": 476,
+          "source": "echo   RTX 20, 30, 40, and 50 are supported with the correct runtime.",
+          "translation": "echo   使用正确运行库时，支持 RTX 20、30、40 和 50 系列。"
+        },
+        {
+          "line": 477,
+          "source": "echo   Driver 616.56 or newer is required. Start with one pass on RTX 20/30.",
+          "translation": "echo   需要 616.56 或更新的驱动。RTX 20/30 建议先从单遍渲染开始。"
+        },
+        {
+          "line": 499,
+          "source": "echo echo Coping is strong with this one...",
+          "translation": "echo echo 这次也要稳住..."
+        },
+        {
+          "line": 500,
+          "source": "echo echo v2.8 - now with OptiPatcher support",
+          "translation": "echo echo v2.8 - 现已支持 OptiPatcher"
+        },
+        {
+          "line": 521,
+          "source": "echo     echo Existing OptiScaler installation detected^^^^!",
+          "translation": "echo     echo 检测到现有 OptiScaler 安装^^^^!"
+        },
+        {
+          "line": 523,
+          "source": "echo     for %%%%F in ^(!OPTI_DLL_LIST!^) do echo   - %%%%F - original filename: OptiScaler.dll",
+          "translation": "echo     for %%%%F in ^(!OPTI_DLL_LIST!^) do echo   - %%%%F - 原始文件名：OptiScaler.dll"
+        },
+        {
+          "line": 527,
+          "source": "echo echo Do you want to remove OptiScaler?",
+          "translation": "echo echo 要卸载 OptiScaler 吗？"
+        },
+        {
+          "line": 529,
+          "source": "echo echo [1] Yes",
+          "translation": "echo echo [1] 是"
+        },
+        {
+          "line": 530,
+          "source": "echo echo [2] No",
+          "translation": "echo echo [2] 否"
+        },
+        {
+          "line": 532,
+          "source": "echo set /p removeChoice=\"Waiting - \"",
+          "translation": "echo set /p removeChoice=\"等待输入 - \""
+        },
+        {
+          "line": 549,
+          "source": "echo     echo Deleting OptiPatcher if present",
+          "translation": "echo     echo 如存在 OptiPatcher，则将其删除"
+        },
+        {
+          "line": 556,
+          "source": "echo     echo OptiScaler removed^^^^! Ignore the warnings about missing files.",
+          "translation": "echo     echo OptiScaler 已移除^^^^! 可忽略文件不存在的警告。"
+        },
+        {
+          "line": 560,
+          "source": "echo     echo Operation cancelled.",
+          "translation": "echo     echo 操作已取消。"
+        },
+        {
+          "line": 573,
+          "source": "echo Uninstaller created.",
+          "translation": "echo 已创建卸载脚本。"
+        }
+      ],
+      "preserved_entries": [
+        {
+          "line": 13,
+          "source": "echo v3.0-pre1",
+          "reason": "原版脚本版本标识，保留用于排查。"
+        },
+        {
+          "line": 71,
+          "source": "    if exist nvapi64.dll echo   - nvapi64.dll",
+          "reason": "精确文件名或文件名选项，保留供识别和输入。"
+        },
+        {
+          "line": 72,
+          "source": "    if exist nvngx.dll echo   - nvngx.dll",
+          "reason": "精确文件名或文件名选项，保留供识别和输入。"
+        },
+        {
+          "line": 73,
+          "source": "    if exist OptiScaler.asi echo   - OptiScaler.asi",
+          "reason": "精确文件名或文件名选项，保留供识别和输入。"
+        },
+        {
+          "line": 74,
+          "source": "\tif exist \"Remove OptiScaler.bat\" echo   - Remove OptiScaler.bat",
+          "reason": "精确文件名或文件名选项，保留供识别和输入。"
+        },
+        {
+          "line": 75,
+          "source": "    if exist \"Remove_OptiScaler.bat\" echo   - Remove_OptiScaler.bat",
+          "reason": "精确文件名或文件名选项，保留供识别和输入。"
+        },
+        {
+          "line": 153,
+          "source": "echo  [1] dxgi.dll",
+          "reason": "精确文件名或文件名选项，保留供识别和输入。"
+        },
+        {
+          "line": 154,
+          "source": "echo  [2] winmm.dll",
+          "reason": "精确文件名或文件名选项，保留供识别和输入。"
+        },
+        {
+          "line": 155,
+          "source": "echo  [3] version.dll",
+          "reason": "精确文件名或文件名选项，保留供识别和输入。"
+        },
+        {
+          "line": 156,
+          "source": "echo  [4] dbghelp.dll",
+          "reason": "精确文件名或文件名选项，保留供识别和输入。"
+        },
+        {
+          "line": 157,
+          "source": "echo  [5] d3d12.dll",
+          "reason": "精确文件名或文件名选项，保留供识别和输入。"
+        },
+        {
+          "line": 158,
+          "source": "echo  [6] wininet.dll",
+          "reason": "精确文件名或文件名选项，保留供识别和输入。"
+        },
+        {
+          "line": 159,
+          "source": "echo  [7] winhttp.dll",
+          "reason": "精确文件名或文件名选项，保留供识别和输入。"
+        },
+        {
+          "line": 160,
+          "source": "echo  [8] OptiScaler.asi",
+          "reason": "精确文件名或文件名选项，保留供识别和输入。"
+        },
+        {
+          "line": 238,
+          "source": "echo [1] AMD/Intel",
+          "reason": "GPU 厂商品牌与选择数字保持原样。"
+        },
+        {
+          "line": 239,
+          "source": "echo [2] Nvidia",
+          "reason": "GPU 厂商品牌与选择数字保持原样。"
+        },
+        {
+          "line": 431,
+          "source": "    echo   SHA-256: !dlssnrHash!",
+          "reason": "密码学哈希标签或运行时哈希值，保持精确。"
+        },
+        {
+          "line": 461,
+          "source": "echo                     !dlssnrStockHash!",
+          "reason": "密码学哈希标签或运行时哈希值，保持精确。"
+        },
+        {
+          "line": 463,
+          "source": "echo                     !dlssnrCrossGenHash!",
+          "reason": "密码学哈希标签或运行时哈希值，保持精确。"
+        },
+        {
+          "line": 522,
+          "source": "echo     if exist OptiScaler.asi echo   - OptiScaler.asi",
+          "reason": "精确文件名或文件名选项，保留供识别和输入。"
+        }
+      ],
+      "coverage": {
+        "text_display_lines": 154,
+        "translated_display_lines": 134,
+        "preserved_display_lines": 20,
+        "localized_pause_prompts": 4
+      }
+    },
+    {
+      "path": "setup_linux.sh",
+      "packaged": true,
+      "source_sha256": "0571b0ae077d985616acf9f4101e8338fc225b1b22aa7b339100c7ea3f3022be",
+      "localized_sha256": "398fad45097e9feb10ccb7b908e77bc161da71294249682964c419f38a7c0086",
+      "preserved_english_reason": "保留命令行选项、y/n/Y/N 响应、文件名、路径模板、品牌及 WINEDLLOVERRIDES 启动命令；开发注释和 ASCII 图案不翻译。",
+      "entries": [
+        {
+          "line": 5,
+          "source": "    echo \"Usage: $0 [OPTIONS]\"",
+          "translation": "    echo \"用法：$0 [选项]\""
+        },
+        {
+          "line": 7,
+          "source": "    echo \"Options:\"",
+          "translation": "    echo \"选项：\""
+        },
+        {
+          "line": 8,
+          "source": "    echo \"  --filename=<string>        Set target filename for OptiScaler.dll. Options are:\"",
+          "translation": "    echo \"  --filename=<string>        设置 OptiScaler.dll 的目标文件名，可选值：\""
+        },
+        {
+          "line": 18,
+          "source": "    echo \"  --overwrite=<y|n>       Overwrite existing file (y/n)\"",
+          "translation": "    echo \"  --overwrite=<y|n>       覆盖已有文件 (y/n)\""
+        },
+        {
+          "line": 19,
+          "source": "    echo \"  --using_nvidia=<y|n>    Using Nvidia GPU (y/n)\"",
+          "translation": "    echo \"  --using_nvidia=<y|n>    是否使用 Nvidia 显卡 (y/n)\""
+        },
+        {
+          "line": 20,
+          "source": "    echo \"  --using_dlss=<y|n>      Use DLSS inputs/spoofing (y/n)\"",
+          "translation": "    echo \"  --using_dlss=<y|n>      使用 DLSS 输入/显卡身份伪装 (y/n)\""
+        },
+        {
+          "line": 21,
+          "source": "    echo \"  -h, --help              Show this help message\"",
+          "translation": "    echo \"  -h, --help              显示此帮助信息\""
+        },
+        {
+          "line": 23,
+          "source": "    echo \"Example:\"",
+          "translation": "    echo \"示例：\""
+        },
+        {
+          "line": 48,
+          "source": "echo \"Coping is strong with this one...\"",
+          "translation": "echo \"这次也要稳住...\""
+        },
+        {
+          "line": 61,
+          "source": "    echo \"OptiScaler \\\"OptiScaler.dll\\\" file is not found!\"",
+          "translation": "    echo \"未找到 OptiScaler 文件 \\\"OptiScaler.dll\\\"！\""
+        },
+        {
+          "line": 62,
+          "source": "    echo \"Please make sure you extracted all OptiScaler files to the game folder.\"",
+          "translation": "    echo \"请确认已将所有 OptiScaler 文件解压到游戏文件夹。\""
+        },
+        {
+          "line": 64,
+          "source": "    echo \"For Unreal Engine games, look for the game executable in:\"",
+          "translation": "    echo \"对于 Unreal Engine 游戏，请在以下位置查找游戏可执行文件：\""
+        },
+        {
+          "line": 65,
+          "source": "    echo \"- <path-to-game>/Game-or-Project-name/Binaries/Win64/\"",
+          "translation": "    echo \"- <path-to-game>/Game-or-Project-name/Binaries/Win64/（游戏路径/游戏或项目名称）\""
+        },
+        {
+          "line": 66,
+          "source": "    echo \"- Ignore the Engine folder\"",
+          "translation": "    echo \"- 忽略 Engine 文件夹\""
+        },
+        {
+          "line": 68,
+          "source": "    read -p \"Press Enter to exit...\"",
+          "translation": "    read -p \"按 Enter 退出...\""
+        },
+        {
+          "line": 74,
+          "source": "    echo \"Found Engine folder, if this is an Unreal Engine game then please extract OptiScaler to #CODENAME#/Binaries/Win64\"",
+          "translation": "    echo \"发现 Engine 文件夹。如果这是 Unreal Engine 游戏，请将 OptiScaler 解压到 #CODENAME#/Binaries/Win64\""
+        },
+        {
+          "line": 78,
+          "source": "        read -p \"Continue installation to current folder? [y/n]: \" continue_choice",
+          "translation": "        read -p \"继续安装到当前文件夹吗？[y/n]： \" continue_choice"
+        },
+        {
+          "line": 84,
+          "source": "            echo \"Installation cancelled.\"",
+          "translation": "            echo \"安装已取消。\""
+        },
+        {
+          "line": 85,
+          "source": "            read -p \"Press Enter to exit...\"",
+          "translation": "            read -p \"按 Enter 退出...\""
+        },
+        {
+          "line": 99,
+          "source": "                echo \"Invalid filename: $selected_filename\"",
+          "translation": "                echo \"文件名无效：$selected_filename\""
+        },
+        {
+          "line": 107,
+          "source": "        echo \"Choose a filename for OptiScaler (default is dxgi.dll):\"",
+          "translation": "        echo \"请选择 OptiScaler 的文件名（默认 dxgi.dll）：\""
+        },
+        {
+          "line": 117,
+          "source": "        read -p \"Enter 1-8 (or press Enter for default): \" filename_choice",
+          "translation": "        read -p \"输入 1-8（或按 Enter 使用默认值）： \" filename_choice"
+        },
+        {
+          "line": 146,
+          "source": "                echo \"Invalid choice. Please select a valid option.\"",
+          "translation": "                echo \"选择无效，请选择有效选项。\""
+        },
+        {
+          "line": 155,
+          "source": "            echo \"WARNING: $selected_filename already exists in the current folder.\"",
+          "translation": "            echo \"警告：当前文件夹中已存在 $selected_filename。\""
+        },
+        {
+          "line": 162,
+          "source": "                    echo \"File exists and overwrite_choice=$overwrite_choice, exiting.\"",
+          "translation": "                    echo \"文件已存在，且 overwrite_choice=$overwrite_choice，正在退出。\""
+        },
+        {
+          "line": 168,
+          "source": "                read -p \"Do you want to overwrite it? [y/n]: \" overwrite_choice",
+          "translation": "                read -p \"要覆盖此文件吗？[y/n]： \" overwrite_choice"
+        },
+        {
+          "line": 178,
+          "source": "                    echo \"Invalid choice. Please enter 'y' or 'n'.\"",
+          "translation": "                    echo \"选择无效，请输入 'y' 或 'n'。\""
+        },
+        {
+          "line": 194,
+          "source": "        echo \"Nvidia GPU detected.\"",
+          "translation": "        echo \"检测到 Nvidia 显卡。\""
+        },
+        {
+          "line": 202,
+          "source": "        read -r -p \"Are you using an Nvidia GPU [Y/n]: \" using_nvidia",
+          "translation": "        read -r -p \"你使用的是 Nvidia 显卡吗？[Y/n]： \" using_nvidia"
+        },
+        {
+          "line": 205,
+          "source": "        read -r -p \"Are you using an Nvidia GPU [y/N]: \" using_nvidia",
+          "translation": "        read -r -p \"你使用的是 Nvidia 显卡吗？[y/N]： \" using_nvidia"
+        },
+        {
+          "line": 214,
+          "source": "            read -r -p \"Will you try to use DLSS inputs? (enables spoofing, required for DLSS FG, Reflex->AL2) [Y/n]: \" using_dlss",
+          "translation": "            read -r -p \"是否使用 DLSS 输入？（启用显卡身份伪装，DLSS FG、Reflex->AL2 需要此功能）[Y/n]： \" using_dlss"
+        },
+        {
+          "line": 223,
+          "source": "                    echo \"Config file not found: $config_file\"",
+          "translation": "                    echo \"未找到配置文件：$config_file\""
+        },
+        {
+          "line": 224,
+          "source": "                    read -p \"Press Enter to continue...\"",
+          "translation": "                    read -p \"按 Enter 继续...\""
+        },
+        {
+          "line": 228,
+          "source": "                    echo \"Spoofing disabled in configuration.\"",
+          "translation": "                    echo \"已在配置中禁用显卡身份伪装。\""
+        },
+        {
+          "line": 234,
+          "source": "                echo \"Invalid choice. Please enter 'y' or 'n'.\"",
+          "translation": "                echo \"选择无效，请输入 'y' 或 'n'。\""
+        },
+        {
+          "line": 242,
+          "source": "        echo \"Invalid choice. Please enter 'y' or 'n'.\"",
+          "translation": "        echo \"选择无效，请输入 'y' 或 'n'。\""
+        },
+        {
+          "line": 250,
+          "source": "    echo \"Removing previous $selected_filename...\"",
+          "translation": "    echo \"正在移除旧的 $selected_filename...\""
+        },
+        {
+          "line": 254,
+          "source": "echo \"Renaming OptiScaler file to $selected_filename...\"",
+          "translation": "echo \"正在将 OptiScaler 文件重命名为 $selected_filename...\""
+        },
+        {
+          "line": 257,
+          "source": "    echo \"ERROR: Failed to rename OptiScaler file to $selected_filename.\"",
+          "translation": "    echo \"错误：无法将 OptiScaler 文件重命名为 $selected_filename。\""
+        },
+        {
+          "line": 258,
+          "source": "    echo \"Please check file permissions and try again.\"",
+          "translation": "    echo \"请检查文件权限后重试。\""
+        },
+        {
+          "line": 259,
+          "source": "    read -p \"Press Enter to exit...\"",
+          "translation": "    read -p \"按 Enter 退出...\""
+        },
+        {
+          "line": 270,
+          "source": "    echo \"Usage: $0 [OPTIONS]\"",
+          "translation": "    echo \"用法：$0 [选项]\""
+        },
+        {
+          "line": 272,
+          "source": "    echo \"Options:\"",
+          "translation": "    echo \"选项：\""
+        },
+        {
+          "line": 273,
+          "source": "    echo \"  --remove=<y|n>    Confirm removal (y/n)\"",
+          "translation": "    echo \"  --remove=<y|n>    确认移除 (y/n)\""
+        },
+        {
+          "line": 274,
+          "source": "    echo \"  -h, --help        Show this help message\"",
+          "translation": "    echo \"  -h, --help        显示此帮助信息\""
+        },
+        {
+          "line": 295,
+          "source": "echo \"Coping is strong with this one...\"",
+          "translation": "echo \"这次也要稳住...\""
+        },
+        {
+          "line": 299,
+          "source": "    read -p \"Do you want to remove OptiScaler? [y/n]: \" remove_choice",
+          "translation": "    read -p \"要卸载 OptiScaler 吗？[y/n]： \" remove_choice"
+        },
+        {
+          "line": 304,
+          "source": "    echo \"Removing OptiScaler files...\"",
+          "translation": "    echo \"正在移除 OptiScaler 文件...\""
+        },
+        {
+          "line": 322,
+          "source": "    echo \"OptiScaler removed!\"",
+          "translation": "    echo \"OptiScaler 已移除！\""
+        },
+        {
+          "line": 329,
+          "source": "    echo \"Operation cancelled.\"",
+          "translation": "    echo \"操作已取消。\""
+        },
+        {
+          "line": 334,
+          "source": "    read -p \"Press Enter to exit...\"",
+          "translation": "    read -p \"按 Enter 退出...\""
+        },
+        {
+          "line": 345,
+          "source": "    echo \"Uninstaller created: remove_optiscaler.sh\"",
+          "translation": "    echo \"已创建卸载脚本：remove_optiscaler.sh\""
+        },
+        {
+          "line": 354,
+          "source": "echo \" OptiScaler setup completed successfully...\"",
+          "translation": "echo \" OptiScaler 安装成功...\""
+        },
+        {
+          "line": 363,
+          "source": "echo \"IMPORTANT FOR LINUX/WINE USERS:\"",
+          "translation": "echo \"LINUX/WINE 用户请注意：\""
+        },
+        {
+          "line": 364,
+          "source": "echo \"You might need to add the renamed DLL to Wine overrides\"",
+          "translation": "echo \"你可能需要将重命名后的 DLL 加入 Wine 的 DLL 替换设置\""
+        },
+        {
+          "line": 365,
+          "source": "echo \"Example, if using Steam, add this to launch options:\"",
+          "translation": "echo \"例如，使用 Steam 时，可将以下内容添加到启动选项：\""
+        },
+        {
+          "line": 369,
+          "source": "echo \"Remember: Insert key opens OptiScaler overlay, Page Up/Down for performance stats\"",
+          "translation": "echo \"快捷键：Insert 打开 OptiScaler 浮层菜单，Page Up/Down 显示性能统计\""
+        },
+        {
+          "line": 374,
+          "source": "    read -p \"Press Enter to exit...\"",
+          "translation": "    read -p \"按 Enter 退出...\""
+        }
+      ],
+      "preserved_entries": [
+        {
+          "line": 9,
+          "source": "    echo \"                            - dxgi.dll\"",
+          "reason": "精确文件名或文件名选项，保留供识别和输入。"
+        },
+        {
+          "line": 10,
+          "source": "    echo \"                            - winmm.dll\"",
+          "reason": "精确文件名或文件名选项，保留供识别和输入。"
+        },
+        {
+          "line": 11,
+          "source": "    echo \"                            - version.dll\"",
+          "reason": "精确文件名或文件名选项，保留供识别和输入。"
+        },
+        {
+          "line": 12,
+          "source": "    echo \"                            - dbghelp.dll\"",
+          "reason": "精确文件名或文件名选项，保留供识别和输入。"
+        },
+        {
+          "line": 13,
+          "source": "    echo \"                            - d3d12.dll\"",
+          "reason": "精确文件名或文件名选项，保留供识别和输入。"
+        },
+        {
+          "line": 14,
+          "source": "    echo \"                            - wininet.dll\"",
+          "reason": "精确文件名或文件名选项，保留供识别和输入。"
+        },
+        {
+          "line": 15,
+          "source": "    echo \"                            - winhttp.dll\"",
+          "reason": "精确文件名或文件名选项，保留供识别和输入。"
+        },
+        {
+          "line": 16,
+          "source": "    echo \"                            - OptiScaler.asi\"",
+          "reason": "精确文件名或文件名选项，保留供识别和输入。"
+        },
+        {
+          "line": 24,
+          "source": "    echo \"  $0 --filename=dxgi.dll --overwrite=y --using_nvidia=n --using_dlss=y\"",
+          "reason": "可直接复制执行的命令示例，保持选项、键名及变量不变。"
+        },
+        {
+          "line": 108,
+          "source": "        echo \" [1] dxgi.dll\"",
+          "reason": "精确文件名或文件名选项，保留供识别和输入。"
+        },
+        {
+          "line": 109,
+          "source": "        echo \" [2] winmm.dll\"",
+          "reason": "精确文件名或文件名选项，保留供识别和输入。"
+        },
+        {
+          "line": 110,
+          "source": "        echo \" [3] version.dll\"",
+          "reason": "精确文件名或文件名选项，保留供识别和输入。"
+        },
+        {
+          "line": 111,
+          "source": "        echo \" [4] dbghelp.dll\"",
+          "reason": "精确文件名或文件名选项，保留供识别和输入。"
+        },
+        {
+          "line": 112,
+          "source": "        echo \" [5] d3d12.dll\"",
+          "reason": "精确文件名或文件名选项，保留供识别和输入。"
+        },
+        {
+          "line": 113,
+          "source": "        echo \" [6] wininet.dll\"",
+          "reason": "精确文件名或文件名选项，保留供识别和输入。"
+        },
+        {
+          "line": 114,
+          "source": "        echo \" [7] winhttp.dll\"",
+          "reason": "精确文件名或文件名选项，保留供识别和输入。"
+        },
+        {
+          "line": 115,
+          "source": "        echo \" [8] OptiScaler.asi\"",
+          "reason": "精确文件名或文件名选项，保留供识别和输入。"
+        },
+        {
+          "line": 367,
+          "source": "echo \"WINEDLLOVERRIDES=$selected_filename=n,b %COMMAND%\"",
+          "reason": "可直接复制执行的命令示例，保持选项、键名及变量不变。"
+        }
+      ],
+      "coverage": {
+        "text_display_lines": 76,
+        "translated_display_lines": 58,
+        "preserved_display_lines": 18,
+        "localized_pause_prompts": 0
+      }
+    },
+    {
+      "path": "Streamlined_fetcher_windows.bat",
+      "packaged": false,
+      "source_sha256": "95169e64cd4707c0de00abf56fde2e6580516d5f8316ea4ed436048274116531",
+      "localized_sha256": "dc9b6279ddd9ea83682a5e510892e81ac9d0821f717463183f83395ab4432534",
+      "preserved_english_reason": "保留 DLL/文件夹名、URL、临时目录变量、纯版本号和外部工具输出；所有自有交互提示、状态及错误已翻译。此旧入口不在上游发行包清单中。",
+      "entries": [
+        {
+          "line": 12,
+          "source": "echo  Streamline files fetcher",
+          "translation": "echo  Streamline 文件获取工具"
+        },
+        {
+          "line": 17,
+          "source": "echo [1] Download latest Streamline DLLs",
+          "translation": "echo [1] 下载最新的 Streamline DLL"
+        },
+        {
+          "line": 19,
+          "source": "echo [2] Delete \"streamline\" folder",
+          "translation": "echo [2] 删除 \"streamline\" 文件夹"
+        },
+        {
+          "line": 21,
+          "source": "choice /c 12 /n /m \"Select an option (1 or 2): \"",
+          "translation": "choice /c 12 /n /m \"请选择选项 (1 或 2)： \""
+        },
+        {
+          "line": 30,
+          "source": "    echo Deleting \"streamline\" folder and all its contents...",
+          "translation": "    echo 正在删除 \"streamline\" 文件夹及其所有内容..."
+        },
+        {
+          "line": 32,
+          "source": "    echo Done.",
+          "translation": "    echo 完成。"
+        },
+        {
+          "line": 34,
+          "source": "    echo Folder \"streamline\" does not exist. Nothing to delete.",
+          "translation": "    echo 文件夹 \"streamline\" 不存在，无需删除。"
+        },
+        {
+          "line": 47,
+          "source": "echo --- Looking up latest release info ---",
+          "translation": "echo --- 正在查询最新发行版信息 ---"
+        },
+        {
+          "line": 53,
+          "source": "    \"if (-not $asset) { Write-Error 'No .zip asset found in latest release.'; exit 1 }\" ^",
+          "translation": "    \"if (-not $asset) { Write-Error '最新发行版中未找到 .zip 下载文件。'; exit 1 }\" ^"
+        },
+        {
+          "line": 56,
+          "source": "    \"Write-Host ('Found asset: ' + $asset.name)\"",
+          "translation": "    \"Write-Host ('找到下载文件：' + $asset.name)\""
+        },
+        {
+          "line": 59,
+          "source": "    echo ERROR: Could not determine the latest release asset URL.",
+          "translation": "    echo 错误：无法确定最新发行版下载文件的 URL。"
+        },
+        {
+          "line": 67,
+          "source": "    echo ERROR: Asset URL was empty.",
+          "translation": "    echo 错误：下载文件的 URL 为空。"
+        },
+        {
+          "line": 72,
+          "source": "echo Download URL: %ASSET_URL%",
+          "translation": "echo 下载 URL：%ASSET_URL%"
+        },
+        {
+          "line": 76,
+          "source": "echo --- Downloading %ASSET_NAME% ---",
+          "translation": "echo --- 正在下载 %ASSET_NAME% ---"
+        },
+        {
+          "line": 80,
+          "source": "    echo ERROR: Download failed.",
+          "translation": "    echo 错误：下载失败。"
+        },
+        {
+          "line": 86,
+          "source": "echo --- Extracting archive ---",
+          "translation": "echo --- 正在解压归档文件 ---"
+        },
+        {
+          "line": 89,
+          "source": "    echo ERROR: Extraction failed.",
+          "translation": "    echo 错误：解压失败。"
+        },
+        {
+          "line": 95,
+          "source": "echo --- Searching for bin\\x64 folders and copying .dll files ---",
+          "translation": "echo --- 正在查找 bin\\x64 文件夹并复制 .dll 文件 ---"
+        },
+        {
+          "line": 99,
+          "source": "    echo   Found: %%D",
+          "translation": "    echo   找到：%%D"
+        },
+        {
+          "line": 104,
+          "source": "    echo WARNING: No bin\\x64 folder was found inside the archive.",
+          "translation": "    echo 警告：归档文件中未找到 bin\\x64 文件夹。"
+        },
+        {
+          "line": 105,
+          "source": "    echo The archive layout may have changed - check \"%EXTRACTDIR%\" manually.",
+          "translation": "    echo 归档文件结构可能已变化，请手动检查 \"%EXTRACTDIR%\"。"
+        },
+        {
+          "line": 110,
+          "source": "echo Done. DLLs copied to: %DEST%",
+          "translation": "echo 完成。DLL 已复制到：%DEST%"
+        },
+        {
+          "line": 118,
+          "source": "echo Script finished with errors. Temp files kept at:",
+          "translation": "echo 脚本运行出错，临时文件保留在："
+        },
+        {
+          "line": 127,
+          "source": "echo Temp files cleaned up.",
+          "translation": "echo 临时文件已清理。"
+        }
+      ],
+      "preserved_entries": [
+        {
+          "line": 14,
+          "source": "echo v1.0",
+          "reason": "原版脚本版本标识，保留用于排查。"
+        },
+        {
+          "line": 119,
+          "source": "echo   %WORKDIR%",
+          "reason": "运行时临时目录路径变量，原样输出。"
+        }
+      ],
+      "coverage": {
+        "text_display_lines": 26,
+        "translated_display_lines": 24,
+        "preserved_display_lines": 2,
+        "localized_pause_prompts": 3
+      }
+    },
+    {
+      "path": "get_streamline.ps1",
+      "packaged": true,
+      "source_sha256": "b8fa9d2c92b43580e22aa05e964b268c72fb035621735085d7dc67cb29aaf1f7",
+      "localized_sha256": "8e1300d5f5261a732fbebd7651c1fb1165633292014a3efdd5c33bc8bd65829f",
+      "preserved_english_reason": "保留参数名、URL/路径、文件名、哈希、签名字段、许可证文件正文和错误对象属性；所有自有 Write-Host/throw 消息已翻译。不得代替用户传入 -AcceptNvidiaLicenses。",
+      "entries": [
+        {
+          "line": 13,
+          "source": "    throw 'Read docs/DLSS-FRAME-GENERATION.md and the linked NVIDIA licences, then pass -AcceptNvidiaLicenses if you agree. Nothing was installed.'",
+          "translation": "    throw '请阅读 docs/DLSS-FRAME-GENERATION.md 及其中链接的 NVIDIA 许可协议；只有同意后才可传入 -AcceptNvidiaLicenses。未安装任何内容。'"
+        },
+        {
+          "line": 16,
+          "source": "    throw 'Run this on Windows: NVIDIA Authenticode signatures must be verified.'",
+          "translation": "    throw '请在 Windows 上运行：必须验证 NVIDIA Authenticode 签名。'"
+        },
+        {
+          "line": 25,
+          "source": "        throw \"Hash mismatch: $Path. Not replacing this file; back up and move an old stack aside yourself.\"",
+          "translation": "        throw \"哈希不匹配：$Path。不会替换此文件；请自行备份并移走旧版文件。\""
+        },
+        {
+          "line": 31,
+          "source": "            throw \"NVIDIA signature verification failed: $Path ($($signature.Status)). Do not disable signature checking or antivirus.\"",
+          "translation": "            throw \"NVIDIA 签名验证失败：$Path ($($signature.Status))。不要关闭签名检查或杀毒软件。\""
+        },
+        {
+          "line": 39,
+          "source": "    throw 'Destination must be the dedicated streamline subfolder, normally GAME\\OptiScaler\\streamline.'",
+          "translation": "    throw '目标必须是专用的 streamline 子文件夹，通常为 GAME\\OptiScaler\\streamline。'"
+        },
+        {
+          "line": 46,
+          "source": "            throw \"Unexpected file or directory in destination: $($existing.FullName). Use a clean dedicated folder.\"",
+          "translation": "            throw \"目标位置存在非预期的文件或文件夹：$($existing.FullName)。请使用干净的专用文件夹。\""
+        },
+        {
+          "line": 57,
+          "source": "        Write-Host \"Downloading NVIDIA Streamline $($manifest.version) from $($manifest.archiveUrl)\"",
+          "translation": "        Write-Host \"正在下载 NVIDIA Streamline $($manifest.version)，来源：$($manifest.archiveUrl)\""
+        },
+        {
+          "line": 62,
+          "source": "            throw \"Official archive checksum mismatch. Untrusted download retained for inspection at $downloadPath; nothing installed.\"",
+          "translation": "            throw \"官方归档文件校验和不匹配。不可信的下载文件保留在 $downloadPath 以供检查；未安装任何内容。\""
+        },
+        {
+          "line": 69,
+          "source": "    throw \"Wrong or damaged Streamline archive: $ArchivePath. Expected SHA-256 $($manifest.archiveSha256).\"",
+          "translation": "    throw \"Streamline 归档文件不正确或已损坏：$ArchivePath。预期 SHA-256 为 $($manifest.archiveSha256)。\""
+        },
+        {
+          "line": 81,
+          "source": "            if (-not $entry) { throw \"Missing required SDK file: $($record.entry)\" }",
+          "translation": "            if (-not $entry) { throw \"缺少必需的 SDK 文件：$($record.entry)\" }"
+        },
+        {
+          "line": 100,
+          "source": "Write-Host \"Verified six NVIDIA-signed production DLLs and four licence/notice files in $destinationPath\"",
+          "translation": "Write-Host \"已在 $destinationPath 验证六个带有 NVIDIA 签名的生产版 DLL，以及四个许可/声明文件\""
+        },
+        {
+          "line": 101,
+          "source": "Write-Host 'Frame generation remains unchanged. See docs/DLSS-FRAME-GENERATION.md to select the correct FG owner.'",
+          "translation": "Write-Host '帧生成设置保持不变。请参阅 docs/DLSS-FRAME-GENERATION.md 选择正确的帧生成控制方。'"
+        }
+      ],
+      "preserved_entries": [],
+      "coverage": {
+        "text_display_lines": 12,
+        "translated_display_lines": 12,
+        "preserved_display_lines": 0,
+        "localized_pause_prompts": 0
+      }
+    }
+  ],
+  "redist": {
+    "path": "redist/streamline/manifest.json",
+    "sha256": "f2eb5ee19f21b86ecfec62563ce5849e2a1d3c119a40e89317779471aef66b87",
+    "policy": "元数据原样保留；URL、SHA-256、签名指纹、白名单和许可正文不翻译、不重新分发第三方运行库。"
+  }
+}

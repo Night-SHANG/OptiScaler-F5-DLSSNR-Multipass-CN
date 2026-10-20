@@ -22,6 +22,12 @@
       "source_hash": "4f40ab1558768e64ded4ccc49b6b02ea3f4f953cc025adf26a2db7a5ee17608c",
       "occurrences": [
         {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx11.cpp",
+          "line": 664,
+          "callee": "ImGui::TextDisabled",
+          "arg": 0
+        },
+        {
           "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
           "line": 1447,
           "callee": "ImGui::TextDisabled",
@@ -30,12 +36,6 @@
         {
           "file": "OptiScaler/resource_tracking/GenericDepth_Vk.cpp",
           "line": 790,
-          "callee": "ImGui::TextDisabled",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/resource_tracking/GenericDepth_Dx11.cpp",
-          "line": 664,
           "callee": "ImGui::TextDisabled",
           "arg": 0
         }
@@ -48,6 +48,12 @@
       "source_hash": "4f22b46a3777213fe075251fade73bcd6389e5546fbe27978c2a5b565dd59813",
       "occurrences": [
         {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx11.cpp",
+          "line": 667,
+          "callee": "ImGui::TextDisabled",
+          "arg": 0
+        },
+        {
           "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
           "line": 1450,
           "callee": "ImGui::TextDisabled",
@@ -56,12 +62,6 @@
         {
           "file": "OptiScaler/resource_tracking/GenericDepth_Vk.cpp",
           "line": 793,
-          "callee": "ImGui::TextDisabled",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/resource_tracking/GenericDepth_Dx11.cpp",
-          "line": 667,
           "callee": "ImGui::TextDisabled",
           "arg": 0
         }
@@ -74,6 +74,12 @@
       "source_hash": "ed11fb5dd42083431296096d4ccc7de21f777a3d61b5708038479d340888716a",
       "occurrences": [
         {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx11.cpp",
+          "line": 670,
+          "callee": "ImGui::TextDisabled",
+          "arg": 0
+        },
+        {
           "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
           "line": 1453,
           "callee": "ImGui::TextDisabled",
@@ -82,12 +88,6 @@
         {
           "file": "OptiScaler/resource_tracking/GenericDepth_Vk.cpp",
           "line": 796,
-          "callee": "ImGui::TextDisabled",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/resource_tracking/GenericDepth_Dx11.cpp",
-          "line": 670,
           "callee": "ImGui::TextDisabled",
           "arg": 0
         }
@@ -100,6 +100,12 @@
       "source_hash": "01677790bab4cd8ba81a29e3d14848511a1dd82a082da9138904a6eacb7409d8",
       "occurrences": [
         {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx11.cpp",
+          "line": 681,
+          "callee": "ImGui::TextDisabled",
+          "arg": 0
+        },
+        {
           "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
           "line": 1466,
           "callee": "ImGui::TextDisabled",
@@ -108,12 +114,6 @@
         {
           "file": "OptiScaler/resource_tracking/GenericDepth_Vk.cpp",
           "line": 808,
-          "callee": "ImGui::TextDisabled",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/resource_tracking/GenericDepth_Dx11.cpp",
-          "line": 681,
           "callee": "ImGui::TextDisabled",
           "arg": 0
         }
@@ -126,6 +126,12 @@
       "source_hash": "d73429ae07c3175aabcb1b10901da9ac0b9aad7ea9c6a8a956e46ffc9943bf3e",
       "occurrences": [
         {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx11.cpp",
+          "line": 683,
+          "callee": "ImGui::TextDisabled",
+          "arg": 0
+        },
+        {
           "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
           "line": 1468,
           "callee": "ImGui::TextDisabled",
@@ -134,12 +140,6 @@
         {
           "file": "OptiScaler/resource_tracking/GenericDepth_Vk.cpp",
           "line": 810,
-          "callee": "ImGui::TextDisabled",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/resource_tracking/GenericDepth_Dx11.cpp",
-          "line": 683,
           "callee": "ImGui::TextDisabled",
           "arg": 0
         }
@@ -152,6 +152,12 @@
       "source_hash": "0730d09af497557dbfb364e946a5f63183cc30f5ecae8f6d6d2e9b5f86fbdc11",
       "occurrences": [
         {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx11.cpp",
+          "line": 686,
+          "callee": "ImGui::TextDisabled",
+          "arg": 0
+        },
+        {
           "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
           "line": 1471,
           "callee": "ImGui::TextDisabled",
@@ -160,12 +166,6 @@
         {
           "file": "OptiScaler/resource_tracking/GenericDepth_Vk.cpp",
           "line": 813,
-          "callee": "ImGui::TextDisabled",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/resource_tracking/GenericDepth_Dx11.cpp",
-          "line": 686,
           "callee": "ImGui::TextDisabled",
           "arg": 0
         }
@@ -178,6 +178,12 @@
       "source_hash": "7ac0297ae305d7f0ea4b7c110aae9348b4477cb8146adeebf6a0b633660f20c3",
       "occurrences": [
         {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx11.cpp",
+          "line": 688,
+          "callee": "ImGui::Text",
+          "arg": 0
+        },
+        {
           "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
           "line": 1473,
           "callee": "ImGui::Text",
@@ -186,12 +192,6 @@
         {
           "file": "OptiScaler/resource_tracking/GenericDepth_Vk.cpp",
           "line": 818,
-          "callee": "ImGui::Text",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/resource_tracking/GenericDepth_Dx11.cpp",
-          "line": 688,
           "callee": "ImGui::Text",
           "arg": 0
         }
@@ -204,6 +204,12 @@
       "source_hash": "99bd5f97b98decc9841d563b21c22aef118b00ca4e6f4dc1976a80f22d2f008b",
       "occurrences": [
         {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx11.cpp",
+          "line": 688,
+          "callee": "ImGui::Text:vararg",
+          "arg": 3
+        },
+        {
           "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
           "line": 1473,
           "callee": "ImGui::Text:vararg",
@@ -212,12 +218,6 @@
         {
           "file": "OptiScaler/resource_tracking/GenericDepth_Vk.cpp",
           "line": 818,
-          "callee": "ImGui::Text:vararg",
-          "arg": 3
-        },
-        {
-          "file": "OptiScaler/resource_tracking/GenericDepth_Dx11.cpp",
-          "line": 688,
           "callee": "ImGui::Text:vararg",
           "arg": 3
         }
@@ -230,14 +230,14 @@
       "source_hash": "4839e0dbb7d32c466e3635820a20bf561022307d0441ae3f013380dee7138bb0",
       "occurrences": [
         {
-          "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
-          "line": 1477,
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx11.cpp",
+          "line": 692,
           "callee": "ImGui::SetTooltip",
           "arg": 0
         },
         {
-          "file": "OptiScaler/resource_tracking/GenericDepth_Dx11.cpp",
-          "line": 692,
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
+          "line": 1477,
           "callee": "ImGui::SetTooltip",
           "arg": 0
         }
@@ -250,6 +250,12 @@
       "source_hash": "3011f81a86de178710ff6c462cdff28c6fe9146e18412539905a68acbebe7a62",
       "occurrences": [
         {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx11.cpp",
+          "line": 694,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
           "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
           "line": 1479,
           "callee": "ImGui::SetTooltip",
@@ -258,12 +264,6 @@
         {
           "file": "OptiScaler/resource_tracking/GenericDepth_Vk.cpp",
           "line": 824,
-          "callee": "ImGui::SetTooltip",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/resource_tracking/GenericDepth_Dx11.cpp",
-          "line": 694,
           "callee": "ImGui::SetTooltip",
           "arg": 0
         }
@@ -289,102 +289,6 @@
       "source": "%s",
       "source_hash": "f684c73cba75b2ba0b6833f62a8fa8af6b8a2d3711b775d52596105f4917e38d",
       "occurrences": [
-        {
-          "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
-          "line": 1495,
-          "callee": "ImGui::SetTooltip",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
-          "line": 1512,
-          "callee": "ImGui::SetTooltip",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/resource_tracking/GenericDepth_Vk.cpp",
-          "line": 837,
-          "callee": "ImGui::SetTooltip",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/resource_tracking/GenericDepth_Dx11.cpp",
-          "line": 707,
-          "callee": "ImGui::SetTooltip",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/native/NativeDriverVk.cpp",
-          "line": 239,
-          "callee": "ImGui::TextColored",
-          "arg": 1
-        },
-        {
-          "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 277,
-          "callee": "ImGui::TextDisabled",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 322,
-          "callee": "ImGui::SetTooltip",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 356,
-          "callee": "ImGui::SetTooltip",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 361,
-          "callee": "ImGui::SetTooltip",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 367,
-          "callee": "ImGui::SetTooltip",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 372,
-          "callee": "ImGui::SetTooltip",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 378,
-          "callee": "ImGui::SetTooltip",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 389,
-          "callee": "ImGui::SetTooltip",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 393,
-          "callee": "ImGui::SetTooltip",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 401,
-          "callee": "ImGui::SetTooltip",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 406,
-          "callee": "ImGui::SetTooltip",
-          "arg": 0
-        },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
           "line": 285,
@@ -497,6 +401,102 @@
           "file": "OptiScaler/menu/menu_common.cpp",
           "line": 6854,
           "callee": "ImGui::TextWrapped",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 277,
+          "callee": "ImGui::TextDisabled",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 322,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 356,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 361,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 367,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 372,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 378,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 389,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 393,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 401,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 406,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriverVk.cpp",
+          "line": 239,
+          "callee": "ImGui::TextColored",
+          "arg": 1
+        },
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx11.cpp",
+          "line": 707,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
+          "line": 1495,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
+          "line": 1512,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Vk.cpp",
+          "line": 837,
+          "callee": "ImGui::SetTooltip",
           "arg": 0
         }
       ],
@@ -1058,12 +1058,6 @@
       "source_hash": "30e693957365febd0084efa53b6dbe92844631b7d644e3470a46b126fb35176b",
       "occurrences": [
         {
-          "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 237,
-          "callee": "ImGui::TextDisabled",
-          "arg": 0
-        },
-        {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
           "line": 418,
           "callee": "ImGui::TextDisabled",
@@ -1072,6 +1066,12 @@
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
           "line": 466,
+          "callee": "ImGui::TextDisabled",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 237,
           "callee": "ImGui::TextDisabled",
           "arg": 0
         }
@@ -4600,12 +4600,6 @@
       "source_hash": "2d711642b726b04401627ca9fbac32f5c8530fb1903cc4db02258717921a4881",
       "occurrences": [
         {
-          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 2519,
-          "callee": "ImGui::SmallButton",
-          "arg": 0
-        },
-        {
           "file": "OptiScaler/dlssnr/DlssNrNative.cpp",
           "line": 190,
           "callee": "f5:status-assignment",
@@ -4621,6 +4615,12 @@
           "file": "OptiScaler/dlssnr/DlssNrNative.cpp",
           "line": 225,
           "callee": "f5:status-assignment",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 2519,
+          "callee": "ImGui::SmallButton",
           "arg": 0
         },
         {
@@ -5718,15 +5718,15 @@
       "source_hash": "bc2b14896e31dc75de09646f606ac0c99e3825cc753fef07b106421c07e83d15",
       "occurrences": [
         {
-          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 2943,
-          "callee": "ImGui::TextWrapped",
-          "arg": 0
-        },
-        {
           "file": "OptiScaler/dlssnr/DlssNr_ColourEncodingStatus.cpp",
           "line": 55,
           "callee": "f5:return:ReadColourEncodingStatus",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 2943,
+          "callee": "ImGui::TextWrapped",
           "arg": 0
         }
       ],
@@ -6888,13 +6888,13 @@
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
           "line": 3612,
-          "callee": "nested:std::format",
+          "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
           "line": 3612,
-          "callee": "f5:display-data",
+          "callee": "nested:std::format",
           "arg": 0
         }
       ],
@@ -12024,16 +12024,16 @@
       "source_hash": "bcc649cfdb8cc557053da67df7e7fcb740dcf7f721cebe1f2082597ad0d5e7d8",
       "occurrences": [
         {
-          "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 3709,
-          "callee": "ImGui::TextWrapped:vararg",
-          "arg": 1
-        },
-        {
           "file": "OptiScaler/framegen/dlssg/MfgUnlockFlip.h",
           "line": 85,
           "callee": "f5:return:Describe",
           "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 3709,
+          "callee": "ImGui::TextWrapped:vararg",
+          "arg": 1
         }
       ],
       "obsolete": false,
@@ -12043,6 +12043,12 @@
       "source": "missing",
       "source_hash": "ffa63583dfa6706b87d284b86b0d693a161e4840aad2c5cf6b5d27c3b9621f7d",
       "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 3709,
+          "callee": "ImGui::TextWrapped:vararg",
+          "arg": 1
+        },
         {
           "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
           "line": 1280,
@@ -12054,12 +12060,6 @@
           "line": 1281,
           "callee": "f5:display-data",
           "arg": 0
-        },
-        {
-          "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 3709,
-          "callee": "ImGui::TextWrapped:vararg",
-          "arg": 1
         }
       ],
       "obsolete": false,
@@ -12572,6 +12572,12 @@
       "source_hash": "4a5d7f645dab89a8057382beaad9428da61f36623471c048b7bcd94cd8b70e36",
       "occurrences": [
         {
+          "file": "OptiScaler/menu/MenuPages.h",
+          "line": 39,
+          "callee": "f5:table:kPages",
+          "arg": 0
+        },
+        {
           "file": "OptiScaler/menu/menu_common.cpp",
           "line": 3957,
           "callee": "ImGui::SeparatorText",
@@ -12581,12 +12587,6 @@
           "file": "OptiScaler/menu/menu_common.cpp",
           "line": 7913,
           "callee": "f5:display-data",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/menu/MenuPages.h",
-          "line": 39,
-          "callee": "f5:table:kPages",
           "arg": 0
         }
       ],
@@ -13150,15 +13150,15 @@
       "source_hash": "36ecb4f8669133ce744c21982ba4abe2ecd7086e1dc2226ccd6f266f3a5005f8",
       "occurrences": [
         {
-          "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 4268,
-          "callee": "c-string-array",
-          "arg": 0
-        },
-        {
           "file": "OptiScaler/menu/MenuPages.h",
           "line": 43,
           "callee": "f5:table:kPages",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 4268,
+          "callee": "c-string-array",
           "arg": 0
         }
       ],
@@ -14386,18 +14386,12 @@
         {
           "file": "OptiScaler/menu/menu_common.cpp",
           "line": 4878,
-          "callee": "nested:std::format",
+          "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
           "line": 4878,
-          "callee": "f5:display-data",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 5343,
           "callee": "nested:std::format",
           "arg": 0
         },
@@ -14405,6 +14399,12 @@
           "file": "OptiScaler/menu/menu_common.cpp",
           "line": 5343,
           "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 5343,
+          "callee": "nested:std::format",
           "arg": 0
         }
       ],
@@ -17084,15 +17084,15 @@
       "source_hash": "76c739796a87afe53448db44c204e0fc5d3577fdf2dbf36c76eda731adc39456",
       "occurrences": [
         {
-          "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 6053,
-          "callee": "SeparatorWithHelpMarker",
-          "arg": 0
-        },
-        {
           "file": "OptiScaler/menu/MenuPages.h",
           "line": 41,
           "callee": "f5:table:kPages",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 6053,
+          "callee": "SeparatorWithHelpMarker",
           "arg": 0
         }
       ],
@@ -19282,15 +19282,15 @@
       "source_hash": "e981ddae45d8f4ca53f1ccbe613ad254a041dacf65a06026099a6302d332113b",
       "occurrences": [
         {
-          "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 6987,
-          "callee": "c-string-array",
-          "arg": 0
-        },
-        {
           "file": "OptiScaler/include/imgui/ImGuiNotify.hpp",
           "line": 243,
           "callee": "f5:return:getDefaultTitle",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 6987,
+          "callee": "c-string-array",
           "arg": 0
         }
       ],
@@ -19302,15 +19302,15 @@
       "source_hash": "54a0e8c17ebb21a11f8a25b8042786ef7efe52441e6cc87e92c67e0c4c0c6e78",
       "occurrences": [
         {
-          "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 6987,
-          "callee": "c-string-array",
-          "arg": 0
-        },
-        {
           "file": "OptiScaler/include/imgui/ImGuiNotify.hpp",
           "line": 245,
           "callee": "f5:return:getDefaultTitle",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 6987,
+          "callee": "c-string-array",
           "arg": 0
         }
       ],
@@ -20158,6 +20158,18 @@
       "source_hash": "25222ca8affacc375eda65ddd8760a24afa0941a1ddd53b8ad1acfbbc6f24a4c",
       "occurrences": [
         {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 7646,
+          "callee": "StrFmt",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 8260,
+          "callee": "ImGui::Text",
+          "arg": 0
+        },
+        {
           "file": "OptiScaler/native/NativeDriver.cpp",
           "line": 345,
           "callee": "f5:display-data",
@@ -20179,18 +20191,6 @@
           "file": "OptiScaler/native/NativeDriver.cpp",
           "line": 374,
           "callee": "f5:display-data",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 7646,
-          "callee": "StrFmt",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 8260,
-          "callee": "ImGui::Text",
           "arg": 0
         }
       ],
@@ -20716,6 +20716,12 @@
           "arg": 0
         },
         {
+          "file": "OptiScaler/shaders/dlssnr/DlssNr_DeferredSr.inl",
+          "line": 486,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
           "file": "OptiScaler/shaders/dlssnr/DlssNr_Late.inl",
           "line": 507,
           "callee": "f5:display-data",
@@ -20724,12 +20730,6 @@
         {
           "file": "OptiScaler/shaders/dlssnr/DlssNr_Late.inl",
           "line": 706,
-          "callee": "f5:display-data",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/shaders/dlssnr/DlssNr_DeferredSr.inl",
-          "line": 486,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -20784,15 +20784,15 @@
       "source_hash": "8b750cb13d3043ca59ad30e7bbf7ce69bb9c11fd23fba1ac4d5a49db8061d9ac",
       "occurrences": [
         {
-          "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 8150,
-          "callee": "ImGui::Text",
-          "arg": 0
-        },
-        {
           "file": "OptiScaler/menu/MenuPages.h",
           "line": 38,
           "callee": "f5:table:kPages",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 8150,
+          "callee": "ImGui::Text",
           "arg": 0
         }
       ],
@@ -20956,12 +20956,6 @@
       "source_hash": "7d9eb7acb13e24625c404401d8e88b2350e32162455885f18276cf802f7701ed",
       "occurrences": [
         {
-          "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
-          "line": 708,
-          "callee": "f5:display-data",
-          "arg": 0
-        },
-        {
           "file": "OptiScaler/menu/menu_common.cpp",
           "line": 8330,
           "callee": "ImGui::Button",
@@ -20977,6 +20971,12 @@
           "file": "OptiScaler/menu/menu_common.cpp",
           "line": 8557,
           "callee": "ImGui::Button",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
+          "line": 708,
+          "callee": "f5:display-data",
           "arg": 0
         }
       ],
@@ -22022,6 +22022,12 @@
       "source_hash": "7bb25e88f2134ab2750c3e2bf02078d53b51c43eefe57a271b041ec075a092e7",
       "occurrences": [
         {
+          "file": "OptiScaler/resource_tracking/GenericDepth_Dx11.cpp",
+          "line": 678,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
           "file": "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp",
           "line": 1461,
           "callee": "f5:display-data",
@@ -22030,12 +22036,6 @@
         {
           "file": "OptiScaler/resource_tracking/GenericDepth_Vk.cpp",
           "line": 804,
-          "callee": "f5:display-data",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/resource_tracking/GenericDepth_Dx11.cpp",
-          "line": 678,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -23444,6 +23444,12 @@
       "source_hash": "035fbbd963dd98660a21e835e21c711a6ef8e464b6796096911a8f3aa38ddf04",
       "occurrences": [
         {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 5821,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
           "file": "OptiScaler/native/NativeLowLatency.cpp",
           "line": 370,
           "callee": "f5:return:PathText",
@@ -23465,12 +23471,6 @@
           "file": "OptiScaler/native/NativeLowLatency.cpp",
           "line": 393,
           "callee": "f5:return:PathText",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 5821,
-          "callee": "f5:display-data",
           "arg": 0
         }
       ],
@@ -23508,6 +23508,12 @@
       "source_hash": "3a4d6da53b07f0b5937e731c78d5f737adf624c851e206122396c780d2518e1d",
       "occurrences": [
         {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 5823,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
           "file": "OptiScaler/native/NativeLowLatency.cpp",
           "line": 373,
           "callee": "f5:return:PathText",
@@ -23517,12 +23523,6 @@
           "file": "OptiScaler/native/NativeLowLatency.cpp",
           "line": 381,
           "callee": "f5:return:PathText",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 5823,
-          "callee": "f5:display-data",
           "arg": 0
         }
       ],
@@ -23534,15 +23534,15 @@
       "source_hash": "ef58db2c5501e29d53c08687f09f44beeb10e064ae9787b3df5389703b7944ea",
       "occurrences": [
         {
-          "file": "OptiScaler/native/NativeLowLatency.cpp",
-          "line": 383,
-          "callee": "f5:return:PathText",
-          "arg": 0
-        },
-        {
           "file": "OptiScaler/menu/menu_common.cpp",
           "line": 5837,
           "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeLowLatency.cpp",
+          "line": 383,
+          "callee": "f5:return:PathText",
           "arg": 0
         }
       ],
@@ -23553,6 +23553,18 @@
       "source": "XeLL",
       "source_hash": "c0e4cab4d8747c4bb909f6e035d6fa57e9f7968885e2e36299f8e42f0eec9ea7",
       "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 5819,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 5834,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
         {
           "file": "OptiScaler/native/NativeLowLatency.cpp",
           "line": 385,
@@ -23570,18 +23582,6 @@
           "line": 416,
           "callee": "f5:return:OutputText",
           "arg": 0
-        },
-        {
-          "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 5819,
-          "callee": "f5:display-data",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 5834,
-          "callee": "f5:display-data",
-          "arg": 0
         }
       ],
       "obsolete": false,
@@ -23592,15 +23592,15 @@
       "source_hash": "b8a7fa7d55ed1a99a8ad9364e8de71cbaa9880eab9dcfe1d62a692ef477a17c1",
       "occurrences": [
         {
-          "file": "OptiScaler/native/NativeLowLatency.cpp",
-          "line": 391,
-          "callee": "f5:return:PathText",
-          "arg": 0
-        },
-        {
           "file": "OptiScaler/menu/menu_common.cpp",
           "line": 5839,
           "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeLowLatency.cpp",
+          "line": 391,
+          "callee": "f5:return:PathText",
           "arg": 0
         }
       ],
@@ -23906,18 +23906,6 @@
       "source_hash": "0331999295e38c29207cff202dcabd4ea3de7ad1033da5bde7e8fbfce47823cd",
       "occurrences": [
         {
-          "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 381,
-          "callee": "f5:display-data",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 409,
-          "callee": "f5:display-data",
-          "arg": 0
-        },
-        {
           "file": "OptiScaler/menu/menu_common.cpp",
           "line": 6309,
           "callee": "f5:display-data",
@@ -23926,6 +23914,18 @@
         {
           "file": "OptiScaler/menu/menu_common.cpp",
           "line": 6331,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 381,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 409,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -23937,12 +23937,6 @@
       "source": "%.3f",
       "source_hash": "0e29a872795a929957702ca02a02eb31ad56eea9cc691ffb18cef6e6db71b294",
       "occurrences": [
-        {
-          "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 384,
-          "callee": "f5:display-data",
-          "arg": 0
-        },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
           "line": 2756,
@@ -24024,6 +24018,12 @@
         {
           "file": "OptiScaler/menu/menu_common.cpp",
           "line": 6493,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriver.cpp",
+          "line": 384,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -26256,15 +26256,15 @@
           "arg": 0
         },
         {
-          "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 3542,
-          "callee": "f5:display-data",
-          "arg": 0
-        },
-        {
           "file": "OptiScaler/framegen/dlssg/MfgUnlock.cpp",
           "line": 203,
           "callee": "f5:status-assignment",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 3542,
+          "callee": "f5:display-data",
           "arg": 0
         }
       ],
@@ -27072,6 +27072,12 @@
       "source_hash": "d6acb6d51cfc574936fc79bc06b8a3716f4a33ee69efb70dd7f59720d434ccd9",
       "occurrences": [
         {
+          "file": "OptiScaler/dlssnr/DlssNr_LookPresets.h",
+          "line": 250,
+          "callee": "f5:table:kLooks",
+          "arg": 0
+        },
+        {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
           "line": 3535,
           "callee": "c-string-array",
@@ -27081,12 +27087,6 @@
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
           "line": 3536,
           "callee": "c-string-array",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/dlssnr/DlssNr_LookPresets.h",
-          "line": 250,
-          "callee": "f5:table:kLooks",
           "arg": 0
         }
       ],
@@ -27098,6 +27098,12 @@
       "source_hash": "912d0988b06550601e2fd95360ea72f9bb25f0c7dd54bc741a20dc24f28242c9",
       "occurrences": [
         {
+          "file": "OptiScaler/dlssnr/DlssNr_LookPresets.h",
+          "line": 252,
+          "callee": "f5:table:kLooks",
+          "arg": 0
+        },
+        {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
           "line": 3535,
           "callee": "c-string-array",
@@ -27107,12 +27113,6 @@
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
           "line": 3536,
           "callee": "c-string-array",
-          "arg": 0
-        },
-        {
-          "file": "OptiScaler/dlssnr/DlssNr_LookPresets.h",
-          "line": 252,
-          "callee": "f5:table:kLooks",
           "arg": 0
         }
       ],
@@ -28954,15 +28954,15 @@
       "source_hash": "d7017ebcd65455e76e953d5b42fa96c3df28c7c3b616c7f069ed930fb4fae5fd",
       "occurrences": [
         {
-          "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 3538,
-          "callee": "f5:display-data",
-          "arg": 0
-        },
-        {
           "file": "OptiScaler/framegen/dlssg/MfgUnlock.cpp",
           "line": 224,
           "callee": "f5:status-assignment",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 3538,
+          "callee": "f5:display-data",
           "arg": 0
         }
       ],
@@ -32970,12 +32970,6 @@
       "source_hash": "466ae967e6af500708caf9f2e8b53d4f4040eae563e5b453b32cefc0a654b902",
       "occurrences": [
         {
-          "file": "OptiScaler/shaders/dlssnr/DlssNr_Late.inl",
-          "line": 203,
-          "callee": "f5:display-data",
-          "arg": 0
-        },
-        {
           "file": "OptiScaler/shaders/dlssnr/DlssNr_DeferredSr.inl",
           "line": 310,
           "callee": "f5:display-data",
@@ -32984,6 +32978,12 @@
         {
           "file": "OptiScaler/shaders/dlssnr/DlssNr_DeferredSr.inl",
           "line": 623,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/shaders/dlssnr/DlssNr_Late.inl",
+          "line": 203,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -32996,14 +32996,14 @@
       "source_hash": "7cac36534aa6869b944125bb3f8f8edda57d8cf1102a08d689f92b2eb3593c3f",
       "occurrences": [
         {
-          "file": "OptiScaler/shaders/dlssnr/DlssNr_Late.inl",
-          "line": 204,
+          "file": "OptiScaler/shaders/dlssnr/DlssNr_DeferredSr.inl",
+          "line": 311,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
-          "file": "OptiScaler/shaders/dlssnr/DlssNr_DeferredSr.inl",
-          "line": 311,
+          "file": "OptiScaler/shaders/dlssnr/DlssNr_Late.inl",
+          "line": 204,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -33015,12 +33015,6 @@
       "source": "DLSSD.Output",
       "source_hash": "4ec2acd201fbd736c81d0aa8e3d2e19a04f00578190fc6b0378b60db520027ea",
       "occurrences": [
-        {
-          "file": "OptiScaler/shaders/dlssnr/DlssNr_Late.inl",
-          "line": 205,
-          "callee": "f5:display-data",
-          "arg": 0
-        },
         {
           "file": "OptiScaler/shaders/dlssnr/DlssNr_DeferredSr.inl",
           "line": 309,
@@ -33036,6 +33030,12 @@
         {
           "file": "OptiScaler/shaders/dlssnr/DlssNr_DeferredSr.inl",
           "line": 577,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/shaders/dlssnr/DlssNr_Late.inl",
+          "line": 205,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -34030,12 +34030,6 @@
       "source_hash": "e7506ec26d4fa59a4663ecc621cdd4486562d7f75191eecb83f66b70ad7c8d09",
       "occurrences": [
         {
-          "file": "OptiScaler/upscalers/FeatureProvider_Vk.cpp",
-          "line": 129,
-          "callee": "f5:toast-insert",
-          "arg": 0
-        },
-        {
           "file": "OptiScaler/upscalers/FeatureProvider_Dx11.cpp",
           "line": 107,
           "callee": "f5:toast-insert",
@@ -34044,6 +34038,12 @@
         {
           "file": "OptiScaler/upscalers/FeatureProvider_Dx11.cpp",
           "line": 236,
+          "callee": "f5:toast-insert",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/upscalers/FeatureProvider_Vk.cpp",
+          "line": 129,
           "callee": "f5:toast-insert",
           "arg": 0
         }
@@ -34056,14 +34056,14 @@
       "source_hash": "a3566816ed445488413d4fdfeb4deebfda34362dee2f215b2703cbd71c3aeec4",
       "occurrences": [
         {
-          "file": "OptiScaler/upscalers/FeatureProvider_Vk.cpp",
-          "line": 250,
+          "file": "OptiScaler/upscalers/FeatureProvider_Dx12.cpp",
+          "line": 207,
           "callee": "f5:toast-insert",
           "arg": 0
         },
         {
-          "file": "OptiScaler/upscalers/FeatureProvider_Dx12.cpp",
-          "line": 207,
+          "file": "OptiScaler/upscalers/FeatureProvider_Vk.cpp",
+          "line": 250,
           "callee": "f5:toast-insert",
           "arg": 0
         }
@@ -34076,8 +34076,8 @@
       "source_hash": "4ddf7f344713aa0787bffa255dbe8f457b51f6340b81414e05e849a32e149c01",
       "occurrences": [
         {
-          "file": "OptiScaler/upscalers/FeatureProvider_Vk.cpp",
-          "line": 255,
+          "file": "OptiScaler/inputs/NVNGX_DLSS_Dx12.cpp",
+          "line": 1081,
           "callee": "f5:toast-insert",
           "arg": 0
         },
@@ -34094,8 +34094,8 @@
           "arg": 0
         },
         {
-          "file": "OptiScaler/inputs/NVNGX_DLSS_Dx12.cpp",
-          "line": 1081,
+          "file": "OptiScaler/upscalers/FeatureProvider_Vk.cpp",
+          "line": 255,
           "callee": "f5:toast-insert",
           "arg": 0
         }
@@ -34122,14 +34122,14 @@
       "source_hash": "b56065ec389295dd66a8793b9e8ffe23010f6918996c5de5867a6a5eb0c6cd3e",
       "occurrences": [
         {
-          "file": "OptiScaler/inputs/NVNGX_DLSS_Dx12.cpp",
-          "line": 1110,
+          "file": "OptiScaler/inputs/NVNGX_DLSS_Dx11.cpp",
+          "line": 804,
           "callee": "f5:toast-insert",
           "arg": 0
         },
         {
-          "file": "OptiScaler/inputs/NVNGX_DLSS_Dx11.cpp",
-          "line": 804,
+          "file": "OptiScaler/inputs/NVNGX_DLSS_Dx12.cpp",
+          "line": 1110,
           "callee": "f5:toast-insert",
           "arg": 0
         },
