@@ -51,6 +51,12 @@ class CurrentProducerTests(unittest.TestCase):
         found = find_f5_candidates(text, 'OptiScaler/shaders/dlssnr/superior/Pipeline.inl', {})
         self.assertEqual({'private DLSS unavailable', 'waiting for submission'}, {x.source for x in found})
 
+    def test_vkinterop_error_out_parameter(self):
+        text = 'error = "Vulkan extension missing";'
+        found = find_f5_candidates(text, 'OptiScaler/native/SharedFrameVk.cpp', {})
+        self.assertEqual({'Vulkan extension missing'}, {x.source for x in found})
+        self.assertFalse(find_f5_candidates(text, 'OptiScaler/native/SharedFrame.cpp', {}))
+
     def test_mfg_status_not_log(self):
         text = 'inline auto FormatStatus() { return "waiting for a provider"; }\ninline auto LogStatus() { return "internal log"; }'
         found = find_f5_candidates(text, 'OptiScaler/framegen/mfgunlock/Status.h', {})

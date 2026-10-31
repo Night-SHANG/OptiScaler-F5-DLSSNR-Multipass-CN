@@ -17513,6 +17513,12 @@
       "state": "machine_translated",
       "source_hash": "125ad767cc17ac00f88a07d0f7da4bbcb9803f538e0bae5ae2bceba0fb32a75c",
       "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.c5d707650fb5": {
+      "text": "Vulkan 设备没有 VK_KHR_external_memory_win32 / VK_KHR_external_semaphore_win32 函数（创建设备时未启用这些扩展，或设备已失效）",
+      "state": "machine_translated",
+      "source_hash": "e29fdfea7c09e7687ec6c3533d86184b50aa7ca811008ed99a9e16bdecb0a55c",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
     }
   }
 }

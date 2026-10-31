@@ -40952,7 +40952,7 @@
       "source_hash": "d18838e010e296384b31d3caffc91b587dd93b208db0865ec14f398be2c4671d",
       "occurrences": [
         {
-          "file": "OptiScaler/native/DebugPreviewVk.h",
+          "file": "OptiScaler/native/DebugPreviewDx11.h",
           "line": 0,
           "callee": "f5:composed-template",
           "arg": 0
@@ -41883,6 +41883,20 @@
           "file": "OptiScaler/shaders/dlssnr/superior/Pipeline.inl",
           "line": 681,
           "callee": "f5:status-call",
+          "arg": 0
+        }
+      ],
+      "obsolete": false,
+      "previous_sources": []
+    },
+    "ui.auto.c5d707650fb5": {
+      "source": "the Vulkan device has no VK_KHR_external_memory_win32 / VK_KHR_external_semaphore_win32 functions (it was made without the extensions, or it is gone)",
+      "source_hash": "e29fdfea7c09e7687ec6c3533d86184b50aa7ca811008ed99a9e16bdecb0a55c",
+      "occurrences": [
+        {
+          "file": "OptiScaler/native/SharedFrameVk.cpp",
+          "line": 22,
+          "callee": "f5:status-assignment",
           "arg": 0
         }
       ],

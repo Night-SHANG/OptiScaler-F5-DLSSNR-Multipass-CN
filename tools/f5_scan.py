@@ -108,6 +108,8 @@ def find_f5_candidates(text, rel, rules):
     if any(fnmatch.fnmatch(rel,p) for p in PRODUCER_FILES):
         # Only status/error assignments and reason-producing calls, never generic logging or code strings.
         names=r'(?:_error|_why|_refusal|g_refusal|reason|modelError|status|standsAside|ErrorMessage|TemporalDetail|FlipMetering|why|detail|whyNot|kBelowMinimumFps|kEdgeCompression|err|g_modelError|failure)'
+        if rel == 'OptiScaler/native/SharedFrameVk.cpp':
+            names = '(?:' + names + '|error)'  # VkInterop::Load output displayed by DebugPreviewVk
         for m in re.finditer(r'\b'+names+r'\s*=(?!=)',masked):
             semi=masked.find(';',m.end())
             if semi>=0: result+=literals(text,rel,m.end(),semi,'f5:status-assignment',rules)

@@ -576,7 +576,7 @@
   {
     "source": "Could not make the debug view's shared picture: {}",
     "text": "无法创建调试视图的共享画面：{}",
-    "file": "OptiScaler/native/DebugPreviewVk.h",
+    "file": "OptiScaler/native/DebugPreviewDx11.h",
     "reason": "Exact debug preview error display; nested shared-resource errors translated by exact template",
     "raw_fields": []
   },

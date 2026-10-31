@@ -413,5 +413,6 @@
   "the private DLSS creation was never submitted": "专用 DLSS 创建命令始终未提交",
   "Could not make the debug view's shared buffer: {}": "无法创建调试视图的共享缓冲区：{}",
   "Could not make the debug view's shared picture: {}": "无法创建调试视图的共享画面：{}",
-  "The debug view cannot be shared with this Vulkan device: {}": "无法与此 Vulkan 设备共享调试视图：{}"
+  "The debug view cannot be shared with this Vulkan device: {}": "无法与此 Vulkan 设备共享调试视图：{}",
+  "the Vulkan device has no VK_KHR_external_memory_win32 / VK_KHR_external_semaphore_win32 functions (it was made without the extensions, or it is gone)": "Vulkan 设备没有 VK_KHR_external_memory_win32 / VK_KHR_external_semaphore_win32 函数（创建设备时未启用这些扩展，或设备已失效）"
 }

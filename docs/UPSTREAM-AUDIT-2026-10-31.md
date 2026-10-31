@@ -41,7 +41,7 @@ Do not push this candidate directly to main. `upstream-sync.yml` can trigger on 
 
 ## Candidate verification snapshot
 
-- Scan: 2695 active entries = 2494 changed display translations + 201 explained technical retentions; missing/stale 0. Net 429 additions and 119 obsolete entries versus the original CN catalog. 243 inherited reviewed states and 2452 machine-translated states; AI additions are not marked human-reviewed.
+- Scan: 2696 active entries = 2495 changed display translations + 201 explained technical retentions; missing/stale 0. Net 430 additions and 119 obsolete entries versus the original CN catalog. 243 inherited reviewed states and 2453 machine-translated states; AI additions are not marked human-reviewed.
 - Pristine exact source verification passed (1208 C/C++ paths, 10 unchanged gitlinks; nested submodule worktrees not yet initialized/compiled).
 - Source injection: 1054 wrapped display calls across 13 files. Actual C++ wrapper syntax plus 173 boundary assertions passed.
 - Independent representative catalog: 203 visible source probes plus 3 excluded persisted keys passed.

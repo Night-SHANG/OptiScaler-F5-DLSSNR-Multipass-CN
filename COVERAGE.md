@@ -1,6 +1,6 @@
 # 2026-10-31 候选覆盖更新
 
-当前固定上游 `4d72d53e521b34a5cda9dd4f63ee7f4cd0438035`。当前 2695 活动条目：2494 显示译文、201 技术保留，missing/stale 均为 0；净增 429、移除 119。本轮新界面、提示、数组和动态状态经独立源代码路径检查；计数以 `reports/coverage-inventory.json` 为准，不能等同游戏全界面或视觉验收。
+当前固定上游 `4d72d53e521b34a5cda9dd4f63ee7f4cd0438035`。当前 2696 活动条目：2495 显示译文、201 技术保留，missing/stale 均为 0；净增 430、移除 119。本轮新界面、提示、数组和动态状态经独立源代码路径检查；计数以 `reports/coverage-inventory.json` 为准，不能等同游戏全界面或视觉验收。
 
 - 补齐 InputInt2、InputTextWithHint 提示、PluginsPage/PluginsView/PluginRegistry 宽字符状态、FlowDebugViews 数组、MFG 状态和 NR Profiles 组合消息。
 - 用户配置名称、ASI 文件名、目录及外部系统错误保留原始数据；技术项逐条理由见 `Localization/retained-English.json`。
