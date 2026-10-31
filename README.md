@@ -1,5 +1,7 @@
 # OptiScaler F5 DLSSNR Multipass CN
 
+> 2026-10-31 云端适配候选：`main-4d72d53e521b` / `4d72d53e521b34a5cda9dd4f63ee7f4cd0438035`。已补新界面与动态状态，Windows 编译/打包及 GPU 实机尚待验证；不是已发布成品。[本轮审计](docs/UPSTREAM-AUDIT-2026-10-31.md)。历史 v0.1.32 契约保存在 `audit/v0.1.32/`。
+
 [janblade/OptiScaler-F5-DLSSNR-Multipass](https://github.com/janblade/OptiScaler-F5-DLSSNR-Multipass) 的社区简体中文适配层。初始审计基线为 **v0.1.32**，提交 **`fadc3bf67f6c8548e94914baec3f2e551ba8d8a4`**。本项目不是上游官方中文版。
 
 本仓库维护词库、显示边界适配、中文字体处理和可复现的构建流程；构建时取得固定上游源码及其递归子模块，不复制整份上游到本仓库，每次构建仍固定到完整 SHA。每日检查上游 `main`，仅在兼容性、译文和全套测试门槛通过后推进当前 `upstream.json`。

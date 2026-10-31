@@ -61,7 +61,8 @@ CASES = [
     ('Could not start: no bytecode for TrustMask Classify', '无法启动：缺少 TrustMask Classify 的字节码'),
     ('Could not start: no bytecode for SceneCut Reduce', '无法启动：缺少 SceneCut Reduce 的字节码'),
     ('Could not start: creating the pipeline Classify', '无法启动：正在创建管线 Classify'),
-    ('Error writing dlssg_sm86.ini: Could not finish writing dlssg_sm86.ini', '写入 dlssg_sm86.ini 时出错：无法完成 dlssg_sm86.ini 的写入'),
+    # Legacy Ampere component was removed upstream; unknown nested error stays raw.
+    ('Error writing dlssg_sm86.ini: Could not finish writing dlssg_sm86.ini', '写入 dlssg_sm86.ini 时出错：Could not finish writing dlssg_sm86.ini'),
     ('Failed to load dlssg_sm86.dll (error code 126).', '加载 dlssg_sm86.dll 失败（错误码 126）。'),
     ('buffer, 512 bytes', '缓冲区，512 字节'),
     ('You are missing the following dlls from the streamline folder:\n- sl.common.dll\n- sl.dlss_g.dll\n', 'streamline 文件夹中缺少以下 DLL：\n- sl.common.dll\n- sl.dlss_g.dll\n'),

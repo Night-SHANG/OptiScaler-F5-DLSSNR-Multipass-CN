@@ -1,3 +1,15 @@
+# 2026-10-31 候选覆盖更新
+
+当前固定上游 `4d72d53e521b34a5cda9dd4f63ee7f4cd0438035`。当前 2696 活动条目：2495 显示译文、201 技术保留，missing/stale 均为 0；净增 430、移除 119。本轮新界面、提示、数组和动态状态经独立源代码路径检查；计数以 `reports/coverage-inventory.json` 为准，不能等同游戏全界面或视觉验收。
+
+- 补齐 InputInt2、InputTextWithHint 提示、PluginsPage/PluginsView/PluginRegistry 宽字符状态、FlowDebugViews 数组、MFG 状态和 NR Profiles 组合消息。
+- 用户配置名称、ASI 文件名、目录及外部系统错误保留原始数据；技术项逐条理由见 `Localization/retained-English.json`。
+- 新 pin 注入 1054 处显示调用、13 个文件。C++ 显示边界 173 断言、203 项独立代表、58 组合样例（C++17/20）通过；完整复跑结果见本轮审计。
+- 已载入 Profile 后的额外 LUT 警告可能继续显示原文，因为用户名称与错误字段无法从旧组合串中可靠拆分；未知外部错误仍保留英文 fallback。
+- Windows MSVC/完整打包、递归子模块实际构建、GPU/字体排版真机仍未验证。
+
+以下为历史 v0.1.32 覆盖记录，不应解释为当前候选的计数或版本：
+
 # F5 简体中文覆盖与验收清单
 
 固定上游：`janblade/OptiScaler-F5-DLSSNR-Multipass@fadc3bf67f6c8548e94914baec3f2e551ba8d8a4`（v0.1.32）。本记录截至 2026-10-20 13:20（北京时间），属于源码与可移植测试证据；Windows 构建结果以对应 Actions run 为准。

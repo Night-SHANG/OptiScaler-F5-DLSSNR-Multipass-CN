@@ -1,5 +1,7 @@
 # OptiScaler F5 中文版使用说明
 
+> 2026-10-31 云端适配候选：`main-4d72d53e521b` / `4d72d53e521b34a5cda9dd4f63ee7f4cd0438035`。已补新界面与动态状态，Windows 编译/打包及 GPU 实机尚待验证；不是已发布成品。[本轮审计](docs/UPSTREAM-AUDIT-2026-10-31.md)。历史 v0.1.32 契约保存在 `audit/v0.1.32/`。
+
 本项目为 **OptiScaler F5 DLSSNR Multipass v0.1.32** 建立初始简体中文审计基线，提交为 `fadc3bf67f6c8548e94914baec3f2e551ba8d8a4`。当前构建使用仓库 `upstream.json` 的完整 SHA；安装包以 `BUILD-INFO.CN.json` 为准。它是社区派生项目，不是上游官方发布。
 
 源代码与维护说明：[中文仓库](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN) · [固定上游](https://github.com/janblade/OptiScaler-F5-DLSSNR-Multipass/tree/fadc3bf67f6c8548e94914baec3f2e551ba8d8a4) · [上游安装指南](https://github.com/janblade/OptiScaler-F5-DLSSNR-Multipass/blob/fadc3bf67f6c8548e94914baec3f2e551ba8d8a4/INSTALL-DLSSNR.md)

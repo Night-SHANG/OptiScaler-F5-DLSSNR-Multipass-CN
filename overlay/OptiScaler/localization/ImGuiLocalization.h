@@ -160,6 +160,8 @@ template<class... Args> inline auto InputFloat4(const char* label, Args&&... arg
 { const auto values = std::make_tuple(Wrap(args)...); return std::apply([&](const auto&... value) { return ImGui::InputFloat4(LabelValue(label).c_str(), Pass(value)...); }, values); }
 template<class... Args> inline auto InputInt(const char* label, Args&&... args)
 { const auto values = std::make_tuple(Wrap(args)...); return std::apply([&](const auto&... value) { return ImGui::InputInt(LabelValue(label).c_str(), Pass(value)...); }, values); }
+inline bool InputInt2(const char* label, int values[2], ImGuiInputTextFlags flags = 0)
+{ return ImGui::InputInt2(LabelValue(label).c_str(), values, flags); }
 inline bool InputScalar(const char* label, ImGuiDataType type, void* data,
                         const void* step = nullptr, const void* fastStep = nullptr,
                         const char* format = nullptr, ImGuiInputTextFlags flags = 0)
@@ -169,8 +171,8 @@ template<class... Args> inline auto InputText(const char* label, Args&&... args)
 { return ImGui::InputText(LabelValue(label).c_str(), std::forward<Args>(args)...); }
 template<class... Args> inline auto InputTextMultiline(const char* label, Args&&... args)
 { return ImGui::InputTextMultiline(LabelValue(label).c_str(), std::forward<Args>(args)...); }
-template<class... Args> inline auto InputTextWithHint(const char* label, Args&&... args)
-{ return ImGui::InputTextWithHint(LabelValue(label).c_str(), std::forward<Args>(args)...); }
+template<class... Args> inline auto InputTextWithHint(const char* label, const char* hint, Args&&... args)
+{ return ImGui::InputTextWithHint(LabelValue(label).c_str(), TextValue(hint).c_str(), std::forward<Args>(args)...); }
 template<class... Args> inline auto ColorEdit3(const char* label, Args&&... args)
 { return ImGui::ColorEdit3(LabelValue(label).c_str(), std::forward<Args>(args)...); }
 template<class... Args> inline auto ColorEdit4(const char* label, Args&&... args)
