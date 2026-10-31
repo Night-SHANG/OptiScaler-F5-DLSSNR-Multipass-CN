@@ -1,0 +1,102 @@
+# Localization scan report
+
+- Channel: **master**
+- Upstream commit: `4d72d53e521b34a5cda9dd4f63ee7f4cd0438035`
+- Active UI strings: **2695**
+- Added: **89**
+- Removed: **0**
+- Source changed / translation stale: **0**
+- Missing zh-CN: **0**
+- Effective zh-CN coverage: **100.00%**
+
+## Added
+
+- `ui.auto.04b26f874238` — "found the game's exposure ({})"
+- `ui.auto.2b64a415b90a` — 'searching ({} more waiting their turn)'
+- `ui.auto.e0a4c3381e1e` — 'searching: nothing to search yet, the game makes its buffers at a loading screen'
+- `ui.auto.874e70e6ab4d` — 'watching'
+- `ui.auto.fa8929520861` — 'not needed: the game hands its exposure over'
+- `ui.auto.de94f8210cfd` — 'searching'
+- `ui.auto.56117fb6c11b` — "found the game's exposure"
+- `ui.auto.6416dc0bd888` — 'the picture is already exposed'
+- `ui.auto.c7f11b8f0e7d` — 'found nothing, Automatic'
+- `ui.auto.dd7ff5fb85e9` — 'D3D12 games only for now, Automatic'
+- `ui.auto.7f691e330e42` — "not needed: the game's pre-exposure moves with the light, Automatic"
+- `ui.auto.66d91a7c0674` — ': nothing to search yet, the game makes its buffers at a loading screen'
+- `ui.auto.8758137defb6` — ' more waiting their turn)'
+- `ui.auto.f476109f39fb` — 'ambiguous'
+- `ui.auto.aaa6dd2268cb` — 'anchor failed'
+- `ui.auto.2075f9f6ba23` — 'not executable'
+- `ui.auto.09991f91aa35` — 'The debug view cannot be shared with this D3D11 device.'
+- `ui.auto.018d47847dcd` — "The motion estimate's device changed; the debug view shows again after a restart."
+- `ui.auto.ab88e25fc6bc` — 'Waiting for the last copy of the debug view.'
+- `ui.auto.93521446709d` — "Could not make the debug view's shared picture: "
+- `ui.auto.986ce8c9a042` — "Could not make the debug view's copy commands."
+- `ui.auto.21012f9bae84` — "Could not order the debug view's copy."
+- `ui.auto.28ae92791539` — "Could not make the debug view's shared buffer: {}"
+- `ui.auto.e300f9d19294` — "Could not make the debug view's shared picture: {}"
+- `ui.auto.96dddb5fc5bf` — 'The debug view cannot be shared with this Vulkan device: {}'
+- `ui.auto.a21ed96cd787` — 'The debug view cannot be shared with this Vulkan device: '
+- `ui.auto.1f8e0063f447` — "Could not make the debug view's shared buffer: "
+- `ui.auto.274b69c211e6` — 'no D3D11 device'
+- `ui.auto.a7f60819ce49` — 'creating a shared texture {}x{} format {}: {:X}'
+- `ui.auto.981ad05939c3` — 'making the shared handle: {:X}'
+- `ui.auto.2d8c15feb6be` — 'opening the shared texture on D3D12: {:X}'
+- `ui.auto.f2463fbc56bb` — 'the D3D11 device cannot open shared fences (needs Windows 10 1703 or later)'
+- `ui.auto.2e07983d34e4` — 'creating the shared fence: {:X}'
+- `ui.auto.a277b9212ffb` — 'opening the shared fence on D3D11: {:X}'
+- `ui.auto.a553d99f9084` — 'no device to share on'
+- `ui.auto.590d2b51e776` — 'CreateCommittedResource (shared, {}x{}, format {}) failed: 0x{:X}'
+- `ui.auto.fc1cb59bc12a` — 'CreateSharedHandle failed: 0x{:X}'
+- `ui.auto.01ead6a129aa` — 'vkCreateImage for the shared picture failed: {}'
+- `ui.auto.c0f498e03cb0` — 'no Vulkan memory type can hold the shared picture (handle properties {}, bits 0x{:X} and 0x{:X})'
+- `ui.auto.c6237d45a4f0` — "importing the shared picture's memory failed: {}"
+- `ui.auto.76bce36386c7` — 'vkBindImageMemory for the shared picture failed: {}'
+- `ui.auto.559e05be594c` — 'CreateFence (shared) failed: 0x{:X}'
+- `ui.auto.fcd081635f68` — 'CreateSharedHandle for the fence failed: 0x{:X}'
+- `ui.auto.c8377eae60e2` — 'opening the D3D12 fence as a Vulkan timeline semaphore failed: {} (the device needs the timeline semaphore feature)'
+- `ui.auto.e2e460e35bf3` — 'CreateCommittedResource (shared buffer, {} bytes) failed: 0x{:X}'
+- `ui.auto.42aa5716b23f` — 'CreateSharedHandle for the buffer failed: 0x{:X}'
+- `ui.auto.afdc88a0f0e8` — 'vkCreateBuffer for the shared buffer failed: {}'
+- `ui.auto.1514d1ed8503` — 'no Vulkan memory type can hold the shared buffer (handle properties {})'
+- `ui.auto.6258c62cc9ab` — "importing the shared buffer's memory failed: {}"
+- `ui.auto.b6f81d26f071` — 'HDR output: off'
+- `ui.auto.d4685b3dd829` — 'HDR output: standing aside, the game already outputs HDR'
+- `ui.auto.deddddff1533` — 'HDR output: standing aside, Windows HDR is off for this display'
+- `ui.auto.135c79aab973` — "HDR output: standing aside, this game's swap chain is an older type that can only be changed when the game starts; restart the game with HDR output and Windows HDR on"
+- `ui.auto.62ca03c743ab` — 'HDR output: standing aside, the game uses exclusive full screen with an older swap chain type; switch the game to borderless or windowed'
+- `ui.auto.560c475a299b` — 'HDR output: standing aside, not available for this swap chain while frame generation is on (works with XeFG and FSR FG)'
+- `ui.auto.3ea39be4c29d` — 'HDR output: standing aside, the frame generation swap chain is in exclusive full screen; switch the game to borderless or windowed'
+- `ui.auto.24e313bfe8ce` — "HDR output: standing aside, not available with DLSS-G (OptiScaler's DLSS-G output, or a game that uses DLSS-G itself); use XeFG or FSR FG"
+- `ui.auto.fc5c36259272` — 'HDR output: standing aside, not available with dxvk (Vulkan) games yet'
+- `ui.auto.376e4040a0af` — "HDR output: standing aside, the game's DLSS frame generation owns the swap chain"
+- `ui.auto.bd7541e09cc2` — 'HDR output: standing aside, this swap chain format is not supported'
+- `ui.auto.21a283a354ae` — 'HDR output: standing aside, multi-GPU swap chains are not supported'
+- `ui.auto.fbbc8f992ab3` — 'HDR output: standing aside, composition swap chains are not supported'
+- `ui.auto.51096f95b4d7` — 'HDR output: standing aside, CoreWindow (UWP) swap chains are not supported'
+- `ui.auto.187d7b053673` — 'HDR output: standing aside, the swap chain presents on a different queue than it was made with'
+- `ui.auto.8c931663dc3d` — "HDR output: could not start, the game's picture is shown as it is"
+- `ui.auto.4a85b685b59d` — 'HDR output: standing aside, multisampled swap chains are not supported'
+- `ui.auto.a6898eb10bfb` — 'HDR output: not decided yet, the display is checked again at the next resize'
+- `ui.auto.624725a01db2` — 'HDR output: could not undo the HDR swap chain; restart the game'
+- `ui.auto.c79572016d7d` — 'HDR output: the game turned on DLSS frame generation; HDR output stops at the next resolution / window change'
+- `ui.auto.86c2edeabb8a` — 'HDR output: Windows HDR is off for this display; restart the game to go back to SDR'
+- `ui.auto.fe9b5d70d033` — "HDR output: the game turned on DLSS frame generation; this game's swap chain was changed for HDR, so HDR output stays on until the next start"
+- `ui.auto.cc4d8dfd74a7` — 'HDR output: active'
+- `ui.auto.e724f39e84fe` — 'The signal changes to {} at the next resolution / window change'
+- `ui.auto.01d8f07acc87` — "HDR output: turns off at the next start (this game's swap chain was changed for HDR)"
+- `ui.auto.3b5c84d14850` — 'HDR output: applies at the next start (or at a resolution / window change, in most games)'
+- `ui.auto.ae78317f3f30` — 'HDR output: not available for Vulkan games yet'
+- `ui.auto.155b89d560c4` — 'ini'
+- `ui.auto.59b189070af7` — 'display'
+- `ui.auto.7505d64a54e0` — 'default'
+- `ui.auto.d2b1eab36955` — 'HDR output: active, %s, game white %.0f nits, peak %.0f nits (%s)'
+- `ui.auto.be43328ef093` — 'The signal changes to '
+- `ui.auto.fb7b06610a01` — ' at the next resolution / window change'
+- `ui.auto.b629588cd59b` — 'Private DLSS evaluation failed; keeping the game frame.'
+- `ui.auto.59b88900ff6f` — "temporal stabilization needs the game's depth and motion guides"
+- `ui.auto.c05a89bb1f17` — 'its packed layout does not match the frame size'
+- `ui.auto.4fa1e3c14534` — 'Waiting for private DLSS creation submission.'
+- `ui.auto.a9e264765540` — 'its surfaces or passes could not be created'
+- `ui.auto.7c35ffcc5b51` — 'private NVIDIA DLSS SR (NGX) is not available'
+- `ui.auto.6fa7e0f59c5e` — 'the private DLSS creation was never submitted'

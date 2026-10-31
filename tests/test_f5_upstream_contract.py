@@ -430,7 +430,7 @@ class ContractTests(unittest.TestCase):
             self.contract_module.load_contract(path)
 
     def test_checked_in_contract_preserves_audit_hashes_and_path_sets(self):
-        contract = self.contract_module.load_contract(ROOT / 'upstream-contract.json')
+        contract = self.contract_module.load_contract(ROOT / 'audit/v0.1.32/upstream-contract.json')
         self.assertEqual(contract['baseline_commit'], BASELINE)
         expected = {
             'package_release.ps1': 'ceb7cf129a654591e70f897c0ba410039a94eb626c507fd252584969ff4a5a1c',
@@ -439,13 +439,13 @@ class ContractTests(unittest.TestCase):
         }
         for name, sha in expected.items():
             self.assertEqual(contract['protected_files'][name]['sha256'], sha)
-        installers = json.loads((ROOT / 'Localization/installers.zh-CN.json').read_text())
+        installers = json.loads((ROOT / 'audit/v0.1.32/installers.zh-CN.json').read_text())
         for record in installers['scripts']:
             self.assertEqual(contract['protected_files'][record['path']]['sha256'], record['source_sha256'])
         redist = installers['redist']
         self.assertEqual(contract['protected_files'][redist['path']]['sha256'], redist['sha256'])
-        inventory = json.loads((ROOT / 'reports/coverage-inventory.json').read_text())
-        boundaries = json.loads((ROOT / 'reports/display-boundaries.json').read_text())
+        inventory = json.loads((ROOT / 'audit/v0.1.32/coverage-inventory.json').read_text())
+        boundaries = json.loads((ROOT / 'audit/v0.1.32/display-boundaries.json').read_text())
         audited = set(inventory['source_files']) | {record['file'] for record in boundaries['files']}
         self.assertEqual(set(contract['audited_sources']), audited)
         self.assertIn('OptiScaler/include/imgui/imgui.cpp', contract['protected_files'])

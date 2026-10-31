@@ -166,9 +166,9 @@ if ($LASTEXITCODE -ne 0 -or -not $submodules -or @($submodules | Where-Object { 
 # Packaging and project staging logic are immutable audited inputs.
 $upstreamPackager = Join-Path $SourceRoot 'package_release.ps1'
 $hybridFetcher = Join-Path $SourceRoot 'get_hybrid_assets.ps1'
-Assert-Hash $upstreamPackager 'ceb7cf129a654591e70f897c0ba410039a94eb626c507fd252584969ff4a5a1c'
+Assert-Hash $upstreamPackager 'cc274ff0d11ace00172b49a5330d2aa648dd5952c25ba877e2c71c9acf369bcc'
 Assert-Hash $hybridFetcher '5fcd0c8018c1030e63e664d5df56e9a757bdafda77df688354cd4527e90172b1'
-Assert-Hash (Join-Path $SourceRoot 'OptiScaler/OptiScaler.vcxproj') '516fb296ea12deab12a2d35a1a96ea1a87955a3bfeb3e2bb1a033b0519c7d774'
+Assert-Hash (Join-Path $SourceRoot 'OptiScaler/OptiScaler.vcxproj') 'c8040f6dd9340d9a7e5cd5ced7f0d922e25e31b78b3a2ab50ee7fdc8cb8d9744'
 $buildEvidencePath = Join-Path $repo 'reports/build-evidence.json'
 Assert-Leaf $buildEvidencePath
 $buildEvidence = Get-Content -LiteralPath $buildEvidencePath -Raw | ConvertFrom-Json
@@ -248,7 +248,7 @@ foreach ($dll in @('OptiScaler.dll', 'nvngx.dll_dlssnr.dll')) {
 foreach ($entry in $hybridManifest.files) {
     Assert-Hash (Join-Path $stage ('OptiScaler/nvfp4/hybrid/' + $entry.path)) $entry.sha256
 }
-foreach ($required in @('LICENSE', 'README.md', 'INSTALL-DLSSNR.md', 'OptiScaler.ini', 'setup_windows.bat',
+foreach ($required in @('LICENSE', 'README.md', 'TROUBLESHOOTING.md', 'INSTALL-DLSSNR.md', 'OptiScaler.ini', 'setup_windows.bat',
                        'setup_linux.sh', 'get_streamline.ps1', 'redist/streamline/manifest.json',
                        '!! EXTRACT ALL FILES TO GAME FOLDER !!', 'Licenses/HybridSource/LICENSE')) {
     Assert-Leaf (Join-Path $stage $required)

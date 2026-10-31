@@ -1,0 +1,72 @@
+[
+  [
+    "OptiScaler/menu/menu_common.cpp",
+    3487,
+    "Above 2X, every generated frame can land at the midpoint between two real frames, so 3X/4X\nshows more frames but no smoother motion. This gives each its own time.\nAuto / Reuse Blackwell kernel: uses the Blackwell interpolation kernel the DLSSG module\nalready carries. This is the default.\nRewrite blend weight: edits the Ada kernel's PTX instead. It only works on DLSSG builds\nit recognises. Try it only if 3X/4X motion is not smoother.\nini: [DLSSG] AdaTemporalFix. Save Settings and restart to apply."
+  ],
+  [
+    "OptiScaler/menu/menu_common.cpp",
+    3524,
+    "Asking for more than one generated frame while hardware flip metering is on can freeze the picture.\nThis edits NVIDIA's Streamline DLSS-G plugin in memory, when it loads, so that it paces in\nsoftware instead. It refuses unless the plugin's code is of the shape it recognises.\nUse it only if 3X or more freezes. [NvApi] DisableFlipMetering=true (ini only) is milder; try\nthat first.\nini: [DLSSG] AdaFlipMeteringPatch. Save Settings and restart to apply."
+  ],
+  [
+    "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+    1348,
+    "FG only (game's upscaler)"
+  ],
+  [
+    "OptiScaler/framegen/dlssg/MfgUnlockPtx.h",
+    531,
+    "not a readable module image"
+  ],
+  [
+    "OptiScaler/framegen/dlssg/MfgUnlockPtx.h",
+    537,
+    "no supported temporal-kernel descriptor found"
+  ],
+  [
+    "OptiScaler/framegen/dlssg/MfgUnlockPtx.h",
+    554,
+    "allocation failed"
+  ],
+  [
+    "OptiScaler/framegen/dlssg/MfgUnlockPtx.h",
+    577,
+    "no descriptor slot was writable"
+  ],
+  [
+    "OptiScaler/framegen/dlssg/MfgUnlockPtx.h",
+    583,
+    "redirected {} {} descriptor(s) from a {}-byte fatbin to a {}-byte rebuild"
+  ],
+  [
+    "OptiScaler/framegen/dlssg/AmpereMfgLoader.cpp",
+    92,
+    "Cannot enable SM86/SM75 MFG while Ada (RTX 40) MFG unlock is enabled."
+  ],
+  [
+    "OptiScaler/framegen/dlssg/AmpereMfgLoader.cpp",
+    101,
+    "SM86/SM75 MFG requires an NVIDIA GPU."
+  ],
+  [
+    "OptiScaler/framegen/dlssg/AmpereMfgLoader.cpp",
+    141,
+    "dlssg_sm86.dll not found in OptiScaler/dlssg_sm86/ or dlssg_sm86/ subfolders."
+  ],
+  [
+    "OptiScaler/framegen/dlssg/AmpereMfgLoader.cpp",
+    157,
+    "Failed to open dlssg_sm86.ini for writing."
+  ],
+  [
+    "OptiScaler/framegen/dlssg/AmpereMfgLoader.cpp",
+    170,
+    "Error writing dlssg_sm86.ini: "
+  ],
+  [
+    "OptiScaler/framegen/dlssg/AmpereMfgLoader.cpp",
+    186,
+    "Failed to load dlssg_sm86.dll (error code "
+  ]
+]

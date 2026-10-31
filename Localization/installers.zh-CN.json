@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "upstream_commit": "fadc3bf67f6c8548e94914baec3f2e551ba8d8a4",
+  "upstream_commit": "4d72d53e521b34a5cda9dd4f63ee7f4cd0438035",
   "description": "固定上游安装脚本的显示文本适配；除代码页与 pause 显示支持外，不更改命令、控制流或协议同意要求。",
   "scripts": [
     {
@@ -1413,7 +1413,7 @@
   ],
   "redist": {
     "path": "redist/streamline/manifest.json",
-    "sha256": "f2eb5ee19f21b86ecfec62563ce5849e2a1d3c119a40e89317779471aef66b87",
+    "sha256": "ba6c31a2dcbf2ae1500b4db45bb3ac8dbf7d632982c40c6c747ef6839006ce8f",
     "policy": "元数据原样保留；URL、SHA-256、签名指纹、白名单和许可正文不翻译、不重新分发第三方运行库。"
   }
 }

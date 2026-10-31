@@ -252,9 +252,9 @@ class BuildContractTests(unittest.TestCase):
         self.assertNotIn("$version = 'v0.1.32'", text)
         self.assertLess(text.index('Assert-UpstreamConfig $cfg'),
                         text.index('Invoke-PinnedPowerShellScript $hybridFetcher'))
-        for fingerprint in ('ceb7cf129a654591e70f897c0ba410039a94eb626c507fd252584969ff4a5a1c',
+        for fingerprint in ('cc274ff0d11ace00172b49a5330d2aa648dd5952c25ba877e2c71c9acf369bcc',
                             '5fcd0c8018c1030e63e664d5df56e9a757bdafda77df688354cd4527e90172b1',
-                            '516fb296ea12deab12a2d35a1a96ea1a87955a3bfeb3e2bb1a033b0519c7d774'):
+                            'c8040f6dd9340d9a7e5cd5ced7f0d922e25e31b78b3a2ab50ee7fdc8cb8d9744'):
             self.assertIn(fingerprint, text)
 
     def test_build_import_exception_is_not_used_for_public_stage(self):

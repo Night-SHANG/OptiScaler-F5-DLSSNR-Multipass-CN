@@ -1,5 +1,7 @@
 # 上游、复用与许可证
 
+> 2026-10-31 云端适配候选：`main-4d72d53e521b` / `4d72d53e521b34a5cda9dd4f63ee7f4cd0438035`。已补新界面与动态状态，Windows 编译/打包及 GPU 实机尚待验证；不是已发布成品。[本轮审计](docs/UPSTREAM-AUDIT-2026-10-31.md)。历史 v0.1.32 契约保存在 `audit/v0.1.32/`。
+
 ## 初始审计基线
 
 - 上游：[janblade/OptiScaler-F5-DLSSNR-Multipass](https://github.com/janblade/OptiScaler-F5-DLSSNR-Multipass)
@@ -8,7 +10,7 @@
 - 原分支：`main`，仅说明来源；实际构建以完整提交为准。
 - 本仓库：[Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN)
 
-`upstream-contract.json` 保存这个不可自动重写的审计基线；`upstream.json` 保存当前选定的完整构建 SHA。持续同步只能推进通过该契约的后续上游提交：完整源文件路径和语法结构、非显示字符串、脚本、项目、依赖 gitlink、许可证与资源指纹均受保护。仅少量明确审计过的显示字符串位置允许变化，且仍须完整扫描、零 missing/stale 与原有所有测试通过。具体见中文仓库 `CONTINUOUS-LOCALIZATION.md`。
+历史初始契约保存在 `audit/v0.1.32/upstream-contract.json`。当前 `upstream-contract.json` 保存本轮显式复审后的基线，全部变更输入精确冻结；`upstream.json` 保存当前选定的完整构建 SHA。持续同步只能推进通过该契约的后续上游提交：完整源文件路径和语法结构、非显示字符串、脚本、项目、依赖 gitlink、许可证与资源指纹均受保护。仅少量明确审计过的显示字符串位置允许变化，且仍须完整扫描、零 missing/stale 与原有所有测试通过。具体见中文仓库 `CONTINUOUS-LOCALIZATION.md`。
 
 完整构建的子模块使用固定提交记录的递归 gitlink，不执行 `submodule update --remote`。不兼容升级必须人工复审扫描范围、显示边界、字体锚点、构建和打包契约，不能自动重新生成契约让失败消失。
 

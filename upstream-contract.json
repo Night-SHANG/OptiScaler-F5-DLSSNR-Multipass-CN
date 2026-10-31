@@ -2,7 +2,7 @@
   "schema": 1,
   "repository": "https://github.com/janblade/OptiScaler-F5-DLSSNR-Multipass.git",
   "branch": "main",
-  "baseline_commit": "fadc3bf67f6c8548e94914baec3f2e551ba8d8a4",
+  "baseline_commit": "4d72d53e521b34a5cda9dd4f63ee7f4cd0438035",
   "normalizer": "cpp-structure-v1",
   "source_paths": [
     "OptiScaler/Config.cpp",
@@ -43,10 +43,27 @@
     "OptiScaler/dlssnr/DlssNr_ColourEncodingStatus.cpp",
     "OptiScaler/dlssnr/DlssNr_ColourEncodingStatus.h",
     "OptiScaler/dlssnr/DlssNr_DetailReuse_Vk.inl",
+    "OptiScaler/dlssnr/DlssNr_ExposureAuto.h",
+    "OptiScaler/dlssnr/DlssNr_ExposureAutoScan.cpp",
+    "OptiScaler/dlssnr/DlssNr_ExposureAutoScan.h",
     "OptiScaler/dlssnr/DlssNr_ExposureCalibrate_Vk.inl",
+    "OptiScaler/dlssnr/DlssNr_ExposureMatch.h",
     "OptiScaler/dlssnr/DlssNr_ExposureScan.cpp",
     "OptiScaler/dlssnr/DlssNr_ExposureScan.h",
+    "OptiScaler/dlssnr/DlssNr_ExposureScanCore.h",
+    "OptiScaler/dlssnr/DlssNr_ExposureScanRecord.h",
+    "OptiScaler/dlssnr/DlssNr_ExposureScanShape.h",
+    "OptiScaler/dlssnr/DlssNr_ExposureScanSource.h",
+    "OptiScaler/dlssnr/DlssNr_ExposureScan_Dx11.cpp",
+    "OptiScaler/dlssnr/DlssNr_ExposureScan_Dx11.h",
+    "OptiScaler/dlssnr/DlssNr_ExposureScan_Vk.cpp",
+    "OptiScaler/dlssnr/DlssNr_ExposureScan_Vk.h",
     "OptiScaler/dlssnr/DlssNr_GameDefaults.h",
+    "OptiScaler/dlssnr/DlssNr_GpuLifetime.cpp",
+    "OptiScaler/dlssnr/DlssNr_GpuLifetime.h",
+    "OptiScaler/dlssnr/DlssNr_GuidedShaping.h",
+    "OptiScaler/dlssnr/DlssNr_InterPassPolicy.h",
+    "OptiScaler/dlssnr/DlssNr_InterPassSchedule.h",
     "OptiScaler/dlssnr/DlssNr_LookPresets.h",
     "OptiScaler/dlssnr/DlssNr_Lut.h",
     "OptiScaler/dlssnr/DlssNr_LutFile.h",
@@ -55,10 +72,15 @@
     "OptiScaler/dlssnr/DlssNr_LutStatus.h",
     "OptiScaler/dlssnr/DlssNr_Menu.cpp",
     "OptiScaler/dlssnr/DlssNr_NativeMode.h",
+    "OptiScaler/dlssnr/DlssNr_Profiles.h",
     "OptiScaler/dlssnr/DlssNr_Proxy.cpp",
     "OptiScaler/dlssnr/DlssNr_Proxy.h",
     "OptiScaler/dlssnr/DlssNr_RetryRequest.h",
     "OptiScaler/dlssnr/DlssNr_Spatial_Vk.inl",
+    "OptiScaler/dlssnr/DlssNr_StreamlinePicture.cpp",
+    "OptiScaler/dlssnr/DlssNr_StreamlinePicture.h",
+    "OptiScaler/dlssnr/DlssNr_SuperiorGains.h",
+    "OptiScaler/dlssnr/DlssNr_SuperiorScaling.h",
     "OptiScaler/dlssnr/DlssNr_TierPlacement.h",
     "OptiScaler/dlssnr/DlssNr_VkExtensions.h",
     "OptiScaler/dlssnr/PassProfiles.h",
@@ -73,26 +95,47 @@
     "OptiScaler/exports/winhttp.h",
     "OptiScaler/exports/wininet.h",
     "OptiScaler/exports/winmm.h",
+    "OptiScaler/framegen/FGBorderless.h",
     "OptiScaler/framegen/FGFollowGameRule.h",
+    "OptiScaler/framegen/FGOutput.h",
+    "OptiScaler/framegen/GameFsrFgRule.h",
     "OptiScaler/framegen/IFGFeature.cpp",
     "OptiScaler/framegen/IFGFeature.h",
     "OptiScaler/framegen/IFGFeature_Dx12.cpp",
     "OptiScaler/framegen/IFGFeature_Dx12.h",
-    "OptiScaler/framegen/dlssg/AmpereMfgLoader.cpp",
-    "OptiScaler/framegen/dlssg/AmpereMfgLoader.h",
+    "OptiScaler/framegen/IFGFeature_Vk.cpp",
+    "OptiScaler/framegen/IFGFeature_Vk.h",
+    "OptiScaler/framegen/dlssg/DLSSG_Common.cpp",
+    "OptiScaler/framegen/dlssg/DLSSG_Common.h",
     "OptiScaler/framegen/dlssg/DLSSG_Dx12.cpp",
     "OptiScaler/framegen/dlssg/DLSSG_Dx12.h",
+    "OptiScaler/framegen/dlssg/DLSSG_Vk.cpp",
+    "OptiScaler/framegen/dlssg/DLSSG_Vk.h",
+    "OptiScaler/framegen/dlssg/DlssgTelemetry.h",
     "OptiScaler/framegen/dlssg/Kcd2Hdr.cpp",
     "OptiScaler/framegen/dlssg/Kcd2Hdr.h",
-    "OptiScaler/framegen/dlssg/MfgUnlock.cpp",
-    "OptiScaler/framegen/dlssg/MfgUnlock.h",
-    "OptiScaler/framegen/dlssg/MfgUnlockFlip.h",
-    "OptiScaler/framegen/dlssg/MfgUnlockMethod.h",
-    "OptiScaler/framegen/dlssg/MfgUnlockPlugin.h",
-    "OptiScaler/framegen/dlssg/MfgUnlockProvider.h",
-    "OptiScaler/framegen/dlssg/MfgUnlockPtx.h",
     "OptiScaler/framegen/ffx/FSRFG_Dx12.cpp",
     "OptiScaler/framegen/ffx/FSRFG_Dx12.h",
+    "OptiScaler/framegen/ffx/FSRFG_Vk.cpp",
+    "OptiScaler/framegen/ffx/FSRFG_Vk.h",
+    "OptiScaler/framegen/mfgunlock/FamilyAmpere.h",
+    "OptiScaler/framegen/mfgunlock/FamilyFatbin.h",
+    "OptiScaler/framegen/mfgunlock/FamilyRtx40.h",
+    "OptiScaler/framegen/mfgunlock/FamilySlDlssg.h",
+    "OptiScaler/framegen/mfgunlock/FamilyXeFG.h",
+    "OptiScaler/framegen/mfgunlock/Image.h",
+    "OptiScaler/framegen/mfgunlock/Locator.h",
+    "OptiScaler/framegen/mfgunlock/MfgUnlock.cpp",
+    "OptiScaler/framegen/mfgunlock/MfgUnlock.h",
+    "OptiScaler/framegen/mfgunlock/Mode.h",
+    "OptiScaler/framegen/mfgunlock/Patch.h",
+    "OptiScaler/framegen/mfgunlock/Provider.h",
+    "OptiScaler/framegen/mfgunlock/PtxTuring.h",
+    "OptiScaler/framegen/mfgunlock/Status.h",
+    "OptiScaler/framegen/mfgunlock/hde/hde64.c",
+    "OptiScaler/framegen/mfgunlock/hde/hde64.h",
+    "OptiScaler/framegen/mfgunlock/hde/pstdint.h",
+    "OptiScaler/framegen/mfgunlock/hde/table64.h",
     "OptiScaler/framegen/nvngx/IFGNvngx.h",
     "OptiScaler/framegen/nvngx/Nvngx_Arturs.cpp",
     "OptiScaler/framegen/nvngx/Nvngx_Arturs.h",
@@ -109,10 +152,22 @@
     "OptiScaler/framegen/xefg/XeFGFrameId.h",
     "OptiScaler/framegen/xefg/XeFG_Dx12.cpp",
     "OptiScaler/framegen/xefg/XeFG_Dx12.h",
-    "OptiScaler/fsr4/FSR4ModelSelection.cpp",
-    "OptiScaler/fsr4/FSR4ModelSelection.h",
-    "OptiScaler/fsr4/FSR4Upgrade.cpp",
-    "OptiScaler/fsr4/FSR4Upgrade.h",
+    "OptiScaler/framegen/xefg/XeFG_DynamicCap.h",
+    "OptiScaler/framegen/xefg/XeFG_DynamicCount.h",
+    "OptiScaler/framegen/xefg/XeFG_DynamicTarget.h",
+    "OptiScaler/framegen/xefg/XeFG_ShownRate.h",
+    "OptiScaler/fsr4/FSR4DriverProvider.cpp",
+    "OptiScaler/fsr4/FSR4DriverProvider.h",
+    "OptiScaler/fsr4/FSR4DriverProviderDx12.cpp",
+    "OptiScaler/fsr4/FSR4DriverProviderDx12.h",
+    "OptiScaler/fsr4/FSR4DriverProviderVk.cpp",
+    "OptiScaler/fsr4/FSR4DriverProviderVk.h",
+    "OptiScaler/fsr4/FSR4Models.cpp",
+    "OptiScaler/fsr4/FSR4Models.h",
+    "OptiScaler/fsr4/FSR4PipelineLayouts.cpp",
+    "OptiScaler/fsr4/FSR4PipelineLayouts.h",
+    "OptiScaler/fsr4/FSR4Presets.cpp",
+    "OptiScaler/fsr4/FSR4Presets.h",
     "OptiScaler/gpu_time/GpuTime_Dx11.cpp",
     "OptiScaler/gpu_time/GpuTime_Dx11.h",
     "OptiScaler/gpu_time/GpuTime_Dx12.cpp",
@@ -157,6 +212,8 @@
     "OptiScaler/hooks/Xell_Hooks.h",
     "OptiScaler/hudfix/Hudfix_Dx12.cpp",
     "OptiScaler/hudfix/Hudfix_Dx12.h",
+    "OptiScaler/hudfix/Hudfix_Vk.cpp",
+    "OptiScaler/hudfix/Hudfix_Vk.h",
     "OptiScaler/include/d3dx/D3DX11.h",
     "OptiScaler/include/d3dx/D3DX11async.h",
     "OptiScaler/include/d3dx/D3DX11core.h",
@@ -248,14 +305,16 @@
     "OptiScaler/inputs/FG/FSR3_Dx12_FG.h",
     "OptiScaler/inputs/FG/FfxApi_Dx12_FG.cpp",
     "OptiScaler/inputs/FG/FfxApi_Dx12_FG.h",
-    "OptiScaler/inputs/FG/Streamline_Inputs_Dx12.cpp",
-    "OptiScaler/inputs/FG/Streamline_Inputs_Dx12.h",
+    "OptiScaler/inputs/FG/Streamline_Inputs.cpp",
+    "OptiScaler/inputs/FG/Streamline_Inputs.h",
     "OptiScaler/inputs/FG/Streamline_Inputs_Sl1_Dx12.cpp",
     "OptiScaler/inputs/FG/Streamline_Inputs_Sl1_Dx12.h",
     "OptiScaler/inputs/FG/Upscaler_Inputs_Dx11wDx12.cpp",
     "OptiScaler/inputs/FG/Upscaler_Inputs_Dx11wDx12.h",
     "OptiScaler/inputs/FG/Upscaler_Inputs_Dx12.cpp",
     "OptiScaler/inputs/FG/Upscaler_Inputs_Dx12.h",
+    "OptiScaler/inputs/FG/Upscaler_Inputs_Vk.cpp",
+    "OptiScaler/inputs/FG/Upscaler_Inputs_Vk.h",
     "OptiScaler/inputs/FSR2_Dx11.cpp",
     "OptiScaler/inputs/FSR2_Dx11.h",
     "OptiScaler/inputs/FSR2_Dx12.cpp",
@@ -328,6 +387,9 @@
     "OptiScaler/menu/HeaderBanner.h",
     "OptiScaler/menu/MenuLifetimeRule.h",
     "OptiScaler/menu/MenuPages.h",
+    "OptiScaler/menu/PluginsPage.cpp",
+    "OptiScaler/menu/PluginsPage.h",
+    "OptiScaler/menu/PresentRateMeter.h",
     "OptiScaler/menu/font/Hack.h",
     "OptiScaler/menu/font/Hack_Compressed.h",
     "OptiScaler/menu/font/Inter_Compressed.h",
@@ -370,6 +432,11 @@
     "OptiScaler/misc/REFrameworkCompatCore.h",
     "OptiScaler/misc/SkipSpoof.cpp",
     "OptiScaler/misc/SkipSpoof.h",
+    "OptiScaler/misc/XeModuleInfo.cpp",
+    "OptiScaler/misc/XeModuleInfo.h",
+    "OptiScaler/motion/CameraFusion_Hlsl.h",
+    "OptiScaler/motion/CameraModel_Hlsl.h",
+    "OptiScaler/motion/FlowDebug_Hlsl.h",
     "OptiScaler/motion/Luma_Hlsl.h",
     "OptiScaler/motion/MotionProfiles.h",
     "OptiScaler/motion/OpticalFlow_Dx12.cpp",
@@ -381,6 +448,10 @@
     "OptiScaler/motion/TrustMask_Dx12.cpp",
     "OptiScaler/motion/TrustMask_Dx12.h",
     "OptiScaler/motion/TrustMask_Hlsl.h",
+    "OptiScaler/native/DebugPreviewDx11.h",
+    "OptiScaler/native/DebugPreviewVk.h",
+    "OptiScaler/native/DepthAlign_Dx12.h",
+    "OptiScaler/native/DepthAlign_Hlsl.h",
     "OptiScaler/native/DepthCopyDx11.cpp",
     "OptiScaler/native/DepthCopyDx11.h",
     "OptiScaler/native/DepthCopyDx11_Hlsl.h",
@@ -396,6 +467,8 @@
     "OptiScaler/native/Dx12FrameSource.cpp",
     "OptiScaler/native/Dx12FrameSource.h",
     "OptiScaler/native/F5LowShaderBytecode.h",
+    "OptiScaler/native/FlowDebugViews.h",
+    "OptiScaler/native/FlowDiagnosticUi.h",
     "OptiScaler/native/FrameContract.h",
     "OptiScaler/native/MsaaPictureDx11.cpp",
     "OptiScaler/native/MsaaPictureDx11.h",
@@ -447,8 +520,32 @@
     "OptiScaler/nvapi/fakenvapi/low_latency_d3d.cpp",
     "OptiScaler/nvapi/fakenvapi/nvapi_calls.cpp",
     "OptiScaler/nvapi/fakenvapi/nvapi_calls.h",
+    "OptiScaler/output/SdrToHdr_Common.h",
+    "OptiScaler/output/SdrToHdr_Create.cpp",
+    "OptiScaler/output/SdrToHdr_Create.h",
+    "OptiScaler/output/SdrToHdr_Display.cpp",
+    "OptiScaler/output/SdrToHdr_Display.h",
+    "OptiScaler/output/SdrToHdr_Dx11.cpp",
+    "OptiScaler/output/SdrToHdr_Dx11.h",
+    "OptiScaler/output/SdrToHdr_Dx11Present.cpp",
+    "OptiScaler/output/SdrToHdr_Dx11Present.h",
+    "OptiScaler/output/SdrToHdr_Dx12.cpp",
+    "OptiScaler/output/SdrToHdr_Dx12.h",
+    "OptiScaler/output/SdrToHdr_Fullscreen.cpp",
+    "OptiScaler/output/SdrToHdr_Fullscreen.h",
+    "OptiScaler/output/SdrToHdr_Hlsl.h",
+    "OptiScaler/output/SdrToHdr_Pass.h",
+    "OptiScaler/output/SdrToHdr_ProxyBase.cpp",
+    "OptiScaler/output/SdrToHdr_ProxyBase.h",
+    "OptiScaler/output/SdrToHdr_ProxyDx11.cpp",
+    "OptiScaler/output/SdrToHdr_ProxyDx11.h",
+    "OptiScaler/output/SdrToHdr_ProxyDx12.cpp",
+    "OptiScaler/output/SdrToHdr_ProxyDx12.h",
+    "OptiScaler/output/SdrToHdr_Status.h",
     "OptiScaler/pch.cpp",
     "OptiScaler/pch.h",
+    "OptiScaler/plugins/PluginRegistry.h",
+    "OptiScaler/plugins/PluginsView.h",
     "OptiScaler/proxies/D3D12_Proxy.h",
     "OptiScaler/proxies/Dxgi_Proxy.h",
     "OptiScaler/proxies/FfxApi_Proxy.h",
@@ -461,6 +558,7 @@
     "OptiScaler/proxies/XeFG_Proxy.h",
     "OptiScaler/proxies/XeLL_Proxy.h",
     "OptiScaler/proxies/XeSS_Proxy.h",
+    "OptiScaler/proxies/sl_helpers_vk.h",
     "OptiScaler/resource.h",
     "OptiScaler/resource_tracking/GenericDepth_Dx11.cpp",
     "OptiScaler/resource_tracking/GenericDepth_Dx11.h",
@@ -472,6 +570,8 @@
     "OptiScaler/resource_tracking/GenericDepth_VkEvents.h",
     "OptiScaler/resource_tracking/ResTrack_dx12.cpp",
     "OptiScaler/resource_tracking/ResTrack_dx12.h",
+    "OptiScaler/scanner/rtti.cpp",
+    "OptiScaler/scanner/rtti.h",
     "OptiScaler/scanner/scanner.cpp",
     "OptiScaler/scanner/scanner.h",
     "OptiScaler/shaders/Shader_Common.cpp",
@@ -484,6 +584,10 @@
     "OptiScaler/shaders/Shader_Vk.cpp",
     "OptiScaler/shaders/Shader_Vk.h",
     "OptiScaler/shaders/Shader_VkUtils.h",
+    "OptiScaler/shaders/auto_exposure/AE_Common.h",
+    "OptiScaler/shaders/auto_exposure/AE_Dx12.cpp",
+    "OptiScaler/shaders/auto_exposure/AE_Dx12.h",
+    "OptiScaler/shaders/auto_exposure/precompile/AE_Shader.h",
     "OptiScaler/shaders/bias/Bias_Common.h",
     "OptiScaler/shaders/bias/Bias_Dx11.cpp",
     "OptiScaler/shaders/bias/Bias_Dx11.h",
@@ -530,8 +634,11 @@
     "OptiScaler/shaders/dlssnr/DlssNr_ExposureCalibrate_Dx12.inl",
     "OptiScaler/shaders/dlssnr/DlssNr_ExposureCalibrate_Run.h",
     "OptiScaler/shaders/dlssnr/DlssNr_ExposureDefault.h",
+    "OptiScaler/shaders/dlssnr/DlssNr_ExposureFoundBlend.h",
     "OptiScaler/shaders/dlssnr/DlssNr_ExposureMeter.h",
     "OptiScaler/shaders/dlssnr/DlssNr_ExposureState.h",
+    "OptiScaler/shaders/dlssnr/DlssNr_FinishedCopy.h",
+    "OptiScaler/shaders/dlssnr/DlssNr_FinishedRaster.h",
     "OptiScaler/shaders/dlssnr/DlssNr_FinishedReady.h",
     "OptiScaler/shaders/dlssnr/DlssNr_FollowGame.h",
     "OptiScaler/shaders/dlssnr/DlssNr_GameScale.h",
@@ -550,6 +657,7 @@
     "OptiScaler/shaders/dlssnr/DlssNr_Spatial.inl",
     "OptiScaler/shaders/dlssnr/DlssNr_SurfaceFormats.h",
     "OptiScaler/shaders/dlssnr/DlssNr_TrimAnchors.h",
+    "OptiScaler/shaders/dlssnr/DlssNr_Views.h",
     "OptiScaler/shaders/dlssnr/DlssNr_Vk.cpp",
     "OptiScaler/shaders/dlssnr/DlssNr_Vk.h",
     "OptiScaler/shaders/dlssnr/DlssNr_WatchedLists.h",
@@ -563,12 +671,72 @@
     "OptiScaler/shaders/dlssnr/precompile/dlssnr_exposure_adapt_Shader.h",
     "OptiScaler/shaders/dlssnr/precompile/dlssnr_exposure_adapt_Shader_Vk.h",
     "OptiScaler/shaders/dlssnr/precompile/dlssnr_finished_color_Shader.h",
+    "OptiScaler/shaders/dlssnr/precompile/dlssnr_finished_pq_direct_Shader.h",
+    "OptiScaler/shaders/dlssnr/precompile/dlssnr_finished_pq_ps_Shader.h",
+    "OptiScaler/shaders/dlssnr/precompile/dlssnr_finished_pq_vs_Shader.h",
     "OptiScaler/shaders/dlssnr/precompile/dlssnr_lut_Shader.h",
     "OptiScaler/shaders/dlssnr/precompile/dlssnr_lut_Shader_Vk.h",
     "OptiScaler/shaders/dlssnr/precompile/dlssnr_spatial_Shader.h",
     "OptiScaler/shaders/dlssnr/precompile/dlssnr_spatial_Shader_Vk.h",
     "OptiScaler/shaders/dlssnr/precompile/dlssnr_spatial_guides_Shader.h",
     "OptiScaler/shaders/dlssnr/precompile/dlssnr_spatial_guides_Shader_Vk.h",
+    "OptiScaler/shaders/dlssnr/superior/Constants.h",
+    "OptiScaler/shaders/dlssnr/superior/Fields.h",
+    "OptiScaler/shaders/dlssnr/superior/Pipeline.inl",
+    "OptiScaler/shaders/dlssnr/superior/PrivateGuides.inl",
+    "OptiScaler/shaders/dlssnr/superior/Shader.inl",
+    "OptiScaler/shaders/dlssnr/superior/precompile/DlssNr_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_interpass_cross5_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_interpass_fast_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_interpass_low36_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_interpass_low36_cached_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_superior_area_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_superior_carrier_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_superior_cross5_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_superior_encode_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_superior_exposure_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_superior_hdr0_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_superior_hdr2_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_superior_hdr4_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_superior_low_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_superior_meter_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_superior_normal_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_superior_resolve_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_superior_sdr_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_cached_packed_hdr0_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_cached_packed_hdr2_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_cached_packed_hdr4_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_cached_packed_hdr6_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_cached_packed_sdr_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_joint_guides_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_joint_guides_quantized_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_joint_minified_guides_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_joint_minified_guides_quantized_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_low_raw_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_normal_hdr0_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_normal_hdr2_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_normal_hdr4_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_normal_hdr6_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_normal_packed_hdr0_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_normal_packed_hdr2_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_normal_packed_hdr4_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_normal_packed_hdr6_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_normal_packed_sdr_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_normal_sdr_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_private_guides_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_private_guides_quantized_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_resolve_hdr_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_resolve_packed_hdr_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_resolve_packed_sdr_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_resolve_raw_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_resolve_sdr_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_surface_guides_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_uniform_joint_guides_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_uniform_joint_guides_quantized_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_uniform_joint_minified_guides_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_uniform_joint_minified_guides_quantized_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_uniform_surface_guides_Shader.h",
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_warp_cache_Shader.h",
     "OptiScaler/shaders/format_transfer/FT_Common.h",
     "OptiScaler/shaders/format_transfer/FT_Dx12.cpp",
     "OptiScaler/shaders/format_transfer/FT_Dx12.h",
@@ -576,7 +744,10 @@
     "OptiScaler/shaders/hud_copy/HudCopy_Common.h",
     "OptiScaler/shaders/hud_copy/HudCopy_Dx12.cpp",
     "OptiScaler/shaders/hud_copy/HudCopy_Dx12.h",
+    "OptiScaler/shaders/hud_copy/HudCopy_Vk.cpp",
+    "OptiScaler/shaders/hud_copy/HudCopy_Vk.h",
     "OptiScaler/shaders/hud_copy/precompile/HudCopy_Shader.h",
+    "OptiScaler/shaders/hud_copy/precompile/HudCopy_Shader_Vk.h",
     "OptiScaler/shaders/hudless_compare/HC_Common.h",
     "OptiScaler/shaders/hudless_compare/HC_Dx12.cpp",
     "OptiScaler/shaders/hudless_compare/HC_Dx12.h",
@@ -585,7 +756,9 @@
     "OptiScaler/shaders/hudless_compare_compute/HCC_Common.h",
     "OptiScaler/shaders/hudless_compare_compute/HCC_Dx12.cpp",
     "OptiScaler/shaders/hudless_compare_compute/HCC_Dx12.h",
+    "OptiScaler/shaders/hudless_compare_compute/HCC_Vk.h",
     "OptiScaler/shaders/hudless_compare_compute/precompile/HCC_Shader.h",
+    "OptiScaler/shaders/hudless_compare_compute/precompile/HCC_Shader_Vk.h",
     "OptiScaler/shaders/magnifier/Magnifier_Common.cpp",
     "OptiScaler/shaders/magnifier/Magnifier_Common.h",
     "OptiScaler/shaders/magnifier/Magnifier_Dx11.cpp",
@@ -667,13 +840,21 @@
     "OptiScaler/shaders/resource_flip/RF_Common.h",
     "OptiScaler/shaders/resource_flip/RF_Dx12.cpp",
     "OptiScaler/shaders/resource_flip/RF_Dx12.h",
+    "OptiScaler/shaders/resource_flip/RF_Vk.cpp",
+    "OptiScaler/shaders/resource_flip/RF_Vk.h",
     "OptiScaler/shaders/resource_flip/precompiled/RF_Shader.h",
+    "OptiScaler/shaders/resource_flip/precompiled/RF_Shader_Vk.h",
     "OptiScaler/shaders/sgsr1/SGSR1_Dx12.cpp",
     "OptiScaler/shaders/sgsr1/SGSR1_Dx12.h",
     "OptiScaler/shaders/sgsr1/SGSR1_Vk.cpp",
     "OptiScaler/shaders/sgsr1/SGSR1_Vk.h",
     "OptiScaler/shaders/sgsr1/precompile/sgsr1_Shader.h",
     "OptiScaler/shaders/sgsr1/precompile/sgsr1_Shader_Vk.h",
+    "OptiScaler/shaders/ui_unblend/UiUnblend_Vk.h",
+    "OptiScaler/shaders/ui_unblend/precompile/UiUnblend_Shader_Vk.h",
+    "OptiScaler/shaders/velocity_convert/VC_Vk.cpp",
+    "OptiScaler/shaders/velocity_convert/VC_Vk.h",
+    "OptiScaler/shaders/velocity_convert/precompile/vc_Shader_Vk.h",
     "OptiScaler/spoofing/Dxgi_Spoofing.cpp",
     "OptiScaler/spoofing/Dxgi_Spoofing.h",
     "OptiScaler/spoofing/User32_Spoofing.cpp",
@@ -864,22 +1045,24 @@
     "external/streamline1/sl1.h",
     "external/streamline1/sl1_consts.h",
     "external/streamline1/sl1_reflex.h",
-    "tests/dlssg_sm86_ini_smoke.cpp",
     "tests/dxgi_window_size_smoke.cpp",
     "tests/dxvk_output_order_smoke.cpp",
     "tests/f5low_vu_route_smoke.cpp",
     "tests/fg_follow_game_smoke.cpp",
+    "tests/game_fsrfg_rule_smoke.cpp",
     "tests/ll_output_rule_smoke.cpp",
     "tests/log_async_no_stall_smoke.cpp",
     "tests/menu_header_banner_smoke.cpp",
     "tests/menu_lifetime_smoke.cpp",
     "tests/menu_pages_smoke.cpp",
-    "tests/mfg_ceiling_smoke.cpp",
-    "tests/mfg_flipmeter_smoke.cpp",
-    "tests/mfg_method_smoke.cpp",
-    "tests/mfg_provider_smoke.cpp",
-    "tests/mfg_ptx_smoke.cpp",
-    "tests/mfg_real_module_check.cpp",
+    "tests/mfgunlock_check.cpp",
+    "tests/mfgunlock_core_smoke.cpp",
+    "tests/mfgunlock_fatbin_refs.cpp",
+    "tests/mfgunlock_fatbin_survey.cpp",
+    "tests/mfgunlock_live_probe.cpp",
+    "tests/mfgunlock_ptx_jit_probe.cpp",
+    "tests/mfgunlock_rtx40_probe.cpp",
+    "tests/mfgunlock_turing_probe.cpp",
     "tests/nr_active_color_smoke.cpp",
     "tests/nr_auto_exposure_smoke.cpp",
     "tests/nr_auto_trim_smoke.cpp",
@@ -895,9 +1078,14 @@
     "tests/nr_edit_cache_shader_smoke.cpp",
     "tests/nr_edit_cache_smoke.cpp",
     "tests/nr_exposure_adapt_smoke.cpp",
+    "tests/nr_exposure_auto_smoke.cpp",
     "tests/nr_exposure_calibrate_smoke.cpp",
     "tests/nr_exposure_default_smoke.cpp",
+    "tests/nr_exposure_found_blend_smoke.cpp",
+    "tests/nr_exposure_match_smoke.cpp",
     "tests/nr_exposure_meter_smoke.cpp",
+    "tests/nr_exposure_scan_record_smoke.cpp",
+    "tests/nr_exposure_scan_shape_smoke.cpp",
     "tests/nr_exposure_state_smoke.cpp",
     "tests/nr_finished_color_smoke.cpp",
     "tests/nr_finished_queue_smoke.cpp",
@@ -907,6 +1095,58 @@
     "tests/nr_game_scale_smoke.cpp",
     "tests/nr_generic_depth_smoke.cpp",
     "tests/nr_generic_depth_vk_smoke.cpp",
+    "tests/nr_gpu/BenchmarkCases.h",
+    "tests/nr_gpu/InterPassPaths.h",
+    "tests/nr_gpu/cubic_guided_quality.cpp",
+    "tests/nr_gpu/dynamic_guides_quality.cpp",
+    "tests/nr_gpu/four_candidates_fixture.h",
+    "tests/nr_gpu/four_candidates_quality.cpp",
+    "tests/nr_gpu/four_candidates_timing.cpp",
+    "tests/nr_gpu/fused_pack_experiment.cpp",
+    "tests/nr_gpu/host_opt_timing.cpp",
+    "tests/nr_gpu/interpass_fixture.h",
+    "tests/nr_gpu/interpass_low_cache_quality.cpp",
+    "tests/nr_gpu/interpass_policy.cpp",
+    "tests/nr_gpu/interpass_timing_fixture.h",
+    "tests/nr_gpu/joint_depth_quality.cpp",
+    "tests/nr_gpu/nr_dynamic_history.cpp",
+    "tests/nr_gpu/nr_finished_evaluate.cpp",
+    "tests/nr_gpu/nr_finished_native.cpp",
+    "tests/nr_gpu/nr_finished_performance.cpp",
+    "tests/nr_gpu/nr_finished_production.cpp",
+    "tests/nr_gpu/nr_finished_routing.cpp",
+    "tests/nr_gpu/nr_streamline_hooks.cpp",
+    "tests/nr_gpu/nr_streamline_picture_smoke.cpp",
+    "tests/nr_gpu/packed_fixture.h",
+    "tests/nr_gpu/packed_host_quality.cpp",
+    "tests/nr_gpu/packed_prepare_quality.cpp",
+    "tests/nr_gpu/packed_stage_fixture.h",
+    "tests/nr_gpu/packed_stage_timing.cpp",
+    "tests/nr_gpu/pch.h",
+    "tests/nr_gpu/private_guides_quality.cpp",
+    "tests/nr_gpu/private_guides_timing.cpp",
+    "tests/nr_gpu/refinement_timing.cpp",
+    "tests/nr_gpu/render_guides_quality.cpp",
+    "tests/nr_gpu/review_timing.cpp",
+    "tests/nr_gpu/spatial_policy.cpp",
+    "tests/nr_gpu/spatial_raw_low_quality.cpp",
+    "tests/nr_gpu/spatial_timing.cpp",
+    "tests/nr_gpu/stage_timing.h",
+    "tests/nr_gpu/superior_area_quality.cpp",
+    "tests/nr_gpu/superior_carrier.cpp",
+    "tests/nr_gpu/superior_exposure_fixture.h",
+    "tests/nr_gpu/superior_exposure_quality.cpp",
+    "tests/nr_gpu/superior_host_quality.cpp",
+    "tests/nr_gpu/superior_input_fixture.h",
+    "tests/nr_gpu/superior_input_quality.cpp",
+    "tests/nr_gpu/superior_numeric_metrics.h",
+    "tests/nr_gpu/superior_policy.cpp",
+    "tests/nr_gpu/superior_prepare_fixture.h",
+    "tests/nr_gpu/superior_prepare_quality.cpp",
+    "tests/nr_gpu/superior_resolve_fixture.h",
+    "tests/nr_gpu/superior_softknee_quality.cpp",
+    "tests/nr_gpu/superior_tall_low_quality.cpp",
+    "tests/nr_gpu/superior_tall_low_timing.cpp",
     "tests/nr_gpu_time_smoke.cpp",
     "tests/nr_guides_smoke.cpp",
     "tests/nr_highlight_guard_smoke.cpp",
@@ -928,6 +1168,7 @@
     "tests/nr_optical_flow_gpu.cpp",
     "tests/nr_present_epoch_smoke.cpp",
     "tests/nr_present_stage_timing_smoke.cpp",
+    "tests/nr_profiles_smoke.cpp",
     "tests/nr_proxy_curve_smoke.cpp",
     "tests/nr_proxy_curves_shader_smoke.cpp",
     "tests/nr_residual_compare_shader_smoke.cpp",
@@ -949,6 +1190,7 @@
     "tests/nr_tier_placement_smoke.cpp",
     "tests/nr_trim_anchors_smoke.cpp",
     "tests/nr_trust_mask_gpu.cpp",
+    "tests/nr_views_smoke.cpp",
     "tests/nr_virtual_upscaler_hold_smoke.cpp",
     "tests/nr_vit_reuse_smoke.cpp",
     "tests/nr_vk_copy_rule_smoke.cpp",
@@ -958,16 +1200,28 @@
     "tests/nr_vulkan_shader_smoke.cpp",
     "tests/nr_watched_lists_smoke.cpp",
     "tests/path_under_smoke.cpp",
+    "tests/plugin_registry_smoke.cpp",
+    "tests/plugins_view_smoke.cpp",
     "tests/reframework_compat_smoke.cpp",
+    "tests/sdr_to_hdr_dx11_gpu.cpp",
+    "tests/sdr_to_hdr_dx12_gpu.cpp",
+    "tests/sdr_to_hdr_plan_smoke.cpp",
+    "tests/sdr_to_hdr_rules_smoke.cpp",
+    "tests/sdr_to_hdr_swapchain_dx12_gpu.cpp",
     "tests/streamline_detours_race_stress.cpp",
     "tests/streamline_dual_runtime_smoke.cpp",
     "tests/ue_low_latency_input_smoke.cpp",
+    "tests/xefg_dynamic_count_smoke.cpp",
     "tools/device_burst/device_burst.cpp"
   ],
   "protected_files": {
     ".clang-format": {
       "mode": "100644",
       "sha256": "291678715fd34aec4ae95c399b6b27f9625b8eb047f4265085500bb41af5efbd"
+    },
+    ".clang-format-ignore": {
+      "mode": "100644",
+      "sha256": "ad15563b267178af957772ac331c0a7c1d7c1e2ef3c73936dcb6b6e8d902eeaa"
     },
     ".gitattributes": {
       "mode": "100644",
@@ -983,7 +1237,11 @@
     },
     ".github/workflows/clang-format.yml": {
       "mode": "100644",
-      "sha256": "614a8ba8a4d590f56aa99982cca371cef6877fdd98c0a77dd1c4eec837854507"
+      "sha256": "d4bfae46402b86a8ed3377ccab590a3b6e21b0fc7cd42b84a1773d8c0e8158bc"
+    },
+    ".github/workflows/finished_picture_checks.yml": {
+      "mode": "100644",
+      "sha256": "b56952038ef3c253f6c7abee59df7a12a263f1d1a38eff5e7bc7e05129dcdb44"
     },
     ".github/workflows/just_build.yml": {
       "mode": "100644",
@@ -995,11 +1253,15 @@
     },
     ".github/workflows/package_release.yml": {
       "mode": "100644",
-      "sha256": "4476ca5f9119ca4264bc2172da48b45243fbb625cb604e210dcf28865e6cd80a"
+      "sha256": "452e9cb50a06974447140a20e459c8450c76dda3560510fef8d94e3fd12c0c9c"
     },
     ".github/workflows/release_debug.yml": {
       "mode": "100644",
       "sha256": "f8ec7bb716333aab68dc075886b96e837e4db22ca1f68059604aee8438da5ab0"
+    },
+    ".github/workflows/superior_checks.yml": {
+      "mode": "100644",
+      "sha256": "c4724e85dde018965bdb6a44a58c5ae11d18d4dbe793d96dfc652ae239a1fc0e"
     },
     ".github/workflows/test.yml": {
       "mode": "100644",
@@ -1007,7 +1269,7 @@
     },
     ".gitignore": {
       "mode": "100644",
-      "sha256": "3ae630ccf77fec2f850cf56a0fe7ad6802fe8541dfee156a89b3b9ddcdd4ba17"
+      "sha256": "4dc517170f1287eb8e9fd0837c18caba0da6224e9e5561786f39ac3a680e9923"
     },
     ".gitmodules": {
       "mode": "100644",
@@ -1107,7 +1369,7 @@
     },
     "Licenses/MFGUnlock_LICENSE.txt": {
       "mode": "100644",
-      "sha256": "45307eac56c83953791727b9b607b82c84e5569dab0fb8b218f8019a7d753e50"
+      "sha256": "08c1fc3f2848e148ce361771f6391c763c137455634da44027a09c75d4273c14"
     },
     "Licenses/PeripheralWarp_LICENSE.txt": {
       "mode": "100644",
@@ -1119,11 +1381,11 @@
     },
     "Licenses/RenoDX_ATTRIBUTION.txt": {
       "mode": "100644",
-      "sha256": "40db841188178fa6871e4b435f1cf25cf46a7b52070f973cbbbc999ec020d7f2"
+      "sha256": "e18dd95184046f6b8f2386e4893c330d9e3d068a1575170754de229446602e49"
     },
     "OptiScaler.ini": {
       "mode": "100644",
-      "sha256": "9e2930ef67208ee1615c8c13fae80994861dacad893a867877dd1dfb3f4fb6b8"
+      "sha256": "283d2abef3a7de81c7e7d4210b5e344895b0d6628f06c0039029ce16182d7fb1"
     },
     "OptiScaler.sln": {
       "mode": "100644",
@@ -1131,15 +1393,15 @@
     },
     "OptiScaler/Config.cpp": {
       "mode": "100644",
-      "sha256": "1fd5b6bad2c4c26edd8ea64cfa919763588969f080911a3c1c0abf7ed40c133f"
+      "sha256": "5811943b3845035556dc7d23726df30022e4c4f447c554fb7fcdf46a02071e3a"
     },
     "OptiScaler/Config.h": {
       "mode": "100644",
-      "sha256": "fff69e649398d305508cc9dc302f5814a8a5d63b8e691b7165a0cc4d58754f3d"
+      "sha256": "b7ab7c906c13d0796492a4ff64fe6aa8ff44a8ddee49875ef5425c9d72745ff1"
     },
     "OptiScaler/DllNames.h": {
       "mode": "100644",
-      "sha256": "a8373ff115ca5af6543b9c4c5112649778c179d6b727de5f2db12fd5e57c02dd"
+      "sha256": "e0e9442e17e1d5445f11146fde5c1cf26d2319734e452c89add46bbf6fc9a92b"
     },
     "OptiScaler/LogAsyncRule.h": {
       "mode": "100644",
@@ -1171,11 +1433,11 @@
     },
     "OptiScaler/OptiScaler.vcxproj": {
       "mode": "100644",
-      "sha256": "516fb296ea12deab12a2d35a1a96ea1a87955a3bfeb3e2bb1a033b0519c7d774"
+      "sha256": "c8040f6dd9340d9a7e5cd5ced7f0d922e25e31b78b3a2ab50ee7fdc8cb8d9744"
     },
     "OptiScaler/OptiScaler.vcxproj.filters": {
       "mode": "100644",
-      "sha256": "0de5ab1635fccdc4aad0d08f8afdacf0b6820bda3e5c85d5b0f00e500319f509"
+      "sha256": "41535116aa0899491124d4683524a14a6a4aeb07e34e221cf5d6680ec6888254"
     },
     "OptiScaler/OptiTypes.cpp": {
       "mode": "100644",
@@ -1183,7 +1445,7 @@
     },
     "OptiScaler/OptiTypes.h": {
       "mode": "100644",
-      "sha256": "0231580ff668f3e8713b86d3cd3beb4acbd2ec7331aff5cece9b84629ba2da31"
+      "sha256": "64a5a0689762e865fb92c52a2698a8a99c8903f6a0e305a67a3a06c202033c89"
     },
     "OptiScaler/OwnedMutex.h": {
       "mode": "100644",
@@ -1195,7 +1457,7 @@
     },
     "OptiScaler/State.h": {
       "mode": "100644",
-      "sha256": "d51c45c36ff7d6427957a8489c4ef61185349d2f39e05642b4a8fd6d8f7026d2"
+      "sha256": "bf5adbd85f77cf629631980605951219c22724f305f9fdb1569fa045101725ff"
     },
     "OptiScaler/SysUtils.h": {
       "mode": "100644",
@@ -1203,11 +1465,15 @@
     },
     "OptiScaler/Util.cpp": {
       "mode": "100644",
-      "sha256": "0696416de9bb99f7b5de190c51662394dc8b9e4a8909071affafe9c7036abb95"
+      "sha256": "ddac9a1c64c0b33054ae98b48cae94ebacc3ff0a0442e395fec19bd48216baa3"
     },
     "OptiScaler/Util.h": {
       "mode": "100644",
-      "sha256": "e569e5c9d05a44e9bc4df73a81b82035fbeb13d5172fdb50ed1ad816ce36e1c7"
+      "sha256": "5929b6284062430a176dba62ede4cbbc44bae1d78ccd752dcc5ff55788c2bec2"
+    },
+    "OptiScaler/dllmain.cpp": {
+      "mode": "100644",
+      "sha256": "37c5629913cd42a0e6dd8a61cfd86b0e5bb5ce70e56016f3d5ea450d71c550fc"
     },
     "OptiScaler/dllmain.h": {
       "mode": "100644",
@@ -1217,9 +1483,17 @@
       "mode": "100644",
       "sha256": "2ce525343d9f0fc0479f1831ccc7d7b0b9fe9dfda77c4e763320f459d92ab206"
     },
+    "OptiScaler/dlssnr/DlssNrDetailReuseHost.h": {
+      "mode": "100644",
+      "sha256": "8c289fd62be552c7001b871a8fcb3c4c4c54b8de51a68d34bed5beb7bc93fb0b"
+    },
     "OptiScaler/dlssnr/DlssNrFeature_Dx12.h": {
       "mode": "100644",
-      "sha256": "03193887eabf26f101836f7cb6d9c2dafda40add2364d4f5c21310143f84a816"
+      "sha256": "f192f571f88dc9e39d41c8daf44cb974e5762503835d85a0912989fe9ee0bc6f"
+    },
+    "OptiScaler/dlssnr/DlssNrFeature_Vk.cpp": {
+      "mode": "100644",
+      "sha256": "80f21148c1a22ba89c9127b931de79e51dcc0e8b91fffcfdf6985a14d05aaf06"
     },
     "OptiScaler/dlssnr/DlssNrFeature_Vk.h": {
       "mode": "100644",
@@ -1265,17 +1539,89 @@
       "mode": "100644",
       "sha256": "c5ec094c8c747ff71a2d11844c17fdd79d14f3ee933f362602fd0a9f3772c075"
     },
+    "OptiScaler/dlssnr/DlssNr_ExposureAuto.h": {
+      "mode": "100644",
+      "sha256": "7952f5b626fb105d87d8727cc5a0f8abd52f1cf5f98b1621591d0f15542c5cd3"
+    },
+    "OptiScaler/dlssnr/DlssNr_ExposureAutoScan.cpp": {
+      "mode": "100644",
+      "sha256": "6c93c2e3ce3a8590b39119ab34eb4ef7d0c675dcf0553a866bc2e6348a959ffd"
+    },
+    "OptiScaler/dlssnr/DlssNr_ExposureAutoScan.h": {
+      "mode": "100644",
+      "sha256": "05bca33fc09dcfe32ca6238e04044e93805c38ed3ad18cfe09eb57bc66d87fe1"
+    },
     "OptiScaler/dlssnr/DlssNr_ExposureCalibrate_Vk.inl": {
       "mode": "100644",
       "sha256": "15a9d952d86500567b32ac540d3a128c45f5df44decfbc214d62bebdf58c8fe9"
     },
+    "OptiScaler/dlssnr/DlssNr_ExposureMatch.h": {
+      "mode": "100644",
+      "sha256": "b31874f4ef7a1e13bdb086e73fd62d00ab9fc1fac0e07e12c9229938b0bb6c23"
+    },
+    "OptiScaler/dlssnr/DlssNr_ExposureScan.cpp": {
+      "mode": "100644",
+      "sha256": "a976182e7231487f8e7b9ad8c9e4c81260a8edc1e05cb3e6783e1553c85553a1"
+    },
     "OptiScaler/dlssnr/DlssNr_ExposureScan.h": {
       "mode": "100644",
-      "sha256": "d9664773ab08d89b9d0df37d46b756a44c6e1bd8971af268d903a0b725ccc4a9"
+      "sha256": "6c3cba47c268b9eb2a90899fb037f45c2b897a4746c1b5a58718612af29f7b9b"
+    },
+    "OptiScaler/dlssnr/DlssNr_ExposureScanCore.h": {
+      "mode": "100644",
+      "sha256": "c510753eddea32e972dfa7bdfd3205286e3d18e9e3219ad55ddf45392551512b"
+    },
+    "OptiScaler/dlssnr/DlssNr_ExposureScanRecord.h": {
+      "mode": "100644",
+      "sha256": "b7942ed4f8d7ff051f5645cb7f0705afd2c59227ed22898b6a1674e95a2dac0e"
+    },
+    "OptiScaler/dlssnr/DlssNr_ExposureScanShape.h": {
+      "mode": "100644",
+      "sha256": "b1aae17591896d74fad17e95af81899c4d22d95965259649172bd8b8abff515f"
+    },
+    "OptiScaler/dlssnr/DlssNr_ExposureScanSource.h": {
+      "mode": "100644",
+      "sha256": "4f79b582fafb6c152662448f6e61ab5344d4b5711414b5613e8e0ac97d705646"
+    },
+    "OptiScaler/dlssnr/DlssNr_ExposureScan_Dx11.cpp": {
+      "mode": "100644",
+      "sha256": "492ccbef310aa8898ca1518905e201af22c6e4e4969b7f28d175b40faa4465cc"
+    },
+    "OptiScaler/dlssnr/DlssNr_ExposureScan_Dx11.h": {
+      "mode": "100644",
+      "sha256": "4cfbe8a80070b63eeaddbc5a2c316dac28e442d9fe7a5a6dd681bf24cbcac1ab"
+    },
+    "OptiScaler/dlssnr/DlssNr_ExposureScan_Vk.cpp": {
+      "mode": "100644",
+      "sha256": "e0f690c57e56cdec4c840eef95cd0bb2aacecdac41da4483362e7afbb95302a1"
+    },
+    "OptiScaler/dlssnr/DlssNr_ExposureScan_Vk.h": {
+      "mode": "100644",
+      "sha256": "0483360eb6de4316ef0896cf76db4de35c1e6b381d56ceff38d5849ae4e253ad"
     },
     "OptiScaler/dlssnr/DlssNr_GameDefaults.h": {
       "mode": "100644",
       "sha256": "d3afea62e634e3e2b0dd49e88b40bdb6eafd33efd4fd4c03a219ad205612d602"
+    },
+    "OptiScaler/dlssnr/DlssNr_GpuLifetime.cpp": {
+      "mode": "100644",
+      "sha256": "478129deccf93c27faed66ec4d6ceefdfd111bd4a1c065bc18d01f7f1a3d5d05"
+    },
+    "OptiScaler/dlssnr/DlssNr_GpuLifetime.h": {
+      "mode": "100644",
+      "sha256": "1b7a865157b3606f588a26ee73ab5d8865b0e01fe1078101361846880208b135"
+    },
+    "OptiScaler/dlssnr/DlssNr_GuidedShaping.h": {
+      "mode": "100644",
+      "sha256": "8825a79a6755ade4817628ef38dcb10c8ad9e5e6cd793e47e1255a2793884e4f"
+    },
+    "OptiScaler/dlssnr/DlssNr_InterPassPolicy.h": {
+      "mode": "100644",
+      "sha256": "9595db6185bb72b7ebb7700d8ba5ce5ebe6bb1d05ad50daafcba6506ce76e141"
+    },
+    "OptiScaler/dlssnr/DlssNr_InterPassSchedule.h": {
+      "mode": "100644",
+      "sha256": "63efbda1064be7ab0388d4642946b54d201b21e029a820b20fe457fde4d100a7"
     },
     "OptiScaler/dlssnr/DlssNr_Lut.h": {
       "mode": "100644",
@@ -1293,9 +1639,17 @@
       "mode": "100644",
       "sha256": "5439a6fd533cc53851f0acfaade4c1f2d4b1958bb56d6acee6ee4ea3a4cc59fc"
     },
+    "OptiScaler/dlssnr/DlssNr_Menu.cpp": {
+      "mode": "100644",
+      "sha256": "75a36d1b5a6c8baa91bf0deda1ec2591ac86e5eea40a27d2ce2968bbd7d6a837"
+    },
     "OptiScaler/dlssnr/DlssNr_NativeMode.h": {
       "mode": "100644",
-      "sha256": "80dc5aaa4b9a6356f58f37bb1addc65941baaeb276fb1f6a4cc4dbe5c4cbbf43"
+      "sha256": "bd93f9374a0314649c37d0d2436b3f3a437206d9a88f4fc6a18d924a9c929912"
+    },
+    "OptiScaler/dlssnr/DlssNr_Profiles.h": {
+      "mode": "100644",
+      "sha256": "690070cde287bd3ef8d6d54a282acca2bb2c7d18821e67d2a6da6a3cfec8903f"
     },
     "OptiScaler/dlssnr/DlssNr_Proxy.cpp": {
       "mode": "100644",
@@ -1312,6 +1666,22 @@
     "OptiScaler/dlssnr/DlssNr_Spatial_Vk.inl": {
       "mode": "100644",
       "sha256": "2d03ee697b0352c10ca4e2f8ede0d7992be95155235fa763eab877e16eaf4b9d"
+    },
+    "OptiScaler/dlssnr/DlssNr_StreamlinePicture.cpp": {
+      "mode": "100644",
+      "sha256": "80712a56be17a66c5896e495040881b96dd0ac5d5ceb82782bd4b0a71920e8ad"
+    },
+    "OptiScaler/dlssnr/DlssNr_StreamlinePicture.h": {
+      "mode": "100644",
+      "sha256": "e0a28f47f858ae8e1d3a625ce2d4326469eefbc7994e6e3ce12a4898ec917b4a"
+    },
+    "OptiScaler/dlssnr/DlssNr_SuperiorGains.h": {
+      "mode": "100644",
+      "sha256": "6ce5b185012347b884043f6e2a2823555916e69f9841b435360627622a4d0269"
+    },
+    "OptiScaler/dlssnr/DlssNr_SuperiorScaling.h": {
+      "mode": "100644",
+      "sha256": "88522a6e4538d84ba76c3e68422cf1dfb5b825fe4ba70f581f7e7712498926e3"
     },
     "OptiScaler/dlssnr/DlssNr_TierPlacement.h": {
       "mode": "100644",
@@ -1373,17 +1743,29 @@
       "mode": "100644",
       "sha256": "b88ad1f56c7b646ae113de3dc0e2b5ee89c25c81330c79ca8194b1f1b76d05fd"
     },
+    "OptiScaler/framegen/FGBorderless.h": {
+      "mode": "100644",
+      "sha256": "a6d2ce5b0fac90b0b255602502256ddf6a0a15d25ec3dfd3d5b0270dbbd487b2"
+    },
     "OptiScaler/framegen/FGFollowGameRule.h": {
       "mode": "100644",
-      "sha256": "572cc04f9e10eedaf0aa24b2d36d1e1222685f48eaef38c07d50b670486c0dbc"
+      "sha256": "5a92f55ca7758b80dfeb59ada6fca1edab965e6d498e42707a57d16c542b8c17"
+    },
+    "OptiScaler/framegen/FGOutput.h": {
+      "mode": "100644",
+      "sha256": "ba593de2b98bb79d5efbf2ddaad5f4246b93c6ce6dd77fd6b5f830397f3aaa28"
+    },
+    "OptiScaler/framegen/GameFsrFgRule.h": {
+      "mode": "100644",
+      "sha256": "3b5aafc93d6fa510527d3f9f2b23280b8aed5283e322a2c6fd17b311bf31a400"
     },
     "OptiScaler/framegen/IFGFeature.cpp": {
       "mode": "100644",
-      "sha256": "17c3120b2b24274d5a704fd9f315ded4081be53169afe9f2c0f896e110a991fc"
+      "sha256": "1d24a4f5f2246f089d3b8098850541ac6d8a7ce16d8dd0b343dccc1762954f64"
     },
     "OptiScaler/framegen/IFGFeature.h": {
       "mode": "100644",
-      "sha256": "95300f7d0b372216dc927e00596c3277d7a7b733744cb07de6cd9e74955c27c1"
+      "sha256": "1457aa9a7322b299bdea08b72445534fa801ba6db505e38ed15794884a975e12"
     },
     "OptiScaler/framegen/IFGFeature_Dx12.cpp": {
       "mode": "100644",
@@ -1393,17 +1775,41 @@
       "mode": "100644",
       "sha256": "93f8b03c71e7417b53d12f087e6fc9108509d3ba924ff9e56de8fab18242616a"
     },
-    "OptiScaler/framegen/dlssg/AmpereMfgLoader.h": {
+    "OptiScaler/framegen/IFGFeature_Vk.cpp": {
       "mode": "100644",
-      "sha256": "bc702a8391b51a5c1ed484f3301077740a8ba72cd16c0c7e506dc4af8c1d8130"
+      "sha256": "c4def443154b445a50970764f87a3b3baa11d2935bdf614043a39318f691c50e"
+    },
+    "OptiScaler/framegen/IFGFeature_Vk.h": {
+      "mode": "100644",
+      "sha256": "16f241d37cf221c5520e81294f14d652966f559ab3c42733abe9901748bace08"
+    },
+    "OptiScaler/framegen/dlssg/DLSSG_Common.cpp": {
+      "mode": "100644",
+      "sha256": "a30f7435c5ebb15cbe9379527107f2d13f754b8a8a0733bc731c2cd88010d60b"
+    },
+    "OptiScaler/framegen/dlssg/DLSSG_Common.h": {
+      "mode": "100644",
+      "sha256": "cb30b6d514899581f558ad9b599588bd3fc05348b5b9eb7689a95a4ebdf22b3e"
     },
     "OptiScaler/framegen/dlssg/DLSSG_Dx12.cpp": {
       "mode": "100644",
-      "sha256": "b7e8838467525120ccc91dc714ae2b05f94d791a48ad84cee3eedb53f0ddf47b"
+      "sha256": "1fd0377a1ce8e9d055cd6b2e031e0fd50334d4e72d6c2d9353d109a7dae0743c"
     },
     "OptiScaler/framegen/dlssg/DLSSG_Dx12.h": {
       "mode": "100644",
       "sha256": "aa804c0ce6aac5b1ce6b70cfedf9f4ae651e2b03ad28e05a85db4f5885b43adf"
+    },
+    "OptiScaler/framegen/dlssg/DLSSG_Vk.cpp": {
+      "mode": "100644",
+      "sha256": "be0b19e97bcc536775d7cec2dc9dae3c3c76eebe4dbb772f1f6772aa109264ce"
+    },
+    "OptiScaler/framegen/dlssg/DLSSG_Vk.h": {
+      "mode": "100644",
+      "sha256": "560975b1399b5e69077299149f3764bf9371efffeb02d7d8b6c909e9b2adf726"
+    },
+    "OptiScaler/framegen/dlssg/DlssgTelemetry.h": {
+      "mode": "100644",
+      "sha256": "7b3f182cd2f75b60da2e9bf974bfa9ae56588f7ac68033fdb299500ec2e0134c"
     },
     "OptiScaler/framegen/dlssg/Kcd2Hdr.cpp": {
       "mode": "100644",
@@ -1413,29 +1819,93 @@
       "mode": "100644",
       "sha256": "09ecd96dde93d34152d021e1b7cd94db1b68c3fe42111b7411199348fd8e2c27"
     },
-    "OptiScaler/framegen/dlssg/MfgUnlock.h": {
-      "mode": "100644",
-      "sha256": "502b3459c1a2369b3e20d716c1748e5cc64963d15bb12a2726f832bc02a0467a"
-    },
-    "OptiScaler/framegen/dlssg/MfgUnlockMethod.h": {
-      "mode": "100644",
-      "sha256": "7ea2d96a11fa30d330dd43547f03256f0ed21da80a0b2c8a36a761d395a4f430"
-    },
-    "OptiScaler/framegen/dlssg/MfgUnlockPlugin.h": {
-      "mode": "100644",
-      "sha256": "abb0891913111e1c558d11c11fea9142ebfba0d45fbc74a2d2b88e8e41306b44"
-    },
-    "OptiScaler/framegen/dlssg/MfgUnlockProvider.h": {
-      "mode": "100644",
-      "sha256": "7c68d871ea10d523c34dd37030b697ced5e4ef09f30162e5d72e920ac622f0f6"
-    },
     "OptiScaler/framegen/ffx/FSRFG_Dx12.cpp": {
       "mode": "100644",
-      "sha256": "9fa2d109222f9fdd2128ebc9743b4bd96ba3aefb66b2a4548accf0112155132f"
+      "sha256": "45a09b7dcea47bffb1c88f653a67faaf1ab6dd99b57f3ed6d2a2433c224d6ca6"
     },
     "OptiScaler/framegen/ffx/FSRFG_Dx12.h": {
       "mode": "100644",
       "sha256": "576d8ca97badfaa32197ce84e1970b01767b170b182e05490a7b1c2b2f74af99"
+    },
+    "OptiScaler/framegen/ffx/FSRFG_Vk.cpp": {
+      "mode": "100644",
+      "sha256": "be9e9c5a85ece295ed131597098643e60107969277669b39b7a71733d9f016ba"
+    },
+    "OptiScaler/framegen/ffx/FSRFG_Vk.h": {
+      "mode": "100644",
+      "sha256": "c5fc43fd96a0d2177a69669f6a6244ff435de8684e0507fa59cedf4cf6638e46"
+    },
+    "OptiScaler/framegen/mfgunlock/FamilyAmpere.h": {
+      "mode": "100644",
+      "sha256": "3ba6f9720d14377467b453b5747177b62e00cd8107100fafd7d1cc117e0792d2"
+    },
+    "OptiScaler/framegen/mfgunlock/FamilyFatbin.h": {
+      "mode": "100644",
+      "sha256": "e07880f87517dcb07356f9825a147f80e779551c7a170388ad4a32048710575a"
+    },
+    "OptiScaler/framegen/mfgunlock/FamilyRtx40.h": {
+      "mode": "100644",
+      "sha256": "85851e9c02bced5cc6d597d3ad1f6f43d2288991c054bc88f67836339476e320"
+    },
+    "OptiScaler/framegen/mfgunlock/FamilySlDlssg.h": {
+      "mode": "100644",
+      "sha256": "4d586322dd2889b629880c58abe57abf22a931aafbf5baa25d7b2222306ebe26"
+    },
+    "OptiScaler/framegen/mfgunlock/FamilyXeFG.h": {
+      "mode": "100644",
+      "sha256": "99cc3da88489f6a0760edb1e86a6d9ebc2e7885d28eb92e23d2eab0cc9ea0da2"
+    },
+    "OptiScaler/framegen/mfgunlock/Image.h": {
+      "mode": "100644",
+      "sha256": "5ea5aad9f5d6b1da758201bd3c6f41456b31a209c98c54bd37c61cfbebae92d4"
+    },
+    "OptiScaler/framegen/mfgunlock/Locator.h": {
+      "mode": "100644",
+      "sha256": "726360d301ae5ee1f3665563e460fd1eee5b55070232949d0bfa24ae295a1b4f"
+    },
+    "OptiScaler/framegen/mfgunlock/MfgUnlock.cpp": {
+      "mode": "100644",
+      "sha256": "1d6ea843d2acf3c737df0f22b338f1f1acc6dafea092af75e6907c535d8727df"
+    },
+    "OptiScaler/framegen/mfgunlock/MfgUnlock.h": {
+      "mode": "100644",
+      "sha256": "7d952c9258579689130c4aff3a021a40223dd8d52faf379e2fcef824b289844d"
+    },
+    "OptiScaler/framegen/mfgunlock/Mode.h": {
+      "mode": "100644",
+      "sha256": "260fa9174e47716cd1b02dbf8666c791ab2521077546c11a7fefe581e23c7a50"
+    },
+    "OptiScaler/framegen/mfgunlock/Patch.h": {
+      "mode": "100644",
+      "sha256": "cf662cd87f9231b35a5a5da3eb99fafde69a34a0ee038539434cca0f85561c5b"
+    },
+    "OptiScaler/framegen/mfgunlock/Provider.h": {
+      "mode": "100644",
+      "sha256": "1271cb8b193f5db4b3a128053ab0cee7cb8518d4a0489f2c31c0805650d3677d"
+    },
+    "OptiScaler/framegen/mfgunlock/PtxTuring.h": {
+      "mode": "100644",
+      "sha256": "cb570a01c899db920d8543c84057d4fbc22a00aeaa458a51ba9d421ad5be6fff"
+    },
+    "OptiScaler/framegen/mfgunlock/Status.h": {
+      "mode": "100644",
+      "sha256": "68025326573f8f11ffa4b20ec7338a3d07e37320ddc25ab5beea3bc5af19156b"
+    },
+    "OptiScaler/framegen/mfgunlock/hde/hde64.c": {
+      "mode": "100644",
+      "sha256": "338f3124469ee1278dd51d3efb4a58dad42ff215cfd9f1aa8bfd160da830f7f5"
+    },
+    "OptiScaler/framegen/mfgunlock/hde/hde64.h": {
+      "mode": "100644",
+      "sha256": "e99aa4997bda14b534c614c3d8cb78a72c4aca91a1212c8b03ec605d1d75e36e"
+    },
+    "OptiScaler/framegen/mfgunlock/hde/pstdint.h": {
+      "mode": "100644",
+      "sha256": "604d1cdf45c5a95bc9cf1bbf39ca05ef83013541101d34971c5cd7577e3d5247"
+    },
+    "OptiScaler/framegen/mfgunlock/hde/table64.h": {
+      "mode": "100644",
+      "sha256": "b774446d2f110ce954fb0a710f4693c5562ddbd8d56fe84106f2ee80db8b50a2"
     },
     "OptiScaler/framegen/nvngx/IFGNvngx.h": {
       "mode": "100644",
@@ -1487,31 +1957,79 @@
     },
     "OptiScaler/framegen/xefg/XeFGFrameId.h": {
       "mode": "100644",
-      "sha256": "0128752993537091950a5169db08fac8519c7a747ad185651f3b384a1c293020"
+      "sha256": "d3bc97bec6b7311b24d28409b7e601d0695feab0d9bc04bd2759130e7c205430"
     },
     "OptiScaler/framegen/xefg/XeFG_Dx12.cpp": {
       "mode": "100644",
-      "sha256": "77980390d6d5f37ce73c22d2daa14444f6af52e4cacb6afa95e027716cac0aaa"
+      "sha256": "5c8b3f58eef3840215fa3f9a651bd28a3d2f88ca0e22491a41655eb75a23cfc4"
     },
     "OptiScaler/framegen/xefg/XeFG_Dx12.h": {
       "mode": "100644",
-      "sha256": "a3266f5df7ef782a7766c59427e4f642c4e418fd2147d3a911932cc450da60a0"
+      "sha256": "2c8d1418d578c98f0f31a7df8266bd534015743ced88d590f8eb8724b2e4bbe1"
     },
-    "OptiScaler/fsr4/FSR4ModelSelection.cpp": {
+    "OptiScaler/framegen/xefg/XeFG_DynamicCap.h": {
       "mode": "100644",
-      "sha256": "f43bb00bce30fb9f861f4f0f51a4b26be92a2f3ab52c19d740d91588199f5307"
+      "sha256": "a00d018c48d7b927c43bfcab5cd20dd51b995f4cc52e39f3a55e9d0b0400dfeb"
     },
-    "OptiScaler/fsr4/FSR4ModelSelection.h": {
+    "OptiScaler/framegen/xefg/XeFG_DynamicCount.h": {
       "mode": "100644",
-      "sha256": "7e75f4bafce592746048e3df02f60cf98e2d6ffd1fb7a038a0806259831c82a6"
+      "sha256": "76e7f193e5a760b79968c5a8ab6e75e1aa96542064f70573abf3bef494c9bd2b"
     },
-    "OptiScaler/fsr4/FSR4Upgrade.cpp": {
+    "OptiScaler/framegen/xefg/XeFG_DynamicTarget.h": {
       "mode": "100644",
-      "sha256": "ff3d1b8a8d89b31a451151ef6d95d17b1916a96aa0d6ee4a07a57a01f5a13ebb"
+      "sha256": "63f778857e24ecc30b477fba255439a209a6625bbe1b89beb533fab0282b570c"
     },
-    "OptiScaler/fsr4/FSR4Upgrade.h": {
+    "OptiScaler/framegen/xefg/XeFG_ShownRate.h": {
       "mode": "100644",
-      "sha256": "9f4c633e756a9d28e8a76f1269ffc7a4ad177d9c91131de6a9cd408cd93189fa"
+      "sha256": "59a898d70491e480b651049648ad7cf5c568faaddfdaaac5591fc00e97831f28"
+    },
+    "OptiScaler/fsr4/FSR4DriverProvider.cpp": {
+      "mode": "100644",
+      "sha256": "bcdfc2ebc8830a332bff9ef0faf38dc5ed13ad66b2d422d2c1fe09d2d13e7a86"
+    },
+    "OptiScaler/fsr4/FSR4DriverProvider.h": {
+      "mode": "100644",
+      "sha256": "b9c561481f944bacb0d1cb0b1f3e464ea8966ea5d71592f33ad1c4482340edf3"
+    },
+    "OptiScaler/fsr4/FSR4DriverProviderDx12.cpp": {
+      "mode": "100644",
+      "sha256": "94a5195e4feee09b20b340cca2cf91592e9d0bda5853aedddbec39850bc825b0"
+    },
+    "OptiScaler/fsr4/FSR4DriverProviderDx12.h": {
+      "mode": "100644",
+      "sha256": "bae370a3a9747d88d03dc72138dfe05f97ab7180363e68e46dfb8ee5f95be58f"
+    },
+    "OptiScaler/fsr4/FSR4DriverProviderVk.cpp": {
+      "mode": "100644",
+      "sha256": "18f13d5288c3d9bd8f82839ce8a0144c251d8533e62029a988bdf98d4faded4f"
+    },
+    "OptiScaler/fsr4/FSR4DriverProviderVk.h": {
+      "mode": "100644",
+      "sha256": "8eeb7fbefb68283a3249c631ae3cb550c0350abf008ae746f6bc779b108bdeaa"
+    },
+    "OptiScaler/fsr4/FSR4Models.cpp": {
+      "mode": "100644",
+      "sha256": "3c77aad3c26c6b21c382859438e079bfe2f4fb6f5c5467c9d1f4d559b06b6e4f"
+    },
+    "OptiScaler/fsr4/FSR4Models.h": {
+      "mode": "100644",
+      "sha256": "0916b4a5dd4fed68d40f4b316f310d0a75f911baaa385c294918823a452a5202"
+    },
+    "OptiScaler/fsr4/FSR4PipelineLayouts.cpp": {
+      "mode": "100644",
+      "sha256": "0067e855b64412511c062bb48f9f5cbf95d910e46ff621199cdea01977968a27"
+    },
+    "OptiScaler/fsr4/FSR4PipelineLayouts.h": {
+      "mode": "100644",
+      "sha256": "0de7bcff55f368f4459da2987f749172dbdccedc571ff14ce000fc87e2c907fc"
+    },
+    "OptiScaler/fsr4/FSR4Presets.cpp": {
+      "mode": "100644",
+      "sha256": "74c806579943756a2db58a063e8f5ccbf09d1f6dec78b6f4427c22b0da89803f"
+    },
+    "OptiScaler/fsr4/FSR4Presets.h": {
+      "mode": "100644",
+      "sha256": "d09fb5ae4c6f7d5441df60a683bf3097f1e3986c9cad7b260e1295ab85ecde73"
     },
     "OptiScaler/gpu_time/GpuTime_Dx11.cpp": {
       "mode": "100644",
@@ -1535,11 +2053,11 @@
     },
     "OptiScaler/hooks/Amdxc64_Hooks.cpp": {
       "mode": "100644",
-      "sha256": "d5515bfd56f85dd7d01c8825442524264aa79e7cfd496c8821e31a13d4b58730"
+      "sha256": "596b06c3e46e41ddd0af9b965c2cb658181a0101859f1935fa9086b1edda1f00"
     },
     "OptiScaler/hooks/Amdxc64_Hooks.h": {
       "mode": "100644",
-      "sha256": "0050a6f4b549c6ea5e3bf265fbbd743f8ea6847c2417e22a56def26923722250"
+      "sha256": "7ce36aad63c7bf5d8584354c1112d9938876175032a6b0f67cd117c1d044f0f9"
     },
     "OptiScaler/hooks/CommandBuffer_StateTracker.h": {
       "mode": "100644",
@@ -1547,11 +2065,11 @@
     },
     "OptiScaler/hooks/Crypt32_Hooks.h": {
       "mode": "100644",
-      "sha256": "a36d712940374d133e6b02b9b30a3c7b3f1f4acce63ef328a8e4f067edd10eab"
+      "sha256": "c6c1f09ab9269bc2cc211e9165f8336e2bdb0e38f4237444088dc2c95043f5da"
     },
     "OptiScaler/hooks/D3D11_Hooks.cpp": {
       "mode": "100644",
-      "sha256": "6c7fcd0db3f3a7e1404fd8ee501df70984099f251fc6bf90080ee4183c64b04b"
+      "sha256": "b3241e0e51cd883cd8de1aa4fcea44c739811e231bec4faf11aea6f3c2272a42"
     },
     "OptiScaler/hooks/D3D11_Hooks.h": {
       "mode": "100644",
@@ -1559,7 +2077,7 @@
     },
     "OptiScaler/hooks/D3D12_Hooks.cpp": {
       "mode": "100644",
-      "sha256": "42aacab1970eb9876faf1904a03651b52971be5877d76bd7638f0b273cc97b97"
+      "sha256": "9e85cc0e9d3226ea1becb3543a7274e647165825a4559460d93369d2cff613b7"
     },
     "OptiScaler/hooks/D3D12_Hooks.h": {
       "mode": "100644",
@@ -1567,19 +2085,19 @@
     },
     "OptiScaler/hooks/DxgiFactory_Hooks.cpp": {
       "mode": "100644",
-      "sha256": "b90a4762feaef54a99e0fda445082ea784e1221e06011324089bfc9cc733f09b"
+      "sha256": "210a8b949aea7816337b1cd25d5c908cedf8be89aeacb77f201dd174f4f98e38"
     },
     "OptiScaler/hooks/DxgiFactory_Hooks.h": {
       "mode": "100644",
-      "sha256": "de5902db64d8c7de56335fbedd457caac5586e4a25f6cdcc2f8447e004f8a716"
+      "sha256": "e9e93a05dab710cf1a3d3744d0d1392f72a851a279755177d682fbb547e9d8c3"
     },
     "OptiScaler/hooks/DxgiFactory_WrappedCalls.cpp": {
       "mode": "100644",
-      "sha256": "fc215bdf05801802fd4967c2dd73b6416c1a92729122a6d019dc2380d1b08bec"
+      "sha256": "9c5f5dd099b64c81d3991a25539f77352eb0c001547ce5b97987e1d93ae3629e"
     },
     "OptiScaler/hooks/DxgiFactory_WrappedCalls.h": {
       "mode": "100644",
-      "sha256": "d451167734633a244d06bdc979b191832c730a6b8ec5f47a491764354fd741e1"
+      "sha256": "1dd67a3806e07d33e8c88e2a4474859adf456127d049085007facee800d4887b"
     },
     "OptiScaler/hooks/DxgiSwapchainSizing.h": {
       "mode": "100644",
@@ -1587,7 +2105,7 @@
     },
     "OptiScaler/hooks/Dxgi_Hooks.cpp": {
       "mode": "100644",
-      "sha256": "c2793c4a43193d863f4ca059c7f08fa5cb7ef368ff013cb145e268480296ff12"
+      "sha256": "93f325e39158c5b8dd08a2b15fafc0014213faa6e334798c850d32742cfcddee"
     },
     "OptiScaler/hooks/Dxgi_Hooks.h": {
       "mode": "100644",
@@ -1601,13 +2119,17 @@
       "mode": "100644",
       "sha256": "267cfbb38007d2f2dd3bef5292f7474e007595690ce744dee55df928a7775615"
     },
+    "OptiScaler/hooks/FG_Hooks.cpp": {
+      "mode": "100644",
+      "sha256": "f7c5ed0ef219342972f021f348af2ec961eb32062d9dc35797f078f40789293d"
+    },
     "OptiScaler/hooks/FG_Hooks.h": {
       "mode": "100644",
-      "sha256": "03999e34994d8796d6701089175a021b15f0746c6f4e0e801b19ea58d00cd98e"
+      "sha256": "ebc9f7e3de74a8b076debbb100ed71ae4bdda4c82a375303db07f121ac9f1417"
     },
     "OptiScaler/hooks/Gdi32_Hooks.h": {
       "mode": "100644",
-      "sha256": "ab327d723a554a6cee9dbcb0a8ce315cb0f00d47e69373d56bb4a9546f2b481f"
+      "sha256": "c129c78b86316a834c455f6892dc70649a48e3ead5b63cb8ceca6a2b37d19ab9"
     },
     "OptiScaler/hooks/Hook_Utils.h": {
       "mode": "100644",
@@ -1615,7 +2137,7 @@
     },
     "OptiScaler/hooks/Kernel_Hooks.cpp": {
       "mode": "100644",
-      "sha256": "684fce2919f645a44cbffa69a9154cf73eb17d65c2aa3536243d52bf1a43af0c"
+      "sha256": "c5374235ce7d0a7664d92ddca8d9b6c289d14e78fe10a85d46a3b093b68c9d57"
     },
     "OptiScaler/hooks/Kernel_Hooks.h": {
       "mode": "100644",
@@ -1623,7 +2145,7 @@
     },
     "OptiScaler/hooks/LibraryLoad_Hooks.cpp": {
       "mode": "100644",
-      "sha256": "7d71d08ef7af7a6aad21b5866ffe3ad4b75c35ca3d0b5379b585d009e693b667"
+      "sha256": "023ac678fb8b01b9f18099d4647e05001dc2964e755bf189c184494e45be578b"
     },
     "OptiScaler/hooks/LibraryLoad_Hooks.h": {
       "mode": "100644",
@@ -1631,7 +2153,7 @@
     },
     "OptiScaler/hooks/Ntdll_Hooks.h": {
       "mode": "100644",
-      "sha256": "38298cbd6ca3e0e7fe887f4b92cee7aae0f0a304badd58e5e42b22fc622fd405"
+      "sha256": "39372db988255f634bb689d0819f6ccd9ea401fc865248acfedfeadded7d0618"
     },
     "OptiScaler/hooks/Reflex_Hooks.cpp.new": {
       "mode": "100644",
@@ -1641,25 +2163,29 @@
       "mode": "100644",
       "sha256": "59d8567cace07191cdc8b1a33d52478fcd25f0d43fde9b34048d456430aef78b"
     },
+    "OptiScaler/hooks/Streamline_Hooks.cpp": {
+      "mode": "100644",
+      "sha256": "3ed74303e963c12ad053b8e6e486cf3d5e57ae6cfb8ef962f00c67b822775047"
+    },
     "OptiScaler/hooks/Streamline_Hooks.h": {
       "mode": "100644",
-      "sha256": "1e347a9297d9c1b688ad06ab3ff4e2a353d5d91350c127f5726b407036f3936e"
+      "sha256": "62a4ad669e5af2094e54979f17dc850c6624a1647b6b3cce31615f35652ce274"
     },
     "OptiScaler/hooks/Vulkan_Hooks.cpp": {
       "mode": "100644",
-      "sha256": "477a2180c5003efe8f005bef95851e71e2363e6757effb69e5d5dc54830e3b62"
+      "sha256": "123da852d9ab5d53d2b5eb1e2c80d766858b190e01cd8ee57e922e4414eaafd1"
     },
     "OptiScaler/hooks/Vulkan_Hooks.h": {
       "mode": "100644",
-      "sha256": "feb5e4c323b841de13e1fdcbd3bd2e909b9735ec02f3c5492608e41c5916a389"
+      "sha256": "37d5a3a72d2a5182f88b1d72e71a8daafc1f3b3752305d3b2b9a2a46aa56fb7e"
     },
     "OptiScaler/hooks/VulkanwDx12_Hooks.cpp": {
       "mode": "100644",
-      "sha256": "7ac44fa529e2a556d37e55d37747f3e9145943368e60e81f709fcbcafb4445c0"
+      "sha256": "251372ca12b8a6c205ec479f8b261f0525a48c089f634e6ec9933f44edd4d9ef"
     },
     "OptiScaler/hooks/VulkanwDx12_Hooks.h": {
       "mode": "100644",
-      "sha256": "cec542b2e240586196e60d4729d02058e46a310e06880ecb2f8df4f91589a9d3"
+      "sha256": "44b99113cfbf9226c57e11b7e2c77c400f9a826c6867492fc446155316f62d20"
     },
     "OptiScaler/hooks/Wintrust_Hooks.h": {
       "mode": "100644",
@@ -1667,7 +2193,7 @@
     },
     "OptiScaler/hooks/Xell_Hooks.cpp": {
       "mode": "100644",
-      "sha256": "1af1f27279ec52b2d007ae49e637200a00a129a25acd918b44cbf3134e4588f2"
+      "sha256": "88fd2f5efcb6f931cfb3515c243d63c434fdbe99355b2fa473292a14692e6a7c"
     },
     "OptiScaler/hooks/Xell_Hooks.h": {
       "mode": "100644",
@@ -1680,6 +2206,14 @@
     "OptiScaler/hudfix/Hudfix_Dx12.h": {
       "mode": "100644",
       "sha256": "1236658c78ab5b62900628c71c6e044a8d9350ce0c0efb7e784b6d0a057639df"
+    },
+    "OptiScaler/hudfix/Hudfix_Vk.cpp": {
+      "mode": "100644",
+      "sha256": "2d68ad7db82c9f040a4fcd24c91d00ce663c8bcf658751c08e50972f05ccd5f5"
+    },
+    "OptiScaler/hudfix/Hudfix_Vk.h": {
+      "mode": "100644",
+      "sha256": "e65b602f2ddea5142ea27bb0ee75d05541b0a77b5f6a28837a435a3de8b95081"
     },
     "OptiScaler/include/d3dx/D3DX11.h": {
       "mode": "100644",
@@ -1967,11 +2501,11 @@
     },
     "OptiScaler/include/imgui/imgui_impl_vulkan.cpp": {
       "mode": "100644",
-      "sha256": "c33a3f98fd7963e5508303f480a6d761198c8d22ad0609f4d23e0e3ff2af9e06"
+      "sha256": "ec194b5a8fda21990c2a8fca185e76e5800be987a28fd668473a80396188570b"
     },
     "OptiScaler/include/imgui/imgui_impl_vulkan.h": {
       "mode": "100644",
-      "sha256": "4723ad0de0d2dc23e6e44871ff5370d3e239e59dc7d2f20d69cae8c33e5266f5"
+      "sha256": "388ad5adbff296a153b6a0f481bee726bdf1d3053096cdfdb65fab846e9aaba3"
     },
     "OptiScaler/include/imgui/imgui_impl_win32.cpp": {
       "mode": "100644",
@@ -2045,13 +2579,13 @@
       "mode": "100644",
       "sha256": "b55214e6b8f8cf4e0d0188b411f667b24c0b08e531b8b6c4b151cea4efd04363"
     },
-    "OptiScaler/inputs/FG/Streamline_Inputs_Dx12.cpp": {
+    "OptiScaler/inputs/FG/Streamline_Inputs.cpp": {
       "mode": "100644",
-      "sha256": "63e5e37ea3e660e26df7e0fefcdddaab9422af51ed6eac4769d2c61aff528339"
+      "sha256": "e06797374658675080f0aa34e1412fab0cc17e093c99bbcf60a0b8837870c708"
     },
-    "OptiScaler/inputs/FG/Streamline_Inputs_Dx12.h": {
+    "OptiScaler/inputs/FG/Streamline_Inputs.h": {
       "mode": "100644",
-      "sha256": "2fcbf988f31f1c25bf29848fc0a1edb0777afb9ded2a5935028fb50070f3b929"
+      "sha256": "991d99c71b93547805d96e6b86911f925a631cd967250da129d361174ea391d6"
     },
     "OptiScaler/inputs/FG/Streamline_Inputs_Sl1_Dx12.cpp": {
       "mode": "100644",
@@ -2071,15 +2605,23 @@
     },
     "OptiScaler/inputs/FG/Upscaler_Inputs_Dx12.cpp": {
       "mode": "100644",
-      "sha256": "6a0dd5ce0fb62522170b2ecf2291fce73c46a5232a8bb96ff539628e7efe1d6b"
+      "sha256": "4ff3c3475151fbb48cd35822d07f29933bbe61fff13f74efc15f8a04c9bbbb5c"
     },
     "OptiScaler/inputs/FG/Upscaler_Inputs_Dx12.h": {
       "mode": "100644",
       "sha256": "334a706be8ad3ff87a9623c72c8bfcc24bc1ed4c8f5ffe3c96abfd6ae1cb70c6"
     },
+    "OptiScaler/inputs/FG/Upscaler_Inputs_Vk.cpp": {
+      "mode": "100644",
+      "sha256": "b4dd322958edb4824eab4b2fa8c17a46a825efb3adf303a0e0f094a571f939b0"
+    },
+    "OptiScaler/inputs/FG/Upscaler_Inputs_Vk.h": {
+      "mode": "100644",
+      "sha256": "96f392a0d93d07f762d1ee0f7c523e8c9c6f1713377ee47dbd7eb5045ffd09b2"
+    },
     "OptiScaler/inputs/FSR2_Dx11.cpp": {
       "mode": "100644",
-      "sha256": "b0bdd067dc8cafaa9f2feeb6641356a5da8677a1ed2a67c07b33b85697939421"
+      "sha256": "f3d6d1b280029564d2f0b39323a8851ebeb270715cd1e5ebbf41a9c4c3686f38"
     },
     "OptiScaler/inputs/FSR2_Dx11.h": {
       "mode": "100644",
@@ -2087,7 +2629,7 @@
     },
     "OptiScaler/inputs/FSR2_Dx12.cpp": {
       "mode": "100644",
-      "sha256": "d76444216d3bf662a8e760ab3fb70973a7f541565367f001ce07909eac6cd94c"
+      "sha256": "90a686091a85d059cc83f74ad9487bc7219eba13cef9057f3e2e95c65f749e52"
     },
     "OptiScaler/inputs/FSR2_Dx12.h": {
       "mode": "100644",
@@ -2095,7 +2637,7 @@
     },
     "OptiScaler/inputs/FSR2_Vk.cpp": {
       "mode": "100644",
-      "sha256": "cdb3d14ce29c3279124be78a6abf3f7d65a11c7659a2e089ed9db0709ff2f5c1"
+      "sha256": "cb6b1e2ae399a76dd9fc6e6fc6e104c1e872a53bb2e1c93f8aff36a3e159b93c"
     },
     "OptiScaler/inputs/FSR2_Vk.h": {
       "mode": "100644",
@@ -2103,7 +2645,7 @@
     },
     "OptiScaler/inputs/FSR3_Dx12.cpp": {
       "mode": "100644",
-      "sha256": "f368501b4ba5bf8e29e19b1bc800ab4d711dae387370e2397dce1e4816fc2087"
+      "sha256": "ea0f23effe7131b4e443896ffbaecaab6c04b307dcd4a83963326d091ec8f386"
     },
     "OptiScaler/inputs/FSR3_Dx12.h": {
       "mode": "100644",
@@ -2111,7 +2653,7 @@
     },
     "OptiScaler/inputs/FfxApiExe_Dx12.cpp": {
       "mode": "100644",
-      "sha256": "aab67b4eed2592dd7b43b11ff8134d85ca34bceecbb26e8cabf98ac1053cbb31"
+      "sha256": "99754772ee4411566130c7f00d57520ed3192c2666e50322cfd3c89b4f5b6263"
     },
     "OptiScaler/inputs/FfxApiExe_Dx12.h": {
       "mode": "100644",
@@ -2119,7 +2661,7 @@
     },
     "OptiScaler/inputs/FfxApi_Dx12.cpp": {
       "mode": "100644",
-      "sha256": "6b49ef4fd7e692e6b2d34d0196a064f87b1f9b83a1796c256b38577a3455d501"
+      "sha256": "2430abe05e714a16dbb059238dc8e6ab2da20adcc3f4522a1aa8698ff5bce093"
     },
     "OptiScaler/inputs/FfxApi_Dx12.h": {
       "mode": "100644",
@@ -2127,7 +2669,7 @@
     },
     "OptiScaler/inputs/FfxApi_Vk.cpp": {
       "mode": "100644",
-      "sha256": "22b034da7b00c3ec802b2db7cb77b21555ad54840f2ec42627ac44aa11892b19"
+      "sha256": "4d97db143ff36f7093bc97542ce4a5ba14ebc106a0cdcc258eec05228368213e"
     },
     "OptiScaler/inputs/FfxApi_Vk.h": {
       "mode": "100644",
@@ -2140,6 +2682,14 @@
     "OptiScaler/inputs/NVNGX_DLSS.h": {
       "mode": "100644",
       "sha256": "b6f70617ba973756bcec577e761d19be48a9f842fc709dbf5368217594b47800"
+    },
+    "OptiScaler/inputs/NVNGX_DLSS_Dx12.cpp": {
+      "mode": "100644",
+      "sha256": "35f16fb225ea227ac44c4a6fc9984ad35ca8372c11daf897d48872c7e2bb5acb"
+    },
+    "OptiScaler/inputs/NVNGX_DLSS_Vk.cpp": {
+      "mode": "100644",
+      "sha256": "95de6fdabe2925a5c567712f1df5d133778eff7e5fdf44a715c82c8a1e0b235f"
     },
     "OptiScaler/inputs/NgxFeatureRegistry.h": {
       "mode": "100644",
@@ -2307,7 +2857,7 @@
     },
     "OptiScaler/low_latency/input/OutputRule.h": {
       "mode": "100644",
-      "sha256": "d4bd2ee6472de3ce330ca896b5202761ad6573ad5fb66f4abc247b0f933ebbe0"
+      "sha256": "b1a1aa41cac0facf1a7c21c0e7b0e35a0cbcf59a0493e83581540457d3e6f5ee"
     },
     "OptiScaler/low_latency/input/UeInputRule.h": {
       "mode": "100644",
@@ -2319,7 +2869,7 @@
     },
     "OptiScaler/low_latency/input/input_antilag2.cpp": {
       "mode": "100644",
-      "sha256": "51efb4950e56a62e0e26db2aef3f84c07ded6f920a3824723b00615778dc09ab"
+      "sha256": "08d2fecbed1d31048b7c81f348aaf186a1da9121297080c8acbb6fc5a52273db"
     },
     "OptiScaler/low_latency/input/input_antilag2.h": {
       "mode": "100644",
@@ -2335,11 +2885,11 @@
     },
     "OptiScaler/low_latency/input/input_common.cpp": {
       "mode": "100644",
-      "sha256": "8babfc29bde4d6a29a8aec19a264e54fa2bf9013878b75bddb2b1eb1f4e12a09"
+      "sha256": "616f35d8a3e98b9cadd36559b30accd7901552bf27cfdcf05081388af7c59dd9"
     },
     "OptiScaler/low_latency/input/input_common.h": {
       "mode": "100644",
-      "sha256": "8fec7adb978530c5dd62bb29c93bcdf30fc34ea7446cf3ad89608f09dedfb2a6"
+      "sha256": "14ddcfa62df119c906e42cfc36090236cebe4ffd342a8c9ad96247f5c4e25682"
     },
     "OptiScaler/low_latency/input/input_reflex.cpp": {
       "mode": "100644",
@@ -2451,11 +3001,27 @@
     },
     "OptiScaler/menu/HeaderBanner.h": {
       "mode": "100644",
-      "sha256": "47c5c9053b986d24730344e4c2943cb428a0d4486d20ce02fa7157f43ba7a389"
+      "sha256": "63c3dab0e7f5f61c89c8ae9af527e0032579cefd1ec10fec0ad853f8ae626008"
     },
     "OptiScaler/menu/MenuLifetimeRule.h": {
       "mode": "100644",
       "sha256": "c065c3d3d4c82d9ec8e2fe3e36c292902766b117e6e6146ec2de5584c4543385"
+    },
+    "OptiScaler/menu/MenuPages.h": {
+      "mode": "100644",
+      "sha256": "bf1682c34bab78bbb87a1a80e19b612b061afe4a8bb69af6620cba76ede0a1a7"
+    },
+    "OptiScaler/menu/PluginsPage.cpp": {
+      "mode": "100644",
+      "sha256": "f71167c685f92e275953392d8a1f5d6c76cf1dab546ee7524a5b3370070c9bd1"
+    },
+    "OptiScaler/menu/PluginsPage.h": {
+      "mode": "100644",
+      "sha256": "64c59dead5fd118167bb8b3296d9031f0366adb10ecbe34da9a7d3e3de262017"
+    },
+    "OptiScaler/menu/PresentRateMeter.h": {
+      "mode": "100644",
+      "sha256": "51b9ac54975dfc2012dc1f5e19f136b1843829b82cf4b8cb958e7d9e2e93748e"
     },
     "OptiScaler/menu/font/Hack-Regular.ttf": {
       "mode": "100644",
@@ -2529,6 +3095,14 @@
       "mode": "100644",
       "sha256": "3a2b38e5a1cd7e41350b107e0c609dfee4361c5c75cd0c42f71a41f87919d188"
     },
+    "OptiScaler/menu/menu_common.cpp": {
+      "mode": "100644",
+      "sha256": "4eae08444f5a95ee0cf2dd611170fb1abaaa4b871fc7776bf74e8f689d1840d9"
+    },
+    "OptiScaler/menu/menu_common.h": {
+      "mode": "100644",
+      "sha256": "cba68fcdd3452af33e4679587a44e22a38ede5964a2e91e1a54359950bd5ff2c"
+    },
     "OptiScaler/menu/menu_dx11.cpp": {
       "mode": "100644",
       "sha256": "d43439200c914c6a50b0bbee6c85a410733b793d3303752238de7a578c56d7d6"
@@ -2563,7 +3137,7 @@
     },
     "OptiScaler/menu/menu_overlay_dx.cpp": {
       "mode": "100644",
-      "sha256": "b3648571b0adbf8a65f4b7ac133e3b90812068d485c05d38b44e98b24eb67240"
+      "sha256": "f8482e83251b9f1d809efa3a6ef73eaf3db098f41e5b6530e62574a90938028b"
     },
     "OptiScaler/menu/menu_overlay_dx.h": {
       "mode": "100644",
@@ -2571,19 +3145,19 @@
     },
     "OptiScaler/menu/menu_overlay_vk.cpp": {
       "mode": "100644",
-      "sha256": "fc14f3a216e994bfc502dec14f4427a37beacd20f25997e7304ac40b973dcf14"
+      "sha256": "59a4c48b8cbfc6bc4bce766a5a7ce11e156ee15c564153c5a9bd52da19b6fc5a"
     },
     "OptiScaler/menu/menu_overlay_vk.h": {
       "mode": "100644",
-      "sha256": "9316a116cd2665ca3f2ed128cf7515d4d4e1cf9e12626879bc1001568811e36e"
+      "sha256": "0d3b2a306a6ca75680c08e7ec35c3ba15c7293d21bc376857a9dece218fcc97e"
     },
     "OptiScaler/misc/FrameLimit.cpp": {
       "mode": "100644",
-      "sha256": "14f57cfc445fc0544063f14ee8a25a6147e69e381a8449e17d9225886ca537f8"
+      "sha256": "c4e69e44cb3ae38fe4a042e9544cd8a19c04df10af6655c4c00d33e70b6fb1ee"
     },
     "OptiScaler/misc/FrameLimit.h": {
       "mode": "100644",
-      "sha256": "04504eedfd2387a16aca8934fc67978631228c5f02a3be6397bdb921c60bf161"
+      "sha256": "f554e94368292e837323318f6e23ebcec8a3ef4c5fb0aa26d754ebba99221cd4"
     },
     "OptiScaler/misc/HiddenWindow.h": {
       "mode": "100644",
@@ -2591,11 +3165,11 @@
     },
     "OptiScaler/misc/IdentifyGpu.cpp": {
       "mode": "100644",
-      "sha256": "de34385f846577e3b4c0d55ae10f5e4153ed3899a4d4be007677100578332fa6"
+      "sha256": "6314de54333f6c7a90dbc672ff7a21a27713ae48be4b99847991b30f5bd31376"
     },
     "OptiScaler/misc/IdentifyGpu.h": {
       "mode": "100644",
-      "sha256": "29578427a45d92060c323ed900277af02a4895d1cbfcd62e57e8044c7cc794f5"
+      "sha256": "3735acb1007faff59e02b2b6a16133e32eb91f7744e9f746c584d97cac330748"
     },
     "OptiScaler/misc/PathUnder.h": {
       "mode": "100644",
@@ -2603,7 +3177,7 @@
     },
     "OptiScaler/misc/Quirks.h": {
       "mode": "100644",
-      "sha256": "0731c444e397a5e3b5fdfc35f0e010ee517de4cbe05872570212dadde048e16f"
+      "sha256": "80bb8dc975f6605fd31542bdffa38971309701731ba7e016b4f127ad3c3c5415"
     },
     "OptiScaler/misc/REFrameworkCompat.cpp": {
       "mode": "100644",
@@ -2625,17 +3199,41 @@
       "mode": "100644",
       "sha256": "98d0f6c732cb407cfaa341d5d2af1878ac683031e7174dae531ad90be0409dbc"
     },
+    "OptiScaler/misc/XeModuleInfo.cpp": {
+      "mode": "100644",
+      "sha256": "cfa668acf3aa9d2ecf0309f256c2fb4f86f0602792c2a9fa382ce2b333874a88"
+    },
+    "OptiScaler/misc/XeModuleInfo.h": {
+      "mode": "100644",
+      "sha256": "e7834aa459aa6093f555ce4aeb4cf9b46a6815e6464766db04125b0be4cfe3d3"
+    },
+    "OptiScaler/motion/CameraFusion_Hlsl.h": {
+      "mode": "100644",
+      "sha256": "c6b881aa07166a64226027e30be95e85dd191a7f08a9503c883f0b9adddb9925"
+    },
+    "OptiScaler/motion/CameraModel_Hlsl.h": {
+      "mode": "100644",
+      "sha256": "f4b6e71c852a71eef205cd727992650cdd460e4c37900c9926ffa80fb7caaf4b"
+    },
+    "OptiScaler/motion/FlowDebug_Hlsl.h": {
+      "mode": "100644",
+      "sha256": "874878b25ca86aa5f1a1a123248114dce61d265e9cd442c625a5f60bc6cb2ab0"
+    },
     "OptiScaler/motion/Luma_Hlsl.h": {
       "mode": "100644",
       "sha256": "8a2ff56e4d4b26b6df80d514b9618af14bafdf3e74bf5b6e01605e976a865483"
     },
+    "OptiScaler/motion/OpticalFlow_Dx12.cpp": {
+      "mode": "100644",
+      "sha256": "e8aab1fb1bdcda61e6fb9fa63f0ead05963697dd67de488d1a75a65ac8b20ced"
+    },
     "OptiScaler/motion/OpticalFlow_Dx12.h": {
       "mode": "100644",
-      "sha256": "981a020cb759a1e4dde7dfddc02bd50ecaee552876f52b3486016e40a9526955"
+      "sha256": "16fea1d9e800873154c2a058e00d090b6ce319a4268aa4d015af12b7eea58834"
     },
     "OptiScaler/motion/OpticalFlow_Hlsl.h": {
       "mode": "100644",
-      "sha256": "5529089eb55e9c9c8244e92abde0218b8b0ba3b1d817fc4895fee21e26e143db"
+      "sha256": "404c77d5279a854f635f53867589086560909ce73dbd65376141ec04a1d693c9"
     },
     "OptiScaler/motion/SceneCut_Dx12.h": {
       "mode": "100644",
@@ -2651,7 +3249,23 @@
     },
     "OptiScaler/motion/TrustMask_Hlsl.h": {
       "mode": "100644",
-      "sha256": "78bcb4ff33ab3d3204aa15210876fca5bd37fc93a2304949d36565bb2179bcbe"
+      "sha256": "c90a102be2aa1a6d049e50d28db554a829c1f821f3348bee3f6c2228e3e4d1ce"
+    },
+    "OptiScaler/native/DebugPreviewDx11.h": {
+      "mode": "100644",
+      "sha256": "51c63446cdff0b3dbded03416a975b003dcb7174e712c035b7c7976020902035"
+    },
+    "OptiScaler/native/DebugPreviewVk.h": {
+      "mode": "100644",
+      "sha256": "c49ebd40949b452f55cde75acd6f19bcabd9d8e16c02c532430726d722c4295b"
+    },
+    "OptiScaler/native/DepthAlign_Dx12.h": {
+      "mode": "100644",
+      "sha256": "33ad416aba45834c05adde38fdd8d94feb1d1d5e54df654bf338891d0a1b258b"
+    },
+    "OptiScaler/native/DepthAlign_Hlsl.h": {
+      "mode": "100644",
+      "sha256": "0a256606e104d45e2453a0b56e8a22ba3952288125ea697a3f320a0addbd6da9"
     },
     "OptiScaler/native/DepthCopyDx11.cpp": {
       "mode": "100644",
@@ -2667,11 +3281,11 @@
     },
     "OptiScaler/native/DepthFinderCore.cpp": {
       "mode": "100644",
-      "sha256": "1314d2eac44dcc7fa7c8b3c8b64b1423b4590ff018b325abbf2f3573b90b25a1"
+      "sha256": "3575e01b1545ae91d84a86c1cd663b40c949d5a3d9dbc3008190f80b664d7e9b"
     },
     "OptiScaler/native/DepthFinderCore.h": {
       "mode": "100644",
-      "sha256": "ecfc79be2d0b8f0b1266b334001adc3646df28266a4eece43ec3b4c42ab1712f"
+      "sha256": "75d791fcf47c609988bedc71aa312ee4fdd850031851404992f41ae7b2fbf047"
     },
     "OptiScaler/native/DepthResolveDx12.cpp": {
       "mode": "100644",
@@ -2695,7 +3309,7 @@
     },
     "OptiScaler/native/Dx11FrameSource.cpp": {
       "mode": "100644",
-      "sha256": "3eed703840c38c2f7e6971eb5ee0118cf7cd192a46756e94060d8f7baf2b29fc"
+      "sha256": "9dbcb166bf5464a35eece011f998381bf80cf6bd25923c8326556b0cbdb7968e"
     },
     "OptiScaler/native/Dx11FrameSource.h": {
       "mode": "100644",
@@ -2703,7 +3317,7 @@
     },
     "OptiScaler/native/Dx12FrameSource.cpp": {
       "mode": "100644",
-      "sha256": "05a57517936dc2ca48a508094c6af10cbbb1edad32c039c326a12bd1527a9583"
+      "sha256": "517d5de4546a10be50e6efdb73f36fd26fff4669ddba09992d27075805c272d1"
     },
     "OptiScaler/native/Dx12FrameSource.h": {
       "mode": "100644",
@@ -2711,7 +3325,15 @@
     },
     "OptiScaler/native/F5LowShaderBytecode.h": {
       "mode": "100644",
-      "sha256": "630fba8303c7f1608548e5237cf2ba5c142a37a30a663755c3807eeb8254e442"
+      "sha256": "ab637a6c4c2acf0b635778440f6c8af28bd5f7188df010e3482cbd449cbe5592"
+    },
+    "OptiScaler/native/FlowDebugViews.h": {
+      "mode": "100644",
+      "sha256": "112ef1c69adc1b6532ec9ab533b41f18dd7b648278d19a844e4bc05cbf267c2c"
+    },
+    "OptiScaler/native/FlowDiagnosticUi.h": {
+      "mode": "100644",
+      "sha256": "7647f1ba6247d68ddb864f51acbe7e9f3bd4d40e33e73a343af84d9d2450aa42"
     },
     "OptiScaler/native/FrameContract.h": {
       "mode": "100644",
@@ -2729,29 +3351,61 @@
       "mode": "100644",
       "sha256": "1de585fd9446336c506e990ddccd0c6039638338788e79f6a52eb149264115ea"
     },
+    "OptiScaler/native/NativeDriver.cpp": {
+      "mode": "100644",
+      "sha256": "2cdead2dd975e37b676b32d4dec5c1fb4012214d3d4baafdad299266f0d99466"
+    },
     "OptiScaler/native/NativeDriver.h": {
       "mode": "100644",
-      "sha256": "212b778655d047fa15114bd1e1ef85932a7ca67210abf651a1de2811a1b22c71"
+      "sha256": "c63327cedb45b788d7e9db3f9f89cef016fba38e49680bad3bd2c5cd2721a2d1"
+    },
+    "OptiScaler/native/NativeDriverDx11.cpp": {
+      "mode": "100644",
+      "sha256": "14996e8705617a1467f2f272bca327318895f7a92481e69d8fc3f160b31c05ae"
     },
     "OptiScaler/native/NativeDriverDx11.h": {
       "mode": "100644",
-      "sha256": "ae8e2224fbb64f3e29a3972979e328a8e50c3e49c87fc8530f37e6798f904b37"
+      "sha256": "2580e5bf5fa9c3e28b222fed211d0d3a508d05a628649bc6578232269bcab4e2"
+    },
+    "OptiScaler/native/NativeDriverDx12.cpp": {
+      "mode": "100644",
+      "sha256": "684881f9514a48478d65a75ffad91fe85d94a844cb6a61321d0ca00c7be30813"
     },
     "OptiScaler/native/NativeDriverDx12.h": {
       "mode": "100644",
-      "sha256": "f382ba2ef40b2bddaf80e9d86c7f2fe60fbf4935f1ad2c75ec71951e75bd0953"
+      "sha256": "702c45a4557844a2751927f529b527b6e4c2cbb4156d17c6c47fb1dcb78c75be"
+    },
+    "OptiScaler/native/NativeDriverVk.cpp": {
+      "mode": "100644",
+      "sha256": "4812fb94d4656ab58461980d6cd1b4143bce04d6caa64222fa53ff7ec9ec9d83"
     },
     "OptiScaler/native/NativeDriverVk.h": {
       "mode": "100644",
-      "sha256": "48b4d65a4d4ddd1c38a2e3c904ea5d114812a80413d6829a480ccb245e22f479"
+      "sha256": "0d4bcf462b1566bb12fb2812585196de16b1946ba8c6f9f7f767a1b793e92fdd"
+    },
+    "OptiScaler/native/NativeLowLatency.cpp": {
+      "mode": "100644",
+      "sha256": "366f9f87f327266e21161dff3e9c40a966b25692fce9192aa02b5c619e3507c8"
+    },
+    "OptiScaler/native/NativeLowLatency.h": {
+      "mode": "100644",
+      "sha256": "a2db78e002ef3862fd608130ade4d1fc1aedbfafe8e164293c18c3ccc1bf9aae"
+    },
+    "OptiScaler/native/NativeLowLatencyRule.h": {
+      "mode": "100644",
+      "sha256": "3477cf6ce24bbbf9c208aeb4b897c274668f65d2a0c965b6126e70ebccc07a03"
     },
     "OptiScaler/native/NativeLowLatencyVkSync.h": {
       "mode": "100644",
       "sha256": "b5974cfe1c233590fc5821e9365b6bc8978e47e40d3e69aef0a8ed83652787af"
     },
+    "OptiScaler/native/NativeProducer.cpp": {
+      "mode": "100644",
+      "sha256": "a79b3ca7e8b8e751e3bc34dd4d41c8e71b8c027e8a59e5dea7a2d46c18db0956"
+    },
     "OptiScaler/native/NativeProducer.h": {
       "mode": "100644",
-      "sha256": "9f82503b2dd00b85ecf70ee8574d06f4a053f5a2d571c49b7ea35fd90494807a"
+      "sha256": "21d02ae3c6b4a42419c6304f65049417c53d324575625de67e0c7672d981d71d"
     },
     "OptiScaler/native/PresentStageTiming.h": {
       "mode": "100644",
@@ -2789,6 +3443,10 @@
       "mode": "100644",
       "sha256": "b71d7b8310824c2a8f54f5c64f347c4a80ed82eef03fd93afe6c649ebfa3ef36"
     },
+    "OptiScaler/native/VkFrameSource.cpp": {
+      "mode": "100644",
+      "sha256": "3a9973d2f52723086a5b381362162a17bd0c4480c738429abff7cd81da4b537c"
+    },
     "OptiScaler/native/VkFrameSource.h": {
       "mode": "100644",
       "sha256": "f786802c49a5a4b9a9930754492b9b66b1368f1c810e666a1e4f869c2c46f160"
@@ -2801,9 +3459,13 @@
       "mode": "100644",
       "sha256": "b12e96e277d89db9be73b43ffb9c2b0a1c624869f880c3fb37fb8a0ed40b79e9"
     },
+    "OptiScaler/native/VkPresentBridge.cpp": {
+      "mode": "100644",
+      "sha256": "6efff55b2d2c8d960b1afa69aac4fffc68bcaff17507d58a4f8bf740a023c508"
+    },
     "OptiScaler/native/VkPresentBridge.h": {
       "mode": "100644",
-      "sha256": "7f81fed98f7d4cd47b031ef763849c842bb6ea22d63b36abf849890721736191"
+      "sha256": "83c83e43dd7407c8c3adb3742f2a6827e0a6da5560d595aecb1c74c8eaab03d7"
     },
     "OptiScaler/native/VkPresentBridgeCore.h": {
       "mode": "100644",
@@ -2869,6 +3531,94 @@
       "mode": "100644",
       "sha256": "dee0bfb7a77ebc12009562f03c1796c3a0326f1b531904ed6a036378327c5010"
     },
+    "OptiScaler/output/SdrToHdr_Common.h": {
+      "mode": "100644",
+      "sha256": "656215a8c87ac23a304b3160f394b7025df5fc8058fb1704f458d21219f38ed7"
+    },
+    "OptiScaler/output/SdrToHdr_Create.cpp": {
+      "mode": "100644",
+      "sha256": "32828cddb02ea1d2402d02396581dd7d10fe0401e9fd69db4c2538d428025c66"
+    },
+    "OptiScaler/output/SdrToHdr_Create.h": {
+      "mode": "100644",
+      "sha256": "7945014f62aaca75a506d63ca65721381abd3426331a5782097b89b0536cf961"
+    },
+    "OptiScaler/output/SdrToHdr_Display.cpp": {
+      "mode": "100644",
+      "sha256": "038cf5f0c5d1ceeaebacac3371a3e85cfbd80472db2e27139628ee52b2fec4f9"
+    },
+    "OptiScaler/output/SdrToHdr_Display.h": {
+      "mode": "100644",
+      "sha256": "284742a74b97f11da0a2ee482f66c330ba1b0f7655c1995e60d8ae288747a6bb"
+    },
+    "OptiScaler/output/SdrToHdr_Dx11.cpp": {
+      "mode": "100644",
+      "sha256": "2688c0899fa15a3bf8260fa3af5c25ebac241a2002cb0f7a40fbe617be79ca54"
+    },
+    "OptiScaler/output/SdrToHdr_Dx11.h": {
+      "mode": "100644",
+      "sha256": "a344c0985e7e3ef373e05581aa885ccde10da15a542e1a012a2e42ae9dc3b6fd"
+    },
+    "OptiScaler/output/SdrToHdr_Dx11Present.cpp": {
+      "mode": "100644",
+      "sha256": "93b50eb24c604318f6abd44b130671867dbdf5a070f9bfca615e31980f15670f"
+    },
+    "OptiScaler/output/SdrToHdr_Dx11Present.h": {
+      "mode": "100644",
+      "sha256": "b676ec02ed8c6629dd0f4dc256724d93cf43e81d778b0343ae5963ce850a5bcd"
+    },
+    "OptiScaler/output/SdrToHdr_Dx12.cpp": {
+      "mode": "100644",
+      "sha256": "a3c6b3aa2287f12f9dbe3399a5ad6c54f2c1c775adce7e6cc13a6dfcc71aeee5"
+    },
+    "OptiScaler/output/SdrToHdr_Dx12.h": {
+      "mode": "100644",
+      "sha256": "6e3d8a2406cb0370db78f99d2967f7d6d25812e974ba1074e7f69b79de9c762d"
+    },
+    "OptiScaler/output/SdrToHdr_Fullscreen.cpp": {
+      "mode": "100644",
+      "sha256": "81e138fceaed3086b8e9359dea70266327fa50b310155311e00ccea0efec4e50"
+    },
+    "OptiScaler/output/SdrToHdr_Fullscreen.h": {
+      "mode": "100644",
+      "sha256": "daaf611db575420efe780db1e37d6887760d5bbc476d418b11844f9d66513e59"
+    },
+    "OptiScaler/output/SdrToHdr_Hlsl.h": {
+      "mode": "100644",
+      "sha256": "f85e281ff0c42cc33bfa36fcd449c017f134a4b03f5a75aea318cf80073ff3d3"
+    },
+    "OptiScaler/output/SdrToHdr_Pass.h": {
+      "mode": "100644",
+      "sha256": "33ab3c4b7eefb1f72fc5dbb302936ab43d4bb125ad6e2ca7b93a816891fd90ff"
+    },
+    "OptiScaler/output/SdrToHdr_ProxyBase.cpp": {
+      "mode": "100644",
+      "sha256": "6682fff66b8c97b1c898576455f905e9ff57f1b3b5821d3b0ef349641ce7d314"
+    },
+    "OptiScaler/output/SdrToHdr_ProxyBase.h": {
+      "mode": "100644",
+      "sha256": "32657bfbd877c637cd455b9cfeab4716bfef847c43bf8a295b1775817e7bba42"
+    },
+    "OptiScaler/output/SdrToHdr_ProxyDx11.cpp": {
+      "mode": "100644",
+      "sha256": "4287df00c34de2c2b9ad763672b2b92b85781df4aed8bd32090d68c9ee876ae5"
+    },
+    "OptiScaler/output/SdrToHdr_ProxyDx11.h": {
+      "mode": "100644",
+      "sha256": "267c0ac19dda764c14ec0c44180aba04360ddef92353d5eeb8e2832d9b586a8c"
+    },
+    "OptiScaler/output/SdrToHdr_ProxyDx12.cpp": {
+      "mode": "100644",
+      "sha256": "f55b979c8346154710d974c84ca163da953873e56d1f46997e8975562c8ab7db"
+    },
+    "OptiScaler/output/SdrToHdr_ProxyDx12.h": {
+      "mode": "100644",
+      "sha256": "ddae865ff40373e23c91d6b74f6e04ef2f51e2e6037435576e39e2463b4fbea3"
+    },
+    "OptiScaler/output/SdrToHdr_Status.h": {
+      "mode": "100644",
+      "sha256": "1031fc48d90c3ea409f0cf5035279e2e78b492e8dc2cf800b5a6230b5463867c"
+    },
     "OptiScaler/pch.cpp": {
       "mode": "100644",
       "sha256": "767c147b79a2d6c6488f245d364e406bf927d83e92475247ce92792f71f0bb2d"
@@ -2877,6 +3627,14 @@
       "mode": "100644",
       "sha256": "0e4604b6011a7a4ac2ba2225969bfd6aa73fd49717e060a58363dacaea049d1c"
     },
+    "OptiScaler/plugins/PluginRegistry.h": {
+      "mode": "100644",
+      "sha256": "4a0b9d104a8690387ce4c7e00baf0225de354888fdf4ac17821e366e1bce9b3e"
+    },
+    "OptiScaler/plugins/PluginsView.h": {
+      "mode": "100644",
+      "sha256": "424b1f77e9b3b4967855185014e1cd7dc9fb78b5ed0d3689005039518c1fbd1e"
+    },
     "OptiScaler/proxies/D3D12_Proxy.h": {
       "mode": "100644",
       "sha256": "8cf8bc5b3c626b6f8453c6a12e2e052c086d7904d47bbeab3153a9cbdd0bb6b8"
@@ -2884,6 +3642,10 @@
     "OptiScaler/proxies/Dxgi_Proxy.h": {
       "mode": "100644",
       "sha256": "db8de1c28e147b69ffce4679356f27fc9a487ffd077a07c51aade5a1e054cdda"
+    },
+    "OptiScaler/proxies/FfxApi_Proxy.h": {
+      "mode": "100644",
+      "sha256": "aaf11a064b42df482f58ea9ca44ecf46ca44e931dfdcfd87afc078f6822d29cf"
     },
     "OptiScaler/proxies/IGDExt_Proxy.h": {
       "mode": "100644",
@@ -2899,7 +3661,7 @@
     },
     "OptiScaler/proxies/NVNGX_Proxy.h": {
       "mode": "100644",
-      "sha256": "449db0508fce03746706ed416bed7958f388a0807ada8ceaf432c7b1c9df99c8"
+      "sha256": "16abb5be3a56b0045661ecdf3f89fa5f2744f2c9fcb08e28c9dc027d8e73534d"
     },
     "OptiScaler/proxies/Ntdll_Proxy.h": {
       "mode": "100644",
@@ -2907,27 +3669,39 @@
     },
     "OptiScaler/proxies/Streamline_Proxy.h": {
       "mode": "100644",
-      "sha256": "3e2f17211f7f95c113b4b5b11ee2fc1c6a3291a87f8c8a54cb162d2007634fac"
+      "sha256": "362a9bcf4287cde712eba2b88baf685a4525bfb8c2da40d423ae39c6acc76524"
     },
     "OptiScaler/proxies/XeFG_Proxy.h": {
       "mode": "100644",
-      "sha256": "157045e502075bc228b48cafda666303ffbdaa913943b6e37ec4d129ef461b36"
+      "sha256": "587b4378570ea9d9d9763a4216245db1b0983fac1b20c248bb9e4b3a55090b43"
     },
     "OptiScaler/proxies/XeLL_Proxy.h": {
       "mode": "100644",
-      "sha256": "28e8c97c0e3e89055fe2e392cc8c1543f7c8ec9d57686f5acc7ac2cd73f48f2b"
+      "sha256": "3b90a119ae10c1b8ebda5cb58684f22e7b66576f4c2ea5713ac6b23578f2e9e5"
     },
     "OptiScaler/proxies/XeSS_Proxy.h": {
       "mode": "100644",
       "sha256": "34f3ed73f398a07604348dd170ceeb3251968c9a8f9f2e2a2f81c364b5560cbc"
     },
+    "OptiScaler/proxies/sl_helpers_vk.h": {
+      "mode": "100644",
+      "sha256": "36de94fa0339232a2c50d449eed639d2c6831c18409a580aa95ead903297b301"
+    },
     "OptiScaler/resource.h": {
       "mode": "100644",
-      "sha256": "aa643b8e31cb9a7f499b26230fd968efb1400fb8999dfe7c4e3e5f23ef0802f9"
+      "sha256": "2ae39dd229fea9b07bfe34e4681264e99fbeedaa8cc6dac81a420bc0a237dd71"
+    },
+    "OptiScaler/resource_tracking/GenericDepth_Dx11.cpp": {
+      "mode": "100644",
+      "sha256": "4e99e2ca43ea31d8d275d04a899e415c582893e9c30b717259c8757172a256df"
     },
     "OptiScaler/resource_tracking/GenericDepth_Dx11.h": {
       "mode": "100644",
       "sha256": "467af7b119f2c584c54282130132f6a2942b550df71f2d3d0af3fe5f65495837"
+    },
+    "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp": {
+      "mode": "100644",
+      "sha256": "e54c5444a7e48e467c10a23987d66c098c61b7626392c82aa743d0e669469e24"
     },
     "OptiScaler/resource_tracking/GenericDepth_Dx12.h": {
       "mode": "100644",
@@ -2935,7 +3709,11 @@
     },
     "OptiScaler/resource_tracking/GenericDepth_Select.h": {
       "mode": "100644",
-      "sha256": "e62b7ac61270ee0ff67177e72d5681777cc68512df19e117b0d532b0bdbec3b9"
+      "sha256": "6a635a25d13951ae8faccd420624d9a5f1f021e53c824bd8fd5e1d28b637d719"
+    },
+    "OptiScaler/resource_tracking/GenericDepth_Vk.cpp": {
+      "mode": "100644",
+      "sha256": "b49144ec17a0bbe1d63ed753bf8295580b9ad23ec2c6c0bbb1806261e8586213"
     },
     "OptiScaler/resource_tracking/GenericDepth_Vk.h": {
       "mode": "100644",
@@ -2947,19 +3725,27 @@
     },
     "OptiScaler/resource_tracking/ResTrack_dx12.cpp": {
       "mode": "100644",
-      "sha256": "166f7bdb59ecac35a778df62e3a230aa71cb4f4bca17b6ee41308b3e4acd2e03"
+      "sha256": "181aed10588c8a4d48fcb4939668b0ecf41f85da1f449d8a6c90232e84a6c646"
     },
     "OptiScaler/resource_tracking/ResTrack_dx12.h": {
       "mode": "100644",
       "sha256": "a6436343b351129c5ed59bba6e2ec24c2a3ca7015cb25a64627d90b52bb24512"
     },
+    "OptiScaler/scanner/rtti.cpp": {
+      "mode": "100644",
+      "sha256": "c88287757fe26b6028eb62cf90d296d5462553b8e5ae17d9ccb3407d5ab00d72"
+    },
+    "OptiScaler/scanner/rtti.h": {
+      "mode": "100644",
+      "sha256": "81183823dda0566cbd9601ce1e3225e4e5e975b7a4dcdf7410c692a1aa972d66"
+    },
     "OptiScaler/scanner/scanner.cpp": {
       "mode": "100644",
-      "sha256": "e727db17eb088a5374273866668dc9a3401d511991f358740cb9d9bc7b42616a"
+      "sha256": "b0125c8de36d107514034603db2e01c17111ec252edba46037ad26dc747b61cb"
     },
     "OptiScaler/scanner/scanner.h": {
       "mode": "100644",
-      "sha256": "66dd6ec2460ab682ed5a7ba2918f009c80909ae17b09309cac31a6b7ba5af3ed"
+      "sha256": "a2507f6f16df7a08d0dfc39f2aa4373fd7b2aff434427d874e686fd365afea43"
     },
     "OptiScaler/shaders/Shader_Common.h": {
       "mode": "100644",
@@ -2996,6 +3782,30 @@
     "OptiScaler/shaders/Shader_VkUtils.h": {
       "mode": "100644",
       "sha256": "0e5c890e8f5ff4b848a048811aef052b4a55229a1b54a0739b12b95beebecc59"
+    },
+    "OptiScaler/shaders/auto_exposure/AE_Common.h": {
+      "mode": "100644",
+      "sha256": "b9c9e124ba281136fc56791b87c4721d47af34c2fcb32e77001cf11c9b58d378"
+    },
+    "OptiScaler/shaders/auto_exposure/AE_Dx12.cpp": {
+      "mode": "100644",
+      "sha256": "2b43c3fa1e06830b54cf3474c55141537d0d3afa94f0826c9f2542d2d3d79d0a"
+    },
+    "OptiScaler/shaders/auto_exposure/AE_Dx12.h": {
+      "mode": "100644",
+      "sha256": "ba4f45aa754560ff7978d2ab292c876797830361ff77fd2ef80ebba8d580f9b6"
+    },
+    "OptiScaler/shaders/auto_exposure/precompile/AE.hlsl": {
+      "mode": "100644",
+      "sha256": "95edc7e70b527f2b0c1f8a2af0dec2946f596b50a05038cbd51ed4e8523ae150"
+    },
+    "OptiScaler/shaders/auto_exposure/precompile/AE_Shader.cso": {
+      "mode": "100644",
+      "sha256": "a1cb7f60ee9289a503665ac7ed898fe29d4d5f5799b078698c9e55b2ba40e95e"
+    },
+    "OptiScaler/shaders/auto_exposure/precompile/AE_Shader.h": {
+      "mode": "100644",
+      "sha256": "0fadb0be93e915c92ce39df13f08b354f6db8ffe130894de9c47c7ce6554a7fd"
     },
     "OptiScaler/shaders/bias/Bias_Common.h": {
       "mode": "100644",
@@ -3167,7 +3977,7 @@
     },
     "OptiScaler/shaders/dlssnr/DlssNr_ActiveColor.h": {
       "mode": "100644",
-      "sha256": "710d304403f653d6e8021f22f45069da9e7073d85ef7c230e6bc4ed4e8545d88"
+      "sha256": "682c7338505377bb6fe31dd51b07fdaae06370c9b036baf4b6d7560de269f4ae"
     },
     "OptiScaler/shaders/dlssnr/DlssNr_AutoTrimDefault.h": {
       "mode": "100644",
@@ -3175,7 +3985,7 @@
     },
     "OptiScaler/shaders/dlssnr/DlssNr_Common.h": {
       "mode": "100644",
-      "sha256": "084dabf611851863a0c5bffb349e615c8d730b9ae51d84473f1e333107456dae"
+      "sha256": "ff887a6e70ce656e0f0af7850b65e916d26da65f494f15aefd43fd0e80cc663d"
     },
     "OptiScaler/shaders/dlssnr/DlssNr_DetailReuse.inl": {
       "mode": "100644",
@@ -3185,9 +3995,13 @@
       "mode": "100644",
       "sha256": "e3ca327c9ed68494fab06edef6197d313ee7980a44439f7575f300525c146921"
     },
+    "OptiScaler/shaders/dlssnr/DlssNr_Dx12.cpp": {
+      "mode": "100644",
+      "sha256": "ec23abed0d3b8d72637675d0e18d50c5b36a4dc4a033770f3eb373fbabb004c7"
+    },
     "OptiScaler/shaders/dlssnr/DlssNr_Dx12.h": {
       "mode": "100644",
-      "sha256": "f8a58e3392026a36fafeb6f8cb113c015abc45f8a4b00fe704e11b399a9fc5b8"
+      "sha256": "50b352df0476fb575ede417aed0cca69887ad4eb488961aeb8ad8a375a4858af"
     },
     "OptiScaler/shaders/dlssnr/DlssNr_EditCache.inl": {
       "mode": "100644",
@@ -3215,7 +4029,11 @@
     },
     "OptiScaler/shaders/dlssnr/DlssNr_ExposureDefault.h": {
       "mode": "100644",
-      "sha256": "1186e34af9a016d3c55127a9b460e587996d60e18e18950829fd93a540b82ca2"
+      "sha256": "06ad31e1d7e2a278b7273c98bb598e4ca7190c85698a92b01e9bc5fd88ec215c"
+    },
+    "OptiScaler/shaders/dlssnr/DlssNr_ExposureFoundBlend.h": {
+      "mode": "100644",
+      "sha256": "f5fc1933ea18466608fcea5b68f5308a271b4ccd33eaf527b019e604d6024385"
     },
     "OptiScaler/shaders/dlssnr/DlssNr_ExposureMeter.h": {
       "mode": "100644",
@@ -3225,9 +4043,17 @@
       "mode": "100644",
       "sha256": "6c362b07f64bc89208dd0f74d60050a0d069177b2f18c2689e4f55e4c333f4b2"
     },
+    "OptiScaler/shaders/dlssnr/DlssNr_FinishedCopy.h": {
+      "mode": "100644",
+      "sha256": "94aedcb77b262fe07ee3790a56b04b4accb8b133256e0c7791d90d615788e23a"
+    },
+    "OptiScaler/shaders/dlssnr/DlssNr_FinishedRaster.h": {
+      "mode": "100644",
+      "sha256": "7d136b8bb268b5886e9bb5dd884e2a446f58e4017216cd21451e4306e37c4dd3"
+    },
     "OptiScaler/shaders/dlssnr/DlssNr_FinishedReady.h": {
       "mode": "100644",
-      "sha256": "b1a9e244b5861c60f72451b7a0f4a9d1b67131b71e4a982546cd4bb453109ab1"
+      "sha256": "4d1ef6d44bdfc58677ad0a111e9722ebdd01e29a1d7774c3e7fe81e8f05f982c"
     },
     "OptiScaler/shaders/dlssnr/DlssNr_FollowGame.h": {
       "mode": "100644",
@@ -3239,7 +4065,7 @@
     },
     "OptiScaler/shaders/dlssnr/DlssNr_GpuTime.h": {
       "mode": "100644",
-      "sha256": "3a082b105289aff3d3e5c41ce5fdbe85efb7a06524f04fa7df1da6dd156b2bfc"
+      "sha256": "c49833a4b432fb3336246bccdcf5a85f4501b31720e69d03207d45b08027d841"
     },
     "OptiScaler/shaders/dlssnr/DlssNr_Guides.h": {
       "mode": "100644",
@@ -3248,6 +4074,10 @@
     "OptiScaler/shaders/dlssnr/DlssNr_InputStyles.h": {
       "mode": "100644",
       "sha256": "0fb1a8e8126d064c05f03a28215c13bb09abe67150c3bd25821968734f2ca3f2"
+    },
+    "OptiScaler/shaders/dlssnr/DlssNr_Late.inl": {
+      "mode": "100644",
+      "sha256": "c3cd38b179914320b541284ce26669fa6e5b14ed18e7c1ace9839594fb6faeeb"
     },
     "OptiScaler/shaders/dlssnr/DlssNr_LutConstants.h": {
       "mode": "100644",
@@ -3277,17 +4107,25 @@
       "mode": "100644",
       "sha256": "b1e153af651ccfc3ac97d29d4520aa52a113814f5ff6a71df442c57c7c3faeda"
     },
+    "OptiScaler/shaders/dlssnr/DlssNr_Spatial.h": {
+      "mode": "100644",
+      "sha256": "511c3125a0666f69664818000e3c2d04759163fb11901c8fda31d65dce4813f7"
+    },
     "OptiScaler/shaders/dlssnr/DlssNr_Spatial.inl": {
       "mode": "100644",
-      "sha256": "976e67b6e524cf9a1da40a78512fbfc8a9a026c5487dd484d63a698982078d8e"
+      "sha256": "b9f92c99d3e8183a13af46f146ea2a23f4cbda9dd3894734ee6c7a5d75222692"
     },
     "OptiScaler/shaders/dlssnr/DlssNr_SurfaceFormats.h": {
       "mode": "100644",
-      "sha256": "1b674b8b34c68532f766adf4fb6d860f02e33cb82211cfb28802a9eeea9558c4"
+      "sha256": "f0370162db84a2d9aebf65b8763ca9dd2ddc506ce2f39b656b4c2f5e6ed47a91"
     },
     "OptiScaler/shaders/dlssnr/DlssNr_TrimAnchors.h": {
       "mode": "100644",
       "sha256": "dbfe5145baa86c52299b861cc0d7a07625f1d647b74c46a0774644ae6565fce6"
+    },
+    "OptiScaler/shaders/dlssnr/DlssNr_Views.h": {
+      "mode": "100644",
+      "sha256": "a1a98e428fabe83ea08e00160e86b64fa5b7909f664643f253d210fed6cd0362"
     },
     "OptiScaler/shaders/dlssnr/DlssNr_Vk.cpp": {
       "mode": "100644",
@@ -3299,7 +4137,7 @@
     },
     "OptiScaler/shaders/dlssnr/DlssNr_WatchedLists.h": {
       "mode": "100644",
-      "sha256": "b4cbf7ac36a4ce26f9c39b26b97dfc34efac6ec4bdbb8a1e5c85a9029d226e86"
+      "sha256": "0bf0aaff544ebd52a917a63b573caefc99dde2f2876ced505f84d8d298c1e383"
     },
     "OptiScaler/shaders/dlssnr/precompile/DlssNr_Shader.cso": {
       "mode": "100644",
@@ -3323,7 +4161,7 @@
     },
     "OptiScaler/shaders/dlssnr/precompile/dlssnr.hlsl": {
       "mode": "100644",
-      "sha256": "e65ff3025265a34f57d045cf6f72dd06af3314cdf5e96ac7c3815cc89c739e02"
+      "sha256": "fb9e87bccac1369d7c32f790d40326dead87a4d97ca1bebc3d6d8caf98ecca0d"
     },
     "OptiScaler/shaders/dlssnr/precompile/dlssnr_detail_reuse.hlsl": {
       "mode": "100644",
@@ -3409,6 +4247,38 @@
       "mode": "100644",
       "sha256": "4eb118507c7d767a09f35175fea23711feab259eed43d340dd1ecd59f5d26a1d"
     },
+    "OptiScaler/shaders/dlssnr/precompile/dlssnr_finished_pq_direct.hlsl": {
+      "mode": "100644",
+      "sha256": "054b9584f5b448e0a16a6085e6b626b1fd08b45f9d64c2181c1901ce99f811b6"
+    },
+    "OptiScaler/shaders/dlssnr/precompile/dlssnr_finished_pq_direct_Shader.cso": {
+      "mode": "100644",
+      "sha256": "96722f6e9f8bd95529de03460533a8563b6e63fdf0ec20ec8efc84dec3e27a8d"
+    },
+    "OptiScaler/shaders/dlssnr/precompile/dlssnr_finished_pq_direct_Shader.h": {
+      "mode": "100644",
+      "sha256": "8533fd06f6346f3ed4266e2f0000493dfc660cd8284ae6f934253a842cfaa6a0"
+    },
+    "OptiScaler/shaders/dlssnr/precompile/dlssnr_finished_pq_ps_Shader.cso": {
+      "mode": "100644",
+      "sha256": "acd0a956db06b83a7296bd2bbec832f82c86194a37ef4d11a59ab671b84682d4"
+    },
+    "OptiScaler/shaders/dlssnr/precompile/dlssnr_finished_pq_ps_Shader.h": {
+      "mode": "100644",
+      "sha256": "6bf388807af98e1af48ca7f681062d50e339e044ba1e5498540ad9355e97e3c5"
+    },
+    "OptiScaler/shaders/dlssnr/precompile/dlssnr_finished_pq_raster.hlsl": {
+      "mode": "100644",
+      "sha256": "6948cdf96a8de17088155b6c5b86d320a0cd222f73b5408e1a0191debe46b349"
+    },
+    "OptiScaler/shaders/dlssnr/precompile/dlssnr_finished_pq_vs_Shader.cso": {
+      "mode": "100644",
+      "sha256": "363343c3a4cc6ff2eb6b570fd49dc821e0ae690ac9b553a2f386d8b034277563"
+    },
+    "OptiScaler/shaders/dlssnr/precompile/dlssnr_finished_pq_vs_Shader.h": {
+      "mode": "100644",
+      "sha256": "f57ff296c4d5b92f753cbeb76f5037f63247d7797bbc5dd60a86b0229c8e0669"
+    },
     "OptiScaler/shaders/dlssnr/precompile/dlssnr_lut.hlsl": {
       "mode": "100644",
       "sha256": "333f453fd0b5af2e91066b85ad6f6b2da4d6ba721620f8195c26819136eac66c"
@@ -3481,6 +4351,486 @@
       "mode": "100644",
       "sha256": "9b305e1f4401c54049e8784094e7a46c54751bbd69e7e2b1a871454f3e0a3ecb"
     },
+    "OptiScaler/shaders/dlssnr/superior/Constants.h": {
+      "mode": "100644",
+      "sha256": "b3c948628ada3eec714c3272ea1f06288686ec811013dca9f173d69962f6e9bc"
+    },
+    "OptiScaler/shaders/dlssnr/superior/Fields.h": {
+      "mode": "100644",
+      "sha256": "bb0e5f9ef758ad9b51310d9fb3415e03214b59b9e2138680b65d77d06c600d66"
+    },
+    "OptiScaler/shaders/dlssnr/superior/HostResolve.hlsli": {
+      "mode": "100644",
+      "sha256": "b031940d093650faf3a119978bf6e8e4798134ab272b085a83645ac279d26a1f"
+    },
+    "OptiScaler/shaders/dlssnr/superior/JointGuides.hlsl": {
+      "mode": "100644",
+      "sha256": "30d5ae9f83662a2b1176fdc835f7374ddc69bfcc2b54de84e4cc2323c1db90bd"
+    },
+    "OptiScaler/shaders/dlssnr/superior/MinifiedMotion.hlsl": {
+      "mode": "100644",
+      "sha256": "e2ac6fc700a5f7308d6b81d2444800eb359799a9c0758e5d4fd65930f97f6f06"
+    },
+    "OptiScaler/shaders/dlssnr/superior/Pipeline.inl": {
+      "mode": "100644",
+      "sha256": "f46b7ea2e7b3d856be6ec1ebd696f4d2fa86c32d233fb036a3ee73aacea23a88"
+    },
+    "OptiScaler/shaders/dlssnr/superior/PrivateGuides.hlsl": {
+      "mode": "100644",
+      "sha256": "0590b5e0df637d0210827669ea312139e347cad55b5dce33e9e013149bb3f499"
+    },
+    "OptiScaler/shaders/dlssnr/superior/PrivateGuides.inl": {
+      "mode": "100644",
+      "sha256": "8ba2cc52ea2a30569cd98f1e1be4b37cba0ae08099b7a931c421a4cc1c3b214c"
+    },
+    "OptiScaler/shaders/dlssnr/superior/RawLow.hlsl": {
+      "mode": "100644",
+      "sha256": "d8d072f48317ae0f3d26d6674345df120ce7857f1f3734bae2f83a0d3bbf7a3b"
+    },
+    "OptiScaler/shaders/dlssnr/superior/Shader.inl": {
+      "mode": "100644",
+      "sha256": "f447eaa7eace0f221e7a2d8359fcc9237d1a47afa80697de2cc105bf4b4f025a"
+    },
+    "OptiScaler/shaders/dlssnr/superior/SpatialGuides.hlsl": {
+      "mode": "100644",
+      "sha256": "1b859f303941694540317612af93f7e29de94b6f791356ad0f21ce363435552e"
+    },
+    "OptiScaler/shaders/dlssnr/superior/SurfaceMotion.hlsli": {
+      "mode": "100644",
+      "sha256": "8c9bde7c7bba834e8039d3537174307b8e5571684e88085456d2ed1633764b08"
+    },
+    "OptiScaler/shaders/dlssnr/superior/WarpCache.hlsl": {
+      "mode": "100644",
+      "sha256": "567ffbaf77cabbcfe1886fc1c314b2dab3fac2c861ba88ab90dece8665ec7aae"
+    },
+    "OptiScaler/shaders/dlssnr/superior/WarpMap.hlsli": {
+      "mode": "100644",
+      "sha256": "17f75e317f27f985a8018f97a6d8b3da0bff2a2425f3ad7c739ee08f4e42f154"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/DlssNr_Shader.cso": {
+      "mode": "100644",
+      "sha256": "a6a4a026497f3218519491108c3aea025d4ab9d0626cff94ad268d744058cd46"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/DlssNr_Shader.h": {
+      "mode": "100644",
+      "sha256": "5f1378c7c7dc34fa2c98817f8ec75ab107d9bafeb9388d6bc3b6bc908c5fe121"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr.hlsl": {
+      "mode": "100644",
+      "sha256": "a8b93f0924bae7e4572bfa24a906bcb35042d549937adddc71845c284d583360"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_interpass_cross5_Shader.cso": {
+      "mode": "100644",
+      "sha256": "8710b883e95bb5151a79fbe6596b4661be59bdb36745ad6b527063e81b6c543c"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_interpass_cross5_Shader.h": {
+      "mode": "100644",
+      "sha256": "9af68fbe2a8b2435e987b34056ea1cc45a16ccf3ac04902c48cdf855de0e8d41"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_interpass_fast_Shader.cso": {
+      "mode": "100644",
+      "sha256": "28d28d84c96b6531bc79997a3b2d29e8c6fe0f74edbe76ae951cd05f3aded7c9"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_interpass_fast_Shader.h": {
+      "mode": "100644",
+      "sha256": "f5101be889f73e48f08d21abbc6c40b5fe1aa2cee81f5d139e37ca302514a855"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_interpass_low36_Shader.cso": {
+      "mode": "100644",
+      "sha256": "9c27d9150463df1614215aafeb7740dbf4afabae0962aece3427c032fb49dbf7"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_interpass_low36_Shader.h": {
+      "mode": "100644",
+      "sha256": "47005bae2c9aecb842b235e3cca4b8739b2110e26415c93df8287c870f89203b"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_interpass_low36_cached_Shader.cso": {
+      "mode": "100644",
+      "sha256": "8c2862fca63d682a5eb46e5ff439f1e945addbabd0dae36452876aff314fccf2"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_interpass_low36_cached_Shader.h": {
+      "mode": "100644",
+      "sha256": "3fc9b7741e98ba0b0611ee12aed84cb631302329cf79b10353e5cd04e57d9ede"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_resize.hlsli": {
+      "mode": "100644",
+      "sha256": "c8af9cc06d009c748bc319cf93609acf193a7e19e6cfb38ea4f10c4f0b355beb"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_superior_area_Shader.cso": {
+      "mode": "100644",
+      "sha256": "f15b3556fbc80385d9f6ba7cf4e68dbe94bc0c6cc5bc9b098f510841eceb5ba9"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_superior_area_Shader.h": {
+      "mode": "100644",
+      "sha256": "1c22848763b254ca5e55e6c0d4f41950f2e925b8ba8336b0585da409df8f5b59"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_superior_carrier_Shader.cso": {
+      "mode": "100644",
+      "sha256": "816f60ac9eda1aa69f920bfe80d373ffc9b54b758047ab6684f28fc6e9f95438"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_superior_carrier_Shader.h": {
+      "mode": "100644",
+      "sha256": "1b427a816e80668e9d5b93b4a36b2f3d606aace45f0f83c13f49fd572fdbb280"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_superior_cross5_Shader.cso": {
+      "mode": "100644",
+      "sha256": "f4c3dacc25bdf4e42a7e847c065a8848f0c843cbb4dffbffaebf0aca442be9e2"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_superior_cross5_Shader.h": {
+      "mode": "100644",
+      "sha256": "d8f1043e972367b85428e2fecd14bf69b98d066bd70ffa5bb54305a7f0fc05d4"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_superior_encode_Shader.cso": {
+      "mode": "100644",
+      "sha256": "0365ed0809cf5bb76a3532aca410508c1d5fb4c99f035772ad56d56f35b27f53"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_superior_encode_Shader.h": {
+      "mode": "100644",
+      "sha256": "d099552edc091663426cece1ac56aaf0096abc53e9793bf9758fe7add4fa1164"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_superior_exposure_Shader.cso": {
+      "mode": "100644",
+      "sha256": "81120ca7cd791f19b6b520eabc1a7353bf199f9332c19b1f5bd3f80676fb0123"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_superior_exposure_Shader.h": {
+      "mode": "100644",
+      "sha256": "ca2d21e51c41be6d30648d5d2495181e874a6d14c7f0d3b8fdaa033eeb390a1f"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_superior_hdr0_Shader.cso": {
+      "mode": "100644",
+      "sha256": "9630836ff757ac2a80cfc7c8131a32ccb446af9fd31f09db03cccac5e2e7b614"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_superior_hdr0_Shader.h": {
+      "mode": "100644",
+      "sha256": "33cf61864001c9f8ef10b84a4b995ba5e21456c8f0781cad33fae971b71990b9"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_superior_hdr2_Shader.cso": {
+      "mode": "100644",
+      "sha256": "984d4fedbe37a320dd2dc97648f88b40791d3471ddc5dea39e84c86f89d8dad0"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_superior_hdr2_Shader.h": {
+      "mode": "100644",
+      "sha256": "85449ccff019796f9bf75bd3e5b17ad666f0346794f167e3d47064ae8a04ebf9"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_superior_hdr4_Shader.cso": {
+      "mode": "100644",
+      "sha256": "1fa1acf7c27c486231801b75e95104bfae9cba6586b067994e77729e5f77cd26"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_superior_hdr4_Shader.h": {
+      "mode": "100644",
+      "sha256": "1b88c6aa357ebd2d767e26b99d69413ca497c6b477b45000d5a066093c301611"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_superior_low_Shader.cso": {
+      "mode": "100644",
+      "sha256": "0fdad72b4c7b21a77196151656889e5099ff3ee92d2ef1a1962bc2d6d8ea2185"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_superior_low_Shader.h": {
+      "mode": "100644",
+      "sha256": "c5c6777753b0504b7bc1bbe873af8c441618a8eb8ab1ff86e13bac44c2ee6dae"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_superior_meter_Shader.cso": {
+      "mode": "100644",
+      "sha256": "5d4bb7994751d7a710b1ef190fd6e1d4c7176e2ca10996305a59509131a813e4"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_superior_meter_Shader.h": {
+      "mode": "100644",
+      "sha256": "b95758823738b24f521e8575e534a41618f8a767a6014d3f3cd34409e40d2d8c"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_superior_normal_Shader.cso": {
+      "mode": "100644",
+      "sha256": "78914feee9a2e710586d59696dcbf8b482b76382233061d52420ea57918cb3c2"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_superior_normal_Shader.h": {
+      "mode": "100644",
+      "sha256": "cdcb0806df39be19af9e3ba23ffa06a667bc6185a3e2d10aa49497ca157518b9"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_superior_resolve_Shader.cso": {
+      "mode": "100644",
+      "sha256": "53ad5e0579aa7b845cfac76276b5084b22440c2fd2f0b88bda446bfef88fce5d"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_superior_resolve_Shader.h": {
+      "mode": "100644",
+      "sha256": "85d373bc89bd04760f4b2c4ed1d14d0e3d0432c9047abcaf42bb6204f1cbe9ca"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_superior_sdr_Shader.cso": {
+      "mode": "100644",
+      "sha256": "2ee828d10768f3866fda7814d9f1e7d45ae4a8b972d0c884e97ead4f81c664ec"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/dlssnr_superior_sdr_Shader.h": {
+      "mode": "100644",
+      "sha256": "b3fe08198e226070460bd2b50ed332d00cd5bb1c635262d4518f7ac1895fe927"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_cached_packed_hdr0_Shader.cso": {
+      "mode": "100644",
+      "sha256": "38e5a69a6944e967daf2101e959c4ceda2d4f8ba5c4a4efe9de0498641662c58"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_cached_packed_hdr0_Shader.h": {
+      "mode": "100644",
+      "sha256": "7f202bfda0bacf90659ad2ad187d10f701a474bf1ff2697d3a167921907f8b3f"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_cached_packed_hdr2_Shader.cso": {
+      "mode": "100644",
+      "sha256": "2e9963a8bb8cf8014e3559a74a82a4662e07e62539da24fed821edce51e8c33e"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_cached_packed_hdr2_Shader.h": {
+      "mode": "100644",
+      "sha256": "a55acf1919aed0ba81d359b08b7d715e4be8281e09ce8e070c500008711dbe38"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_cached_packed_hdr4_Shader.cso": {
+      "mode": "100644",
+      "sha256": "20d02e34af48675f115230bef0b6765560115ff8e8416d0b26d082f4788f4eaf"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_cached_packed_hdr4_Shader.h": {
+      "mode": "100644",
+      "sha256": "22a2f54b164d4b0f3893ce37cf18168d7e7269009c6ac51587edf39c5207ea7c"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_cached_packed_hdr6_Shader.cso": {
+      "mode": "100644",
+      "sha256": "dd5c366d4a4374d0ba1c2c769a6328b1d8c2fc071ef74579219840406f343e80"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_cached_packed_hdr6_Shader.h": {
+      "mode": "100644",
+      "sha256": "7b7ceedf40f2e1dee25957bf127030eb64a032148b5d796ff7b49ae24aeccd39"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_cached_packed_sdr_Shader.cso": {
+      "mode": "100644",
+      "sha256": "7fd2bfa3ddf817c7789abed49da27076a57e800b2e97168e0b2492be89c9e4d4"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_cached_packed_sdr_Shader.h": {
+      "mode": "100644",
+      "sha256": "7cf96f2caab026572e40dd4878e4d7d379a00362e50313257cde142918fae67a"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_joint_guides_Shader.cso": {
+      "mode": "100644",
+      "sha256": "5583cd86f6dbd63032ea3fea0a80d448c0c181c444d6b28e0b38a2162d9e3d67"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_joint_guides_Shader.h": {
+      "mode": "100644",
+      "sha256": "fa5eac85fd7fef66958e08dbef312be34bba36024f59d81efb8713683e9a61f5"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_joint_guides_quantized_Shader.cso": {
+      "mode": "100644",
+      "sha256": "7b474ce5fba1aad9be85c5014b2a0e687bf58a86667a7814d48f5307ca114817"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_joint_guides_quantized_Shader.h": {
+      "mode": "100644",
+      "sha256": "e6e4fdb59c5b2fb0ddbc0917545eb6b8b3be22d98cf6e2a1ca4a9e9b844417b5"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_joint_minified_guides_Shader.cso": {
+      "mode": "100644",
+      "sha256": "34c9608db061b1e44a9769b602895d0b5c883b4dea3fa7a49fcb92a3349efc49"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_joint_minified_guides_Shader.h": {
+      "mode": "100644",
+      "sha256": "22411dd4bb861679bd22a6c52f8ae4bcf96c0e037378ccabc426b6eaba183679"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_joint_minified_guides_quantized_Shader.cso": {
+      "mode": "100644",
+      "sha256": "6e322f12c09b0a368b7d26b10077e1d8a6b065a99e6b0a751cae8e745d33af8c"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_joint_minified_guides_quantized_Shader.h": {
+      "mode": "100644",
+      "sha256": "26d3a05d441a75e2810752a645a8f216789da26ec58c14aa197e508e5c0638fa"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_low_raw_Shader.cso": {
+      "mode": "100644",
+      "sha256": "7b384bd66dadd0567587ac42c18d4de5bec4efff605405de308443622ea7ef2b"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_low_raw_Shader.h": {
+      "mode": "100644",
+      "sha256": "483f0c236ba1e0bed11306c6d59f5c85b25db3e3e8b9af3b5546a5773b7beb02"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_normal_hdr0_Shader.cso": {
+      "mode": "100644",
+      "sha256": "1a6d7254cc24441029a60eb4b877e99046391eaf6425ad6a8fde7c146ef8b10f"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_normal_hdr0_Shader.h": {
+      "mode": "100644",
+      "sha256": "4fd2bde603d39176c8c6619cdc98ee339a8a24fee1a7cbb5b2100208ebbd7fde"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_normal_hdr2_Shader.cso": {
+      "mode": "100644",
+      "sha256": "f23cc2efb8dfa1bd24e9bd1a78947025bbe9892246762459d72e710dfb0514e6"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_normal_hdr2_Shader.h": {
+      "mode": "100644",
+      "sha256": "b78a771cd5a6fb4d4b65e9bd51a4331591ea5c4790e7367871c5bf45cc436a66"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_normal_hdr4_Shader.cso": {
+      "mode": "100644",
+      "sha256": "c6d4275a654e45ac75921d28ef83f25ac65bebf79cb1c6b5a580decedd92cfd6"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_normal_hdr4_Shader.h": {
+      "mode": "100644",
+      "sha256": "7a94a9ce596299071df330d2ccb8fe12c6852b4a74258af0216dad10ae01de3f"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_normal_hdr6_Shader.cso": {
+      "mode": "100644",
+      "sha256": "10b4d866dba738b6f93fa43f567c3b6314ed110cdcdc28bc1105a46c28d6cb0a"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_normal_hdr6_Shader.h": {
+      "mode": "100644",
+      "sha256": "4b93cc5fa27d183dc3650e5416461bedc44f4d52ace6d11f4e46db31a2704415"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_normal_packed_hdr0_Shader.cso": {
+      "mode": "100644",
+      "sha256": "81f35629da8bfe0d543ac0026ac9b8a4a30e90b882e317f166ebc9621f0a5fb8"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_normal_packed_hdr0_Shader.h": {
+      "mode": "100644",
+      "sha256": "04c9646f2ce65db50d7504df734cd4b6fb196e926aed182dcb5005bcf8c6eebd"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_normal_packed_hdr2_Shader.cso": {
+      "mode": "100644",
+      "sha256": "cbd3ba8fb31e66bd085ab1e692692c53a652c742e929c2755ccb3366d069a9b1"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_normal_packed_hdr2_Shader.h": {
+      "mode": "100644",
+      "sha256": "342c213d46c2eacf571553ed45d7df46893405f956e1d1dd3be5d68927a49f42"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_normal_packed_hdr4_Shader.cso": {
+      "mode": "100644",
+      "sha256": "0088bd427971a64e9859f732446d7afcb5905f32041ce95c5db18df5346cfc3b"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_normal_packed_hdr4_Shader.h": {
+      "mode": "100644",
+      "sha256": "486a93978195ee7157cc3ef22757805c9c6ec381dff58ebeca7ad7940561edcc"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_normal_packed_hdr6_Shader.cso": {
+      "mode": "100644",
+      "sha256": "b96ffb382f565957a0a1a178d4ae9b4c114035d543cb778cae125e5a79e9eb83"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_normal_packed_hdr6_Shader.h": {
+      "mode": "100644",
+      "sha256": "ab50b4171659d61decc348301eada584a9adf19739da4ef85bc7c63f666dcb70"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_normal_packed_sdr_Shader.cso": {
+      "mode": "100644",
+      "sha256": "937ca6ed3387e87db023eef8be6dd997015a6b3e211814ea5f737a8277a518da"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_normal_packed_sdr_Shader.h": {
+      "mode": "100644",
+      "sha256": "1cc88ffa54ee4b35dcec3dc4a5a0c5c350cfaf4d6e9de62cd9a35c62a9e344db"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_normal_sdr_Shader.cso": {
+      "mode": "100644",
+      "sha256": "6803bd434ffbf42a200293247d2acb854a9fcbc3dfd34417ce1c1ac0280e6141"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_normal_sdr_Shader.h": {
+      "mode": "100644",
+      "sha256": "5f5c1fd8a44c41a6bd6dbfdb02470bc18382025759bdcb493ec7d0449620f0ca"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_private_guides_Shader.cso": {
+      "mode": "100644",
+      "sha256": "9cb35caa8cb988f543e7d24b87853479ba9690fc35cc372f4ecd1a1a44c993a3"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_private_guides_Shader.h": {
+      "mode": "100644",
+      "sha256": "f63756e2a6bd7adfbd7a7ba4ec7dd0af83ed2769c61b479b838b2ae484954b85"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_private_guides_quantized_Shader.cso": {
+      "mode": "100644",
+      "sha256": "96f4170bb25b529b71f6ed0440c9f1a26edb349a1f70621d3b640933fba3d6c4"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_private_guides_quantized_Shader.h": {
+      "mode": "100644",
+      "sha256": "914db933de88ddf21293a7973166cb770ca125cbb102d10b96e8252bd247172d"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_resolve_hdr_Shader.cso": {
+      "mode": "100644",
+      "sha256": "7d440e1041130d7a050f6845f13636f0997c319a987bd67603d28cdb56a1bbfc"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_resolve_hdr_Shader.h": {
+      "mode": "100644",
+      "sha256": "cdb50c147fea46ac06d75c110ea243b3d14022bb3b5b3eb3303afc0e8cbee710"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_resolve_packed_hdr_Shader.cso": {
+      "mode": "100644",
+      "sha256": "986381f8b5174bb050058e7687190bb4e9a3fb3fba93dc75ddd421ffe6dd74e4"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_resolve_packed_hdr_Shader.h": {
+      "mode": "100644",
+      "sha256": "fd233085ae9d7844048995621c1d961e4e72a10104b14e32624ddb462f97ee7e"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_resolve_packed_sdr_Shader.cso": {
+      "mode": "100644",
+      "sha256": "420064f7cf9905f3b05066d5b82c13be2d86c94413b77505d773708e18ed12b0"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_resolve_packed_sdr_Shader.h": {
+      "mode": "100644",
+      "sha256": "3e3f46258ace8e598f6f6f43b2cd1b5eb74543e7ecbbee6d50ac4f826381d753"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_resolve_raw_Shader.cso": {
+      "mode": "100644",
+      "sha256": "592010dc51e7cbd99209a4e7d0bfa7761105b8e97c6ce9ef820947776d4dec3a"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_resolve_raw_Shader.h": {
+      "mode": "100644",
+      "sha256": "ec972f20e9944599122f47abf97f18ae2e70ae750ff0c3d4e9cf4e0a3fc6ad96"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_resolve_sdr_Shader.cso": {
+      "mode": "100644",
+      "sha256": "b3894dcc1122f36302069ed3c5d94afffe965adacb73dd1d7c8cd0d065fd784c"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_resolve_sdr_Shader.h": {
+      "mode": "100644",
+      "sha256": "a3caf506b5af03e1b1cb316596aa01424172ae327fc00e4efce0a9cf51b2757d"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_surface_guides_Shader.cso": {
+      "mode": "100644",
+      "sha256": "e47ce075180c63345fdac6655972b6c2647c2e926c4db6539db0fc66f265cd02"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_surface_guides_Shader.h": {
+      "mode": "100644",
+      "sha256": "978e73998078c29fbf72cfdbc62f072cabad96554b4db71e79258300d650d67a"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_uniform_joint_guides_Shader.cso": {
+      "mode": "100644",
+      "sha256": "2115180e1ba67ed3c1fa22ed29dba9a6d61f5174be94ecbbbc91ba0af0f68437"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_uniform_joint_guides_Shader.h": {
+      "mode": "100644",
+      "sha256": "87893c9fa20d6b209a21f4bf7f0f2e2f3a7d8326beba3bb6cbbffa432dee1e13"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_uniform_joint_guides_quantized_Shader.cso": {
+      "mode": "100644",
+      "sha256": "e5d3c122a6020bdcbbdd2c6ed5b5e0b3a55698e82d47f1c56a4a5ff2ba4e9f48"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_uniform_joint_guides_quantized_Shader.h": {
+      "mode": "100644",
+      "sha256": "50a1b02bc3178e6b4f88626644c03eb5b0b10b40856661d428cdbee6b9572e79"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_uniform_joint_minified_guides_Shader.cso": {
+      "mode": "100644",
+      "sha256": "8d8216657c3eef5d2cf7af397d7bdc95fc59237b35f503253956d67384e20240"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_uniform_joint_minified_guides_Shader.h": {
+      "mode": "100644",
+      "sha256": "665d9b639484af6ecabeeb14cc4cb9eb8e4f96846c7db1698ec6abc9221cf801"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_uniform_joint_minified_guides_quantized_Shader.cso": {
+      "mode": "100644",
+      "sha256": "428494eeec574c2266d38146a194d5de772b77ebfdb69a81be27d76e74b47196"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_uniform_joint_minified_guides_quantized_Shader.h": {
+      "mode": "100644",
+      "sha256": "ca216e1a8787cbb6a6bff62445bc4838bbec7a2bd17ccab72239f5685ceb4f20"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_uniform_surface_guides_Shader.cso": {
+      "mode": "100644",
+      "sha256": "f45a40945033efb1b7432e55aa29ed6810971d099d340efb81bc8b02a8b42335"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_uniform_surface_guides_Shader.h": {
+      "mode": "100644",
+      "sha256": "d168a45854d1e0b81b7142a0a4942693d725c571d13262f288ad6ae7e9a62cf1"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_warp_cache_Shader.cso": {
+      "mode": "100644",
+      "sha256": "28aba7179f22c4106028b5d00fde845a43fec11cc2e7dee9e0dee2777a7550ec"
+    },
+    "OptiScaler/shaders/dlssnr/superior/precompile/host_warp_cache_Shader.h": {
+      "mode": "100644",
+      "sha256": "0fa9e506f0451ce07e21088fb3c365e1f86077814e1544758eaee7702175a894"
+    },
     "OptiScaler/shaders/format_transfer/FT_Common.h": {
       "mode": "100644",
       "sha256": "ed732ce80a635f954ee1d6be7f38d8203eb045c44ddbcdd0ba38b3aa1820613d"
@@ -3507,19 +4857,27 @@
     },
     "OptiScaler/shaders/hud_copy/HudCopy_Common.h": {
       "mode": "100644",
-      "sha256": "33e00154e830d1d60ec8ee4b2d5186ed834b53e24aef9371e7eec9873fffea06"
+      "sha256": "ee42c2fccda6062f43178dd24134b8826a64553416b5f0c9c24ad68d7126b097"
     },
     "OptiScaler/shaders/hud_copy/HudCopy_Dx12.cpp": {
       "mode": "100644",
-      "sha256": "1d3593da9af9399e93345fda18d35d5944e296a9a0a87d48b09e3cfd8c75e3d9"
+      "sha256": "ee8736a16bc192eb0ed6ffa089f9663f3e0f8c50e0c18f6baf9c9ddaa919f627"
     },
     "OptiScaler/shaders/hud_copy/HudCopy_Dx12.h": {
       "mode": "100644",
-      "sha256": "6358a81451a13ff0ed46353cab91d74f12863fd2bee69dfc57f4980fc9a28e66"
+      "sha256": "f79cc0ca3fddbcf5c7bbf6b114d5474112468544642e313a813477b868be056f"
+    },
+    "OptiScaler/shaders/hud_copy/HudCopy_Vk.cpp": {
+      "mode": "100644",
+      "sha256": "f92cc2db5537b092f33fa5938dedfe9ebe5732121c1b506c377fef0fe774d582"
+    },
+    "OptiScaler/shaders/hud_copy/HudCopy_Vk.h": {
+      "mode": "100644",
+      "sha256": "adc3831305420407ea8c20ffc92470fb0e564d1333bceb3274a647259d6ab1fd"
     },
     "OptiScaler/shaders/hud_copy/precompile/HudCopy.hlsl": {
       "mode": "100644",
-      "sha256": "865b05cddcf135322364639bf9e16037baf76519bec76e82b1c828f50c8c0bc0"
+      "sha256": "b85b8c7a45a761b0f2db6d64d95a7f2ebb1eb72ac6acbd9862cbc978a902453b"
     },
     "OptiScaler/shaders/hud_copy/precompile/HudCopy_Shader.cso": {
       "mode": "100644",
@@ -3528,6 +4886,14 @@
     "OptiScaler/shaders/hud_copy/precompile/HudCopy_Shader.h": {
       "mode": "100644",
       "sha256": "b6adf6c8ab7d9fb0d4eafd8b5f16c68918b3f9b5fcbc3a6951b196cf70d4e122"
+    },
+    "OptiScaler/shaders/hud_copy/precompile/HudCopy_Shader_Vk.h": {
+      "mode": "100644",
+      "sha256": "ebfd4f3c0dfcebd8d2a998256ab00a136d68a3ec1d7e2216ac40fd647b035a32"
+    },
+    "OptiScaler/shaders/hud_copy/precompile/HudCopy_Shader_Vk.spv": {
+      "mode": "100644",
+      "sha256": "48ab1b06b8266b173055a05b89687212a2890209521e668a92d031e29a616cc0"
     },
     "OptiScaler/shaders/hudless_compare/HC_Common.h": {
       "mode": "100644",
@@ -3573,9 +4939,13 @@
       "mode": "100644",
       "sha256": "a8f6aafd0dc85ca7f00ee63a8809c5338468b9f58ac1b2261bd54d30113f541c"
     },
+    "OptiScaler/shaders/hudless_compare_compute/HCC_Vk.h": {
+      "mode": "100644",
+      "sha256": "811500dfc9b2daa6c6bc58524a7bad6e193d071c0fb59371871fb25139b26260"
+    },
     "OptiScaler/shaders/hudless_compare_compute/precompile/HCC.hlsl": {
       "mode": "100644",
-      "sha256": "ab8a1beb3b182bab79a04c8f7975715c8550cace4522188da29a833f39e7b6b7"
+      "sha256": "335180595462147ba1dafcc5f5e2600ad207e2b543abf5b561a31f7ae80f4498"
     },
     "OptiScaler/shaders/hudless_compare_compute/precompile/HCC_Shader.cso": {
       "mode": "100644",
@@ -3584,6 +4954,14 @@
     "OptiScaler/shaders/hudless_compare_compute/precompile/HCC_Shader.h": {
       "mode": "100644",
       "sha256": "ca32b5d2fa17caf627e08d27a1e366ec20c376fdc43cc8aea009cd870801fac9"
+    },
+    "OptiScaler/shaders/hudless_compare_compute/precompile/HCC_Shader_Vk.h": {
+      "mode": "100644",
+      "sha256": "4ecabf5260571077d8cf1a37d3a345af0c5560e88f050db36490f00bf33e596b"
+    },
+    "OptiScaler/shaders/hudless_compare_compute/precompile/HCC_Shader_Vk.spv": {
+      "mode": "100644",
+      "sha256": "e5661e2567999b12c8c1a3733963e6ab285c7a3b88609f7db4ff5b32e797e69a"
     },
     "OptiScaler/shaders/magnifier/Magnifier_Common.cpp": {
       "mode": "100644",
@@ -4157,9 +5535,17 @@
       "mode": "100644",
       "sha256": "9469850fbca7d0a7407aa31d2014058a6bf6b9351f3e9fb47c95154065fab382"
     },
+    "OptiScaler/shaders/resource_flip/RF_Vk.cpp": {
+      "mode": "100644",
+      "sha256": "0076d0f581ebd2dcd1fbafe6d81ee79bad530f90c36afd5f7525d4240479419e"
+    },
+    "OptiScaler/shaders/resource_flip/RF_Vk.h": {
+      "mode": "100644",
+      "sha256": "70b4c6ef45eeede8fd011b6f9ec83718d83ac216b7dd7f5f9cc420549f71dfd1"
+    },
     "OptiScaler/shaders/resource_flip/precompiled/RF.hlsl": {
       "mode": "100644",
-      "sha256": "9872495030c6baceda71ebe1a60772f9f72f010160242a3bbdabfd6b28f58956"
+      "sha256": "8de8c88c5a08447062c39692be5986e8a484b8a18c46d2448c68426aaee697bf"
     },
     "OptiScaler/shaders/resource_flip/precompiled/RF_Shader.cso": {
       "mode": "100644",
@@ -4168,6 +5554,14 @@
     "OptiScaler/shaders/resource_flip/precompiled/RF_Shader.h": {
       "mode": "100644",
       "sha256": "354c1d94727a0145d60738116c1c49865441d540e150c11a610edf87f041c8e2"
+    },
+    "OptiScaler/shaders/resource_flip/precompiled/RF_Shader_Vk.h": {
+      "mode": "100644",
+      "sha256": "6cb1e7cc508676b4101c623b616ff7454ace096fb5475b03ff5b9eb74494e79c"
+    },
+    "OptiScaler/shaders/resource_flip/precompiled/RF_Shader_Vk.spv": {
+      "mode": "100644",
+      "sha256": "af5ff6f7f487e65207eccc25e7b1724aca67d9b1e3e3448920aa9e95d4f9ffb7"
     },
     "OptiScaler/shaders/sgsr1/SGSR1_Dx12.cpp": {
       "mode": "100644",
@@ -4245,9 +5639,45 @@
       "mode": "100644",
       "sha256": "31fa10504b1551337de4d06ec2194143885a76a8b5a81177999e2faa34729183"
     },
+    "OptiScaler/shaders/ui_unblend/UiUnblend_Vk.h": {
+      "mode": "100644",
+      "sha256": "64d9c0ed4391fb0024cbf9fbbd464a7a906d0b6ddbe98eac5106476bbac5597d"
+    },
+    "OptiScaler/shaders/ui_unblend/precompile/UiUnblend.hlsl": {
+      "mode": "100644",
+      "sha256": "07853c437560bdc4cf3f5114fcf7d15b514071f66479fe0f2e9cbbe33644b7e1"
+    },
+    "OptiScaler/shaders/ui_unblend/precompile/UiUnblend_Shader_Vk.h": {
+      "mode": "100644",
+      "sha256": "7354fa38430b3a2944fe17de5f07448d51a550e4c8bce8e4ff65337d434acd17"
+    },
+    "OptiScaler/shaders/ui_unblend/precompile/UiUnblend_Shader_Vk.spv": {
+      "mode": "100644",
+      "sha256": "18999566ef1f7cb4cea5595f48267ff6ed74ac8ca25deab2b62b0899301f1dd0"
+    },
+    "OptiScaler/shaders/velocity_convert/VC_Vk.cpp": {
+      "mode": "100644",
+      "sha256": "2e8efa11646bf8b66a5985d8ac416411ed85415ca1b570b202fbcd98f1457c37"
+    },
+    "OptiScaler/shaders/velocity_convert/VC_Vk.h": {
+      "mode": "100644",
+      "sha256": "3bb414b4c294d40080abc3b4cb760c45e908f1cfdb378b8eb0916af48b31fb5f"
+    },
+    "OptiScaler/shaders/velocity_convert/precompile/vc.hlsl": {
+      "mode": "100644",
+      "sha256": "d68574d51ec58eac5137a22b7a65cd5fd316dd025a0348768a52bfa61c71d729"
+    },
+    "OptiScaler/shaders/velocity_convert/precompile/vc_Shader_Vk.h": {
+      "mode": "100644",
+      "sha256": "200ec3ced4ef3586114e6b3d4496043d15a0dd01e2605409791dc8ac7f62ea0d"
+    },
+    "OptiScaler/shaders/velocity_convert/precompile/vc_Shader_Vk.spv": {
+      "mode": "100644",
+      "sha256": "b999896edd8d6c3b0cd57781029207d80d7c10c44da7bf82a4d851c41ab189a0"
+    },
     "OptiScaler/spoofing/Dxgi_Spoofing.cpp": {
       "mode": "100644",
-      "sha256": "211b314f5c79432de05d7765285c3906d9729126a495936ad02e1bf30e169942"
+      "sha256": "30e36bd8d7deb026f538bf3d50aca2653515c159e8a822894e580c96e5ba097e"
     },
     "OptiScaler/spoofing/Dxgi_Spoofing.h": {
       "mode": "100644",
@@ -4263,7 +5693,7 @@
     },
     "OptiScaler/spoofing/Vulkan_Spoofing.cpp": {
       "mode": "100644",
-      "sha256": "ff8acc342b20b29462e3966527090762bdc5dac8d8acd6a772c674953c601b63"
+      "sha256": "4d635a72ab1576bb349ed80108ac131176381ce8c1acd5d1e334bd29425f7299"
     },
     "OptiScaler/spoofing/Vulkan_Spoofing.h": {
       "mode": "100644",
@@ -4287,15 +5717,15 @@
     },
     "OptiScaler/upscalers/FeatureProvider_Vk.h": {
       "mode": "100644",
-      "sha256": "d4167cd1ff560b584766c5f7cdf7de3dac40c6b633f055b19923dd2a760c56fc"
+      "sha256": "e7950241b2e00be9f439fa2f15e3c3fadffd5c3444bd72ce196b9436ca1c6096"
     },
     "OptiScaler/upscalers/IFeature.cpp": {
       "mode": "100644",
-      "sha256": "802d3189560300c45a8546f1a3e48922a3fb8e3b69aaaa9c86f0e475fcd42b23"
+      "sha256": "e015ea41efa445eb960da49b662e53bc88e5416860db84d44a3897a0eedb26d3"
     },
     "OptiScaler/upscalers/IFeature.h": {
       "mode": "100644",
-      "sha256": "934a7a8951d57956fbb31f37526e1b599eca92084a9a65617d19191ccf0ca1b6"
+      "sha256": "37eb27cd96247b37dba3fe81d1503994903c73b9ae66a2c03a1f02b26c474851"
     },
     "OptiScaler/upscalers/IFeature_Dx11.cpp": {
       "mode": "100644",
@@ -4307,7 +5737,7 @@
     },
     "OptiScaler/upscalers/IFeature_Dx11wDx12.cpp": {
       "mode": "100644",
-      "sha256": "ebd37e1536cee21af96923f47a66fbd686c2e31f2fc64f96504677daec0b2998"
+      "sha256": "667c6095951aa7f7e38483b24ab0a58f3cc9f042fc9e4d23b396e2dfe382f818"
     },
     "OptiScaler/upscalers/IFeature_Dx11wDx12.h": {
       "mode": "100644",
@@ -4329,9 +5759,13 @@
       "mode": "100644",
       "sha256": "24a0aaf42d9c81e283884bfec9e7bb6b9c884d656bd0765f23105471aeebe3cf"
     },
+    "OptiScaler/upscalers/IFeature_VkwDx12.cpp": {
+      "mode": "100644",
+      "sha256": "da9c864f7e3a7dbda8e8d4e307b80521e33253b3c2390ff9c6cd07ef9b4b4a63"
+    },
     "OptiScaler/upscalers/IFeature_VkwDx12.h": {
       "mode": "100644",
-      "sha256": "313d1a32f222eb2f54391aa80e9c9987f0385016228ebaca8975779fe0c53408"
+      "sha256": "3677e60ef1b0d1676de78690a460109179b2162b657987d5e17a4beafcfbd77c"
     },
     "OptiScaler/upscalers/NgxOptionalDx12Inputs.h": {
       "mode": "100644",
@@ -4419,7 +5853,7 @@
     },
     "OptiScaler/upscalers/ffx/FFXFeature.cpp": {
       "mode": "100644",
-      "sha256": "0118d4710a5b978118a9d4ffa03c243eb03628e642e47cf8cea20b37a9b7c5ce"
+      "sha256": "4693ebf6a0d1db223df75717d7f4c262928a4038096f2b944558ae33b036c78f"
     },
     "OptiScaler/upscalers/ffx/FFXFeature.h": {
       "mode": "100644",
@@ -4435,19 +5869,19 @@
     },
     "OptiScaler/upscalers/ffx/FFXFeature_Dx12.cpp": {
       "mode": "100644",
-      "sha256": "32eceea046cd71cc7b782dc80781d0669a15e3e5563f4bfaa277ce1d3955a3ad"
+      "sha256": "84fcfd9a2aff275416f4655e04ad15444165af0b5f454144400546d528336b27"
     },
     "OptiScaler/upscalers/ffx/FFXFeature_Dx12.h": {
       "mode": "100644",
-      "sha256": "caceaf009db0a1523b8b5eb1f27cfc6ebebe6687af0147567b81b72334e5fa10"
+      "sha256": "9998c14ace6250c53451aeb3d4f251a6c5b8acfcf3f817cfe786bcef50fcf4f4"
     },
     "OptiScaler/upscalers/ffx/FFXFeature_Vk.cpp": {
       "mode": "100644",
-      "sha256": "29198b3b498338d3c5a288c3e4a6a371813d0054941bff7d64a8f66226899af1"
+      "sha256": "05a6ea78b221cf947533be2811a2d28e8b32c1561c064b00b767330173d2602d"
     },
     "OptiScaler/upscalers/ffx/FFXFeature_Vk.h": {
       "mode": "100644",
-      "sha256": "934b98385f0ba822f1aa65ab3ff0bc051e7dda74ef3c90fd289c38c1decdd271"
+      "sha256": "54773e6f3c23d4e5582d2a9b853819f7ec1a8ea3b0fcd415b627d40f74781e22"
     },
     "OptiScaler/upscalers/ffx/FFXFeature_VkOn12.cpp": {
       "mode": "100644",
@@ -4627,11 +6061,11 @@
     },
     "OptiScaler/wrapped/wrapped_swapchain.cpp": {
       "mode": "100644",
-      "sha256": "80309c76b7ad8d32510b04f093e4d25279a288041b39dc8b926255fa2904bda1"
+      "sha256": "5f0a3ffef51e43e7b53e55e0afa07025d770468eefde36d29d94534605c1c1fa"
     },
     "OptiScaler/wrapped/wrapped_swapchain.h": {
       "mode": "100644",
-      "sha256": "cc100e1af74114667550a159d61b37bc6200eff2d02f105faaf70cebde62dd84"
+      "sha256": "897909774e029f466d868c8bca0860c164ee99aca93febdb842b65da8f7af0dd"
     },
     "Streamlined_fetcher_windows.bat": {
       "mode": "100644",
@@ -4664,6 +6098,46 @@
     "docs/DLSSNR-SIGNAL-PATH.html": {
       "mode": "100644",
       "sha256": "324c9a486d6eb8caa3dbd648d2254b34226275b5cab204ac0cee2e95d9d94d34"
+    },
+    "docs/superior-v59-shaders.json": {
+      "mode": "100644",
+      "sha256": "98d568d4dbb42ed3041ff24638be29eb9936c1cc8ba604003f1491e030589c8e"
+    },
+    "docs/validation/superior-private-guide-fusion-quality.txt": {
+      "mode": "100644",
+      "sha256": "af455d992d0bf7ad7e5645ff156843148ab18b85d901a2d193a1b90767e6d377"
+    },
+    "docs/validation/superior-private-guide-fusion-timing.csv": {
+      "mode": "100644",
+      "sha256": "039f85db6039c8c9a9e23bb9cd812a9d3b7bdda9d9570d8f5d67fd056594e243"
+    },
+    "docs/validation/superior-private-guide-fusion-timing.json": {
+      "mode": "100644",
+      "sha256": "2cfe0689f32c37fdce38bf53bdb4e1efb3ac58b8980b872a30078da3adbcf03b"
+    },
+    "docs/validation/superior-refinement-quality.txt": {
+      "mode": "100644",
+      "sha256": "60ca170ae231bc44607400d3ebb082eeb3381fa4e902bf996aeee001e492e034"
+    },
+    "docs/validation/superior-refinement-timing.csv": {
+      "mode": "100644",
+      "sha256": "0eeed9f5928c4fde21b3382df15eca820185e72e4241ec9e2071e5e906a9cfc5"
+    },
+    "docs/validation/superior-refinement-timing.json": {
+      "mode": "100644",
+      "sha256": "45afb5babea298c94ec456dbdbcd6afaa5a9913b15606b88f3b307e840a026b4"
+    },
+    "docs/validation/superior-review-quality.txt": {
+      "mode": "100644",
+      "sha256": "bfde40e44da1cc384e3ffb2cd6c39aad5cf2fc7ce33f545af6845d764e10d6f2"
+    },
+    "docs/validation/superior-review-timing.csv": {
+      "mode": "100644",
+      "sha256": "a9fd3f36e6d0f47f9fc4877ef1ca3e78f30953380a17321cde2c5efdf38b1002"
+    },
+    "docs/validation/superior-review-timing.json": {
+      "mode": "100644",
+      "sha256": "86ac586f37bb17a0ca0dd297c081e83e529d07a7e0974b537bc53fecfc2139d3"
     },
     "external/AntiLag2-SDK/ffx_antilag2_dx11.h": {
       "mode": "100644",
@@ -5159,11 +6633,11 @@
     },
     "package_release.ps1": {
       "mode": "100644",
-      "sha256": "ceb7cf129a654591e70f897c0ba410039a94eb626c507fd252584969ff4a5a1c"
+      "sha256": "cc274ff0d11ace00172b49a5330d2aa648dd5952c25ba877e2c71c9acf369bcc"
     },
     "redist/streamline/manifest.json": {
       "mode": "100644",
-      "sha256": "f2eb5ee19f21b86ecfec62563ce5849e2a1d3c119a40e89317779471aef66b87"
+      "sha256": "ba6c31a2dcbf2ae1500b4db45bb3ac8dbf7d632982c40c6c747ef6839006ce8f"
     },
     "setup_linux.sh": {
       "mode": "100755",
@@ -5173,9 +6647,17 @@
       "mode": "100644",
       "sha256": "c4575c6e45b28c77bbd25cd0002cc6811b8bd6b20d9d1e6d9e03fc37530598da"
     },
-    "tests/dlssg_sm86_ini_smoke.cpp": {
+    "tests/data/exposure_scan/cyberpunk_interior_daylight.csv": {
       "mode": "100644",
-      "sha256": "3a2de998b6882bfa75e384aa90672dd1012f845ec3f7b3e1003a4b9c9be287ab"
+      "sha256": "23388d4d8eb6972bf2a6160dd890c165a98dd25c7a3513636b2c8dfaf3f8839e"
+    },
+    "tests/data/exposure_scan/doom_eternal_long.csv": {
+      "mode": "100644",
+      "sha256": "943e441029349abfed7501958535385717860ea65f701dbebc23b2329364f6ad"
+    },
+    "tests/data/exposure_scan/nba2k27_handed.csv": {
+      "mode": "100644",
+      "sha256": "ec845a90ce2a1db35626f0e73b69679c855393c47c403026874220b461a38225"
     },
     "tests/dxgi_window_size_smoke.cpp": {
       "mode": "100644",
@@ -5191,11 +6673,15 @@
     },
     "tests/fg_follow_game_smoke.cpp": {
       "mode": "100644",
-      "sha256": "bd0075f3440c14d0538565038785e1d19fec41848babe9b03947e59b63c8f458"
+      "sha256": "a7b404b0c930d63b705683f10332409312c4c7df47ac280f6e782a0dcc3e1fde"
+    },
+    "tests/game_fsrfg_rule_smoke.cpp": {
+      "mode": "100644",
+      "sha256": "fcdbcacae9b7cd817cd463b4d6e412262f01dc8c04fd76e6efce0e0c4a37cf3f"
     },
     "tests/ll_output_rule_smoke.cpp": {
       "mode": "100644",
-      "sha256": "fec5a0185832462465d633fac8f368106b5cf23e10bf31daeb66824701910e9c"
+      "sha256": "0246feccdaf1b4766148ab430be5df1e3cbebd91e177fd64fc23fb6f46f1f999"
     },
     "tests/log_async_no_stall_smoke.cpp": {
       "mode": "100644",
@@ -5203,7 +6689,7 @@
     },
     "tests/menu_header_banner_smoke.cpp": {
       "mode": "100644",
-      "sha256": "ed1c318d39bb188d8c9a6e891db83dd6028637edc9a18ccd4653910f78faa874"
+      "sha256": "76478b0fb72da51185bd1da615bd022dc16205764483ced1046503dfb40b28e9"
     },
     "tests/menu_lifetime_smoke.cpp": {
       "mode": "100644",
@@ -5211,35 +6697,43 @@
     },
     "tests/menu_pages_smoke.cpp": {
       "mode": "100644",
-      "sha256": "d2bf285c16662d16d87caf207b4696a36abf634d8dd52891c49c80d38aa4fec2"
+      "sha256": "9a31073204eb625ce669b21a58547602ffc4953288228aef49e4b149c97ad730"
     },
-    "tests/mfg_ceiling_smoke.cpp": {
+    "tests/mfgunlock_check.cpp": {
       "mode": "100644",
-      "sha256": "cf229fd614da1b2f8e92128847de1d9216b6c6eb1f64bbdbfb016088ecebcd76"
+      "sha256": "a9a88499e87a8a4bb95e7696fad0ddf87bc819d9074870cbb3cc491efc2dddcf"
     },
-    "tests/mfg_flipmeter_smoke.cpp": {
+    "tests/mfgunlock_core_smoke.cpp": {
       "mode": "100644",
-      "sha256": "9edd5fbdb6dccc52e103088ac6c432b06936c4008f17182f0a76f86de979b7c1"
+      "sha256": "024164235a9537149a68e674f2d39044237f46f51fcb353e47be6e5565f8e31d"
     },
-    "tests/mfg_method_smoke.cpp": {
+    "tests/mfgunlock_fatbin_refs.cpp": {
       "mode": "100644",
-      "sha256": "c2f9cef3f759208bbccda481ddccd75bd81ae078cfd942bd216ea68d713df4ba"
+      "sha256": "a01003506bd1e6caadf50ab5d24c8f85146ff51a4bfd7fd58496f4a35a027467"
     },
-    "tests/mfg_provider_smoke.cpp": {
+    "tests/mfgunlock_fatbin_survey.cpp": {
       "mode": "100644",
-      "sha256": "17c265cee81c41189b5973baeaa6a546842cfe42178508eefeeba0febd94ad73"
+      "sha256": "fbbbc40a41949889910bb3ca9d0534ff26ac32b30eed8b189f339e5101ba9fad"
     },
-    "tests/mfg_ptx_smoke.cpp": {
+    "tests/mfgunlock_live_probe.cpp": {
       "mode": "100644",
-      "sha256": "39d1ea2bca1cec089bcb5220734acb76b174eaeeceaf8807fd796121ab7248f5"
+      "sha256": "9457c7f94e2d3b18bb581a30499beaf88eff3944f64d6d4d16290b3f408d2d1e"
     },
-    "tests/mfg_real_module_check.cpp": {
+    "tests/mfgunlock_ptx_jit_probe.cpp": {
       "mode": "100644",
-      "sha256": "4218ae9d13e71931078bc2336a88d4e4837535807d8b4909b128e6e511432f94"
+      "sha256": "1b7daf5ecd6b9248dbd9449a3a2d14b09160e812ba170531ca69db52c2aace86"
+    },
+    "tests/mfgunlock_rtx40_probe.cpp": {
+      "mode": "100644",
+      "sha256": "2d72d451aee1e65101292d9e4d9d911f69280f4f2a0f5c633c44051720220f04"
+    },
+    "tests/mfgunlock_turing_probe.cpp": {
+      "mode": "100644",
+      "sha256": "fd2a3bc158f61a6b2a12c34df2e8e02d3e451c875492e3396db12863ce198857"
     },
     "tests/nr_active_color_smoke.cpp": {
       "mode": "100644",
-      "sha256": "b3592dea3c7ef80842978d6d29c660b4620bd0f4dcea676284c94153a50c94a0"
+      "sha256": "bbe8edaf2bb698fbee30f3ed2229cd6478342d19e72c7ac9e7d13490253633e1"
     },
     "tests/nr_auto_exposure_smoke.cpp": {
       "mode": "100644",
@@ -5297,17 +6791,37 @@
       "mode": "100644",
       "sha256": "abfa3fd90dd1424c25b7b73a15964d14ab4261d73ce59203103d9e257e8ef736"
     },
+    "tests/nr_exposure_auto_smoke.cpp": {
+      "mode": "100644",
+      "sha256": "eca9c81c35481b924a3dd3136d287399f69573293f67c1795b5bd173c8a06366"
+    },
     "tests/nr_exposure_calibrate_smoke.cpp": {
       "mode": "100644",
       "sha256": "899f95868c7431d2726c53b0801284753284e291fce36583d91b77e7bc030c18"
     },
     "tests/nr_exposure_default_smoke.cpp": {
       "mode": "100644",
-      "sha256": "b42560e655c002e86e8f06f327474919925930020c7c1cc5cd40d150923299b6"
+      "sha256": "59246af91b77424c57dc067b38e7ce573f4b93d950b8c99b3ee297cbe569154c"
+    },
+    "tests/nr_exposure_found_blend_smoke.cpp": {
+      "mode": "100644",
+      "sha256": "45653e94c970c04998e262e3fbc3cab52b739797c043e3893ff8ad6b3c73ec42"
+    },
+    "tests/nr_exposure_match_smoke.cpp": {
+      "mode": "100644",
+      "sha256": "0a0e0b0a95f7d856e2f14a23120f920238e4591c73e2ee7ff61a81ab48e9c5f8"
     },
     "tests/nr_exposure_meter_smoke.cpp": {
       "mode": "100644",
       "sha256": "71081898774b5f69f5d9c10d96645b18c7f11bbbe1d46d3f359f1a454851fcec"
+    },
+    "tests/nr_exposure_scan_record_smoke.cpp": {
+      "mode": "100644",
+      "sha256": "9837eebe06818ae0cefdf3e396e0562f691966cfc715e4fb50068ab8f05e8fea"
+    },
+    "tests/nr_exposure_scan_shape_smoke.cpp": {
+      "mode": "100644",
+      "sha256": "9142ecbb8f38c6decf08b7fb648b8bfcb1c504504a32001096ad8de61aee3ceb"
     },
     "tests/nr_exposure_state_smoke.cpp": {
       "mode": "100644",
@@ -5319,7 +6833,7 @@
     },
     "tests/nr_finished_queue_smoke.cpp": {
       "mode": "100644",
-      "sha256": "15a013dd045776468f1e3a7924620e40d3f3c575f73ff12bb4a8e613b6f69aae"
+      "sha256": "583ca314af02adb3551ab7dceafdc8ac858c45b2d47ce5de6e7e513f4b9b66a8"
     },
     "tests/nr_flow_edges_gpu.cpp": {
       "mode": "100644",
@@ -5339,11 +6853,223 @@
     },
     "tests/nr_generic_depth_smoke.cpp": {
       "mode": "100644",
-      "sha256": "d37bc5bba8f3b7b9449ac0f97dcf6d3b5a9201eca2ddec7439aa4dd4f3a26117"
+      "sha256": "cd04c940322c58fe7a543a378a641dea970d326e9a385c3c181efd3a22728c91"
     },
     "tests/nr_generic_depth_vk_smoke.cpp": {
       "mode": "100644",
       "sha256": "693e28614667479932c1ff691f9803031bb06bf81d9641c233d1bdfcaad15f02"
+    },
+    "tests/nr_gpu/BenchmarkCases.h": {
+      "mode": "100644",
+      "sha256": "778d527952f3217e04595f2b6388ec9cd4805654120b0696750992b987943288"
+    },
+    "tests/nr_gpu/InterPassPaths.h": {
+      "mode": "100644",
+      "sha256": "125e8190b0c53fcdedc1a508886b1ee6ef257932d1ca1c3ed066e7aadaa150f0"
+    },
+    "tests/nr_gpu/cubic_guided_quality.cpp": {
+      "mode": "100644",
+      "sha256": "f64efa54dddec6bab6f2fa368bd41aafba587de0b3efe1374e4bd6f7f9595f9b"
+    },
+    "tests/nr_gpu/dynamic_guides_quality.cpp": {
+      "mode": "100644",
+      "sha256": "27de8aec29619f1e79d83e9bce5ab106958c687cb9852830ee0156a4ef2295c1"
+    },
+    "tests/nr_gpu/four_candidates_fixture.h": {
+      "mode": "100644",
+      "sha256": "ee0974633d56da4aac7065a393b6e5efcf77ab9e8c953bb2024fdb233cb13675"
+    },
+    "tests/nr_gpu/four_candidates_quality.cpp": {
+      "mode": "100644",
+      "sha256": "d08fef8cf1ba0f0b6b5f9608f065ad1c220d8b8809d843a9027f4fdfe63b6db0"
+    },
+    "tests/nr_gpu/four_candidates_timing.cpp": {
+      "mode": "100644",
+      "sha256": "fd56491cc35f3172d9308fe9ef8842cc872b59546c255a6374b4ec1981acc079"
+    },
+    "tests/nr_gpu/fused_pack_experiment.cpp": {
+      "mode": "100644",
+      "sha256": "582f11cae5eb10cf46f584b89742339776ad2fc426995b29f4da4791ca9f543e"
+    },
+    "tests/nr_gpu/host_opt_timing.cpp": {
+      "mode": "100644",
+      "sha256": "8ebf663558d6369d1e41b0ce77dfb70875ff588783d88dfba94fe21b7b1e71f1"
+    },
+    "tests/nr_gpu/interpass_fixture.h": {
+      "mode": "100644",
+      "sha256": "e6eda60a94a65343839dec1892368827390481de4b4b99a68304e6dae8e08553"
+    },
+    "tests/nr_gpu/interpass_low_cache_quality.cpp": {
+      "mode": "100644",
+      "sha256": "29375641bcda74dad22dbe547dd780090e42d3f362767034ce79951ee638dadf"
+    },
+    "tests/nr_gpu/interpass_policy.cpp": {
+      "mode": "100644",
+      "sha256": "99e3182be1f255ff9b10693dc2c4f632bfb35f11ce4c181b3f1aaf8405f8a083"
+    },
+    "tests/nr_gpu/interpass_timing_fixture.h": {
+      "mode": "100644",
+      "sha256": "572560992c1ac6bc094f8fad00484ec79ee7059c46c4b0f09dc4bd9471502a99"
+    },
+    "tests/nr_gpu/joint_depth_quality.cpp": {
+      "mode": "100644",
+      "sha256": "9deb4c4fb133ed381a399bdc1155726f36cc45d69b2c3a628ac2bf3cade9627a"
+    },
+    "tests/nr_gpu/nr_dynamic_history.cpp": {
+      "mode": "100644",
+      "sha256": "75f62e7c4cab4c8e8c78ca5f93fbddbeadd6505f81e76cbed20f15f534b7410a"
+    },
+    "tests/nr_gpu/nr_finished_evaluate.cpp": {
+      "mode": "100644",
+      "sha256": "d86ebe4fd9bd85f10852a6c3ff9388ebea75b00b397227c5282180fbf22c8119"
+    },
+    "tests/nr_gpu/nr_finished_native.cpp": {
+      "mode": "100644",
+      "sha256": "2ea5e15535918031398109af2464bc7f12cba2320ba66772a307f0797b0a7585"
+    },
+    "tests/nr_gpu/nr_finished_performance.cpp": {
+      "mode": "100644",
+      "sha256": "a8bf25ef40ec5d0e1a373be92a5b3fa2078bf02d11e67a58079dc7453d6f6207"
+    },
+    "tests/nr_gpu/nr_finished_production.cpp": {
+      "mode": "100644",
+      "sha256": "7153f1fe78fd1be9d9a8cba678738e4e41cf5d79cbb5432d3cc8a67109957855"
+    },
+    "tests/nr_gpu/nr_finished_routing.cpp": {
+      "mode": "100644",
+      "sha256": "29bb18cfa8cc9ffb4127968ee139b1c2bddca989dea8dd7a99d816f979ca25a7"
+    },
+    "tests/nr_gpu/nr_streamline_hooks.cpp": {
+      "mode": "100644",
+      "sha256": "98a9d45f0ad4c9f9bd3064d17f80c9874443dea238cfe475c529047f1d204f9b"
+    },
+    "tests/nr_gpu/nr_streamline_picture_smoke.cpp": {
+      "mode": "100644",
+      "sha256": "b97a8927c52aa2bcaaf8378715ee7d4554ccd53cf4275baf5281b4cb50c2c44b"
+    },
+    "tests/nr_gpu/packed_fixture.h": {
+      "mode": "100644",
+      "sha256": "f9a85ddf9a4ef01f9a4089a250dbff7363a360ac3e0da4cb12b3e0fdc2d8ee4c"
+    },
+    "tests/nr_gpu/packed_host_quality.cpp": {
+      "mode": "100644",
+      "sha256": "987c6bc3ee099bd40c3bdf68ce48577f95eed395c23e66c15c984a06e9d14691"
+    },
+    "tests/nr_gpu/packed_prepare_quality.cpp": {
+      "mode": "100644",
+      "sha256": "69a75227dc230decba9b30a365ffba47c7cf1dd9bd4a2380e503237a2e841e4f"
+    },
+    "tests/nr_gpu/packed_reference.hlsli": {
+      "mode": "100644",
+      "sha256": "e27bd3f1f66524f05db5ce58511344b981f0580f8f677f1e07357f550ff8f397"
+    },
+    "tests/nr_gpu/packed_stage_fixture.h": {
+      "mode": "100644",
+      "sha256": "9e81a31a8879eb21240c822a46ab78b9457f776490017af6062bf5535db35c3b"
+    },
+    "tests/nr_gpu/packed_stage_timing.cpp": {
+      "mode": "100644",
+      "sha256": "b22e279e7766be00cfcddde71fe5d53eaf3bd46d3e92c338d025b7e7fe0bcc36"
+    },
+    "tests/nr_gpu/pch.h": {
+      "mode": "100644",
+      "sha256": "85dc63a87dbb438d6dd4225d1bccd93c109dd08c6bf4087b9b29c9b754200af3"
+    },
+    "tests/nr_gpu/private_guides_quality.cpp": {
+      "mode": "100644",
+      "sha256": "2bcb2d0c77d4b589eae71f6251fa9a3ef2e7efbc3411a23c64c0742fb96078b7"
+    },
+    "tests/nr_gpu/private_guides_timing.cpp": {
+      "mode": "100644",
+      "sha256": "0227e193d1823cbb03f7279aaa57976999327f0d246614190213ab43a46c957a"
+    },
+    "tests/nr_gpu/refinement_timing.cpp": {
+      "mode": "100644",
+      "sha256": "91b7605012894a1da997d71016a84eb3c9938d203dc2ed06427a879793c58e27"
+    },
+    "tests/nr_gpu/render_guides_quality.cpp": {
+      "mode": "100644",
+      "sha256": "1ba7ee0f162c54e657db37fa31735c0cf6039bedf2189676277ff8d275ec1643"
+    },
+    "tests/nr_gpu/review_timing.cpp": {
+      "mode": "100644",
+      "sha256": "4a3482feca503148cca915a198abe0e3b70f430b5445fb64605d2e64c01e58aa"
+    },
+    "tests/nr_gpu/spatial_policy.cpp": {
+      "mode": "100644",
+      "sha256": "e651aa7d70c4ff61b4f3da308bb226dc4e46c6c40d9ab01138f621ab435feed4"
+    },
+    "tests/nr_gpu/spatial_raw_low_quality.cpp": {
+      "mode": "100644",
+      "sha256": "5ecf484a631d3e4fc8f0b6de75bb02d43b93554c90d0e542e6a527adceeccc9c"
+    },
+    "tests/nr_gpu/spatial_timing.cpp": {
+      "mode": "100644",
+      "sha256": "8d4502795f1fb53d3b81d8fe6d10bddadc3489ccbb46033655817586c39382cf"
+    },
+    "tests/nr_gpu/stage_timing.h": {
+      "mode": "100644",
+      "sha256": "15fb5dcf37c621c1c9eeeb4a550233dfa3daeaa67054043e93a5e407750ae3d7"
+    },
+    "tests/nr_gpu/superior_area_quality.cpp": {
+      "mode": "100644",
+      "sha256": "a4001b700bc93031eb8b9f9b4dfdeb2ab26c45adeb41d8675faa1a56d7d759d5"
+    },
+    "tests/nr_gpu/superior_carrier.cpp": {
+      "mode": "100644",
+      "sha256": "a5031cbf4368bf108307860f36425e14f9e62d660b2bb7a1fcaa9d3b23fc4188"
+    },
+    "tests/nr_gpu/superior_exposure_fixture.h": {
+      "mode": "100644",
+      "sha256": "c4f4b71dc698e63f2ee7cde1252589ee378f09194ffde89f5538ae374c8ac1f6"
+    },
+    "tests/nr_gpu/superior_exposure_quality.cpp": {
+      "mode": "100644",
+      "sha256": "8520f46350ca9ba776ae5b777a712361149b5cebeb1711f424196023f2b54659"
+    },
+    "tests/nr_gpu/superior_host_quality.cpp": {
+      "mode": "100644",
+      "sha256": "8bb3d3e194865bbc73c1484c605fa55527132987b170f81013f9c11d56235026"
+    },
+    "tests/nr_gpu/superior_input_fixture.h": {
+      "mode": "100644",
+      "sha256": "ffe9980c7829c3d94124d6a10604e50923459b69e932f46a89e0cf6a4bfcae48"
+    },
+    "tests/nr_gpu/superior_input_quality.cpp": {
+      "mode": "100644",
+      "sha256": "162f708a0942f300c4e6ccfc8f3cff2e80161d5be4d80b35032994046071b95f"
+    },
+    "tests/nr_gpu/superior_numeric_metrics.h": {
+      "mode": "100644",
+      "sha256": "5acfbc1d6ee3f23bbbac6e95a10bc497cb7107d1b1fb53abb8b7ed304e106ab6"
+    },
+    "tests/nr_gpu/superior_policy.cpp": {
+      "mode": "100644",
+      "sha256": "998289f5326abe3b90d5ba994b9d7bebe0addf0d05ed360e15bfeabf57226bde"
+    },
+    "tests/nr_gpu/superior_prepare_fixture.h": {
+      "mode": "100644",
+      "sha256": "15c2f915e498579cd5c50acc53b8e69ba3653d56178a005024417022d8320ecc"
+    },
+    "tests/nr_gpu/superior_prepare_quality.cpp": {
+      "mode": "100644",
+      "sha256": "b243fc009bde9c46990d1ee06aec913add65643ea11c183ba76219189d44cb56"
+    },
+    "tests/nr_gpu/superior_resolve_fixture.h": {
+      "mode": "100644",
+      "sha256": "d7df4dba5c59301067cb5d79f0d25608abdb69a02b3ef443ddc5477df882f2b7"
+    },
+    "tests/nr_gpu/superior_softknee_quality.cpp": {
+      "mode": "100644",
+      "sha256": "0e75f54d1efd22cb2c76aed04ea612e6a9cdaab676388580a43abb05b4e8ed34"
+    },
+    "tests/nr_gpu/superior_tall_low_quality.cpp": {
+      "mode": "100644",
+      "sha256": "986219fdd533232b7daaa51a39dfbcb88dd6545b20e7f9adbc631b6747278114"
+    },
+    "tests/nr_gpu/superior_tall_low_timing.cpp": {
+      "mode": "100644",
+      "sha256": "9649e0df09b250737b71a6cff7c98afd58644ac28595afc61cb5105418d8db98"
     },
     "tests/nr_gpu_time_smoke.cpp": {
       "mode": "100644",
@@ -5403,15 +7129,15 @@
     },
     "tests/nr_native_low_latency_smoke.cpp": {
       "mode": "100644",
-      "sha256": "84e2ea211d293b9754093f412e463d5d0f41b3fb978689ecb2615f8032bf20a7"
+      "sha256": "4646f035274ee28b3b26d75d1fd25c2a6bcb2cf2d5358b5dbe6ec1398f497c8e"
     },
     "tests/nr_native_mode_smoke.cpp": {
       "mode": "100644",
-      "sha256": "c6c3fee4b73f3325193b414965f18640fefdcbb01b223269f1f013a092cebe04"
+      "sha256": "f6fff272e578cddbfad3ea284e09ec4486fe11cf250b71d29fd813dd66fa4db8"
     },
     "tests/nr_native_producer_gpu.cpp": {
       "mode": "100644",
-      "sha256": "8057715adb062ef8b545ab935f439927ae4c60fcdf255087cf14f2c51722c426"
+      "sha256": "ba61746277bbd3101b721b66f8b2a3dad1534b5aaf3f508b0a87a8aa73c08063"
     },
     "tests/nr_ngx_routing_smoke.cpp": {
       "mode": "100644",
@@ -5419,7 +7145,7 @@
     },
     "tests/nr_optical_flow_gpu.cpp": {
       "mode": "100644",
-      "sha256": "1a3b6abd795d90eeb95462c0b410df5983fe93e6ba1c03e95a32d76d19c9ab7d"
+      "sha256": "8474ac17341371c8465e3a83d0fd5771bc1705848ee95a8740c89ecc7369badf"
     },
     "tests/nr_present_epoch_smoke.cpp": {
       "mode": "100644",
@@ -5428,6 +7154,10 @@
     "tests/nr_present_stage_timing_smoke.cpp": {
       "mode": "100644",
       "sha256": "661514160da23769aeb88982e9e4ed23141bb794924e125a9572a387b54fd6a1"
+    },
+    "tests/nr_profiles_smoke.cpp": {
+      "mode": "100644",
+      "sha256": "ea03ec89bbdc11672779dc22fc1b4c1cc6de9dd532dd580b14e7dad70efb1b1e"
     },
     "tests/nr_proxy_curve_smoke.cpp": {
       "mode": "100644",
@@ -5471,7 +7201,7 @@
     },
     "tests/nr_shader_bytecode_smoke.cpp": {
       "mode": "100644",
-      "sha256": "e6a7fff77fb295911239479595b6ddfcc987f66488fadaa03c65698136a620d3"
+      "sha256": "3d152842588164f67e92d32e7fcb0c10661956d3452a5249c040d8e4ac8783a5"
     },
     "tests/nr_shared_frame_gpu.cpp": {
       "mode": "100644",
@@ -5487,7 +7217,7 @@
     },
     "tests/nr_spatial_dx12_gpu.cpp": {
       "mode": "100644",
-      "sha256": "2d45c5fe3f557b00a335f11e504a52a2e752e1a702a58179d46d6209e4b6eb2c"
+      "sha256": "89af777715da4efb9f35b87541fa48f0306facca77911bff52a68b150f9f53fb"
     },
     "tests/nr_spatial_mapping_smoke.cpp": {
       "mode": "100644",
@@ -5499,7 +7229,7 @@
     },
     "tests/nr_surface_formats_smoke.cpp": {
       "mode": "100644",
-      "sha256": "2dfea05eac11d00a4b445d63823a40f2929c8b3e5f258411042a0b99d1a07dcc"
+      "sha256": "ebbc9f9e4da83c37994dde0df32cb509ecba759d8f1a96e972a714e51e1eb29d"
     },
     "tests/nr_tier_placement_smoke.cpp": {
       "mode": "100644",
@@ -5512,6 +7242,10 @@
     "tests/nr_trust_mask_gpu.cpp": {
       "mode": "100644",
       "sha256": "88ae48b25c821aef7f64c4347c47f9a8fc11f108bd7392044268cc9c537843e9"
+    },
+    "tests/nr_views_smoke.cpp": {
+      "mode": "100644",
+      "sha256": "fcdde40193e114c420153334fc4ee21152bfb15a7506bda10b8575891f10a923"
     },
     "tests/nr_virtual_upscaler_hold_smoke.cpp": {
       "mode": "100644",
@@ -5549,184 +7283,155 @@
       "mode": "100644",
       "sha256": "7a5ff4c9155b43ec02bb8f90bcc14f361f49588ec0f186dcb25ada2d46e89baa"
     },
+    "tests/plugin_registry_smoke.cpp": {
+      "mode": "100644",
+      "sha256": "96c8eb79d4ccc624579d5bb0a51ac9ffd308c88e7d9ef08ffe684fb905433e1f"
+    },
+    "tests/plugins_view_smoke.cpp": {
+      "mode": "100644",
+      "sha256": "9955612cdaa1d317564cf043759727de1f3d31ab7e3956a4e49856aec104e718"
+    },
     "tests/reframework_compat_smoke.cpp": {
       "mode": "100644",
       "sha256": "49cf9531bff576939f664900a3cd421571cc37d90d423279ac29c16750ce988f"
     },
+    "tests/run_nr_finished_fg_tests.ps1": {
+      "mode": "100644",
+      "sha256": "defae5fe792ffd0183119fc1d9f11b5e351737438acd65c5d4527eca50947182"
+    },
+    "tests/sdr_to_hdr_dx11_gpu.cpp": {
+      "mode": "100644",
+      "sha256": "ad83b72cf319f0c7c4f2987636b88ae8b7aacae71383b8931854e2e8ebafc706"
+    },
+    "tests/sdr_to_hdr_dx12_gpu.cpp": {
+      "mode": "100644",
+      "sha256": "c3426f55aebb980d27d0146343c06171bd597cb8ba9545e1a4acce6599bd4604"
+    },
+    "tests/sdr_to_hdr_plan_smoke.cpp": {
+      "mode": "100644",
+      "sha256": "acc1d10eef369c2cd4cb16c14cfdfe298483c05f23b5047421e58e9e577fa875"
+    },
+    "tests/sdr_to_hdr_rules_smoke.cpp": {
+      "mode": "100644",
+      "sha256": "439e389b29c3b076a9d39f49c2fefc5d54606e780c0dc590a98f91ab446b1ba2"
+    },
+    "tests/sdr_to_hdr_swapchain_dx12_gpu.cpp": {
+      "mode": "100644",
+      "sha256": "1f56dc5c37fcff055c092c3fe71dc87ce8b3c12b6ae6d576fff9a6fdce9ef2e8"
+    },
     "tests/streamline_detours_race_stress.cpp": {
       "mode": "100644",
-      "sha256": "869d994c9bd71b237f7b16432f43edfdc5e23a00d3f73d4ff0ee1e4e3874bf30"
+      "sha256": "f9bb543233a2c07b36743d34d80f12b0199470fc84c1dfc481f8df7acb5a975e"
     },
     "tests/streamline_dual_runtime_smoke.cpp": {
       "mode": "100644",
       "sha256": "48427b380c77c259c83687ef3608ad4008aa537ef0ba92431f941fcb46df20a0"
     },
+    "tests/test_nr_superior_scaling.py": {
+      "mode": "100644",
+      "sha256": "b56af717b7363e11d98dc176ff2616d5e1923fc37c3c4734744ec1dd990ada66"
+    },
     "tests/ue_low_latency_input_smoke.cpp": {
       "mode": "100644",
       "sha256": "00f83ac861d5113124bc529666d2a42b9813dc664f31cc17f0faa9f3412d07f2"
     },
+    "tests/xefg_dynamic_count_smoke.cpp": {
+      "mode": "100644",
+      "sha256": "ba8ea2e0f70946a7b04656a746813cd5bba33f2ca6859a0b46ccbd27b1d65b41"
+    },
+    "tools/compile_nr_finished_pq.ps1": {
+      "mode": "100644",
+      "sha256": "5f0d8f74a6c34fb210671d91c168ac5c4495001682dcc917e220a803c8df81ab"
+    },
+    "tools/compile_nr_interpass.ps1": {
+      "mode": "100644",
+      "sha256": "6fc14fe6f69c81a8320ddd50908ca28ed626e87004620df39091d89730a2dd27"
+    },
     "tools/device_burst/device_burst.cpp": {
       "mode": "100644",
       "sha256": "685fb74a6a5ba951fd9f8b57ec3ac172b68d303dbd8bbc730bf7b21a571c059a"
+    },
+    "tools/format_check.py": {
+      "mode": "100644",
+      "sha256": "1cb2e2c1f0b163bd39e09ce470277a70c4240dc12178beb027cb7e6a83c1054a"
+    },
+    "tools/prepare_finished_tests.py": {
+      "mode": "100644",
+      "sha256": "53db253d9098f0b3fa577208bcd2a44831d5f839b2f023dd705ec9702b35a4e5"
+    },
+    "tools/prepare_superior_candidates.py": {
+      "mode": "100644",
+      "sha256": "8e54f8f76378851e19316cc7cd4bced10574c65615f02e52d5ac6e90fab4c31f"
+    },
+    "tools/prepare_superior_host_tests.py": {
+      "mode": "100644",
+      "sha256": "d92afcbb37ce4e4134fb72bab5c66e7f879a2974beb46f52e3b3b6522276dfeb"
+    },
+    "tools/prepare_superior_refinement_tests.py": {
+      "mode": "100644",
+      "sha256": "9f269e718c4ae2b5dc21eff5c7ec373ae8ff28a669782724ff90ec4ebe415511"
+    },
+    "tools/requirements-format.txt": {
+      "mode": "100644",
+      "sha256": "1b07aad4d5debe323b91f0bde8e5e7b673224a0957d00c12488b95fa0d7d9cf8"
+    },
+    "tools/summarize_superior_candidates.py": {
+      "mode": "100644",
+      "sha256": "6e35d288ee7252680bbb4ff58e715a25c3d4829fa6760d30ba6d0a6f2ef517ff"
+    },
+    "tools/test_superior_port.ps1": {
+      "mode": "100644",
+      "sha256": "aae1df315ad79dad2233a0d5797bfdd1191a63f26318e40ac13666f8dbfa6b78"
     }
   },
   "audited_sources": {
-    "OptiScaler/dllmain.cpp": {
-      "mode": "100644",
-      "sha256": "122b0a1c149546cb84febfcee52eb0d5586138ef3c7c06a7497b72d0495888b6",
-      "structure_sha256": "4a115cdc3e970772c57ec3be49c4b4e278f89779dc9f21bf64478a4fb19027db",
-      "literal_sha256": "c89d6ba0c037290327fc33ed0409b2df5be35953af569eb0b9b870d86d424fb1",
-      "literal_count": 341,
-      "mutable_literal_ordinals": [
-        336
-      ]
-    },
     "OptiScaler/dlssnr/DlssNrDetailReuse.h": {
       "mode": "100644",
       "sha256": "a7734206e7ecd7482f16d37e59f8fdcb1e7c51bde480096e46a05f78383ab8e1",
       "structure_sha256": "3155d874b89bea39d7e8ef7a2eb8ce6912bcc7b2d5dc693d8bef1feff9f36f57",
-      "literal_sha256": "b05e2d1ce9f4bfefabde8019fcadb5b933731ac390745d6fc3b8eb9c61a51e93",
+      "literal_sha256": "8d46619a7dc1ea32c4db530ed893698d14d6dd8d7f573801a1455c7b2027b3da",
       "literal_count": 2,
-      "mutable_literal_ordinals": [
-        0,
-        1
-      ]
-    },
-    "OptiScaler/dlssnr/DlssNrDetailReuseHost.h": {
-      "mode": "100644",
-      "sha256": "1c5f075def3813aaa4c4fe5c44f4bfb7e54e60e507da4a082a2de7fad7c3e8d9",
-      "structure_sha256": "dc0cdd9f1bbbb13d64b456fc6851eabfe18407cbf32349820b9ae80dfd48dd63",
-      "literal_sha256": "5525e4a1913bdf19637734d1f451c719190aa734e90d2faa1100b47e62845b49",
-      "literal_count": 14,
-      "mutable_literal_ordinals": [
-        1,
-        2,
-        3,
-        4,
-        12,
-        13
-      ]
+      "mutable_literal_ordinals": []
     },
     "OptiScaler/dlssnr/DlssNrEditCache.h": {
       "mode": "100644",
       "sha256": "68818f4832f0b3c054f51cc652e2c6435dcf38c91f936af96b9a44d1f313135e",
       "structure_sha256": "bca93fa48d0c164e8448585285e9ec2397dc5ab432b6029341307f58b5496a33",
-      "literal_sha256": "242f5f8d9775094720dd5e8ff13c7593c76de295c63df01ad981464dd12b926d",
+      "literal_sha256": "ddead4729dd26816f30073366f0f4822bb0df6998d33449c4ca931e326970a1b",
       "literal_count": 9,
-      "mutable_literal_ordinals": [
-        0,
-        1,
-        2,
-        4,
-        5,
-        6,
-        7,
-        8
-      ]
-    },
-    "OptiScaler/dlssnr/DlssNrFeature_Vk.cpp": {
-      "mode": "100644",
-      "sha256": "4814e71dc9a3293f1637263bcfbbe9a72bb34ec7107373f30c9f3e10ba463022",
-      "structure_sha256": "57f474afc975ce2b6b39d057bf179593988cc5c8b8816da243f8b065671f2215",
-      "literal_sha256": "6c20c008ec5e8f06164ee177548ac1a02be67a38b19b46f17e608ab3b81adcb3",
-      "literal_count": 162,
-      "mutable_literal_ordinals": [
-        9,
-        10,
-        20,
-        34,
-        64,
-        66,
-        70,
-        72,
-        75,
-        80,
-        81,
-        85,
-        106,
-        110,
-        114,
-        144,
-        154
-      ]
+      "mutable_literal_ordinals": []
     },
     "OptiScaler/dlssnr/DlssNrHybridBuilder.h": {
       "mode": "100644",
       "sha256": "0c65a03bad7602e8f53ed4b0357f45af1374760114b37e9a0c25d41baa79174d",
       "structure_sha256": "9922312478ec3cd335690a81844c86cf47130e63244d071a03be9d8151393fd8",
-      "literal_sha256": "3a6a7d3c12b1b5f1cd8e988c3c637be024e18c0aab2f3e8f96b871089e062296",
+      "literal_sha256": "91ec86c6ea0dbcc7265fa0cbd9bd2def15cbb8a614d5613fb344f2ef8c410bdd",
       "literal_count": 18,
-      "mutable_literal_ordinals": [
-        1,
-        3,
-        12,
-        13,
-        14,
-        17
-      ]
+      "mutable_literal_ordinals": []
     },
     "OptiScaler/dlssnr/DlssNrNative.cpp": {
       "mode": "100644",
       "sha256": "2881bbe6628d228d4d4d21cdbe274c58f31ff4868de4db09febc951c4fae9ec2",
       "structure_sha256": "ec94ce23385b2850f221ff6ab8eeff29fe3be369d8b014689ae007a6e6037cfe",
-      "literal_sha256": "d801cc747ddf843318bd9d5fdab9a40b0f31edd27c44a43ae44445e020df69e7",
+      "literal_sha256": "f11460354453348f18354b69665230f973b52e56dfb63396f7eafbd0e13e1c93",
       "literal_count": 132,
-      "mutable_literal_ordinals": [
-        5,
-        20,
-        21,
-        22,
-        25,
-        27,
-        33,
-        63,
-        71,
-        75,
-        79,
-        80,
-        91,
-        94,
-        99,
-        105,
-        106,
-        107,
-        122,
-        123,
-        124
-      ]
+      "mutable_literal_ordinals": []
     },
     "OptiScaler/dlssnr/DlssNrVitReuse.h": {
       "mode": "100644",
       "sha256": "5b60d681b4481b8fb9cdd73eb59f413d3d40b6af05f0653afeba7865f21e5496",
       "structure_sha256": "dec6dbc2f3a52fbbe3861a6eee87d1b99fc5f236744b0d40a9e9fa0de613b61d",
-      "literal_sha256": "2aa8501a0cf99ddad0245e9e5fad2dcff3a89f21c354230b7c9355af2f976919",
+      "literal_sha256": "112010d1d59c6be5d96ae782637763cf8d881cc12cb293077e8b19644508ef62",
       "literal_count": 11,
-      "mutable_literal_ordinals": [
-        4,
-        5
-      ]
+      "mutable_literal_ordinals": []
     },
     "OptiScaler/dlssnr/DlssNr_ColourEncodingStatus.cpp": {
       "mode": "100644",
       "sha256": "0284fc96da693e4d663f994b118a48b6e3056e02a3deb55db9cda273d8357bda",
       "structure_sha256": "e115c0c0b7498f8598a64754b08d8b235ae9db1dd64a0f518bd3801b6254cd0e",
-      "literal_sha256": "601e613447aac94c392f362ed639c36ab6d3a1053c44af4917e768f4d54dbe25",
+      "literal_sha256": "cf5338ab368c4decb4fb2e47cfd4603c819160060e81b41c27f8fbb5a9004c47",
       "literal_count": 6,
-      "mutable_literal_ordinals": [
-        5
-      ]
-    },
-    "OptiScaler/dlssnr/DlssNr_ExposureScan.cpp": {
-      "mode": "100644",
-      "sha256": "51e061fb2b18163b33dc4973fd2a6308ca44c6bfa81d28afa0a81606cd2c3061",
-      "structure_sha256": "ad2fa36be8456e5a8dc76dbfd515db13d17179c488294be8cd062e5f2c9f306f",
-      "literal_sha256": "579e1757f68be4114e18a5a67c009f18b9ab8bee2005fbfe130f78123a803d2d",
-      "literal_count": 30,
-      "mutable_literal_ordinals": [
-        0,
-        5,
-        29
-      ]
+      "mutable_literal_ordinals": []
     },
     "OptiScaler/dlssnr/DlssNr_LookPresets.h": {
       "mode": "100644",
@@ -5744,261 +7449,13 @@
       "literal_count": 28,
       "mutable_literal_ordinals": []
     },
-    "OptiScaler/dlssnr/DlssNr_Menu.cpp": {
-      "mode": "100644",
-      "sha256": "cf52a878df86ad196d3a165d711a464caebe77d7a5297e2485ef8ce0b6292d79",
-      "structure_sha256": "f40a72aa9c4a4b8f056fda11aa8e4ac65688916c955e65a68216865fa8ab540c",
-      "literal_sha256": "23791c45a0cf913ce8b9e157d530e83636c8ebcfc03ebc794c3222c73194e764",
-      "literal_count": 864,
-      "mutable_literal_ordinals": [
-        44,
-        54,
-        100,
-        134,
-        135,
-        136,
-        137,
-        138,
-        140,
-        141,
-        142,
-        143,
-        146,
-        159,
-        161,
-        162,
-        166,
-        192,
-        202,
-        209,
-        210,
-        211,
-        214,
-        215,
-        220,
-        222,
-        224,
-        225,
-        230,
-        231,
-        236,
-        252,
-        257,
-        266,
-        269,
-        273,
-        274,
-        280,
-        285,
-        290,
-        291,
-        292,
-        299,
-        310,
-        318,
-        319,
-        324,
-        326,
-        328,
-        329,
-        330,
-        332,
-        333,
-        369,
-        374,
-        390,
-        407,
-        412,
-        427,
-        428,
-        429,
-        432,
-        441,
-        442,
-        443,
-        445,
-        450,
-        451,
-        452,
-        456,
-        463,
-        465,
-        470,
-        473,
-        476,
-        479,
-        482,
-        493,
-        510,
-        524,
-        531,
-        534,
-        539,
-        547,
-        548,
-        550,
-        551,
-        554,
-        561,
-        563,
-        564,
-        566,
-        568,
-        573,
-        575,
-        578,
-        583,
-        587,
-        606,
-        615,
-        616,
-        623,
-        636,
-        638,
-        639,
-        646,
-        663,
-        667,
-        674,
-        682,
-        699,
-        713,
-        717,
-        721,
-        722,
-        723,
-        741,
-        742,
-        743,
-        744,
-        749,
-        752,
-        753,
-        764,
-        766,
-        767,
-        778,
-        781,
-        791,
-        793,
-        794,
-        795,
-        796,
-        797,
-        798,
-        799,
-        802,
-        807,
-        808,
-        809,
-        810,
-        811,
-        812,
-        813,
-        814,
-        818,
-        819,
-        820,
-        821,
-        822,
-        823,
-        828,
-        831,
-        836,
-        837,
-        839,
-        842,
-        846,
-        847,
-        848
-      ]
-    },
     "OptiScaler/dlssnr/forwarder/dlssnr_forwarder.cpp": {
       "mode": "100644",
       "sha256": "6a15b03ba0e40c46464a2dc1672b9b8bdd6aaf7f2e778b9fd49e5d4e6c405870",
       "structure_sha256": "da44044116e65afd4cfb4406976cecdcd20ddb1f5859258b702e5bffe8ea7324",
-      "literal_sha256": "58fee0ca901ffc2793d68f9e4ccf3f3b742b435844647b8e336857bb9094a360",
+      "literal_sha256": "986ac607dc487951ca6d5f2ad4f61c100c72644d583896abb0dd462d8e832cec",
       "literal_count": 150,
-      "mutable_literal_ordinals": [
-        86,
-        87,
-        100,
-        101,
-        134
-      ]
-    },
-    "OptiScaler/framegen/dlssg/AmpereMfgLoader.cpp": {
-      "mode": "100644",
-      "sha256": "3c9f1e75a1f3ec08a13ad59ad015ed8b953cadbc3fb3e3bf2f84d69908f56781",
-      "structure_sha256": "4b7034d0183fc5f76bec5475f3b29ec5010ef8802473f6b87e940a1f2ac7f848",
-      "literal_sha256": "0bf89997b84db32219ab4427919b2f79981a586cda366b693d843a61cb006770",
-      "literal_count": 38,
-      "mutable_literal_ordinals": [
-        8,
-        10,
-        25,
-        28,
-        30,
-        31
-      ]
-    },
-    "OptiScaler/framegen/dlssg/MfgUnlock.cpp": {
-      "mode": "100644",
-      "sha256": "239855db2232300d560faf90485f1a450403bb4b85ee5fc947bfe0f2e2371834",
-      "structure_sha256": "ed92e01c7d8a9fa8183e0bd06116de2d76ed42ddc5a165424c9e481f250c9a48",
-      "literal_sha256": "ae5bee849a230dea067dccdd2333821529d54ad91f98361d13c7cac2fadf739a",
-      "literal_count": 56,
-      "mutable_literal_ordinals": [
-        9,
-        11,
-        14,
-        16,
-        44,
-        45,
-        48
-      ]
-    },
-    "OptiScaler/framegen/dlssg/MfgUnlockFlip.h": {
-      "mode": "100644",
-      "sha256": "655ce7e9da434a2158b62b2163201bd4d2fd10c01bf9d45f666b8936d16aac27",
-      "structure_sha256": "2fe7c530cad5df6e598a6f7ffbfe5c2597ef55178167afdf9bdc02c0894c6905",
-      "literal_sha256": "0d5b9870f5c36563fc431ec9760df352568a9b751411e2e7ba0469aa063291cd",
-      "literal_count": 13,
-      "mutable_literal_ordinals": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12
-      ]
-    },
-    "OptiScaler/framegen/dlssg/MfgUnlockPtx.h": {
-      "mode": "100644",
-      "sha256": "e85e743ac752eadb9dad08ecc5471466801587cc83d624a5c908e19a5c62c7b7",
-      "structure_sha256": "3dcdb251ab4a26fc2a1d538a68cca6617cacfb6953f57933e2e123cd319e7810",
-      "literal_sha256": "adf765c5b6e3e1d7f686ad236c8f26356f4293042edfc5d9063f097c6a4aec88",
-      "literal_count": 34,
-      "mutable_literal_ordinals": [
-        9,
-        10,
-        12,
-        19,
-        20,
-        21,
-        22,
-        24,
-        29,
-        30,
-        31,
-        32
-      ]
+      "mutable_literal_ordinals": []
     },
     "OptiScaler/framegen/nvngx/Nvngx_FG.cpp": {
       "mode": "100644",
@@ -6008,833 +7465,85 @@
       "literal_count": 15,
       "mutable_literal_ordinals": []
     },
-    "OptiScaler/hooks/FG_Hooks.cpp": {
-      "mode": "100644",
-      "sha256": "d2dce38088bc743a7dcdf425e481791eb5d6b7e44536dde31c5227fe47f3bea7",
-      "structure_sha256": "1ae214c1986f64c2e6a5c9cf97120fbc6e2eac7fd4c58b00e678dd6430758834",
-      "literal_sha256": "df97a04e6cff35d7ac487a247c97551b33a853b1dd5193e482893f29bcad25f5",
-      "literal_count": 122,
-      "mutable_literal_ordinals": []
-    },
     "OptiScaler/hooks/Reflex_Hooks.cpp": {
       "mode": "100644",
       "sha256": "ac635adc1eec5cbf3882cff68783eddd3094875892f32a67fb63c8e021690244",
       "structure_sha256": "e471db7cdbc7bcad9609db8c6d15a8eb794c72d0cdeeabca182a3f8da09bd734",
-      "literal_sha256": "4ee1aa4c9e93f8820f99ec5134689e08fa5ff2d3c6f715fedcfe99870dfe0411",
+      "literal_sha256": "142f5d75f59b009bec503dcec81d71141ef45b0df92f9fdb19558fd8df69cfb9",
       "literal_count": 20,
-      "mutable_literal_ordinals": [
-        0
-      ]
-    },
-    "OptiScaler/hooks/Streamline_Hooks.cpp": {
-      "mode": "100644",
-      "sha256": "4407dfaf65dfab63b3f2b43384409e038c7a055bb2ee86cfc3bd8e66de531ff5",
-      "structure_sha256": "1142ca0afe4ad61f959f91310ee50e73b150f265aaadd31b4235aad6ca3792da",
-      "literal_sha256": "071995745514e15a03c4cad2208d52f1e58f88df9daac6960c289031355bed2f",
-      "literal_count": 306,
       "mutable_literal_ordinals": []
     },
     "OptiScaler/include/imgui/ImGuiNotify.hpp": {
       "mode": "100644",
       "sha256": "6c37f76bfe35770181e54c4eac983fb8323d714a683f7ff85b82000d7df1346f",
       "structure_sha256": "6ef422fe81dd67559e29eb153dfc526b50340778c4f2a864fc09ec0a9d2a182d",
-      "literal_sha256": "962e06f01ab944634e3aa2ede77c655eee20b89c46fd02416aa858a09f541e91",
+      "literal_sha256": "7baafccebdb974e21f010e9aef6b957f447383ef7700ac0cb3f80ca767f3d92e",
       "literal_count": 13,
-      "mutable_literal_ordinals": [
-        0,
-        1,
-        2,
-        3
-      ]
+      "mutable_literal_ordinals": []
     },
     "OptiScaler/inputs/NVNGX_DLSS_Dx11.cpp": {
       "mode": "100644",
       "sha256": "c4c6452e1abd77ef87271b3c24e3c50c80f704b639e710b50ee301ebbee2cf7c",
       "structure_sha256": "bd9773fbec3aa454ef362cdbfeae38dff37ef73055279dd9ef2b5380f1857bab",
-      "literal_sha256": "b07a3b1b2c980365bce776a2a03b80ead14503a47c85342514708e23b0098a75",
+      "literal_sha256": "9c41cedfaf73fbbec027950e4f4378a1414d1b846170e3d99cc895b2f515b149",
       "literal_count": 56,
-      "mutable_literal_ordinals": [
-        55
-      ]
-    },
-    "OptiScaler/inputs/NVNGX_DLSS_Dx12.cpp": {
-      "mode": "100644",
-      "sha256": "5e29343b6df87792ca30e7341dc20c7242774cc720847be3e3157980c96c23a0",
-      "structure_sha256": "64ac1e489434268a501609f74ff862484a8ea2d9d706ff06303aab9e1f20f19b",
-      "literal_sha256": "8cfbd7c8fb3b3698317d172bbcf7712dbd51900d74d0a6ee0318014e42641f1d",
-      "literal_count": 82,
-      "mutable_literal_ordinals": [
-        64,
-        66
-      ]
-    },
-    "OptiScaler/inputs/NVNGX_DLSS_Vk.cpp": {
-      "mode": "100644",
-      "sha256": "02fab47f209df94832f4904e84704b4afb2512a071f943e1471bb0a4d184a627",
-      "structure_sha256": "b5b102027845a09dc0b99585baeffbb2cac1726cd24257e484d7d296e30f1d33",
-      "literal_sha256": "43559670cc0eb93bac8e617fc5e9f4272952ec56dbd3aae55479361a1609e6c7",
-      "literal_count": 86,
-      "mutable_literal_ordinals": [
-        83
-      ]
-    },
-    "OptiScaler/menu/MenuPages.h": {
-      "mode": "100644",
-      "sha256": "fec367a596555adfc93ea6f40476430d22d3f9a949fb9fc1d829b865885a545b",
-      "structure_sha256": "423cf500e879581489b1cbf0e9c6aedb0b26e9f0c4a45a216c0c4fd85165f505",
-      "literal_sha256": "c9ca965444af8521c0e649ae72f615365be6c83212ad456a52535f6231800d23",
-      "literal_count": 28,
-      "mutable_literal_ordinals": []
-    },
-    "OptiScaler/menu/menu_common.cpp": {
-      "mode": "100644",
-      "sha256": "38ecb7accb163681197e8ee90734af06b488bfbcf7845da3d0a400579d6d29ff",
-      "structure_sha256": "963c6f262a1487df9a36e2bda10782da10247a56790d093216c02246a9bab18b",
-      "literal_sha256": "1f75a1a44d44a64cb646e621569979e7878e985277ee52901f54854d0ce03703",
-      "literal_count": 1679,
-      "mutable_literal_ordinals": [
-        94,
-        197,
-        205,
-        207,
-        209,
-        210,
-        211,
-        217,
-        271,
-        272,
-        275,
-        312,
-        320,
-        321,
-        323,
-        324,
-        353,
-        354,
-        355,
-        356,
-        357,
-        358,
-        359,
-        360,
-        367,
-        368,
-        369,
-        370,
-        371,
-        373,
-        375,
-        376,
-        381,
-        392,
-        402,
-        403,
-        404,
-        414,
-        418,
-        419,
-        420,
-        421,
-        422,
-        449,
-        450,
-        451,
-        454,
-        459,
-        464,
-        468,
-        484,
-        503,
-        510,
-        511,
-        519,
-        524,
-        525,
-        528,
-        529,
-        532,
-        536,
-        537,
-        542,
-        548,
-        553,
-        554,
-        601,
-        614,
-        615,
-        616,
-        617,
-        618,
-        619,
-        620,
-        629,
-        630,
-        631,
-        632,
-        633,
-        647,
-        648,
-        649,
-        650,
-        651,
-        653,
-        659,
-        661,
-        663,
-        664,
-        668,
-        673,
-        676,
-        677,
-        678,
-        679,
-        682,
-        685,
-        686,
-        687,
-        688,
-        689,
-        690,
-        691,
-        692,
-        695,
-        698,
-        699,
-        700,
-        701,
-        702,
-        703,
-        704,
-        713,
-        721,
-        729,
-        732,
-        736,
-        737,
-        740,
-        741,
-        754,
-        758,
-        759,
-        760,
-        761,
-        763,
-        764,
-        766,
-        767,
-        769,
-        770,
-        771,
-        772,
-        773,
-        774,
-        775,
-        776,
-        777,
-        779,
-        780,
-        791,
-        794,
-        798,
-        799,
-        800,
-        801,
-        802,
-        803,
-        804,
-        805,
-        806,
-        812,
-        817,
-        818,
-        824,
-        825,
-        831,
-        832,
-        840,
-        841,
-        842,
-        844,
-        847,
-        852,
-        853,
-        856,
-        857,
-        858,
-        859,
-        863,
-        865,
-        866,
-        868,
-        870,
-        873,
-        877,
-        878,
-        879,
-        880,
-        881,
-        882,
-        883,
-        884,
-        889,
-        894,
-        895,
-        897,
-        899,
-        900,
-        904,
-        907,
-        910,
-        913,
-        916,
-        919,
-        922,
-        925,
-        928,
-        931,
-        932,
-        935,
-        940,
-        941,
-        942,
-        945,
-        946,
-        947,
-        948,
-        949,
-        950,
-        951,
-        952,
-        953,
-        954,
-        957,
-        960,
-        961,
-        964,
-        966,
-        967,
-        970,
-        998,
-        1001,
-        1002,
-        1003,
-        1005,
-        1006,
-        1007,
-        1008,
-        1009,
-        1013,
-        1014,
-        1028,
-        1032,
-        1033,
-        1036,
-        1037,
-        1038,
-        1039,
-        1042,
-        1043,
-        1044,
-        1045,
-        1048,
-        1049,
-        1050,
-        1051,
-        1052,
-        1053,
-        1058,
-        1059,
-        1060,
-        1061,
-        1064,
-        1067,
-        1076,
-        1097,
-        1123,
-        1139,
-        1142,
-        1144,
-        1152,
-        1153,
-        1158,
-        1163,
-        1168,
-        1171,
-        1172,
-        1173,
-        1174,
-        1176,
-        1190,
-        1191,
-        1195,
-        1196,
-        1197,
-        1208,
-        1214,
-        1221,
-        1222,
-        1223,
-        1228,
-        1229,
-        1262,
-        1263,
-        1264,
-        1270,
-        1290,
-        1291,
-        1295,
-        1314,
-        1315,
-        1341,
-        1347,
-        1349,
-        1354,
-        1358,
-        1359,
-        1361,
-        1363,
-        1366,
-        1367,
-        1371,
-        1373,
-        1376,
-        1377,
-        1378,
-        1379,
-        1386,
-        1391,
-        1392,
-        1393,
-        1398,
-        1400,
-        1401,
-        1405,
-        1406,
-        1409,
-        1411,
-        1412,
-        1413,
-        1414,
-        1415,
-        1422,
-        1423,
-        1424,
-        1425,
-        1426,
-        1427,
-        1433,
-        1434,
-        1435,
-        1436,
-        1439,
-        1440,
-        1441,
-        1442,
-        1443,
-        1444,
-        1445,
-        1446,
-        1447,
-        1448,
-        1449,
-        1450,
-        1451,
-        1452,
-        1461,
-        1462,
-        1463,
-        1464,
-        1465,
-        1466,
-        1471,
-        1479,
-        1499,
-        1500,
-        1501,
-        1502,
-        1503,
-        1504,
-        1505,
-        1506,
-        1507,
-        1508,
-        1509,
-        1510,
-        1511,
-        1513,
-        1526,
-        1529,
-        1536,
-        1537,
-        1538,
-        1542,
-        1546,
-        1547,
-        1548,
-        1553,
-        1554,
-        1556,
-        1557,
-        1563,
-        1564,
-        1565,
-        1566,
-        1567,
-        1568,
-        1569,
-        1570,
-        1571,
-        1572,
-        1580,
-        1584,
-        1586,
-        1588,
-        1591,
-        1594,
-        1619,
-        1620,
-        1621,
-        1623,
-        1628,
-        1629,
-        1638,
-        1647,
-        1648,
-        1649
-      ]
-    },
-    "OptiScaler/menu/menu_common.h": {
-      "mode": "100644",
-      "sha256": "f8134c855c17435220d052ba0bec04f6bda5d9275855e8f66a35ef1a423e6041",
-      "structure_sha256": "563f0a2e4984c7cc05f416638e3104be563d9c879913097ca7b2af4a589eb3a5",
-      "literal_sha256": "9ed6e348c280d6d0d3ac5aaed2d832b7a3a2095cf37d414becfded3f6744b085",
-      "literal_count": 2,
       "mutable_literal_ordinals": []
     },
     "OptiScaler/motion/MotionProfiles.h": {
       "mode": "100644",
       "sha256": "375a24fa6918afb931147dba77e3d4a79dae29471af19a03af387209de70c04c",
       "structure_sha256": "559587b9e0376caa49510c5ce1b2df522f835f944bfd280f615a7fe2a5f2045a",
-      "literal_sha256": "51a1b6c82346ef9d797971ef850c1eb00508585015d8080d091cc62ef8ecb15d",
+      "literal_sha256": "8351e48aca09ee45cc42edd76c84465feadbcc8aee61b27ddcc0c51d99a18d1f",
       "literal_count": 43,
-      "mutable_literal_ordinals": [
-        6,
-        7,
-        8,
-        9,
-        10,
-        11
-      ]
-    },
-    "OptiScaler/motion/OpticalFlow_Dx12.cpp": {
-      "mode": "100644",
-      "sha256": "7c86b415d5346f1d91a7c3762759ebd6612389163adbbd29ecb95cb2ff3b70cb",
-      "structure_sha256": "07e36fd3350626798b8638fa9939d81c2a4e491e379ea33e66e9b6f2eeea6f77",
-      "literal_sha256": "de4c821d7a7cd12e835dd95c68fb4ebddacb75f96394b9495e4614ec64b87f1c",
-      "literal_count": 39,
-      "mutable_literal_ordinals": [
-        4,
-        5,
-        6,
-        14,
-        20,
-        21,
-        37
-      ]
+      "mutable_literal_ordinals": []
     },
     "OptiScaler/motion/SceneCut_Dx12.cpp": {
       "mode": "100644",
       "sha256": "b3c717020472b9e7f285bad43ccf0b201310e6e0a4ff6f74b447ac3cdcf491e8",
       "structure_sha256": "3a336f20b2244ee5377fe0f09caaa41d4a705ef2ccdaf2ef78ee9116893f17ce",
-      "literal_sha256": "e34fc3a44196450fa4867484a697e5e6a0f1e462268cac3403048874d37438e6",
+      "literal_sha256": "a7787e80e7949d0eda99710c4eb2d086821d83ab6db51dca67e97cdabf126692",
       "literal_count": 22,
-      "mutable_literal_ordinals": [
-        0,
-        1,
-        13,
-        14,
-        15,
-        19,
-        21
-      ]
+      "mutable_literal_ordinals": []
     },
     "OptiScaler/motion/TrustMask_Dx12.cpp": {
       "mode": "100644",
       "sha256": "989d1927b32d00d330bcf489a29259e66103bcc05afad8bac59d601bddc9238c",
       "structure_sha256": "3aa9a5ad729a8c37413fc2d73b4210ecf6b277634975c91b4ae370b813c566b7",
-      "literal_sha256": "54397bcba5dd3a4a44c8f973e513ce60e655801734b7878f195219b01daa4d61",
+      "literal_sha256": "0b721b5ff02abea0a13df61ac4fb49556b9a6203fe1c452c3c0b132fb492e9c3",
       "literal_count": 26,
-      "mutable_literal_ordinals": [
-        2,
-        3,
-        4,
-        12,
-        13,
-        14,
-        15,
-        22,
-        25
-      ]
-    },
-    "OptiScaler/native/NativeDriver.cpp": {
-      "mode": "100644",
-      "sha256": "03a5ec331bab0c508d90df71b07d1ae8db38064edc19306c4698211d54c648e9",
-      "structure_sha256": "172472d212fdec8cf2b365c35c91ecb63e7e4ab04dbfc952642fb3fed6e6e78c",
-      "literal_sha256": "abd957c813a91c37af72cd2c177f01e658b8f56f4659c1b950e0d0fa33159a5b",
-      "literal_count": 91,
-      "mutable_literal_ordinals": [
-        11,
-        12,
-        20,
-        31
-      ]
-    },
-    "OptiScaler/native/NativeDriverDx11.cpp": {
-      "mode": "100644",
-      "sha256": "db20583de9b3e5171b9376e6e074374bf73b6219893a66e38887c08fae86d7ea",
-      "structure_sha256": "36df5f24b632f310d102b45432b3dd02149ce6f72848d15be19179f73e9af149",
-      "literal_sha256": "6b55e235f2add25e20cae206e6a4d687f621c3faa3c91a9e5cc55b616835d1cb",
-      "literal_count": 5,
       "mutable_literal_ordinals": []
-    },
-    "OptiScaler/native/NativeDriverDx12.cpp": {
-      "mode": "100644",
-      "sha256": "616bc3af3c2be7442a5e123e1695bdcfb80409b202083a7c77e129f1d9554ada",
-      "structure_sha256": "74c56d0478ee687711b43bd918558885512a0885a3de2a9ff95fd478ce5869a9",
-      "literal_sha256": "4915e108feabc81403eef7a3a2bf758d149b17b3b27884a86c4d4c74d2c05916",
-      "literal_count": 6,
-      "mutable_literal_ordinals": [
-        2,
-        4,
-        5
-      ]
-    },
-    "OptiScaler/native/NativeDriverVk.cpp": {
-      "mode": "100644",
-      "sha256": "61f4a36180a8096f4194276e80cfa13a0ff8ef3fb387b287313bd29c37b70a58",
-      "structure_sha256": "82cced78d02b422ff2a7732c0ee35295a268ba2c5300f38d56574f9cb2da01b4",
-      "literal_sha256": "33c47d0ec9674d6ef89afa9dd342fdc6e68a6b9ec30889cf5890fb9d0e8a4ef6",
-      "literal_count": 12,
-      "mutable_literal_ordinals": []
-    },
-    "OptiScaler/native/NativeLowLatency.cpp": {
-      "mode": "100644",
-      "sha256": "ffb78c34b9508cee92045d99f4c856a0f758cde2035ac035c7688f1095067f32",
-      "structure_sha256": "a74df8e0132bedf265bfa672d30d0cf76be40762c4b709b9cce4169272d3b2ce",
-      "literal_sha256": "d1b0b4b77de040b10b794a3bb6e673af45e35e0a2153e20df282cffc105d6659",
-      "literal_count": 46,
-      "mutable_literal_ordinals": [
-        17,
-        20,
-        21,
-        24
-      ]
-    },
-    "OptiScaler/native/NativeLowLatency.h": {
-      "mode": "100644",
-      "sha256": "f4e30f532bd77e339c60e47646bd9f4cff0786a66acaf387a39fb469548e960f",
-      "structure_sha256": "12fd59f96e2300dd7a7189c234b5adcbc4dac1031d8dda0d56c82ed388178f58",
-      "literal_sha256": "963bd444165b2c7e47972dceebee435cc48c748e99240998e853278c6fdbec22",
-      "literal_count": 3,
-      "mutable_literal_ordinals": [
-        2
-      ]
-    },
-    "OptiScaler/native/NativeLowLatencyRule.h": {
-      "mode": "100644",
-      "sha256": "0694fd56ff34ea483ff2081fd1f7648ef382a5161b3e0fbd5d16a21af2cb0c33",
-      "structure_sha256": "f4acab8913fcc6ea328253b62f732ba46e84b3512acd30a67e6d476693d3e100",
-      "literal_sha256": "6d0df33d729f4bfd9f67a0cae2796058346c6fe242376690b27863f3fde3920a",
-      "literal_count": 54,
-      "mutable_literal_ordinals": [
-        16,
-        20,
-        23,
-        24,
-        25,
-        26,
-        29,
-        30,
-        31,
-        33,
-        34,
-        35,
-        36,
-        41,
-        42,
-        43,
-        44,
-        45,
-        46,
-        47,
-        48,
-        49,
-        50,
-        51,
-        52
-      ]
-    },
-    "OptiScaler/native/NativeProducer.cpp": {
-      "mode": "100644",
-      "sha256": "7cd710913f20d9a906f33c703eaf35ae7de0aeed430833f20a1746f5f4fb1aa4",
-      "structure_sha256": "18545a53fb0105efce0660383eb4c7169ff3733b64d1c103bc78175cb75acba5",
-      "literal_sha256": "74addddc177fccdbc85e40c1bb0df870ba77eaf5339b13303c579f886d3f307e",
-      "literal_count": 12,
-      "mutable_literal_ordinals": [
-        0,
-        1,
-        3,
-        4
-      ]
     },
     "OptiScaler/native/VirtualUpscalerDriver.cpp": {
       "mode": "100644",
       "sha256": "f77b5bfde70976da57a55fab8f575feb63d71468bcf98db088f239277ce4a252",
       "structure_sha256": "7e9652d73db87b446ed57dc4a6435ee21f7e38544ab971d4711b11252d3b740d",
-      "literal_sha256": "86e35cc1f02abfa19d41fd60f821dbf98b5947b3150c96ae671c09c9ac002d53",
+      "literal_sha256": "910a4cb30b328a7adb57a07ae8633cbeaeac27edf6177f52e27819134fc91b6e",
       "literal_count": 35,
-      "mutable_literal_ordinals": [
-        13,
-        14
-      ]
-    },
-    "OptiScaler/native/VkFrameSource.cpp": {
-      "mode": "100644",
-      "sha256": "bb2778e6f7aa8e8db0d74794f8f36384b982706a2a8fb04e6edb68bbc7ba68cf",
-      "structure_sha256": "b9d39d937db7079b721ceb0a72a9bea96f6bfe976f2fb833ac28ec29d3e6ba8b",
-      "literal_sha256": "f01d90f3db369d792ed5ae9d8cfa57246d3a43233f8c87ebb8ebe63728e35eea",
-      "literal_count": 20,
-      "mutable_literal_ordinals": [
-        2,
-        6,
-        9,
-        10,
-        11,
-        12,
-        14
-      ]
-    },
-    "OptiScaler/native/VkPresentBridge.cpp": {
-      "mode": "100644",
-      "sha256": "5221159c8977bc87ccad7395faed7df1f8ac76e7b3208a050821f75c51c552ba",
-      "structure_sha256": "dc1d4331eea4e345615b4602f634a3639a8a5b6760dd67d2b19d766d96f786e7",
-      "literal_sha256": "c7fc65e67ee1a56e5892b8f4071a4662aa1bb0a9817ce9b5352e407d05822472",
-      "literal_count": 42,
-      "mutable_literal_ordinals": [
-        3,
-        6,
-        9,
-        10,
-        36,
-        38
-      ]
+      "mutable_literal_ordinals": []
     },
     "OptiScaler/native/VkPresentBridgeCore.cpp": {
       "mode": "100644",
       "sha256": "1a955708b5aba92b5bb3549ffb942046304c198ae0b9949d0c887647efdd08b9",
       "structure_sha256": "764837642c4f902bbbce2397e6222d1d84649a33531b305d765124f12d4162b2",
-      "literal_sha256": "e1d1a5d097597e45a1306d024f52177d74d3a3d503a509dc3042cd7171ad4c87",
+      "literal_sha256": "48ba04dda371a19bc5dbc406ed65874adae8febca08abd55fd92ff72dc689c89",
       "literal_count": 30,
-      "mutable_literal_ordinals": [
-        6,
-        8,
-        10,
-        12,
-        13,
-        14,
-        15,
-        16,
-        22,
-        24,
-        25,
-        26,
-        28,
-        29
-      ]
-    },
-    "OptiScaler/proxies/FfxApi_Proxy.h": {
-      "mode": "100644",
-      "sha256": "833cdfb88807f8e0877460fa2491c28923b929a05be3c6f1cae48e18a6c34c70",
-      "structure_sha256": "e844a19e94f46545df8c993d9ce965c8455143c4e851fd68632220a36a9e1adb",
-      "literal_sha256": "9b404fbe6cad4c975d33104a726cc767e14fb3c272c966f86c0ac5df1c24fc9d",
-      "literal_count": 215,
       "mutable_literal_ordinals": []
-    },
-    "OptiScaler/resource_tracking/GenericDepth_Dx11.cpp": {
-      "mode": "100644",
-      "sha256": "8e5ebd3757cb03c2a21712cf3e36797cb8bf00844a8377448e007e825909a4df",
-      "structure_sha256": "872c5bc9ff173f3f424cec6f903a1a5c4f87c197bbe433bbf6fc198bdaba7d35",
-      "literal_sha256": "2c1c061d65f509fc6578802518f6eb56c72b685a65ed6db10fc1ba5f9b2f64a0",
-      "literal_count": 46,
-      "mutable_literal_ordinals": [
-        26,
-        27,
-        28,
-        31,
-        38
-      ]
-    },
-    "OptiScaler/resource_tracking/GenericDepth_Dx12.cpp": {
-      "mode": "100644",
-      "sha256": "489693758986652f376e20e5f8db334e46835d5d179dc028e8bd173dd92ab6e3",
-      "structure_sha256": "bf7b94d03172d324464db0f48d1810979a9d449ba9978e1dfc6e344e54a6221c",
-      "literal_sha256": "509ad8fed56d1c3fbeff96394c53277f9cc901c3e254b188faf42d6f787087b9",
-      "literal_count": 105,
-      "mutable_literal_ordinals": [
-        75,
-        76,
-        77,
-        80,
-        87,
-        101,
-        102
-      ]
-    },
-    "OptiScaler/resource_tracking/GenericDepth_Vk.cpp": {
-      "mode": "100644",
-      "sha256": "129163e4dd6835924f0555efc8ca2d8b2b414d7982497ed54a78eb210e538933",
-      "structure_sha256": "73eda366ae42710e745bc5a59691e7bfbd6cf1757366855af95395d18d64a724",
-      "literal_sha256": "1323ac7229392943f9af0d387c7cd02983eb03490f0a049c5f3f335436956e38",
-      "literal_count": 47,
-      "mutable_literal_ordinals": [
-        25,
-        26,
-        27,
-        30,
-        38
-      ]
     },
     "OptiScaler/shaders/Shader_Common.cpp": {
       "mode": "100644",
       "sha256": "7d26f49fae5f3bcccec5be3e4dd3dc2d4386b64b4f8af2df2f6e75b72fac2a5e",
       "structure_sha256": "cdd792b9b4ccaa953b8938127d1bb406ca308bb6efe584d9c7f8796250a71c6e",
-      "literal_sha256": "d1c372527d87b0d11d7c3f83d38a8c9f90ea846abd38ab14b17e5da49f052256",
+      "literal_sha256": "e46efa2b3a623c5499dbab7d64821496ac1450a2b8b05cfee488d60372b8e27d",
       "literal_count": 3,
-      "mutable_literal_ordinals": [
-        1
-      ]
+      "mutable_literal_ordinals": []
     },
     "OptiScaler/shaders/dlssnr/DlssNr_ColourEncoding.h": {
       "mode": "100644",
       "sha256": "e0083dda52bf28f68ff552a97e9af074a7d3845378e22f25af822a8e7127166a",
       "structure_sha256": "1844ce13eb13e628c201dd2bff7cebfd18079bf482e72d2340b2330a3e577a81",
-      "literal_sha256": "7050000f1b3e7a422866e89fcbcd907ec26b467b02f458449a25427e99fd02d6",
+      "literal_sha256": "1fc1f371dfcaa1d9ea429230ede9c6bf91fb48c08c824fdd8ba7197613dad272",
       "literal_count": 22,
-      "mutable_literal_ordinals": [
-        1,
-        2,
-        3,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12,
-        13,
-        15
-      ]
+      "mutable_literal_ordinals": []
     },
     "OptiScaler/shaders/dlssnr/DlssNr_DeferredSr.inl": {
       "mode": "100644",
@@ -6844,136 +7553,44 @@
       "literal_count": 66,
       "mutable_literal_ordinals": []
     },
-    "OptiScaler/shaders/dlssnr/DlssNr_Dx12.cpp": {
-      "mode": "100644",
-      "sha256": "797f2dd7da3bead9078b9a1961b8460bf505daac689dadcd98b47ed47087ba77",
-      "structure_sha256": "906bdb234bdc3d5813c2431c8d0b19255434b6183e4d7dad3d9b7aac04aa318b",
-      "literal_sha256": "9e27c5ec331a62d4f178e92dc30bb5d964bcef3c0f99df23053121c0a4244b19",
-      "literal_count": 375,
-      "mutable_literal_ordinals": [
-        42,
-        44,
-        57,
-        61,
-        62,
-        63,
-        156,
-        168,
-        170,
-        197,
-        213,
-        221,
-        222,
-        242,
-        289,
-        296,
-        297,
-        298,
-        299
-      ]
-    },
     "OptiScaler/shaders/dlssnr/DlssNr_ExposureCalibrate.h": {
       "mode": "100644",
       "sha256": "65006511d521ff5e1d58cc379c82b02650cd4737625097cba46f900619c4cc34",
       "structure_sha256": "e5c459912206b928cd8d40b7c4143641c18cc29677b655e527a15df2fd8f10e2",
-      "literal_sha256": "1bf4228c25a9bb8bd2bd4b8cbb3b46b3a793b9b97798d71c3e6729cdf151475e",
+      "literal_sha256": "fd3b5d26d98d11d660ced8b0568b6c4b21e9e9fcc84848d29cb74adc02687532",
       "literal_count": 22,
-      "mutable_literal_ordinals": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        12,
-        13,
-        14,
-        15,
-        16,
-        17,
-        18,
-        19,
-        20
-      ]
+      "mutable_literal_ordinals": []
     },
     "OptiScaler/shaders/dlssnr/DlssNr_ExposureCalibrate_Run.h": {
       "mode": "100644",
       "sha256": "f3fd5eee30b136439ea0c3be606aad1a61dcc2125e1c0e5bbf05cd8322a6e09a",
       "structure_sha256": "1dfb008aad0591135e746ed42fdeabf72d12b97275d5c5aa7ac391a3f42405d0",
-      "literal_sha256": "5848ef3ed0018f871c757aef48e4d6b781266ff0c6e4e88bd21eae27074a9d6c",
+      "literal_sha256": "a6274d971ce1594d363211a1f957de01df48cec5c3590f495be74190b31949fb",
       "literal_count": 86,
-      "mutable_literal_ordinals": [
-        15,
-        20,
-        21,
-        29,
-        31,
-        34,
-        37,
-        38,
-        44
-      ]
-    },
-    "OptiScaler/shaders/dlssnr/DlssNr_Late.inl": {
-      "mode": "100644",
-      "sha256": "4b25be38ccdfd8c3ce270663ad5509de8f3b4443f59b3694f1e7b8858ccce0fe",
-      "structure_sha256": "42d023a844889e64f2d4726ec2d4f6d2100b02c77a7a6a810024de83de3ad7a8",
-      "literal_sha256": "4ac9c4d2286ee33fa6ca4e6004cd1493dcedf210b03adc8165d8d654eb896777",
-      "literal_count": 47,
-      "mutable_literal_ordinals": []
-    },
-    "OptiScaler/shaders/dlssnr/DlssNr_Spatial.h": {
-      "mode": "100644",
-      "sha256": "42e445b2afff9b3f7de1014f82ca4d516984f29cdbf1981ba8df7a41018591ab",
-      "structure_sha256": "f7b3e55f36e5f9306993385c7a303bc7e29dbf085bca6f3643f5471934ed2fe9",
-      "literal_sha256": "c62ed2b3238ff7af0213d7da1a619d7582c8551a81887b86b59ce645ae4cb59a",
-      "literal_count": 14,
       "mutable_literal_ordinals": []
     },
     "OptiScaler/upscalers/FeatureProvider_Dx11.cpp": {
       "mode": "100644",
       "sha256": "021d6f82bddc06e79d20f10d5fdca25d2e708c6a9ec7acbf5ea03ca30747b10f",
       "structure_sha256": "a7eba1e7c967d4ef0ae3d1f5f884bc27c3750369222ec03988edc96605ba72d0",
-      "literal_sha256": "e3b6f2b33ab3cd993653da281f0eaa0540f893b4191791653f9c7aa893d4419d",
+      "literal_sha256": "30a58faf38250463f7e686d931bb325e7b283733760f4b337aae89ff4759ca19",
       "literal_count": 10,
-      "mutable_literal_ordinals": [
-        0,
-        7
-      ]
+      "mutable_literal_ordinals": []
     },
     "OptiScaler/upscalers/FeatureProvider_Dx12.cpp": {
       "mode": "100644",
       "sha256": "386505e7a6cfc5cae258488a8aac0443b789a708991f9eeb60cb005b7822e44a",
       "structure_sha256": "8eb542c525090a380673d75dfb81b788c3c5df79747671a43b42a80bf9df3ea4",
-      "literal_sha256": "60dfdc0aa83ebca44b8d17e67d14926c23c4a67b7b153a7692414981a8c417c0",
+      "literal_sha256": "8bf5ef14c926442008aaddffe348a76491910809c16fb6d4f6d32b4204a889a7",
       "literal_count": 11,
-      "mutable_literal_ordinals": [
-        0,
-        7,
-        8
-      ]
+      "mutable_literal_ordinals": []
     },
     "OptiScaler/upscalers/FeatureProvider_Vk.cpp": {
       "mode": "100644",
       "sha256": "e5f30d307ba05f59abae0d273db911a362a7b28606f25ea654d3927f07b01680",
       "structure_sha256": "e4425216cea1e4fe94d61a409b619b6f3238de48a98048b517f98c6d4b2c9eb9",
-      "literal_sha256": "bd4ecc430a406efa39a92871aa942e18ba294a802cd702837bc7b08a20e6922f",
+      "literal_sha256": "f820d6c71464c34761c41e9bb2115f5f978be5896ccb96a82938bcd62c101dcc",
       "literal_count": 11,
-      "mutable_literal_ordinals": [
-        0,
-        7,
-        8
-      ]
-    },
-    "OptiScaler/upscalers/IFeature_VkwDx12.cpp": {
-      "mode": "100644",
-      "sha256": "fba456f715eb8ca42a2ad4a8a0c43f74053308cab907f75448e29aabf9e192b9",
-      "structure_sha256": "84e5a78a7ebdc499f8573b8eefcd0b9e39f2f544259c4507f4ae8c22f50664f6",
-      "literal_sha256": "708bb47306aaf3feedfff3d23383ae7d6d4ef97294fb274540a75aec3c51b75b",
-      "literal_count": 131,
       "mutable_literal_ordinals": []
     },
     "OptiScaler/upscalers/xess/XeSSFeature.cpp": {
