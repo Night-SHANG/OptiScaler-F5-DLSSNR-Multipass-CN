@@ -1,0 +1,446 @@
+name: Correct fixed release metadata once
+"on":
+  push:
+    branches: ["release-metadata/20261101-8a18828f"]
+    paths: [".github/workflows/correct-release-metadata-20261101.yml"]
+permissions:
+  contents: read
+concurrency:
+  group: correct-release-20261101-430077502
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - name: Fixed release verify
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          """One-shot candidate retention. Stdlib only; no artifact code execution.
+          CI entry is generated inline with an immutable per-repository manifest.
+          """
+          import hashlib,io,json,os,posixpath,re,stat,sys,urllib.request,urllib.error,urllib.parse,zipfile
+          class Stop(RuntimeError):pass
+          def require(ok,message):
+           if not ok:raise Stop(message)
+          def sha(data):return hashlib.sha256(data).hexdigest()
+          def extract_assets(blob,m):
+           require(len(blob)==m['artifact']['size_in_bytes'],'archive size mismatch')
+           require('sha256:'+sha(blob)==m['artifact']['digest'],'archive hash mismatch')
+           with zipfile.ZipFile(io.BytesIO(blob)) as z:
+            infos=z.infolist();require(len(infos)<=4096,'too many members');seen=set();total=0
+            for i in infos:
+             n=i.filename
+             require(n and not n.startswith('/') and '\\' not in n and ':' not in n and not any(p in ('..','.','') for p in n.rstrip('/').split('/')),'unsafe zip path')
+             require(n not in seen,'duplicate member');seen.add(n)
+             mode=i.external_attr>>16
+             require(stat.S_IFMT(mode) in (0,stat.S_IFREG,stat.S_IFDIR),'nonregular zip entry')
+             require(not i.flag_bits&1,'encrypted entry')
+             total+=i.file_size
+             require(total<=1024*1024*1024 and i.file_size<=512*1024*1024,'archive expansion limit')
+             require(i.file_size<=max(1,i.compress_size)*1000,'compression ratio limit')
+            result={}
+            for a in m['assets']:
+             require(re.fullmatch(r'[A-Za-z0-9_.-]+',a['name']) and a['name'] not in result,'unsafe asset name')
+             require(a['member'] in seen,'missing asset')
+             data=z.read(a['member']);require(len(data)==a['size'] and sha(data)==a['sha256'],'asset mismatch')
+             result[a['name']]=data
+            return result
+          
+          def guard(m,e,event):
+           expected={'GITHUB_ACTIONS':'true','GITHUB_EVENT_NAME':'push','GITHUB_REPOSITORY':m['repository'],'GITHUB_REF':'refs/heads/'+m['publish_branch'],'GITHUB_RUN_ATTEMPT':'1','GITHUB_WORKFLOW_REF':m['repository']+'/'+m['workflow_path']+'@refs/heads/'+m['publish_branch']}
+           for k,v in expected.items():require(e.get(k)==v,'context mismatch: '+k)
+           require(re.fullmatch('[0-9a-f]{40}',e.get('GITHUB_SHA','')),'invalid publisher sha')
+           require(event.get('after')==e['GITHUB_SHA'] and event.get('before')==m['head'],'publisher must be single push after reviewed source')
+           require(event.get('forced') is False and event.get('deleted') is False,'forced/deleted event')
+           require(event.get('repository',{}).get('full_name')==m['repository'],'event repository mismatch')
+          
+          class NoRedirect(urllib.request.HTTPRedirectHandler):
+           def redirect_request(self,*args,**kwargs):return None
+          class API:
+           def __init__(self,token,write=False):self.token=token;self.write=write;self.opener=urllib.request.build_opener(NoRedirect)
+           def request(self,method,path,body=None,binary=False):
+            require(method=='GET' or self.write,'read-only API')
+            url=path if path.startswith('https://') else 'https://api.github.com'+path
+            u=urllib.parse.urlsplit(url);require(u.scheme=='https' and u.hostname in ('api.github.com','uploads.github.com') and not u.username,'untrusted API endpoint')
+            data=body if isinstance(body,bytes) else json.dumps(body).encode() if body is not None else None
+            # Actions artifact archives negotiate a JSON API redirect; release assets use octet-stream.
+            accept='application/octet-stream' if binary and re.fullmatch(r'/repos/[^/]+/[^/]+/releases/assets/[0-9]+',u.path) else 'application/vnd.github+json'
+            endpoint=method+' '+u.path
+            print('GitHub request:',endpoint,flush=True)
+            headers={'Authorization':'Bearer '+self.token,'Accept':accept,'X-GitHub-Api-Version':'2022-11-28','Content-Type':'application/octet-stream' if isinstance(body,bytes) else 'application/json'}
+            try:
+             response=self.opener.open(urllib.request.Request(url,data=data,method=method,headers=headers),timeout=180)
+            except urllib.error.HTTPError as ex:
+             if ex.code==404 and method=='GET' and not binary:return None
+             if ex.code in (301,302,303,307,308) and method=='GET' and binary:
+              target=ex.headers.get('Location','');host=urllib.parse.urlsplit(target)
+              require(host.scheme=='https' and not host.username and host.hostname and (host.hostname.endswith('.blob.core.windows.net') or host.hostname=='release-assets.githubusercontent.com' or host.hostname.endswith('.githubusercontent.com')),'untrusted download redirect')
+              # Fresh request without Authorization; no automatic chained redirects.
+              try:response=self.opener.open(urllib.request.Request(target,headers={'Accept':'application/octet-stream'}),timeout=180)
+              except Exception:raise Stop('redirected download failed (URL redacted)') from None
+             else:raise Stop('GitHub HTTP '+str(ex.code)+' at '+endpoint+' (body/query redacted)') from None
+            except Exception:raise Stop('GitHub request failed at '+endpoint+' (details redacted)') from None
+            with response:
+             data=response.read(512*1024*1024+1);require(len(data)<=512*1024*1024,'response exceeds limit')
+            return data if binary else json.loads(data)
+          
+          def verify_publisher(api,m,publisher):
+           root='/repos/'+m['repository']
+           ref=api.request('GET',root+'/git/ref/heads/'+m['publish_branch'])
+           require(ref and ref['object']['sha']==publisher,'publisher branch changed')
+           commit=api.request('GET',root+'/commits/'+publisher)
+           require(commit and [p['sha'] for p in commit['parents']]==[m['head']],'publisher parent mismatch')
+           require(len(commit['files'])==1 and commit['files'][0]['filename']==m['workflow_path'] and commit['files'][0]['status']=='added','publisher must only add fixed workflow')
+          
+          # Only the fixed metadata correction writes below are permitted.
+          RELEASE_KEYS=('id','tag_name','target_commitish','name','body','draft','prerelease')
+          ASSET_KEYS=('id','name','label','size','digest','state')
+          def asset_snapshot(a):
+           out={k:a.get(k) for k in ASSET_KEYS}
+           # GitHub uses either null or empty string for an asset without a display label.
+           if out['label'] is None:out['label']=''
+           return out
+          def release_snapshot(r):
+           return {**{k:r.get(k) for k in RELEASE_KEYS},'assets':sorted((asset_snapshot(a) for a in r['assets']),key=lambda a:a['id'])}
+          def validate_manifest(m):
+           a={a['id']:a for a in m['release']['assets']};require(len(a)==len(m['release']['assets']),'duplicate original assets')
+           require(len({c['id'] for c in m['changes']})==len(m['changes']),'duplicate change id')
+           changed={}
+           for c in m['changes']:
+            require(c['id'] in a,'unknown asset id');require(set(c)=={'id','name','label'},'unexpected asset changes')
+            require(re.fullmatch(r'[A-Za-z0-9_.-]+',c['name']) and c['name'] not in ('.','..'),'unsafe name');changed[c['id']]=c
+           names=[changed.get(i,x)['name'] for i,x in a.items()]
+           require(len(set(names))==len(names),'asset name collision')
+           require(m['checksum']['name']=='CURRENT-DOWNLOAD-SHA256SUMS.txt' and m['checksum']['name'] not in names,'checksum collision')
+           packages=[(changed.get(i,x)['name'],x['digest']) for i,x in a.items() if x['name'].endswith(('.zip','.exe'))]
+           require(packages and all(re.fullmatch('sha256:[0-9a-f]{64}',d) for n,d in packages),'missing package digest')
+           require(m['checksum']['text']==''.join(d[7:]+'  '+n+'\n' for n,d in sorted(packages)),'checksum content mismatch')
+           require(set(m['patch'])=={'name','body','prerelease','draft','make_latest'} and m['patch']['draft'] is False,'invalid release patch')
+           require((m['patch']['prerelease'],m['patch']['make_latest']) in ((True,'false'),(False,'true')),'latest/prerelease mismatch')
+          
+          def authorize_write(m,method,path,body):
+           root='/repos/'+m['repository'];rid=str(m['release']['id'])
+           if method=='PATCH' and path==root+'/releases/'+rid:
+            require(body==m['patch'],'release patch mismatch');return
+           for c in m['changes']:
+            if method=='PATCH' and path==root+'/releases/assets/'+str(c['id']):
+             require(body=={'name':c['name'],'label':c['label']},'asset patch mismatch');return
+           url='https://uploads.github.com'+root+'/releases/'+rid+'/assets?name='+m['checksum']['name']
+           if method=='POST' and path==url:
+            require(body==m['checksum']['text'].encode(),'checksum bytes mismatch');return
+           raise Stop('write outside exact correction scope')
+          
+          class CorrectionAPI(API):
+           def __init__(self,token,m,write=False):super().__init__(token,write);self.m=m
+           def request(self,method,path,body=None,binary=False):
+            if method!='GET':authorize_write(self.m,method,path,body)
+            return super().request(method,path,body,binary)
+          
+          def verify_identity(api,m):
+           root='/repos/'+m['repository']
+           tag=api.request('GET',root+'/git/ref/tags/'+urllib.parse.quote(m['release']['tag_name'],safe=''))
+           require(tag and tag['object']['type']=='commit' and tag['object']['sha']==m['head'],'tag target changed')
+           main=api.request('GET',root+'/git/ref/heads/main');require(main and main['object']['sha']==m['main'],'main changed')
+           for run in m['runs']:
+            got=api.request('GET',root+'/actions/runs/'+str(run['id']))
+            require(got and all(got.get(k)==run[k] for k in ('id','head_sha','run_attempt')) and got['repository']['full_name']==m['repository'] and got['status']=='completed' and got['conclusion']=='success','original CI binding changed')
+          
+          def verify_history(api,m):
+           root='/repos/'+m['repository']
+           for expected in m['old_releases']:
+            actual=api.request('GET',root+'/releases/'+str(expected['id']))
+            require(actual and release_snapshot(actual)==expected,'historical release changed')
+          
+          def latest_id(api,m):
+           got=api.request('GET','/repos/'+m['repository']+'/releases/latest');return got['id'] if got else None
+          
+          def verify(api,m):
+           validate_manifest(m);verify_identity(api,m);verify_history(api,m)
+           require(latest_id(api,m)==m['latest_before'],'latest changed')
+           got=api.request('GET','/repos/'+m['repository']+'/releases/'+str(m['release']['id']))
+           require(got and release_snapshot(got)==release_snapshot(m['release']),'release snapshot changed')
+           require(not got.get('immutable',False),'release is immutable')
+           return got
+          
+          def expected_assets(m,checksum_id=None):
+           out={a['id']:asset_snapshot(a) for a in m['release']['assets']}
+           for c in m['changes']:out[c['id']].update(c)
+           if checksum_id is not None:
+            data=m['checksum']['text'].encode();out[checksum_id]={'id':checksum_id,'name':m['checksum']['name'],'label':'','size':len(data),'digest':'sha256:'+sha(data),'state':'uploaded'}
+           return sorted(out.values(),key=lambda a:a['id'])
+          
+          def verify_assets(api,m,checksum_id=None):
+           got=api.request('GET','/repos/'+m['repository']+'/releases/'+str(m['release']['id'])+'/assets?per_page=100')
+           require(isinstance(got,list) and sorted((asset_snapshot(a) for a in got),key=lambda a:a['id'])==expected_assets(m,checksum_id),'corrected assets mismatch')
+          
+          def correct(api,m):
+           verify(api,m);root='/repos/'+m['repository'];rid=str(m['release']['id']);last='none'
+           try:
+            for c in m['changes']:
+             path=root+'/releases/assets/'+str(c['id']);body={'name':c['name'],'label':c['label']}
+             authorize_write(m,'PATCH',path,body);last='asset PATCH '+str(c['id'])
+             result=api.request('PATCH',path,body)
+             expected=next(a for a in expected_assets(m) if a['id']==c['id'])
+             require(asset_snapshot(result)==expected,'asset PATCH response mismatch')
+            verify_assets(api,m)
+            data=m['checksum']['text'].encode();url='https://uploads.github.com'+root+'/releases/'+rid+'/assets?name='+m['checksum']['name']
+            authorize_write(m,'POST',url,data);last='checksum upload'
+            added=api.request('POST',url,data);newid=added['id']
+            require(newid not in {a['id'] for a in m['release']['assets']},'checksum id collision')
+            verify_assets(api,m,newid)
+            verify_identity(api,m);verify_history(api,m)
+            require(latest_id(api,m)==m['latest_before'],'latest changed before final PATCH')
+            current=api.request('GET',root+'/releases/'+rid)
+            require(all(current.get(k)==m['release'].get(k) for k in RELEASE_KEYS),'release metadata changed before final PATCH')
+            path=root+'/releases/'+rid;authorize_write(m,'PATCH',path,m['patch']);last='final release PATCH'
+            api.request('PATCH',path,m['patch'])
+            final=api.request('GET',path)
+            require(all(final.get(k)==m['release'].get(k) for k in ('id','tag_name','target_commitish')),'release identity changed')
+            require(all(final.get(k)==m['patch'][k] for k in ('name','body','draft','prerelease')),'final release metadata mismatch')
+            verify_assets(api,m,newid);verify_identity(api,m);verify_history(api,m)
+            require(latest_id(api,m)==(m['release']['id'] if m['patch']['make_latest']=='true' else m['latest_before']),'final latest mismatch')
+            print('CORRECTION_VERIFIED',json.dumps({'repository':m['repository'],'release_id':m['release']['id'],'title':m['patch']['name'],'prerelease':m['patch']['prerelease'],'checksum_asset_id':newid}))
+            return final
+           except Exception as ex:
+            raise Stop('correction outcome may be partial or uncertain after '+last+'; do not retry automatically; reconcile fixed release/asset IDs first'+('; '+str(ex) if isinstance(ex,Stop) else '')) from None
+          
+          def correction_main(m,mode):
+           guard(m,os.environ,json.load(open(os.environ['GITHUB_EVENT_PATH'])))
+           require(mode in ('verify','correct'),'invalid mode')
+           api=CorrectionAPI(os.environ['GITHUB_TOKEN'],m,write=mode=='correct')
+           verify_publisher(api,m,os.environ['GITHUB_SHA'])
+           if mode=='verify':verify(api,m);print('READ_ONLY_CORRECTION_CHECK_PASSED',m['repository'])
+           else:correct(api,m)
+          
+          MANIFEST=json.loads('{"changes": [{"id": 695993998, "label": "\\u539f\\u59cb\\u6784\\u5efa\\u5143\\u6570\\u636e\\uff08\\u5185\\u5bb9\\u672a\\u4fee\\u6539\\uff09", "name": "build-metadata.json"}, {"id": 695993754, "label": "OptiScaler F5 CN 0.1.35.1 \\u00b7 \\u6b63\\u5f0f\\u6c49\\u5316\\u5305", "name": "OptiScaler-F5-DLSSNR-Multipass-CN-v0.1.35.1-zh20261101.zip"}, {"id": 695993974, "label": "\\u539f\\u59cb\\u5305\\u6821\\u9a8c\\u8bb0\\u5f55\\uff08\\u65e7\\u6587\\u4ef6\\u540d\\uff09\\uff1b\\u5f53\\u524d\\u4e0b\\u8f7d\\u8bf7\\u7528 CURRENT-DOWNLOAD-SHA256SUMS.txt", "name": "OptiScaler-F5-DLSSNR-Multipass-CN-main-4d72d53e521b-cn-87e7c9120554-4d72d53e521b.zip.sha256"}, {"id": 695994010, "label": "\\u539f\\u59cb\\u6784\\u5efa\\u6765\\u6e90\\u8bb0\\u5f55\\uff08\\u4fdd\\u7559\\u65e7\\u6587\\u4ef6\\u540d\\u4e0e\\u521d\\u6b21\\u53d1\\u5e03\\u72b6\\u6001\\uff09", "name": "provenance.json"}, {"id": 695994023, "label": "\\u539f\\u59cb\\u6784\\u5efa\\u6821\\u9a8c\\u8bb0\\u5f55\\uff08\\u65e7\\u6587\\u4ef6\\u540d\\uff09\\uff1b\\u5f53\\u524d\\u4e0b\\u8f7d\\u8bf7\\u7528 CURRENT-DOWNLOAD-SHA256SUMS.txt", "name": "SHA256SUMS"}], "checksum": {"name": "CURRENT-DOWNLOAD-SHA256SUMS.txt", "text": "12545ad9eacfc892d9a36060d048b0c5e751bc015bebe65e776cf3af29b86955  OptiScaler-F5-DLSSNR-Multipass-CN-v0.1.35.1-zh20261101.zip\\n"}, "head": "8a18828f10db42e3b27b175731a7c0a17d1b7b51", "latest_before": null, "main": "0af315ae0e3e7dd832aa75ca2b3db870e6b501bf", "old_releases": [{"assets": [{"digest": "sha256:3246a0b274636d62e2dcb1e4193b61ebcdcc0f20e482c854ba3fd4b3a74446ce", "id": 658409487, "label": "", "name": "OptiScaler-F5-DLSSNR-Multipass-CN-v0.1.32-cn-6c9128d67a8f-fadc3bf67f6c.zip", "size": 175831647, "state": "uploaded"}, {"digest": "sha256:22d02c76721c72f1ce012dc93c700551ab2b37c3fe4c688c83c10705e5969492", "id": 658409699, "label": "", "name": "OptiScaler-F5-DLSSNR-Multipass-CN-v0.1.32-cn-6c9128d67a8f-fadc3bf67f6c.zip.sha256", "size": 141, "state": "uploaded"}, {"digest": "sha256:478dbe51cfbb271328dc43fc0314092d345e84a10545c273615aab4c70daaf4a", "id": 658409749, "label": "", "name": "build-metadata.json", "size": 4463, "state": "uploaded"}], "body": "## F5 \\u7b80\\u4f53\\u4e2d\\u6587\\u6d4b\\u8bd5\\u7248\\n\\n\\u8fd9\\u662f\\u793e\\u533a\\u6d4b\\u8bd5\\u7248\\uff08Pre-release\\uff09\\uff0c\\u56fa\\u5b9a\\u4e0a\\u6e38 F5 v0.1.32\\u3002\\u8bf7\\u5148\\u5907\\u4efd\\u539f\\u5b89\\u88c5\\uff0c\\u52ff\\u7528\\u4e8e\\u5e26\\u53cd\\u4f5c\\u5f0a\\u4fdd\\u62a4\\u7684\\u591a\\u4eba\\u6e38\\u620f\\u3002\\n\\n- \\u4e2d\\u6587\\u4ed3\\u5e93\\u63d0\\u4ea4\\uff1a`6c9128d67a8fb5a21303fabb8affd032806ab862`\\n- \\u56fa\\u5b9a\\u4e0a\\u6e38\\u63d0\\u4ea4\\uff1a`fadc3bf67f6c8548e94914baec3f2e551ba8d8a4`\\n- [\\u672c\\u6b21\\u6784\\u5efa\\u4e0e\\u68c0\\u67e5](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/actions/runs/39376131865)\\n- \\u5b89\\u88c5\\u5305\\uff1a`OptiScaler-F5-DLSSNR-Multipass-CN-v0.1.32-cn-6c9128d67a8f-fadc3bf67f6c.zip`\\n- \\u5b89\\u88c5\\u5305 SHA-256\\uff1a`3246a0b274636d62e2dcb1e4193b61ebcdcc0f20e482c854ba3fd4b3a74446ce`\\n\\n### \\u5df2\\u5b8c\\u6210\\u7684\\u53d1\\u5e03\\u95e8\\u69db\\n\\n\\u540c\\u4e00\\u6b21\\u5de5\\u4f5c\\u6d41\\u4e2d\\u7684\\u53ef\\u79fb\\u690d\\u5951\\u7ea6\\u6d4b\\u8bd5\\u548c Windows MSVC v143 Release x64 \\u7f16\\u8bd1\\u6210\\u529f\\uff1b\\u5b89\\u88c5\\u5305\\u3001\\u5185\\u5916\\u5143\\u6570\\u636e\\u3001\\u9010\\u6587\\u4ef6 SHA-256\\u3001x64 DLL \\u6807\\u5934\\u548c\\u4e2d\\u6587\\u5b89\\u88c5\\u811a\\u672c\\u6307\\u7eb9\\u901a\\u8fc7\\u68c0\\u67e5\\u3002\\u53d1\\u5e03\\u524d\\u8fd8\\u4f1a\\u4e0b\\u8f7d\\u5e76\\u6838\\u5bf9\\u4e0a\\u4f20\\u8d44\\u4ea7\\u7684\\u5b9e\\u9645\\u5b57\\u8282\\u3002\\n\\n### \\u6d4b\\u8bd5\\u8303\\u56f4\\u4e0e\\u5b89\\u88c5\\u63d0\\u9192\\n\\n- Windows \\u7f16\\u8bd1\\u6210\\u529f\\u4e0d\\u7b49\\u4e8e\\u6e38\\u620f\\u5185\\u8fd0\\u884c\\u3001\\u753b\\u9762\\u6216\\u4e2d\\u6587\\u6392\\u7248\\u901a\\u8fc7\\u3002\\u6ca1\\u6709\\u6267\\u884c\\u5b9e\\u9645 GPU/\\u6e38\\u620f\\u9a8c\\u8bc1\\uff0c\\u4e5f\\u6ca1\\u6709\\u786e\\u8ba4\\u5168\\u90e8\\u4e3b\\u9898\\u3001\\u7f29\\u653e\\u3001GPU \\u6216\\u9a71\\u52a8\\u7ec4\\u5408\\u3002\\n- \\u672c\\u5305\\u91c7\\u7528 downloader-only \\u65b9\\u5f0f\\uff0c\\u4e0d\\u5305\\u542b\\u4e13\\u6709 `nvngx_dlssnr.dll`\\uff0c\\u4e5f\\u4e0d\\u9884\\u6253\\u5305\\u53ef\\u9009 NVIDIA DLSS/Streamline\\u3001Ampere MFG \\u6216\\u5916\\u90e8 vendor-neutral \\u7ec4\\u4ef6\\u3002\\u9700\\u8981\\u7684\\u4e13\\u6709\\u6a21\\u578b/\\u8fd0\\u884c\\u5e93\\u8bf7\\u6309\\u56fa\\u5b9a\\u4e0a\\u6e38\\u6307\\u5357\\u53e6\\u884c\\u53d6\\u5f97\\u5e76\\u6838\\u9a8c\\uff0c\\u8bb8\\u53ef\\u7531\\u4f7f\\u7528\\u8005\\u81ea\\u884c\\u786e\\u8ba4\\u3002\\n- \\u4e2d\\u6587\\u83dc\\u5355\\u9700\\u8981\\u7cfb\\u7edf\\u5df2\\u5b89\\u88c5\\u6216\\u81ea\\u884c\\u63d0\\u4f9b\\u517c\\u5bb9\\u4e14\\u8986\\u76d6\\u8bcd\\u5e93\\u7684\\u4e2d\\u6587\\u5b57\\u4f53\\uff1b\\u5305\\u5185\\u4e0d\\u9644\\u5e26 Windows \\u5b57\\u4f53\\uff0c\\u5b57\\u4f53\\u4e0d\\u53ef\\u7528\\u65f6\\u4f1a\\u56de\\u9000\\u82f1\\u6587\\u3002\\n- \\u4e0b\\u8f7d ZIP \\u53ca\\u540c\\u540d `.sha256`\\uff0c\\u6821\\u9a8c\\u540e\\u5b8c\\u6574\\u89e3\\u538b\\u5230\\u6e38\\u620f EXE \\u76ee\\u5f55\\u3002\\u4e2d\\u6587\\u5b89\\u88c5\\u5165\\u53e3\\u4e3a `setup_windows.bat`\\uff0c\\u8be6\\u7ec6\\u6b65\\u9aa4\\u89c1\\u5305\\u5185 `README.CN.zh-CN.md`\\u3002\\u4fdd\\u7559\\u539f\\u59cb\\u8bb8\\u53ef\\u548c\\u7f72\\u540d\\u3002\\n- \\u8bf7\\u7528\\u6e38\\u620f\\u540d\\u3001GPU\\u3001\\u9a71\\u52a8\\u3001\\u6e32\\u67d3 API\\u3001\\u8bed\\u8a00/\\u5b57\\u4f53/\\u4e3b\\u9898/\\u7f29\\u653e\\u3001\\u622a\\u56fe\\u53ca\\u590d\\u73b0\\u6b65\\u9aa4\\u53cd\\u9988\\u95ee\\u9898\\uff1b\\u5206\\u4eab\\u65e5\\u5fd7\\u524d\\u68c0\\u67e5\\u4e2a\\u4eba\\u8def\\u5f84\\u3002\\n\\n[\\u4e2d\\u6587\\u8bf4\\u660e](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/blob/6c9128d67a8fb5a21303fabb8affd032806ab862/README.zh-CN.md) \\u00b7 [\\u56fa\\u5b9a\\u4e0a\\u6e38\\u5b89\\u88c5\\u6307\\u5357](https://github.com/janblade/OptiScaler-F5-DLSSNR-Multipass/blob/fadc3bf67f6c8548e94914baec3f2e551ba8d8a4/INSTALL-DLSSNR.md)\\n\\n<!-- f5-cn-test-gate:v1 cn_commit=6c9128d67a8fb5a21303fabb8affd032806ab862 assets_sha256=f219e46c3c567448997c16f28203d4bbc02bf65a086899ba2af85b14b338f6cf -->\\n\\n\\n<!-- f5-cn-static-catalog-progress:begin -->\\n## \\u6c49\\u5316\\u8fdb\\u5ea6\\uff1a\\u9759\\u6001\\u8bcd\\u5e93\\u8986\\u76d6\\n\\n- \\u7edf\\u8ba1\\u5bf9\\u5e94\\u4e2d\\u6587\\u53d1\\u5e03\\u63d0\\u4ea4\\uff1a[`6c9128d67a8fb5a21303fabb8affd032806ab862`](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/commit/6c9128d67a8fb5a21303fabb8affd032806ab862)\\uff1b\\u4e0a\\u6e38\\u6e90\\u6587\\u63d0\\u4ea4\\uff1a`fadc3bf67f6c8548e94914baec3f2e551ba8d8a4`\\u3002\\n- \\u5f53\\u524d\\u6d3b\\u52a8\\u6761\\u76ee 2385\\uff1a\\u5df2\\u53d8\\u66f4\\u4e2d\\u6587\\u663e\\u793a\\u503c 2191\\uff0c\\u6709\\u610f\\u539f\\u6837\\u4fdd\\u7559\\u6280\\u672f\\u9879 194\\uff1b\\u7f3a\\u5931 0\\uff0c\\u8fc7\\u671f 0\\u3002\\u6709\\u6548\\u9759\\u6001\\u8bcd\\u5e93\\u8986\\u76d6 2385/2385\\uff08100.00%\\uff09\\u3002\\n- \\u6709\\u6548\\u6761\\u76ee\\u6cbf\\u7528\\u7684\\u72b6\\u6001\\uff1a`reviewed` 244\\uff0c`machine_translated` 2141\\u3002AI \\u7ffb\\u8bd1\\u3001AI \\u5ba1\\u6821\\u53ca\\u5176\\u590d\\u7528\\u9879\\u4ecd\\u4fdd\\u7559\\u673a\\u5668\\u72b6\\u6001\\uff0c\\u4e0d\\u5192\\u5145\\u672c\\u6b21\\u4eba\\u5de5\\u5ba1\\u6838\\u3002\\n- \\u672c\\u6b21 `pending.scan` \\u539f\\u59cb\\u8bb0\\u5f55\\uff1a\\u65b0\\u589e 0\\u3001\\u53d8\\u66f4 0\\u3001\\u79fb\\u9664 0\\uff1b\\u5404\\u81ea\\u53bb\\u91cd\\u952e\\u6570 0/0/0\\u3002\\u5176\\u4e2d\\u5f53\\u524d\\u6d3b\\u52a8\\u53bb\\u91cd\\u952e\\u6570 0/0/0\\uff1b\\u79fb\\u9664\\u8bb0\\u5f55\\u4e2d\\u5df2\\u5e9f\\u5f03\\u7684\\u53bb\\u91cd\\u952e\\u6570 0\\u3002\\n- \\u65b0\\u589e\\u6216\\u53d8\\u66f4\\u96c6\\u5408\\u4e2d\\u5f53\\u524d\\u6709\\u6548\\u7684\\u53bb\\u91cd\\u6761\\u76ee 0\\uff08\\u65b0\\u589e\\u4e0e\\u53d8\\u66f4\\u53d6\\u5e76\\u96c6\\uff0c\\u7f3a\\u5931/\\u8fc7\\u671f\\u4e0d\\u8ba1\\u5165\\uff1b\\u4e0d\\u4ee3\\u8868\\u4e0e\\u524d\\u4e00\\u7248\\u76f8\\u6bd4\\u65b0\\u589e\\u4e86\\u540c\\u7b49\\u6570\\u91cf\\u7684\\u8bd1\\u6587\\uff09\\u3002\\n- \\u8bc1\\u636e\\uff1a[\\u8986\\u76d6\\u4e0e\\u9a8c\\u6536\\u6e05\\u5355](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/blob/6c9128d67a8fb5a21303fabb8affd032806ab862/COVERAGE.md)\\u3001[\\u62a5\\u544a\\u76ee\\u5f55](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/tree/6c9128d67a8fb5a21303fabb8affd032806ab862/reports)\\u3001[\\u6280\\u672f\\u9879\\u4fdd\\u7559\\u7406\\u7531](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/blob/6c9128d67a8fb5a21303fabb8affd032806ab862/Localization/retained-English.json)\\u3002\\u672c\\u8282\\u6570\\u5b57\\u4ece\\u8be5\\u63d0\\u4ea4\\u8bcd\\u5e93\\u5b9e\\u65f6\\u8ba1\\u7b97\\uff0c\\u4e0d\\u6cbf\\u7528\\u62a5\\u544a\\u4e2d\\u7684\\u5386\\u53f2\\u8ba1\\u6570\\u3002\\n\\n\\u4ee5\\u4e0a\\u662f\\u9759\\u6001\\u5019\\u9009\\u8bcd\\u5e93\\u8986\\u76d6\\uff0c\\u4e0d\\u662f\\u6240\\u6709\\u8fd0\\u884c\\u65f6 UI \\u7684\\u7a77\\u4e3e\\u8986\\u76d6\\u3002\\u672a\\u6267\\u884c\\u5b9e\\u9645 GPU/\\u6e38\\u620f/\\u89c6\\u89c9\\u9a8c\\u6536\\uff1b\\u6784\\u5efa\\u4e0e\\u9759\\u6001\\u68c0\\u67e5\\u4e0d\\u80fd\\u4ee3\\u66ff\\u6e38\\u620f\\u6e32\\u67d3\\u3001\\u6027\\u80fd\\u3001\\u4e2d\\u6587\\u6392\\u7248\\u3001\\u88c1\\u5207\\u3001\\u5b57\\u4f53\\u548c\\u7f29\\u653e\\u9a8c\\u6536\\uff0c\\u672a\\u77e5\\u5916\\u90e8\\u8bca\\u65ad\\u4ecd\\u53ef\\u80fd\\u663e\\u793a\\u82f1\\u6587\\u3002\\n<!-- f5-cn-static-catalog-progress:end -->", "draft": false, "id": 418050844, "name": "OptiScaler F5 \\u7b80\\u4f53\\u4e2d\\u6587\\u6d4b\\u8bd5\\u7248 v0.1.32-cn-test.1", "prerelease": true, "tag_name": "v0.1.32-cn-test.1", "target_commitish": "6c9128d67a8fb5a21303fabb8affd032806ab862"}, {"assets": [{"digest": "sha256:85316e91fc6b068445569f5293e5718c9be69fa27ac4f7cfa34ec0a19fbe8389", "id": 658560523, "label": "", "name": "OptiScaler-F5-DLSSNR-Multipass-CN-v0.1.32-cn-0af315ae0e3e-fadc3bf67f6c.zip", "size": 175832095, "state": "uploaded"}, {"digest": "sha256:bfbca85bfb1d35cdbd4aec376af3f326b6e3e82fe334cb66c652a11eb672bf24", "id": 658560807, "label": "", "name": "OptiScaler-F5-DLSSNR-Multipass-CN-v0.1.32-cn-0af315ae0e3e-fadc3bf67f6c.zip.sha256", "size": 141, "state": "uploaded"}, {"digest": "sha256:723f799ec6ec26070b07a8514daee8f9a07053b6df3997984fe524bea2ac436d", "id": 658560846, "label": "", "name": "build-metadata.json", "size": 4462, "state": "uploaded"}], "body": "## F5 \\u7b80\\u4f53\\u4e2d\\u6587\\u6d4b\\u8bd5\\u7248\\n\\n\\u8fd9\\u662f\\u793e\\u533a\\u6d4b\\u8bd5\\u7248\\uff08Pre-release\\uff09\\uff0c\\u56fa\\u5b9a\\u4e0a\\u6e38 F5 v0.1.32\\u3002\\u8bf7\\u5148\\u5907\\u4efd\\u539f\\u5b89\\u88c5\\uff0c\\u52ff\\u7528\\u4e8e\\u5e26\\u53cd\\u4f5c\\u5f0a\\u4fdd\\u62a4\\u7684\\u591a\\u4eba\\u6e38\\u620f\\u3002\\n\\n- \\u4e2d\\u6587\\u4ed3\\u5e93\\u63d0\\u4ea4\\uff1a`0af315ae0e3e7dd832aa75ca2b3db870e6b501bf`\\n- \\u56fa\\u5b9a\\u4e0a\\u6e38\\u63d0\\u4ea4\\uff1a`fadc3bf67f6c8548e94914baec3f2e551ba8d8a4`\\n- [\\u672c\\u6b21\\u6784\\u5efa\\u4e0e\\u68c0\\u67e5](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/actions/runs/39383653078)\\n- \\u5b89\\u88c5\\u5305\\uff1a`OptiScaler-F5-DLSSNR-Multipass-CN-v0.1.32-cn-0af315ae0e3e-fadc3bf67f6c.zip`\\n- \\u5b89\\u88c5\\u5305 SHA-256\\uff1a`85316e91fc6b068445569f5293e5718c9be69fa27ac4f7cfa34ec0a19fbe8389`\\n\\n### \\u5df2\\u5b8c\\u6210\\u7684\\u53d1\\u5e03\\u95e8\\u69db\\n\\n\\u540c\\u4e00\\u6b21\\u5de5\\u4f5c\\u6d41\\u4e2d\\u7684\\u53ef\\u79fb\\u690d\\u5951\\u7ea6\\u6d4b\\u8bd5\\u548c Windows MSVC v143 Release x64 \\u7f16\\u8bd1\\u6210\\u529f\\uff1b\\u5b89\\u88c5\\u5305\\u3001\\u5185\\u5916\\u5143\\u6570\\u636e\\u3001\\u9010\\u6587\\u4ef6 SHA-256\\u3001x64 DLL \\u6807\\u5934\\u548c\\u4e2d\\u6587\\u5b89\\u88c5\\u811a\\u672c\\u6307\\u7eb9\\u901a\\u8fc7\\u68c0\\u67e5\\u3002\\u53d1\\u5e03\\u524d\\u8fd8\\u4f1a\\u4e0b\\u8f7d\\u5e76\\u6838\\u5bf9\\u4e0a\\u4f20\\u8d44\\u4ea7\\u7684\\u5b9e\\u9645\\u5b57\\u8282\\u3002\\n\\n### \\u6d4b\\u8bd5\\u8303\\u56f4\\u4e0e\\u5b89\\u88c5\\u63d0\\u9192\\n\\n- Windows \\u7f16\\u8bd1\\u6210\\u529f\\u4e0d\\u7b49\\u4e8e\\u6e38\\u620f\\u5185\\u8fd0\\u884c\\u3001\\u753b\\u9762\\u6216\\u4e2d\\u6587\\u6392\\u7248\\u901a\\u8fc7\\u3002\\u6ca1\\u6709\\u6267\\u884c\\u5b9e\\u9645 GPU/\\u6e38\\u620f\\u9a8c\\u8bc1\\uff0c\\u4e5f\\u6ca1\\u6709\\u786e\\u8ba4\\u5168\\u90e8\\u4e3b\\u9898\\u3001\\u7f29\\u653e\\u3001GPU \\u6216\\u9a71\\u52a8\\u7ec4\\u5408\\u3002\\n- \\u672c\\u5305\\u91c7\\u7528 downloader-only \\u65b9\\u5f0f\\uff0c\\u4e0d\\u5305\\u542b\\u4e13\\u6709 `nvngx_dlssnr.dll`\\uff0c\\u4e5f\\u4e0d\\u9884\\u6253\\u5305\\u53ef\\u9009 NVIDIA DLSS/Streamline\\u3001Ampere MFG \\u6216\\u5916\\u90e8 vendor-neutral \\u7ec4\\u4ef6\\u3002\\u9700\\u8981\\u7684\\u4e13\\u6709\\u6a21\\u578b/\\u8fd0\\u884c\\u5e93\\u8bf7\\u6309\\u56fa\\u5b9a\\u4e0a\\u6e38\\u6307\\u5357\\u53e6\\u884c\\u53d6\\u5f97\\u5e76\\u6838\\u9a8c\\uff0c\\u8bb8\\u53ef\\u7531\\u4f7f\\u7528\\u8005\\u81ea\\u884c\\u786e\\u8ba4\\u3002\\n- \\u4e2d\\u6587\\u83dc\\u5355\\u9700\\u8981\\u7cfb\\u7edf\\u5df2\\u5b89\\u88c5\\u6216\\u81ea\\u884c\\u63d0\\u4f9b\\u517c\\u5bb9\\u4e14\\u8986\\u76d6\\u8bcd\\u5e93\\u7684\\u4e2d\\u6587\\u5b57\\u4f53\\uff1b\\u5305\\u5185\\u4e0d\\u9644\\u5e26 Windows \\u5b57\\u4f53\\uff0c\\u5b57\\u4f53\\u4e0d\\u53ef\\u7528\\u65f6\\u4f1a\\u56de\\u9000\\u82f1\\u6587\\u3002\\n- \\u4e0b\\u8f7d ZIP \\u53ca\\u540c\\u540d `.sha256`\\uff0c\\u6821\\u9a8c\\u540e\\u5b8c\\u6574\\u89e3\\u538b\\u5230\\u6e38\\u620f EXE \\u76ee\\u5f55\\u3002\\u4e2d\\u6587\\u5b89\\u88c5\\u5165\\u53e3\\u4e3a `setup_windows.bat`\\uff0c\\u8be6\\u7ec6\\u6b65\\u9aa4\\u89c1\\u5305\\u5185 `README.CN.zh-CN.md`\\u3002\\u4fdd\\u7559\\u539f\\u59cb\\u8bb8\\u53ef\\u548c\\u7f72\\u540d\\u3002\\n- \\u8bf7\\u7528\\u6e38\\u620f\\u540d\\u3001GPU\\u3001\\u9a71\\u52a8\\u3001\\u6e32\\u67d3 API\\u3001\\u8bed\\u8a00/\\u5b57\\u4f53/\\u4e3b\\u9898/\\u7f29\\u653e\\u3001\\u622a\\u56fe\\u53ca\\u590d\\u73b0\\u6b65\\u9aa4\\u53cd\\u9988\\u95ee\\u9898\\uff1b\\u5206\\u4eab\\u65e5\\u5fd7\\u524d\\u68c0\\u67e5\\u4e2a\\u4eba\\u8def\\u5f84\\u3002\\n\\n[\\u4e2d\\u6587\\u8bf4\\u660e](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/blob/0af315ae0e3e7dd832aa75ca2b3db870e6b501bf/README.zh-CN.md) \\u00b7 [\\u56fa\\u5b9a\\u4e0a\\u6e38\\u5b89\\u88c5\\u6307\\u5357](https://github.com/janblade/OptiScaler-F5-DLSSNR-Multipass/blob/fadc3bf67f6c8548e94914baec3f2e551ba8d8a4/INSTALL-DLSSNR.md)\\n\\n<!-- f5-cn-test-gate:v1 cn_commit=0af315ae0e3e7dd832aa75ca2b3db870e6b501bf assets_sha256=5138f5729b6d12296f947ca0fbd1d39491209837ee2eb2bbf3e99bfd7ece5d05 -->\\n\\n<!-- f5-cn-static-catalog-progress:begin -->\\n## \\u6c49\\u5316\\u8fdb\\u5ea6\\uff1a\\u9759\\u6001\\u8bcd\\u5e93\\u8986\\u76d6\\n\\n- \\u7edf\\u8ba1\\u5bf9\\u5e94\\u4e2d\\u6587\\u53d1\\u5e03\\u63d0\\u4ea4\\uff1a[`0af315ae0e3e7dd832aa75ca2b3db870e6b501bf`](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/commit/0af315ae0e3e7dd832aa75ca2b3db870e6b501bf)\\uff1b\\u4e0a\\u6e38\\u6e90\\u6587\\u63d0\\u4ea4\\uff1a`fadc3bf67f6c8548e94914baec3f2e551ba8d8a4`\\u3002\\n- \\u5f53\\u524d\\u6d3b\\u52a8\\u6761\\u76ee 2385\\uff1a\\u5df2\\u53d8\\u66f4\\u4e2d\\u6587\\u663e\\u793a\\u503c 2191\\uff0c\\u6709\\u610f\\u539f\\u6837\\u4fdd\\u7559\\u6280\\u672f\\u9879 194\\uff1b\\u7f3a\\u5931 0\\uff0c\\u8fc7\\u671f 0\\u3002\\u6709\\u6548\\u9759\\u6001\\u8bcd\\u5e93\\u8986\\u76d6 2385/2385\\uff08100.00%\\uff09\\u3002\\n- \\u6709\\u6548\\u6761\\u76ee\\u6cbf\\u7528\\u7684\\u72b6\\u6001\\uff1a`reviewed` 244\\uff0c`machine_translated` 2141\\u3002AI \\u7ffb\\u8bd1\\u3001AI \\u5ba1\\u6821\\u53ca\\u5176\\u590d\\u7528\\u9879\\u4ecd\\u4fdd\\u7559\\u673a\\u5668\\u72b6\\u6001\\uff0c\\u4e0d\\u5192\\u5145\\u672c\\u6b21\\u4eba\\u5de5\\u5ba1\\u6838\\u3002\\n- \\u672c\\u6b21 `pending.scan` \\u539f\\u59cb\\u8bb0\\u5f55\\uff1a\\u65b0\\u589e 0\\u3001\\u53d8\\u66f4 0\\u3001\\u79fb\\u9664 0\\uff1b\\u5404\\u81ea\\u53bb\\u91cd\\u952e\\u6570 0/0/0\\u3002\\u5176\\u4e2d\\u5f53\\u524d\\u6d3b\\u52a8\\u53bb\\u91cd\\u952e\\u6570 0/0/0\\uff1b\\u79fb\\u9664\\u8bb0\\u5f55\\u4e2d\\u5df2\\u5e9f\\u5f03\\u7684\\u53bb\\u91cd\\u952e\\u6570 0\\u3002\\n- \\u65b0\\u589e\\u6216\\u53d8\\u66f4\\u96c6\\u5408\\u4e2d\\u5f53\\u524d\\u6709\\u6548\\u7684\\u53bb\\u91cd\\u6761\\u76ee 0\\uff08\\u65b0\\u589e\\u4e0e\\u53d8\\u66f4\\u53d6\\u5e76\\u96c6\\uff0c\\u7f3a\\u5931/\\u8fc7\\u671f\\u4e0d\\u8ba1\\u5165\\uff1b\\u4e0d\\u4ee3\\u8868\\u4e0e\\u524d\\u4e00\\u7248\\u76f8\\u6bd4\\u65b0\\u589e\\u4e86\\u540c\\u7b49\\u6570\\u91cf\\u7684\\u8bd1\\u6587\\uff09\\u3002\\n- \\u8bc1\\u636e\\uff1a[\\u8986\\u76d6\\u4e0e\\u9a8c\\u6536\\u6e05\\u5355](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/blob/0af315ae0e3e7dd832aa75ca2b3db870e6b501bf/COVERAGE.md)\\u3001[\\u62a5\\u544a\\u76ee\\u5f55](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/tree/0af315ae0e3e7dd832aa75ca2b3db870e6b501bf/reports)\\u3001[\\u6280\\u672f\\u9879\\u4fdd\\u7559\\u7406\\u7531](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/blob/0af315ae0e3e7dd832aa75ca2b3db870e6b501bf/Localization/retained-English.json)\\u3002\\u672c\\u8282\\u6570\\u5b57\\u4ece\\u8be5\\u63d0\\u4ea4\\u8bcd\\u5e93\\u5b9e\\u65f6\\u8ba1\\u7b97\\uff0c\\u4e0d\\u6cbf\\u7528\\u62a5\\u544a\\u4e2d\\u7684\\u5386\\u53f2\\u8ba1\\u6570\\u3002\\n\\n\\u4ee5\\u4e0a\\u662f\\u9759\\u6001\\u5019\\u9009\\u8bcd\\u5e93\\u8986\\u76d6\\uff0c\\u4e0d\\u662f\\u6240\\u6709\\u8fd0\\u884c\\u65f6 UI \\u7684\\u7a77\\u4e3e\\u8986\\u76d6\\u3002\\u672a\\u6267\\u884c\\u5b9e\\u9645 GPU/\\u6e38\\u620f/\\u89c6\\u89c9\\u9a8c\\u6536\\uff1b\\u6784\\u5efa\\u4e0e\\u9759\\u6001\\u68c0\\u67e5\\u4e0d\\u80fd\\u4ee3\\u66ff\\u6e38\\u620f\\u6e32\\u67d3\\u3001\\u6027\\u80fd\\u3001\\u4e2d\\u6587\\u6392\\u7248\\u3001\\u88c1\\u5207\\u3001\\u5b57\\u4f53\\u548c\\u7f29\\u653e\\u9a8c\\u6536\\uff0c\\u672a\\u77e5\\u5916\\u90e8\\u8bca\\u65ad\\u4ecd\\u53ef\\u80fd\\u663e\\u793a\\u82f1\\u6587\\u3002\\n<!-- f5-cn-static-catalog-progress:end -->\\n\\n<!-- f5-cn-sync:v1 identity=3337818d0c58bdcb5fee962a9530e65a614265a195189e0777ad1289b6e5cf70 cn_commit=0af315ae0e3e7dd832aa75ca2b3db870e6b501bf -->\\n", "draft": false, "id": 418100340, "name": "OptiScaler F5 \\u7b80\\u4f53\\u4e2d\\u6587\\u6d4b\\u8bd5\\u7248 cn-test-fadc3bf67f6c-0af315ae0e3e", "prerelease": true, "tag_name": "cn-test-fadc3bf67f6c-0af315ae0e3e", "target_commitish": "0af315ae0e3e7dd832aa75ca2b3db870e6b501bf"}], "patch": {"body": "## \\u7248\\u672c\\u8bf4\\u660e\\n\\u4e0a\\u6e38\\u6784\\u5efa\\u63d0\\u4ea4 4d72d53e \\u6bd4\\u6b63\\u5f0f v0.1.35.1 \\u6807\\u7b7e\\u591a\\u4e00\\u4e2a\\u5408\\u5e76\\u63d0\\u4ea4\\uff0c\\u4f46\\u6e90\\u7801\\u6811\\u5b8c\\u5168\\u76f8\\u540c\\u3002\\u672c\\u5305\\u73b0\\u4e3a\\u793e\\u533a\\u6b63\\u5f0f\\u6c49\\u5316\\u53d1\\u5e03\\uff0c\\u4e0d\\u662f\\u4e0a\\u6e38\\u5b98\\u65b9\\u53d1\\u884c\\u3002\\n\\n\\u6c49\\u5316\\u66f4\\u65b0\\u6807\\u8bc6\\uff1a2026-11-01\\uff08\\u5317\\u4eac\\u65f6\\u95f4\\uff09\\u3002\\u8fd9\\u662f\\u540c\\u4e00\\u6279\\u5df2\\u6784\\u5efa\\u3001\\u5df2\\u9a8c\\u6536\\u6587\\u4ef6\\u7684\\u547d\\u540d\\u4e0e\\u53d1\\u5e03\\u72b6\\u6001\\u4fee\\u6b63\\uff0c\\u6ca1\\u6709\\u91cd\\u65b0\\u7f16\\u8bd1\\u3001\\u91cd\\u6253\\u5305\\u6216\\u4fee\\u6539\\u7a0b\\u5e8f\\u5185\\u5bb9\\u3002\\n\\n## \\u4e0b\\u8f7d\\u4e0e\\u6821\\u9a8c\\n\\u8bf7\\u6309\\u6587\\u4ef6\\u540d\\u4e2d\\u7684\\u4ea7\\u54c1\\u7248\\u672c\\u548c\\u5305\\u7c7b\\u578b\\u4e0b\\u8f7d\\uff1b\\u4f7f\\u7528\\u9644\\u4ef6 **CURRENT-DOWNLOAD-SHA256SUMS.txt** \\u6821\\u9a8c\\u5f53\\u524d\\u4e0b\\u8f7d\\u6587\\u4ef6\\u3002\\n\\u539f\\u59cb SHA256SUMS\\u3001provenance.json\\u3001build-metadata.json\\uff08\\u5982\\u6709\\uff09\\u53ca .sha256\\uff08\\u5982\\u6709\\uff09\\u5747\\u539f\\u6837\\u4fdd\\u7559\\uff0c\\u662f\\u521d\\u6b21\\u6784\\u5efa/\\u53d1\\u5e03\\u7684\\u5386\\u53f2\\u8bc1\\u636e\\uff0c\\u53ef\\u80fd\\u5f15\\u7528\\u65e7\\u6587\\u4ef6\\u540d\\u6216\\u521d\\u6b21\\u5019\\u9009\\u72b6\\u6001\\uff0c\\u4e0d\\u4f5c\\u4e3a\\u5f53\\u524d\\u547d\\u540d\\u8bf4\\u660e\\u3002\\n\\n## \\u9a8c\\u8bc1\\u8303\\u56f4\\nWindows CI\\u3001\\u81ea\\u52a8\\u6d4b\\u8bd5\\u3001\\u5305\\u5b8c\\u6574\\u6027\\u53ca\\u54c8\\u5e0c\\u68c0\\u67e5\\u5df2\\u901a\\u8fc7\\u3002\\u5c1a\\u672a\\u8fdb\\u884c\\u771f\\u5b9e\\u6e38\\u620f\\u3001GPU \\u6216 GUI \\u89c6\\u89c9\\u8fd0\\u884c\\u9a8c\\u8bc1\\uff1b\\u6b63\\u5f0f\\u6c49\\u5316\\u53d1\\u5e03\\u4e0d\\u8868\\u793a\\u627f\\u8bfa\\u6240\\u6709\\u6e38\\u620f\\u517c\\u5bb9\\uff0c\\u4e5f\\u4e0d\\u8868\\u793a\\u6240\\u6709\\u52a8\\u6001\\u6587\\u672c\\u5df2\\u4eba\\u5de5\\u9010\\u5c4f\\u6838\\u9a8c\\u3002\\n\\n## \\u6587\\u4ef6\\u540d\\u5bf9\\u7167\\n- `OptiScaler-F5-DLSSNR-Multipass-CN-main-4d72d53e521b-cn-87e7c9120554-4d72d53e521b.zip` \\u2192 `OptiScaler-F5-DLSSNR-Multipass-CN-v0.1.35.1-zh20261101.zip`\\n\\nRelease \\u9875\\u9762\\u3001\\u6807\\u7b7e\\u3001\\u6e90\\u4ee3\\u7801\\u63d0\\u4ea4\\u53ca\\u539f\\u6709\\u6587\\u4ef6 asset ID \\u4fdd\\u6301\\u4e0d\\u53d8\\uff1b\\u4e0b\\u8f7d\\u6587\\u4ef6\\u6539\\u540d\\u540e\\uff0c\\u65e7\\u6587\\u4ef6\\u540d\\u7684\\u76f4\\u63a5\\u4e0b\\u8f7d\\u94fe\\u63a5\\u53ef\\u80fd\\u5931\\u6548\\uff0c\\u8bf7\\u4ece\\u672c\\u53d1\\u5e03\\u9875\\u4f7f\\u7528\\u65b0\\u94fe\\u63a5\\u3002\\u6807\\u7b7e\\u4e2d\\u7684 candidate \\u662f\\u4fdd\\u7559\\u7684\\u5386\\u53f2\\u5b9a\\u4f4d\\u7b26\\uff0c\\u5f53\\u524d\\u53d1\\u5e03\\u6027\\u8d28\\u4ee5\\u672c\\u9875\\u6807\\u8bb0\\u548c\\u7248\\u672c\\u8bf4\\u660e\\u4e3a\\u51c6\\u3002\\u65e7\\u7248\\u53d1\\u5e03\\u4e0e\\u9644\\u4ef6\\u672a\\u4fee\\u6539\\u3002\\n\\n## \\u6784\\u5efa\\u6765\\u6e90\\n- \\u6c49\\u5316\\u6e90\\u63d0\\u4ea4\\uff1a`8a18828f10db42e3b27b175731a7c0a17d1b7b51`\\n- \\u5b9e\\u9645 CI checkout\\uff1a`87e7c91205543e39f89e27d2ddc9847288f9e10c`\\n- \\u6e90\\u7801\\u6811\\uff1a`e236ea6f55e3fdafb4e2be74c35e435f14cfacd1`\\n- \\u4e0a\\u6e38\\u63d0\\u4ea4\\uff1a`4d72d53e521b34a5cda9dd4f63ee7f4cd0438035`\\n\\nF5 \\u5305\\u4fdd\\u6301 downloader-only\\uff0c\\u4e0d\\u5185\\u7f6e\\u79c1\\u6709 DLSSNR \\u8fd0\\u884c\\u5e93\\uff1b\\u539f\\u6784\\u5efa\\u5143\\u6570\\u636e\\u8bb0\\u5f55\\u4e86\\u53e6\\u5916\\u56fa\\u5b9a\\u7684\\u6df7\\u5408\\u8fd0\\u884c\\u65f6\\u8d44\\u6e90\\u6765\\u6e90\\uff0c\\u4e0d\\u6539\\u53d8 F5 \\u6e90\\u7801\\u6765\\u6e90\\u3002\\u672a\\u77e5\\u5916\\u90e8\\u8fd0\\u884c\\u65f6\\u8bca\\u65ad\\u53ca\\u5305\\u542b\\u7528\\u6237\\u6570\\u636e\\u7684\\u4e2a\\u522b\\u52a8\\u6001\\u5185\\u5bb9\\u53ef\\u80fd\\u56de\\u9000\\u82f1\\u6587\\u3002\\n", "draft": false, "make_latest": "true", "name": "OptiScaler F5 CN 0.1.35.1 \\u00b7 \\u6c49\\u5316\\u66f4\\u65b0 2026-11-01", "prerelease": false}, "publish_branch": "release-metadata/20261101-8a18828f", "release": {"assets": [{"digest": "sha256:12545ad9eacfc892d9a36060d048b0c5e751bc015bebe65e776cf3af29b86955", "id": 695993754, "label": "", "name": "OptiScaler-F5-DLSSNR-Multipass-CN-main-4d72d53e521b-cn-87e7c9120554-4d72d53e521b.zip", "size": 177329705, "state": "uploaded"}, {"digest": "sha256:81b54f4b025c5010fe1fb5239bbdb3660fab17d821096e65dd62271df07ed8c0", "id": 695993974, "label": "", "name": "OptiScaler-F5-DLSSNR-Multipass-CN-main-4d72d53e521b-cn-87e7c9120554-4d72d53e521b.zip.sha256", "size": 151, "state": "uploaded"}, {"digest": "sha256:93462716e45a71a9348580063d0595a952401d3cee6884f181ef34e0215c1240", "id": 695993998, "label": "", "name": "build-metadata.json", "size": 4493, "state": "uploaded"}, {"digest": "sha256:e34039d97e763b99aed4d65d8e95baec3b2782f23c480f3110a3e282fa89b0cc", "id": 695994010, "label": "", "name": "provenance.json", "size": 3404, "state": "uploaded"}, {"digest": "sha256:02d9bb572073aa5982af9cb5dfe70196ff49221b66e11c18c888b5c875b46662", "id": 695994023, "label": "", "name": "SHA256SUMS", "size": 477, "state": "uploaded"}], "body": "Candidate prerelease of reviewed localization maintenance; not a stable release.\\nSource: 8a18828f10db42e3b27b175731a7c0a17d1b7b51\\nActual CI checkout: 87e7c91205543e39f89e27d2ddc9847288f9e10c\\nCommon tree: e236ea6f55e3fdafb4e2be74c35e435f14cfacd1\\nUpstream: 4d72d53e521b34a5cda9dd4f63ee7f4cd0438035\\nWindows CI and package checks passed. Game/GPU/UI visual runtime validation not performed.\\nNo previous release is replaced.\\nVariant: downloader-only. Fixed upstream janblade/F5 source; metadata records separately pinned hybrid runtime assets from the PreSR release archive, not a substitution of the F5 source. The original package, checksum sidecar and build-metadata are retained unchanged.\\n", "draft": false, "id": 430077502, "name": "OptiScaler-F5-DLSSNR-Multipass-CN 2026-10-31 candidate 8a18828f", "prerelease": true, "tag_name": "cn-candidate-20261031-8a18828f", "target_commitish": "8a18828f10db42e3b27b175731a7c0a17d1b7b51"}, "repository": "Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN", "runs": [{"head_sha": "8a18828f10db42e3b27b175731a7c0a17d1b7b51", "id": 41222613411, "run_attempt": 1}], "workflow_path": ".github/workflows/correct-release-metadata-20261101.yml"}')
+          try:
+           correction_main(MANIFEST,'verify')
+          except Stop as ex:
+           print(str(ex),file=sys.stderr)
+           sys.exit(1)
+          PY
+  correct:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    needs: verify
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - name: Fixed release correct
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          """One-shot candidate retention. Stdlib only; no artifact code execution.
+          CI entry is generated inline with an immutable per-repository manifest.
+          """
+          import hashlib,io,json,os,posixpath,re,stat,sys,urllib.request,urllib.error,urllib.parse,zipfile
+          class Stop(RuntimeError):pass
+          def require(ok,message):
+           if not ok:raise Stop(message)
+          def sha(data):return hashlib.sha256(data).hexdigest()
+          def extract_assets(blob,m):
+           require(len(blob)==m['artifact']['size_in_bytes'],'archive size mismatch')
+           require('sha256:'+sha(blob)==m['artifact']['digest'],'archive hash mismatch')
+           with zipfile.ZipFile(io.BytesIO(blob)) as z:
+            infos=z.infolist();require(len(infos)<=4096,'too many members');seen=set();total=0
+            for i in infos:
+             n=i.filename
+             require(n and not n.startswith('/') and '\\' not in n and ':' not in n and not any(p in ('..','.','') for p in n.rstrip('/').split('/')),'unsafe zip path')
+             require(n not in seen,'duplicate member');seen.add(n)
+             mode=i.external_attr>>16
+             require(stat.S_IFMT(mode) in (0,stat.S_IFREG,stat.S_IFDIR),'nonregular zip entry')
+             require(not i.flag_bits&1,'encrypted entry')
+             total+=i.file_size
+             require(total<=1024*1024*1024 and i.file_size<=512*1024*1024,'archive expansion limit')
+             require(i.file_size<=max(1,i.compress_size)*1000,'compression ratio limit')
+            result={}
+            for a in m['assets']:
+             require(re.fullmatch(r'[A-Za-z0-9_.-]+',a['name']) and a['name'] not in result,'unsafe asset name')
+             require(a['member'] in seen,'missing asset')
+             data=z.read(a['member']);require(len(data)==a['size'] and sha(data)==a['sha256'],'asset mismatch')
+             result[a['name']]=data
+            return result
+          
+          def guard(m,e,event):
+           expected={'GITHUB_ACTIONS':'true','GITHUB_EVENT_NAME':'push','GITHUB_REPOSITORY':m['repository'],'GITHUB_REF':'refs/heads/'+m['publish_branch'],'GITHUB_RUN_ATTEMPT':'1','GITHUB_WORKFLOW_REF':m['repository']+'/'+m['workflow_path']+'@refs/heads/'+m['publish_branch']}
+           for k,v in expected.items():require(e.get(k)==v,'context mismatch: '+k)
+           require(re.fullmatch('[0-9a-f]{40}',e.get('GITHUB_SHA','')),'invalid publisher sha')
+           require(event.get('after')==e['GITHUB_SHA'] and event.get('before')==m['head'],'publisher must be single push after reviewed source')
+           require(event.get('forced') is False and event.get('deleted') is False,'forced/deleted event')
+           require(event.get('repository',{}).get('full_name')==m['repository'],'event repository mismatch')
+          
+          class NoRedirect(urllib.request.HTTPRedirectHandler):
+           def redirect_request(self,*args,**kwargs):return None
+          class API:
+           def __init__(self,token,write=False):self.token=token;self.write=write;self.opener=urllib.request.build_opener(NoRedirect)
+           def request(self,method,path,body=None,binary=False):
+            require(method=='GET' or self.write,'read-only API')
+            url=path if path.startswith('https://') else 'https://api.github.com'+path
+            u=urllib.parse.urlsplit(url);require(u.scheme=='https' and u.hostname in ('api.github.com','uploads.github.com') and not u.username,'untrusted API endpoint')
+            data=body if isinstance(body,bytes) else json.dumps(body).encode() if body is not None else None
+            # Actions artifact archives negotiate a JSON API redirect; release assets use octet-stream.
+            accept='application/octet-stream' if binary and re.fullmatch(r'/repos/[^/]+/[^/]+/releases/assets/[0-9]+',u.path) else 'application/vnd.github+json'
+            endpoint=method+' '+u.path
+            print('GitHub request:',endpoint,flush=True)
+            headers={'Authorization':'Bearer '+self.token,'Accept':accept,'X-GitHub-Api-Version':'2022-11-28','Content-Type':'application/octet-stream' if isinstance(body,bytes) else 'application/json'}
+            try:
+             response=self.opener.open(urllib.request.Request(url,data=data,method=method,headers=headers),timeout=180)
+            except urllib.error.HTTPError as ex:
+             if ex.code==404 and method=='GET' and not binary:return None
+             if ex.code in (301,302,303,307,308) and method=='GET' and binary:
+              target=ex.headers.get('Location','');host=urllib.parse.urlsplit(target)
+              require(host.scheme=='https' and not host.username and host.hostname and (host.hostname.endswith('.blob.core.windows.net') or host.hostname=='release-assets.githubusercontent.com' or host.hostname.endswith('.githubusercontent.com')),'untrusted download redirect')
+              # Fresh request without Authorization; no automatic chained redirects.
+              try:response=self.opener.open(urllib.request.Request(target,headers={'Accept':'application/octet-stream'}),timeout=180)
+              except Exception:raise Stop('redirected download failed (URL redacted)') from None
+             else:raise Stop('GitHub HTTP '+str(ex.code)+' at '+endpoint+' (body/query redacted)') from None
+            except Exception:raise Stop('GitHub request failed at '+endpoint+' (details redacted)') from None
+            with response:
+             data=response.read(512*1024*1024+1);require(len(data)<=512*1024*1024,'response exceeds limit')
+            return data if binary else json.loads(data)
+          
+          def verify_publisher(api,m,publisher):
+           root='/repos/'+m['repository']
+           ref=api.request('GET',root+'/git/ref/heads/'+m['publish_branch'])
+           require(ref and ref['object']['sha']==publisher,'publisher branch changed')
+           commit=api.request('GET',root+'/commits/'+publisher)
+           require(commit and [p['sha'] for p in commit['parents']]==[m['head']],'publisher parent mismatch')
+           require(len(commit['files'])==1 and commit['files'][0]['filename']==m['workflow_path'] and commit['files'][0]['status']=='added','publisher must only add fixed workflow')
+          
+          # Only the fixed metadata correction writes below are permitted.
+          RELEASE_KEYS=('id','tag_name','target_commitish','name','body','draft','prerelease')
+          ASSET_KEYS=('id','name','label','size','digest','state')
+          def asset_snapshot(a):
+           out={k:a.get(k) for k in ASSET_KEYS}
+           # GitHub uses either null or empty string for an asset without a display label.
+           if out['label'] is None:out['label']=''
+           return out
+          def release_snapshot(r):
+           return {**{k:r.get(k) for k in RELEASE_KEYS},'assets':sorted((asset_snapshot(a) for a in r['assets']),key=lambda a:a['id'])}
+          def validate_manifest(m):
+           a={a['id']:a for a in m['release']['assets']};require(len(a)==len(m['release']['assets']),'duplicate original assets')
+           require(len({c['id'] for c in m['changes']})==len(m['changes']),'duplicate change id')
+           changed={}
+           for c in m['changes']:
+            require(c['id'] in a,'unknown asset id');require(set(c)=={'id','name','label'},'unexpected asset changes')
+            require(re.fullmatch(r'[A-Za-z0-9_.-]+',c['name']) and c['name'] not in ('.','..'),'unsafe name');changed[c['id']]=c
+           names=[changed.get(i,x)['name'] for i,x in a.items()]
+           require(len(set(names))==len(names),'asset name collision')
+           require(m['checksum']['name']=='CURRENT-DOWNLOAD-SHA256SUMS.txt' and m['checksum']['name'] not in names,'checksum collision')
+           packages=[(changed.get(i,x)['name'],x['digest']) for i,x in a.items() if x['name'].endswith(('.zip','.exe'))]
+           require(packages and all(re.fullmatch('sha256:[0-9a-f]{64}',d) for n,d in packages),'missing package digest')
+           require(m['checksum']['text']==''.join(d[7:]+'  '+n+'\n' for n,d in sorted(packages)),'checksum content mismatch')
+           require(set(m['patch'])=={'name','body','prerelease','draft','make_latest'} and m['patch']['draft'] is False,'invalid release patch')
+           require((m['patch']['prerelease'],m['patch']['make_latest']) in ((True,'false'),(False,'true')),'latest/prerelease mismatch')
+          
+          def authorize_write(m,method,path,body):
+           root='/repos/'+m['repository'];rid=str(m['release']['id'])
+           if method=='PATCH' and path==root+'/releases/'+rid:
+            require(body==m['patch'],'release patch mismatch');return
+           for c in m['changes']:
+            if method=='PATCH' and path==root+'/releases/assets/'+str(c['id']):
+             require(body=={'name':c['name'],'label':c['label']},'asset patch mismatch');return
+           url='https://uploads.github.com'+root+'/releases/'+rid+'/assets?name='+m['checksum']['name']
+           if method=='POST' and path==url:
+            require(body==m['checksum']['text'].encode(),'checksum bytes mismatch');return
+           raise Stop('write outside exact correction scope')
+          
+          class CorrectionAPI(API):
+           def __init__(self,token,m,write=False):super().__init__(token,write);self.m=m
+           def request(self,method,path,body=None,binary=False):
+            if method!='GET':authorize_write(self.m,method,path,body)
+            return super().request(method,path,body,binary)
+          
+          def verify_identity(api,m):
+           root='/repos/'+m['repository']
+           tag=api.request('GET',root+'/git/ref/tags/'+urllib.parse.quote(m['release']['tag_name'],safe=''))
+           require(tag and tag['object']['type']=='commit' and tag['object']['sha']==m['head'],'tag target changed')
+           main=api.request('GET',root+'/git/ref/heads/main');require(main and main['object']['sha']==m['main'],'main changed')
+           for run in m['runs']:
+            got=api.request('GET',root+'/actions/runs/'+str(run['id']))
+            require(got and all(got.get(k)==run[k] for k in ('id','head_sha','run_attempt')) and got['repository']['full_name']==m['repository'] and got['status']=='completed' and got['conclusion']=='success','original CI binding changed')
+          
+          def verify_history(api,m):
+           root='/repos/'+m['repository']
+           for expected in m['old_releases']:
+            actual=api.request('GET',root+'/releases/'+str(expected['id']))
+            require(actual and release_snapshot(actual)==expected,'historical release changed')
+          
+          def latest_id(api,m):
+           got=api.request('GET','/repos/'+m['repository']+'/releases/latest');return got['id'] if got else None
+          
+          def verify(api,m):
+           validate_manifest(m);verify_identity(api,m);verify_history(api,m)
+           require(latest_id(api,m)==m['latest_before'],'latest changed')
+           got=api.request('GET','/repos/'+m['repository']+'/releases/'+str(m['release']['id']))
+           require(got and release_snapshot(got)==release_snapshot(m['release']),'release snapshot changed')
+           require(not got.get('immutable',False),'release is immutable')
+           return got
+          
+          def expected_assets(m,checksum_id=None):
+           out={a['id']:asset_snapshot(a) for a in m['release']['assets']}
+           for c in m['changes']:out[c['id']].update(c)
+           if checksum_id is not None:
+            data=m['checksum']['text'].encode();out[checksum_id]={'id':checksum_id,'name':m['checksum']['name'],'label':'','size':len(data),'digest':'sha256:'+sha(data),'state':'uploaded'}
+           return sorted(out.values(),key=lambda a:a['id'])
+          
+          def verify_assets(api,m,checksum_id=None):
+           got=api.request('GET','/repos/'+m['repository']+'/releases/'+str(m['release']['id'])+'/assets?per_page=100')
+           require(isinstance(got,list) and sorted((asset_snapshot(a) for a in got),key=lambda a:a['id'])==expected_assets(m,checksum_id),'corrected assets mismatch')
+          
+          def correct(api,m):
+           verify(api,m);root='/repos/'+m['repository'];rid=str(m['release']['id']);last='none'
+           try:
+            for c in m['changes']:
+             path=root+'/releases/assets/'+str(c['id']);body={'name':c['name'],'label':c['label']}
+             authorize_write(m,'PATCH',path,body);last='asset PATCH '+str(c['id'])
+             result=api.request('PATCH',path,body)
+             expected=next(a for a in expected_assets(m) if a['id']==c['id'])
+             require(asset_snapshot(result)==expected,'asset PATCH response mismatch')
+            verify_assets(api,m)
+            data=m['checksum']['text'].encode();url='https://uploads.github.com'+root+'/releases/'+rid+'/assets?name='+m['checksum']['name']
+            authorize_write(m,'POST',url,data);last='checksum upload'
+            added=api.request('POST',url,data);newid=added['id']
+            require(newid not in {a['id'] for a in m['release']['assets']},'checksum id collision')
+            verify_assets(api,m,newid)
+            verify_identity(api,m);verify_history(api,m)
+            require(latest_id(api,m)==m['latest_before'],'latest changed before final PATCH')
+            current=api.request('GET',root+'/releases/'+rid)
+            require(all(current.get(k)==m['release'].get(k) for k in RELEASE_KEYS),'release metadata changed before final PATCH')
+            path=root+'/releases/'+rid;authorize_write(m,'PATCH',path,m['patch']);last='final release PATCH'
+            api.request('PATCH',path,m['patch'])
+            final=api.request('GET',path)
+            require(all(final.get(k)==m['release'].get(k) for k in ('id','tag_name','target_commitish')),'release identity changed')
+            require(all(final.get(k)==m['patch'][k] for k in ('name','body','draft','prerelease')),'final release metadata mismatch')
+            verify_assets(api,m,newid);verify_identity(api,m);verify_history(api,m)
+            require(latest_id(api,m)==(m['release']['id'] if m['patch']['make_latest']=='true' else m['latest_before']),'final latest mismatch')
+            print('CORRECTION_VERIFIED',json.dumps({'repository':m['repository'],'release_id':m['release']['id'],'title':m['patch']['name'],'prerelease':m['patch']['prerelease'],'checksum_asset_id':newid}))
+            return final
+           except Exception as ex:
+            raise Stop('correction outcome may be partial or uncertain after '+last+'; do not retry automatically; reconcile fixed release/asset IDs first'+('; '+str(ex) if isinstance(ex,Stop) else '')) from None
+          
+          def correction_main(m,mode):
+           guard(m,os.environ,json.load(open(os.environ['GITHUB_EVENT_PATH'])))
+           require(mode in ('verify','correct'),'invalid mode')
+           api=CorrectionAPI(os.environ['GITHUB_TOKEN'],m,write=mode=='correct')
+           verify_publisher(api,m,os.environ['GITHUB_SHA'])
+           if mode=='verify':verify(api,m);print('READ_ONLY_CORRECTION_CHECK_PASSED',m['repository'])
+           else:correct(api,m)
+          
+          MANIFEST=json.loads('{"changes": [{"id": 695993998, "label": "\\u539f\\u59cb\\u6784\\u5efa\\u5143\\u6570\\u636e\\uff08\\u5185\\u5bb9\\u672a\\u4fee\\u6539\\uff09", "name": "build-metadata.json"}, {"id": 695993754, "label": "OptiScaler F5 CN 0.1.35.1 \\u00b7 \\u6b63\\u5f0f\\u6c49\\u5316\\u5305", "name": "OptiScaler-F5-DLSSNR-Multipass-CN-v0.1.35.1-zh20261101.zip"}, {"id": 695993974, "label": "\\u539f\\u59cb\\u5305\\u6821\\u9a8c\\u8bb0\\u5f55\\uff08\\u65e7\\u6587\\u4ef6\\u540d\\uff09\\uff1b\\u5f53\\u524d\\u4e0b\\u8f7d\\u8bf7\\u7528 CURRENT-DOWNLOAD-SHA256SUMS.txt", "name": "OptiScaler-F5-DLSSNR-Multipass-CN-main-4d72d53e521b-cn-87e7c9120554-4d72d53e521b.zip.sha256"}, {"id": 695994010, "label": "\\u539f\\u59cb\\u6784\\u5efa\\u6765\\u6e90\\u8bb0\\u5f55\\uff08\\u4fdd\\u7559\\u65e7\\u6587\\u4ef6\\u540d\\u4e0e\\u521d\\u6b21\\u53d1\\u5e03\\u72b6\\u6001\\uff09", "name": "provenance.json"}, {"id": 695994023, "label": "\\u539f\\u59cb\\u6784\\u5efa\\u6821\\u9a8c\\u8bb0\\u5f55\\uff08\\u65e7\\u6587\\u4ef6\\u540d\\uff09\\uff1b\\u5f53\\u524d\\u4e0b\\u8f7d\\u8bf7\\u7528 CURRENT-DOWNLOAD-SHA256SUMS.txt", "name": "SHA256SUMS"}], "checksum": {"name": "CURRENT-DOWNLOAD-SHA256SUMS.txt", "text": "12545ad9eacfc892d9a36060d048b0c5e751bc015bebe65e776cf3af29b86955  OptiScaler-F5-DLSSNR-Multipass-CN-v0.1.35.1-zh20261101.zip\\n"}, "head": "8a18828f10db42e3b27b175731a7c0a17d1b7b51", "latest_before": null, "main": "0af315ae0e3e7dd832aa75ca2b3db870e6b501bf", "old_releases": [{"assets": [{"digest": "sha256:3246a0b274636d62e2dcb1e4193b61ebcdcc0f20e482c854ba3fd4b3a74446ce", "id": 658409487, "label": "", "name": "OptiScaler-F5-DLSSNR-Multipass-CN-v0.1.32-cn-6c9128d67a8f-fadc3bf67f6c.zip", "size": 175831647, "state": "uploaded"}, {"digest": "sha256:22d02c76721c72f1ce012dc93c700551ab2b37c3fe4c688c83c10705e5969492", "id": 658409699, "label": "", "name": "OptiScaler-F5-DLSSNR-Multipass-CN-v0.1.32-cn-6c9128d67a8f-fadc3bf67f6c.zip.sha256", "size": 141, "state": "uploaded"}, {"digest": "sha256:478dbe51cfbb271328dc43fc0314092d345e84a10545c273615aab4c70daaf4a", "id": 658409749, "label": "", "name": "build-metadata.json", "size": 4463, "state": "uploaded"}], "body": "## F5 \\u7b80\\u4f53\\u4e2d\\u6587\\u6d4b\\u8bd5\\u7248\\n\\n\\u8fd9\\u662f\\u793e\\u533a\\u6d4b\\u8bd5\\u7248\\uff08Pre-release\\uff09\\uff0c\\u56fa\\u5b9a\\u4e0a\\u6e38 F5 v0.1.32\\u3002\\u8bf7\\u5148\\u5907\\u4efd\\u539f\\u5b89\\u88c5\\uff0c\\u52ff\\u7528\\u4e8e\\u5e26\\u53cd\\u4f5c\\u5f0a\\u4fdd\\u62a4\\u7684\\u591a\\u4eba\\u6e38\\u620f\\u3002\\n\\n- \\u4e2d\\u6587\\u4ed3\\u5e93\\u63d0\\u4ea4\\uff1a`6c9128d67a8fb5a21303fabb8affd032806ab862`\\n- \\u56fa\\u5b9a\\u4e0a\\u6e38\\u63d0\\u4ea4\\uff1a`fadc3bf67f6c8548e94914baec3f2e551ba8d8a4`\\n- [\\u672c\\u6b21\\u6784\\u5efa\\u4e0e\\u68c0\\u67e5](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/actions/runs/39376131865)\\n- \\u5b89\\u88c5\\u5305\\uff1a`OptiScaler-F5-DLSSNR-Multipass-CN-v0.1.32-cn-6c9128d67a8f-fadc3bf67f6c.zip`\\n- \\u5b89\\u88c5\\u5305 SHA-256\\uff1a`3246a0b274636d62e2dcb1e4193b61ebcdcc0f20e482c854ba3fd4b3a74446ce`\\n\\n### \\u5df2\\u5b8c\\u6210\\u7684\\u53d1\\u5e03\\u95e8\\u69db\\n\\n\\u540c\\u4e00\\u6b21\\u5de5\\u4f5c\\u6d41\\u4e2d\\u7684\\u53ef\\u79fb\\u690d\\u5951\\u7ea6\\u6d4b\\u8bd5\\u548c Windows MSVC v143 Release x64 \\u7f16\\u8bd1\\u6210\\u529f\\uff1b\\u5b89\\u88c5\\u5305\\u3001\\u5185\\u5916\\u5143\\u6570\\u636e\\u3001\\u9010\\u6587\\u4ef6 SHA-256\\u3001x64 DLL \\u6807\\u5934\\u548c\\u4e2d\\u6587\\u5b89\\u88c5\\u811a\\u672c\\u6307\\u7eb9\\u901a\\u8fc7\\u68c0\\u67e5\\u3002\\u53d1\\u5e03\\u524d\\u8fd8\\u4f1a\\u4e0b\\u8f7d\\u5e76\\u6838\\u5bf9\\u4e0a\\u4f20\\u8d44\\u4ea7\\u7684\\u5b9e\\u9645\\u5b57\\u8282\\u3002\\n\\n### \\u6d4b\\u8bd5\\u8303\\u56f4\\u4e0e\\u5b89\\u88c5\\u63d0\\u9192\\n\\n- Windows \\u7f16\\u8bd1\\u6210\\u529f\\u4e0d\\u7b49\\u4e8e\\u6e38\\u620f\\u5185\\u8fd0\\u884c\\u3001\\u753b\\u9762\\u6216\\u4e2d\\u6587\\u6392\\u7248\\u901a\\u8fc7\\u3002\\u6ca1\\u6709\\u6267\\u884c\\u5b9e\\u9645 GPU/\\u6e38\\u620f\\u9a8c\\u8bc1\\uff0c\\u4e5f\\u6ca1\\u6709\\u786e\\u8ba4\\u5168\\u90e8\\u4e3b\\u9898\\u3001\\u7f29\\u653e\\u3001GPU \\u6216\\u9a71\\u52a8\\u7ec4\\u5408\\u3002\\n- \\u672c\\u5305\\u91c7\\u7528 downloader-only \\u65b9\\u5f0f\\uff0c\\u4e0d\\u5305\\u542b\\u4e13\\u6709 `nvngx_dlssnr.dll`\\uff0c\\u4e5f\\u4e0d\\u9884\\u6253\\u5305\\u53ef\\u9009 NVIDIA DLSS/Streamline\\u3001Ampere MFG \\u6216\\u5916\\u90e8 vendor-neutral \\u7ec4\\u4ef6\\u3002\\u9700\\u8981\\u7684\\u4e13\\u6709\\u6a21\\u578b/\\u8fd0\\u884c\\u5e93\\u8bf7\\u6309\\u56fa\\u5b9a\\u4e0a\\u6e38\\u6307\\u5357\\u53e6\\u884c\\u53d6\\u5f97\\u5e76\\u6838\\u9a8c\\uff0c\\u8bb8\\u53ef\\u7531\\u4f7f\\u7528\\u8005\\u81ea\\u884c\\u786e\\u8ba4\\u3002\\n- \\u4e2d\\u6587\\u83dc\\u5355\\u9700\\u8981\\u7cfb\\u7edf\\u5df2\\u5b89\\u88c5\\u6216\\u81ea\\u884c\\u63d0\\u4f9b\\u517c\\u5bb9\\u4e14\\u8986\\u76d6\\u8bcd\\u5e93\\u7684\\u4e2d\\u6587\\u5b57\\u4f53\\uff1b\\u5305\\u5185\\u4e0d\\u9644\\u5e26 Windows \\u5b57\\u4f53\\uff0c\\u5b57\\u4f53\\u4e0d\\u53ef\\u7528\\u65f6\\u4f1a\\u56de\\u9000\\u82f1\\u6587\\u3002\\n- \\u4e0b\\u8f7d ZIP \\u53ca\\u540c\\u540d `.sha256`\\uff0c\\u6821\\u9a8c\\u540e\\u5b8c\\u6574\\u89e3\\u538b\\u5230\\u6e38\\u620f EXE \\u76ee\\u5f55\\u3002\\u4e2d\\u6587\\u5b89\\u88c5\\u5165\\u53e3\\u4e3a `setup_windows.bat`\\uff0c\\u8be6\\u7ec6\\u6b65\\u9aa4\\u89c1\\u5305\\u5185 `README.CN.zh-CN.md`\\u3002\\u4fdd\\u7559\\u539f\\u59cb\\u8bb8\\u53ef\\u548c\\u7f72\\u540d\\u3002\\n- \\u8bf7\\u7528\\u6e38\\u620f\\u540d\\u3001GPU\\u3001\\u9a71\\u52a8\\u3001\\u6e32\\u67d3 API\\u3001\\u8bed\\u8a00/\\u5b57\\u4f53/\\u4e3b\\u9898/\\u7f29\\u653e\\u3001\\u622a\\u56fe\\u53ca\\u590d\\u73b0\\u6b65\\u9aa4\\u53cd\\u9988\\u95ee\\u9898\\uff1b\\u5206\\u4eab\\u65e5\\u5fd7\\u524d\\u68c0\\u67e5\\u4e2a\\u4eba\\u8def\\u5f84\\u3002\\n\\n[\\u4e2d\\u6587\\u8bf4\\u660e](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/blob/6c9128d67a8fb5a21303fabb8affd032806ab862/README.zh-CN.md) \\u00b7 [\\u56fa\\u5b9a\\u4e0a\\u6e38\\u5b89\\u88c5\\u6307\\u5357](https://github.com/janblade/OptiScaler-F5-DLSSNR-Multipass/blob/fadc3bf67f6c8548e94914baec3f2e551ba8d8a4/INSTALL-DLSSNR.md)\\n\\n<!-- f5-cn-test-gate:v1 cn_commit=6c9128d67a8fb5a21303fabb8affd032806ab862 assets_sha256=f219e46c3c567448997c16f28203d4bbc02bf65a086899ba2af85b14b338f6cf -->\\n\\n\\n<!-- f5-cn-static-catalog-progress:begin -->\\n## \\u6c49\\u5316\\u8fdb\\u5ea6\\uff1a\\u9759\\u6001\\u8bcd\\u5e93\\u8986\\u76d6\\n\\n- \\u7edf\\u8ba1\\u5bf9\\u5e94\\u4e2d\\u6587\\u53d1\\u5e03\\u63d0\\u4ea4\\uff1a[`6c9128d67a8fb5a21303fabb8affd032806ab862`](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/commit/6c9128d67a8fb5a21303fabb8affd032806ab862)\\uff1b\\u4e0a\\u6e38\\u6e90\\u6587\\u63d0\\u4ea4\\uff1a`fadc3bf67f6c8548e94914baec3f2e551ba8d8a4`\\u3002\\n- \\u5f53\\u524d\\u6d3b\\u52a8\\u6761\\u76ee 2385\\uff1a\\u5df2\\u53d8\\u66f4\\u4e2d\\u6587\\u663e\\u793a\\u503c 2191\\uff0c\\u6709\\u610f\\u539f\\u6837\\u4fdd\\u7559\\u6280\\u672f\\u9879 194\\uff1b\\u7f3a\\u5931 0\\uff0c\\u8fc7\\u671f 0\\u3002\\u6709\\u6548\\u9759\\u6001\\u8bcd\\u5e93\\u8986\\u76d6 2385/2385\\uff08100.00%\\uff09\\u3002\\n- \\u6709\\u6548\\u6761\\u76ee\\u6cbf\\u7528\\u7684\\u72b6\\u6001\\uff1a`reviewed` 244\\uff0c`machine_translated` 2141\\u3002AI \\u7ffb\\u8bd1\\u3001AI \\u5ba1\\u6821\\u53ca\\u5176\\u590d\\u7528\\u9879\\u4ecd\\u4fdd\\u7559\\u673a\\u5668\\u72b6\\u6001\\uff0c\\u4e0d\\u5192\\u5145\\u672c\\u6b21\\u4eba\\u5de5\\u5ba1\\u6838\\u3002\\n- \\u672c\\u6b21 `pending.scan` \\u539f\\u59cb\\u8bb0\\u5f55\\uff1a\\u65b0\\u589e 0\\u3001\\u53d8\\u66f4 0\\u3001\\u79fb\\u9664 0\\uff1b\\u5404\\u81ea\\u53bb\\u91cd\\u952e\\u6570 0/0/0\\u3002\\u5176\\u4e2d\\u5f53\\u524d\\u6d3b\\u52a8\\u53bb\\u91cd\\u952e\\u6570 0/0/0\\uff1b\\u79fb\\u9664\\u8bb0\\u5f55\\u4e2d\\u5df2\\u5e9f\\u5f03\\u7684\\u53bb\\u91cd\\u952e\\u6570 0\\u3002\\n- \\u65b0\\u589e\\u6216\\u53d8\\u66f4\\u96c6\\u5408\\u4e2d\\u5f53\\u524d\\u6709\\u6548\\u7684\\u53bb\\u91cd\\u6761\\u76ee 0\\uff08\\u65b0\\u589e\\u4e0e\\u53d8\\u66f4\\u53d6\\u5e76\\u96c6\\uff0c\\u7f3a\\u5931/\\u8fc7\\u671f\\u4e0d\\u8ba1\\u5165\\uff1b\\u4e0d\\u4ee3\\u8868\\u4e0e\\u524d\\u4e00\\u7248\\u76f8\\u6bd4\\u65b0\\u589e\\u4e86\\u540c\\u7b49\\u6570\\u91cf\\u7684\\u8bd1\\u6587\\uff09\\u3002\\n- \\u8bc1\\u636e\\uff1a[\\u8986\\u76d6\\u4e0e\\u9a8c\\u6536\\u6e05\\u5355](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/blob/6c9128d67a8fb5a21303fabb8affd032806ab862/COVERAGE.md)\\u3001[\\u62a5\\u544a\\u76ee\\u5f55](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/tree/6c9128d67a8fb5a21303fabb8affd032806ab862/reports)\\u3001[\\u6280\\u672f\\u9879\\u4fdd\\u7559\\u7406\\u7531](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/blob/6c9128d67a8fb5a21303fabb8affd032806ab862/Localization/retained-English.json)\\u3002\\u672c\\u8282\\u6570\\u5b57\\u4ece\\u8be5\\u63d0\\u4ea4\\u8bcd\\u5e93\\u5b9e\\u65f6\\u8ba1\\u7b97\\uff0c\\u4e0d\\u6cbf\\u7528\\u62a5\\u544a\\u4e2d\\u7684\\u5386\\u53f2\\u8ba1\\u6570\\u3002\\n\\n\\u4ee5\\u4e0a\\u662f\\u9759\\u6001\\u5019\\u9009\\u8bcd\\u5e93\\u8986\\u76d6\\uff0c\\u4e0d\\u662f\\u6240\\u6709\\u8fd0\\u884c\\u65f6 UI \\u7684\\u7a77\\u4e3e\\u8986\\u76d6\\u3002\\u672a\\u6267\\u884c\\u5b9e\\u9645 GPU/\\u6e38\\u620f/\\u89c6\\u89c9\\u9a8c\\u6536\\uff1b\\u6784\\u5efa\\u4e0e\\u9759\\u6001\\u68c0\\u67e5\\u4e0d\\u80fd\\u4ee3\\u66ff\\u6e38\\u620f\\u6e32\\u67d3\\u3001\\u6027\\u80fd\\u3001\\u4e2d\\u6587\\u6392\\u7248\\u3001\\u88c1\\u5207\\u3001\\u5b57\\u4f53\\u548c\\u7f29\\u653e\\u9a8c\\u6536\\uff0c\\u672a\\u77e5\\u5916\\u90e8\\u8bca\\u65ad\\u4ecd\\u53ef\\u80fd\\u663e\\u793a\\u82f1\\u6587\\u3002\\n<!-- f5-cn-static-catalog-progress:end -->", "draft": false, "id": 418050844, "name": "OptiScaler F5 \\u7b80\\u4f53\\u4e2d\\u6587\\u6d4b\\u8bd5\\u7248 v0.1.32-cn-test.1", "prerelease": true, "tag_name": "v0.1.32-cn-test.1", "target_commitish": "6c9128d67a8fb5a21303fabb8affd032806ab862"}, {"assets": [{"digest": "sha256:85316e91fc6b068445569f5293e5718c9be69fa27ac4f7cfa34ec0a19fbe8389", "id": 658560523, "label": "", "name": "OptiScaler-F5-DLSSNR-Multipass-CN-v0.1.32-cn-0af315ae0e3e-fadc3bf67f6c.zip", "size": 175832095, "state": "uploaded"}, {"digest": "sha256:bfbca85bfb1d35cdbd4aec376af3f326b6e3e82fe334cb66c652a11eb672bf24", "id": 658560807, "label": "", "name": "OptiScaler-F5-DLSSNR-Multipass-CN-v0.1.32-cn-0af315ae0e3e-fadc3bf67f6c.zip.sha256", "size": 141, "state": "uploaded"}, {"digest": "sha256:723f799ec6ec26070b07a8514daee8f9a07053b6df3997984fe524bea2ac436d", "id": 658560846, "label": "", "name": "build-metadata.json", "size": 4462, "state": "uploaded"}], "body": "## F5 \\u7b80\\u4f53\\u4e2d\\u6587\\u6d4b\\u8bd5\\u7248\\n\\n\\u8fd9\\u662f\\u793e\\u533a\\u6d4b\\u8bd5\\u7248\\uff08Pre-release\\uff09\\uff0c\\u56fa\\u5b9a\\u4e0a\\u6e38 F5 v0.1.32\\u3002\\u8bf7\\u5148\\u5907\\u4efd\\u539f\\u5b89\\u88c5\\uff0c\\u52ff\\u7528\\u4e8e\\u5e26\\u53cd\\u4f5c\\u5f0a\\u4fdd\\u62a4\\u7684\\u591a\\u4eba\\u6e38\\u620f\\u3002\\n\\n- \\u4e2d\\u6587\\u4ed3\\u5e93\\u63d0\\u4ea4\\uff1a`0af315ae0e3e7dd832aa75ca2b3db870e6b501bf`\\n- \\u56fa\\u5b9a\\u4e0a\\u6e38\\u63d0\\u4ea4\\uff1a`fadc3bf67f6c8548e94914baec3f2e551ba8d8a4`\\n- [\\u672c\\u6b21\\u6784\\u5efa\\u4e0e\\u68c0\\u67e5](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/actions/runs/39383653078)\\n- \\u5b89\\u88c5\\u5305\\uff1a`OptiScaler-F5-DLSSNR-Multipass-CN-v0.1.32-cn-0af315ae0e3e-fadc3bf67f6c.zip`\\n- \\u5b89\\u88c5\\u5305 SHA-256\\uff1a`85316e91fc6b068445569f5293e5718c9be69fa27ac4f7cfa34ec0a19fbe8389`\\n\\n### \\u5df2\\u5b8c\\u6210\\u7684\\u53d1\\u5e03\\u95e8\\u69db\\n\\n\\u540c\\u4e00\\u6b21\\u5de5\\u4f5c\\u6d41\\u4e2d\\u7684\\u53ef\\u79fb\\u690d\\u5951\\u7ea6\\u6d4b\\u8bd5\\u548c Windows MSVC v143 Release x64 \\u7f16\\u8bd1\\u6210\\u529f\\uff1b\\u5b89\\u88c5\\u5305\\u3001\\u5185\\u5916\\u5143\\u6570\\u636e\\u3001\\u9010\\u6587\\u4ef6 SHA-256\\u3001x64 DLL \\u6807\\u5934\\u548c\\u4e2d\\u6587\\u5b89\\u88c5\\u811a\\u672c\\u6307\\u7eb9\\u901a\\u8fc7\\u68c0\\u67e5\\u3002\\u53d1\\u5e03\\u524d\\u8fd8\\u4f1a\\u4e0b\\u8f7d\\u5e76\\u6838\\u5bf9\\u4e0a\\u4f20\\u8d44\\u4ea7\\u7684\\u5b9e\\u9645\\u5b57\\u8282\\u3002\\n\\n### \\u6d4b\\u8bd5\\u8303\\u56f4\\u4e0e\\u5b89\\u88c5\\u63d0\\u9192\\n\\n- Windows \\u7f16\\u8bd1\\u6210\\u529f\\u4e0d\\u7b49\\u4e8e\\u6e38\\u620f\\u5185\\u8fd0\\u884c\\u3001\\u753b\\u9762\\u6216\\u4e2d\\u6587\\u6392\\u7248\\u901a\\u8fc7\\u3002\\u6ca1\\u6709\\u6267\\u884c\\u5b9e\\u9645 GPU/\\u6e38\\u620f\\u9a8c\\u8bc1\\uff0c\\u4e5f\\u6ca1\\u6709\\u786e\\u8ba4\\u5168\\u90e8\\u4e3b\\u9898\\u3001\\u7f29\\u653e\\u3001GPU \\u6216\\u9a71\\u52a8\\u7ec4\\u5408\\u3002\\n- \\u672c\\u5305\\u91c7\\u7528 downloader-only \\u65b9\\u5f0f\\uff0c\\u4e0d\\u5305\\u542b\\u4e13\\u6709 `nvngx_dlssnr.dll`\\uff0c\\u4e5f\\u4e0d\\u9884\\u6253\\u5305\\u53ef\\u9009 NVIDIA DLSS/Streamline\\u3001Ampere MFG \\u6216\\u5916\\u90e8 vendor-neutral \\u7ec4\\u4ef6\\u3002\\u9700\\u8981\\u7684\\u4e13\\u6709\\u6a21\\u578b/\\u8fd0\\u884c\\u5e93\\u8bf7\\u6309\\u56fa\\u5b9a\\u4e0a\\u6e38\\u6307\\u5357\\u53e6\\u884c\\u53d6\\u5f97\\u5e76\\u6838\\u9a8c\\uff0c\\u8bb8\\u53ef\\u7531\\u4f7f\\u7528\\u8005\\u81ea\\u884c\\u786e\\u8ba4\\u3002\\n- \\u4e2d\\u6587\\u83dc\\u5355\\u9700\\u8981\\u7cfb\\u7edf\\u5df2\\u5b89\\u88c5\\u6216\\u81ea\\u884c\\u63d0\\u4f9b\\u517c\\u5bb9\\u4e14\\u8986\\u76d6\\u8bcd\\u5e93\\u7684\\u4e2d\\u6587\\u5b57\\u4f53\\uff1b\\u5305\\u5185\\u4e0d\\u9644\\u5e26 Windows \\u5b57\\u4f53\\uff0c\\u5b57\\u4f53\\u4e0d\\u53ef\\u7528\\u65f6\\u4f1a\\u56de\\u9000\\u82f1\\u6587\\u3002\\n- \\u4e0b\\u8f7d ZIP \\u53ca\\u540c\\u540d `.sha256`\\uff0c\\u6821\\u9a8c\\u540e\\u5b8c\\u6574\\u89e3\\u538b\\u5230\\u6e38\\u620f EXE \\u76ee\\u5f55\\u3002\\u4e2d\\u6587\\u5b89\\u88c5\\u5165\\u53e3\\u4e3a `setup_windows.bat`\\uff0c\\u8be6\\u7ec6\\u6b65\\u9aa4\\u89c1\\u5305\\u5185 `README.CN.zh-CN.md`\\u3002\\u4fdd\\u7559\\u539f\\u59cb\\u8bb8\\u53ef\\u548c\\u7f72\\u540d\\u3002\\n- \\u8bf7\\u7528\\u6e38\\u620f\\u540d\\u3001GPU\\u3001\\u9a71\\u52a8\\u3001\\u6e32\\u67d3 API\\u3001\\u8bed\\u8a00/\\u5b57\\u4f53/\\u4e3b\\u9898/\\u7f29\\u653e\\u3001\\u622a\\u56fe\\u53ca\\u590d\\u73b0\\u6b65\\u9aa4\\u53cd\\u9988\\u95ee\\u9898\\uff1b\\u5206\\u4eab\\u65e5\\u5fd7\\u524d\\u68c0\\u67e5\\u4e2a\\u4eba\\u8def\\u5f84\\u3002\\n\\n[\\u4e2d\\u6587\\u8bf4\\u660e](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/blob/0af315ae0e3e7dd832aa75ca2b3db870e6b501bf/README.zh-CN.md) \\u00b7 [\\u56fa\\u5b9a\\u4e0a\\u6e38\\u5b89\\u88c5\\u6307\\u5357](https://github.com/janblade/OptiScaler-F5-DLSSNR-Multipass/blob/fadc3bf67f6c8548e94914baec3f2e551ba8d8a4/INSTALL-DLSSNR.md)\\n\\n<!-- f5-cn-test-gate:v1 cn_commit=0af315ae0e3e7dd832aa75ca2b3db870e6b501bf assets_sha256=5138f5729b6d12296f947ca0fbd1d39491209837ee2eb2bbf3e99bfd7ece5d05 -->\\n\\n<!-- f5-cn-static-catalog-progress:begin -->\\n## \\u6c49\\u5316\\u8fdb\\u5ea6\\uff1a\\u9759\\u6001\\u8bcd\\u5e93\\u8986\\u76d6\\n\\n- \\u7edf\\u8ba1\\u5bf9\\u5e94\\u4e2d\\u6587\\u53d1\\u5e03\\u63d0\\u4ea4\\uff1a[`0af315ae0e3e7dd832aa75ca2b3db870e6b501bf`](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/commit/0af315ae0e3e7dd832aa75ca2b3db870e6b501bf)\\uff1b\\u4e0a\\u6e38\\u6e90\\u6587\\u63d0\\u4ea4\\uff1a`fadc3bf67f6c8548e94914baec3f2e551ba8d8a4`\\u3002\\n- \\u5f53\\u524d\\u6d3b\\u52a8\\u6761\\u76ee 2385\\uff1a\\u5df2\\u53d8\\u66f4\\u4e2d\\u6587\\u663e\\u793a\\u503c 2191\\uff0c\\u6709\\u610f\\u539f\\u6837\\u4fdd\\u7559\\u6280\\u672f\\u9879 194\\uff1b\\u7f3a\\u5931 0\\uff0c\\u8fc7\\u671f 0\\u3002\\u6709\\u6548\\u9759\\u6001\\u8bcd\\u5e93\\u8986\\u76d6 2385/2385\\uff08100.00%\\uff09\\u3002\\n- \\u6709\\u6548\\u6761\\u76ee\\u6cbf\\u7528\\u7684\\u72b6\\u6001\\uff1a`reviewed` 244\\uff0c`machine_translated` 2141\\u3002AI \\u7ffb\\u8bd1\\u3001AI \\u5ba1\\u6821\\u53ca\\u5176\\u590d\\u7528\\u9879\\u4ecd\\u4fdd\\u7559\\u673a\\u5668\\u72b6\\u6001\\uff0c\\u4e0d\\u5192\\u5145\\u672c\\u6b21\\u4eba\\u5de5\\u5ba1\\u6838\\u3002\\n- \\u672c\\u6b21 `pending.scan` \\u539f\\u59cb\\u8bb0\\u5f55\\uff1a\\u65b0\\u589e 0\\u3001\\u53d8\\u66f4 0\\u3001\\u79fb\\u9664 0\\uff1b\\u5404\\u81ea\\u53bb\\u91cd\\u952e\\u6570 0/0/0\\u3002\\u5176\\u4e2d\\u5f53\\u524d\\u6d3b\\u52a8\\u53bb\\u91cd\\u952e\\u6570 0/0/0\\uff1b\\u79fb\\u9664\\u8bb0\\u5f55\\u4e2d\\u5df2\\u5e9f\\u5f03\\u7684\\u53bb\\u91cd\\u952e\\u6570 0\\u3002\\n- \\u65b0\\u589e\\u6216\\u53d8\\u66f4\\u96c6\\u5408\\u4e2d\\u5f53\\u524d\\u6709\\u6548\\u7684\\u53bb\\u91cd\\u6761\\u76ee 0\\uff08\\u65b0\\u589e\\u4e0e\\u53d8\\u66f4\\u53d6\\u5e76\\u96c6\\uff0c\\u7f3a\\u5931/\\u8fc7\\u671f\\u4e0d\\u8ba1\\u5165\\uff1b\\u4e0d\\u4ee3\\u8868\\u4e0e\\u524d\\u4e00\\u7248\\u76f8\\u6bd4\\u65b0\\u589e\\u4e86\\u540c\\u7b49\\u6570\\u91cf\\u7684\\u8bd1\\u6587\\uff09\\u3002\\n- \\u8bc1\\u636e\\uff1a[\\u8986\\u76d6\\u4e0e\\u9a8c\\u6536\\u6e05\\u5355](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/blob/0af315ae0e3e7dd832aa75ca2b3db870e6b501bf/COVERAGE.md)\\u3001[\\u62a5\\u544a\\u76ee\\u5f55](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/tree/0af315ae0e3e7dd832aa75ca2b3db870e6b501bf/reports)\\u3001[\\u6280\\u672f\\u9879\\u4fdd\\u7559\\u7406\\u7531](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/blob/0af315ae0e3e7dd832aa75ca2b3db870e6b501bf/Localization/retained-English.json)\\u3002\\u672c\\u8282\\u6570\\u5b57\\u4ece\\u8be5\\u63d0\\u4ea4\\u8bcd\\u5e93\\u5b9e\\u65f6\\u8ba1\\u7b97\\uff0c\\u4e0d\\u6cbf\\u7528\\u62a5\\u544a\\u4e2d\\u7684\\u5386\\u53f2\\u8ba1\\u6570\\u3002\\n\\n\\u4ee5\\u4e0a\\u662f\\u9759\\u6001\\u5019\\u9009\\u8bcd\\u5e93\\u8986\\u76d6\\uff0c\\u4e0d\\u662f\\u6240\\u6709\\u8fd0\\u884c\\u65f6 UI \\u7684\\u7a77\\u4e3e\\u8986\\u76d6\\u3002\\u672a\\u6267\\u884c\\u5b9e\\u9645 GPU/\\u6e38\\u620f/\\u89c6\\u89c9\\u9a8c\\u6536\\uff1b\\u6784\\u5efa\\u4e0e\\u9759\\u6001\\u68c0\\u67e5\\u4e0d\\u80fd\\u4ee3\\u66ff\\u6e38\\u620f\\u6e32\\u67d3\\u3001\\u6027\\u80fd\\u3001\\u4e2d\\u6587\\u6392\\u7248\\u3001\\u88c1\\u5207\\u3001\\u5b57\\u4f53\\u548c\\u7f29\\u653e\\u9a8c\\u6536\\uff0c\\u672a\\u77e5\\u5916\\u90e8\\u8bca\\u65ad\\u4ecd\\u53ef\\u80fd\\u663e\\u793a\\u82f1\\u6587\\u3002\\n<!-- f5-cn-static-catalog-progress:end -->\\n\\n<!-- f5-cn-sync:v1 identity=3337818d0c58bdcb5fee962a9530e65a614265a195189e0777ad1289b6e5cf70 cn_commit=0af315ae0e3e7dd832aa75ca2b3db870e6b501bf -->\\n", "draft": false, "id": 418100340, "name": "OptiScaler F5 \\u7b80\\u4f53\\u4e2d\\u6587\\u6d4b\\u8bd5\\u7248 cn-test-fadc3bf67f6c-0af315ae0e3e", "prerelease": true, "tag_name": "cn-test-fadc3bf67f6c-0af315ae0e3e", "target_commitish": "0af315ae0e3e7dd832aa75ca2b3db870e6b501bf"}], "patch": {"body": "## \\u7248\\u672c\\u8bf4\\u660e\\n\\u4e0a\\u6e38\\u6784\\u5efa\\u63d0\\u4ea4 4d72d53e \\u6bd4\\u6b63\\u5f0f v0.1.35.1 \\u6807\\u7b7e\\u591a\\u4e00\\u4e2a\\u5408\\u5e76\\u63d0\\u4ea4\\uff0c\\u4f46\\u6e90\\u7801\\u6811\\u5b8c\\u5168\\u76f8\\u540c\\u3002\\u672c\\u5305\\u73b0\\u4e3a\\u793e\\u533a\\u6b63\\u5f0f\\u6c49\\u5316\\u53d1\\u5e03\\uff0c\\u4e0d\\u662f\\u4e0a\\u6e38\\u5b98\\u65b9\\u53d1\\u884c\\u3002\\n\\n\\u6c49\\u5316\\u66f4\\u65b0\\u6807\\u8bc6\\uff1a2026-11-01\\uff08\\u5317\\u4eac\\u65f6\\u95f4\\uff09\\u3002\\u8fd9\\u662f\\u540c\\u4e00\\u6279\\u5df2\\u6784\\u5efa\\u3001\\u5df2\\u9a8c\\u6536\\u6587\\u4ef6\\u7684\\u547d\\u540d\\u4e0e\\u53d1\\u5e03\\u72b6\\u6001\\u4fee\\u6b63\\uff0c\\u6ca1\\u6709\\u91cd\\u65b0\\u7f16\\u8bd1\\u3001\\u91cd\\u6253\\u5305\\u6216\\u4fee\\u6539\\u7a0b\\u5e8f\\u5185\\u5bb9\\u3002\\n\\n## \\u4e0b\\u8f7d\\u4e0e\\u6821\\u9a8c\\n\\u8bf7\\u6309\\u6587\\u4ef6\\u540d\\u4e2d\\u7684\\u4ea7\\u54c1\\u7248\\u672c\\u548c\\u5305\\u7c7b\\u578b\\u4e0b\\u8f7d\\uff1b\\u4f7f\\u7528\\u9644\\u4ef6 **CURRENT-DOWNLOAD-SHA256SUMS.txt** \\u6821\\u9a8c\\u5f53\\u524d\\u4e0b\\u8f7d\\u6587\\u4ef6\\u3002\\n\\u539f\\u59cb SHA256SUMS\\u3001provenance.json\\u3001build-metadata.json\\uff08\\u5982\\u6709\\uff09\\u53ca .sha256\\uff08\\u5982\\u6709\\uff09\\u5747\\u539f\\u6837\\u4fdd\\u7559\\uff0c\\u662f\\u521d\\u6b21\\u6784\\u5efa/\\u53d1\\u5e03\\u7684\\u5386\\u53f2\\u8bc1\\u636e\\uff0c\\u53ef\\u80fd\\u5f15\\u7528\\u65e7\\u6587\\u4ef6\\u540d\\u6216\\u521d\\u6b21\\u5019\\u9009\\u72b6\\u6001\\uff0c\\u4e0d\\u4f5c\\u4e3a\\u5f53\\u524d\\u547d\\u540d\\u8bf4\\u660e\\u3002\\n\\n## \\u9a8c\\u8bc1\\u8303\\u56f4\\nWindows CI\\u3001\\u81ea\\u52a8\\u6d4b\\u8bd5\\u3001\\u5305\\u5b8c\\u6574\\u6027\\u53ca\\u54c8\\u5e0c\\u68c0\\u67e5\\u5df2\\u901a\\u8fc7\\u3002\\u5c1a\\u672a\\u8fdb\\u884c\\u771f\\u5b9e\\u6e38\\u620f\\u3001GPU \\u6216 GUI \\u89c6\\u89c9\\u8fd0\\u884c\\u9a8c\\u8bc1\\uff1b\\u6b63\\u5f0f\\u6c49\\u5316\\u53d1\\u5e03\\u4e0d\\u8868\\u793a\\u627f\\u8bfa\\u6240\\u6709\\u6e38\\u620f\\u517c\\u5bb9\\uff0c\\u4e5f\\u4e0d\\u8868\\u793a\\u6240\\u6709\\u52a8\\u6001\\u6587\\u672c\\u5df2\\u4eba\\u5de5\\u9010\\u5c4f\\u6838\\u9a8c\\u3002\\n\\n## \\u6587\\u4ef6\\u540d\\u5bf9\\u7167\\n- `OptiScaler-F5-DLSSNR-Multipass-CN-main-4d72d53e521b-cn-87e7c9120554-4d72d53e521b.zip` \\u2192 `OptiScaler-F5-DLSSNR-Multipass-CN-v0.1.35.1-zh20261101.zip`\\n\\nRelease \\u9875\\u9762\\u3001\\u6807\\u7b7e\\u3001\\u6e90\\u4ee3\\u7801\\u63d0\\u4ea4\\u53ca\\u539f\\u6709\\u6587\\u4ef6 asset ID \\u4fdd\\u6301\\u4e0d\\u53d8\\uff1b\\u4e0b\\u8f7d\\u6587\\u4ef6\\u6539\\u540d\\u540e\\uff0c\\u65e7\\u6587\\u4ef6\\u540d\\u7684\\u76f4\\u63a5\\u4e0b\\u8f7d\\u94fe\\u63a5\\u53ef\\u80fd\\u5931\\u6548\\uff0c\\u8bf7\\u4ece\\u672c\\u53d1\\u5e03\\u9875\\u4f7f\\u7528\\u65b0\\u94fe\\u63a5\\u3002\\u6807\\u7b7e\\u4e2d\\u7684 candidate \\u662f\\u4fdd\\u7559\\u7684\\u5386\\u53f2\\u5b9a\\u4f4d\\u7b26\\uff0c\\u5f53\\u524d\\u53d1\\u5e03\\u6027\\u8d28\\u4ee5\\u672c\\u9875\\u6807\\u8bb0\\u548c\\u7248\\u672c\\u8bf4\\u660e\\u4e3a\\u51c6\\u3002\\u65e7\\u7248\\u53d1\\u5e03\\u4e0e\\u9644\\u4ef6\\u672a\\u4fee\\u6539\\u3002\\n\\n## \\u6784\\u5efa\\u6765\\u6e90\\n- \\u6c49\\u5316\\u6e90\\u63d0\\u4ea4\\uff1a`8a18828f10db42e3b27b175731a7c0a17d1b7b51`\\n- \\u5b9e\\u9645 CI checkout\\uff1a`87e7c91205543e39f89e27d2ddc9847288f9e10c`\\n- \\u6e90\\u7801\\u6811\\uff1a`e236ea6f55e3fdafb4e2be74c35e435f14cfacd1`\\n- \\u4e0a\\u6e38\\u63d0\\u4ea4\\uff1a`4d72d53e521b34a5cda9dd4f63ee7f4cd0438035`\\n\\nF5 \\u5305\\u4fdd\\u6301 downloader-only\\uff0c\\u4e0d\\u5185\\u7f6e\\u79c1\\u6709 DLSSNR \\u8fd0\\u884c\\u5e93\\uff1b\\u539f\\u6784\\u5efa\\u5143\\u6570\\u636e\\u8bb0\\u5f55\\u4e86\\u53e6\\u5916\\u56fa\\u5b9a\\u7684\\u6df7\\u5408\\u8fd0\\u884c\\u65f6\\u8d44\\u6e90\\u6765\\u6e90\\uff0c\\u4e0d\\u6539\\u53d8 F5 \\u6e90\\u7801\\u6765\\u6e90\\u3002\\u672a\\u77e5\\u5916\\u90e8\\u8fd0\\u884c\\u65f6\\u8bca\\u65ad\\u53ca\\u5305\\u542b\\u7528\\u6237\\u6570\\u636e\\u7684\\u4e2a\\u522b\\u52a8\\u6001\\u5185\\u5bb9\\u53ef\\u80fd\\u56de\\u9000\\u82f1\\u6587\\u3002\\n", "draft": false, "make_latest": "true", "name": "OptiScaler F5 CN 0.1.35.1 \\u00b7 \\u6c49\\u5316\\u66f4\\u65b0 2026-11-01", "prerelease": false}, "publish_branch": "release-metadata/20261101-8a18828f", "release": {"assets": [{"digest": "sha256:12545ad9eacfc892d9a36060d048b0c5e751bc015bebe65e776cf3af29b86955", "id": 695993754, "label": "", "name": "OptiScaler-F5-DLSSNR-Multipass-CN-main-4d72d53e521b-cn-87e7c9120554-4d72d53e521b.zip", "size": 177329705, "state": "uploaded"}, {"digest": "sha256:81b54f4b025c5010fe1fb5239bbdb3660fab17d821096e65dd62271df07ed8c0", "id": 695993974, "label": "", "name": "OptiScaler-F5-DLSSNR-Multipass-CN-main-4d72d53e521b-cn-87e7c9120554-4d72d53e521b.zip.sha256", "size": 151, "state": "uploaded"}, {"digest": "sha256:93462716e45a71a9348580063d0595a952401d3cee6884f181ef34e0215c1240", "id": 695993998, "label": "", "name": "build-metadata.json", "size": 4493, "state": "uploaded"}, {"digest": "sha256:e34039d97e763b99aed4d65d8e95baec3b2782f23c480f3110a3e282fa89b0cc", "id": 695994010, "label": "", "name": "provenance.json", "size": 3404, "state": "uploaded"}, {"digest": "sha256:02d9bb572073aa5982af9cb5dfe70196ff49221b66e11c18c888b5c875b46662", "id": 695994023, "label": "", "name": "SHA256SUMS", "size": 477, "state": "uploaded"}], "body": "Candidate prerelease of reviewed localization maintenance; not a stable release.\\nSource: 8a18828f10db42e3b27b175731a7c0a17d1b7b51\\nActual CI checkout: 87e7c91205543e39f89e27d2ddc9847288f9e10c\\nCommon tree: e236ea6f55e3fdafb4e2be74c35e435f14cfacd1\\nUpstream: 4d72d53e521b34a5cda9dd4f63ee7f4cd0438035\\nWindows CI and package checks passed. Game/GPU/UI visual runtime validation not performed.\\nNo previous release is replaced.\\nVariant: downloader-only. Fixed upstream janblade/F5 source; metadata records separately pinned hybrid runtime assets from the PreSR release archive, not a substitution of the F5 source. The original package, checksum sidecar and build-metadata are retained unchanged.\\n", "draft": false, "id": 430077502, "name": "OptiScaler-F5-DLSSNR-Multipass-CN 2026-10-31 candidate 8a18828f", "prerelease": true, "tag_name": "cn-candidate-20261031-8a18828f", "target_commitish": "8a18828f10db42e3b27b175731a7c0a17d1b7b51"}, "repository": "Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN", "runs": [{"head_sha": "8a18828f10db42e3b27b175731a7c0a17d1b7b51", "id": 41222613411, "run_attempt": 1}], "workflow_path": ".github/workflows/correct-release-metadata-20261101.yml"}')
+          try:
+           correction_main(MANIFEST,'correct')
+          except Stop as ex:
+           print(str(ex),file=sys.stderr)
+           sys.exit(1)
+          PY
