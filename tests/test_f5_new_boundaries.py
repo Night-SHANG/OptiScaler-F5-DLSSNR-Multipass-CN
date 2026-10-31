@@ -33,7 +33,8 @@ class NewBoundaries(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp:
             root=Path(temp);path=root/'OptiScaler/menu/PluginsPage.cpp'
             path.parent.mkdir(parents=True)
-            path.write_text('#include "pch.h"\nvoid f() { ImGui::TextUnformatted(row.label.c_str()); ImGui::TextDisabled("Folder: %s%s", folder.empty() ? "(not read yet)" : folder.c_str(), ""); }')
+            path.write_bytes(b'#include "pch.h"\nvoid f() { ImGui::TextUnformatted(row.label.c_str()); ImGui::TextDisabled("Folder: %s%s", folder.empty() ? "(not read yet)" : folder.c_str(), ""); }')
+            self.assertNotIn(b'\r', path.read_bytes())  # Match audited upstream LF bytes on Windows too.
             names=json.loads((ROOT/'tools/f5_boundaries.json').read_text())['imgui_calls']
             localize_f5.patch_file(path,root,names)
             patched=path.read_text()
