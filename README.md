@@ -13,6 +13,12 @@
 - [贡献与检查步骤](CONTRIBUTING.md)
 - [构建工作流](.github/workflows/build.yml)
 
+## 最新维护候选
+
+当前维护分支固定到上游 `f10dedf93a2d5412c753c751c120d52b223800f6`（0.1.37.2 合并后的 main），通过现有 [草稿 PR #1](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/pull/1) 验证，不代表已合并或发布。新增 F5Low 控件、LUT 堆栈/颜色空间、深度淡化、原生混合及通知历史的中文适配。见 [2026-11-11 审计](docs/UPSTREAM-AUDIT-2026-11-11.md)。
+
+**本包不包含新外部 F5Low kit（f5low.dll）**，因此 F5Low 专属帧生成功能需要用户独立取得兼容组件；既有 XeFG 等路径仍按上游和已固定依赖构建。未下载新可选运行库或接受额外许可。
+
 ## 当前交付边界
 
 首个测试版 [v0.1.32-cn-test.1](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/releases/tag/v0.1.32-cn-test.1) 已发布。该版本扫描器候选 2385 项：2191 项显示译文 + 194 项有保留理由的技术项，缺失 0、过期 0；其中 reviewed 244、machine_translated 2141，AI 审校不等于人工确认。此统计不代表所有运行时 UI 100% 覆盖。

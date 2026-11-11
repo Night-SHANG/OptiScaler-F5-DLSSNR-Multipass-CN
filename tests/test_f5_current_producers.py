@@ -71,9 +71,9 @@ class CurrentContractTests(unittest.TestCase):
         root = Path(__file__).resolve().parents[1]
         new = load_contract(root / 'upstream-contract.json')
         old = load_contract(root / 'audit/v0.1.32/upstream-contract.json')
-        self.assertEqual(new['baseline_commit'], '4d72d53e521b34a5cda9dd4f63ee7f4cd0438035')
+        self.assertEqual(new['baseline_commit'], 'f10dedf93a2d5412c753c751c120d52b223800f6')
         self.assertEqual(old['baseline_commit'], 'fadc3bf67f6c8548e94914baec3f2e551ba8d8a4')
         self.assertEqual(new['gitlinks'], old['gitlinks'])
         self.assertTrue(all(not r['mutable_literal_ordinals'] for r in new['audited_sources'].values()))
-        self.assertEqual(new['protected_files']['package_release.ps1']['sha256'], 'cc274ff0d11ace00172b49a5330d2aa648dd5952c25ba877e2c71c9acf369bcc')
-        self.assertEqual(new['protected_files']['OptiScaler/OptiScaler.vcxproj']['sha256'], 'c8040f6dd9340d9a7e5cd5ced7f0d922e25e31b78b3a2ab50ee7fdc8cb8d9744')
+        self.assertEqual(new['protected_files']['package_release.ps1']['sha256'], '08eedbba9154b2f09685c7eddbd40b1c6cb3b24156a4bc58f43419de383600c8')
+        self.assertEqual(new['protected_files']['OptiScaler/OptiScaler.vcxproj']['sha256'], 'fd4c54668bb3ebc5f0e6bd6e43c33193c7c565bce6ac4f109592be1597ac05ac')

@@ -586,5 +586,189 @@
     "file": "OptiScaler/native/DebugPreviewVk.h",
     "reason": "Exact debug preview error display; nested shared-resource errors translated by exact template",
     "raw_fields": []
+  },
+  {
+    "source": "{}: waiting for the game's swap chain",
+    "text": "{}：正在等待游戏交换链",
+    "file": "OptiScaler/menu/FgStatusRule.h",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "{}: off, {}",
+    "text": "{}：已关闭，{}",
+    "file": "OptiScaler/menu/FgStatusRule.h",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "{}: off (follows the game's DLSS FG setting)",
+    "text": "{}：已关闭（跟随游戏的 DLSS FG 设置）",
+    "file": "OptiScaler/menu/FgStatusRule.h",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "{}: off (Active is unticked)",
+    "text": "{}：已关闭（未勾选启用）",
+    "file": "OptiScaler/menu/FgStatusRule.h",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "{}: paused",
+    "text": "{}：已暂停",
+    "file": "OptiScaler/menu/FgStatusRule.h",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "{}: 1X (Dynamic MFG holds back)",
+    "text": "{}：1 倍（动态多帧生成暂缓）",
+    "file": "OptiScaler/menu/FgStatusRule.h",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "{}: waiting for the game's frames",
+    "text": "{}：正在等待游戏帧",
+    "file": "OptiScaler/menu/FgStatusRule.h",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "Post LUT {}",
+    "text": "后置 LUT {}",
+    "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged"
+  },
+  {
+    "source": "Look input {}",
+    "text": "调色输入空间 {}",
+    "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged"
+  },
+  {
+    "source": "LUT strength {}",
+    "text": "LUT 强度 {}",
+    "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged"
+  },
+  {
+    "source": "Auto: the picture",
+    "text": "自动：原始画面",
+    "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged"
+  },
+  {
+    "source": "Auto: {}",
+    "text": "自动：{}",
+    "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged"
+  },
+  {
+    "source": "{} in {}",
+    "text": "{}，色域 {}",
+    "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged"
+  },
+  {
+    "source": "{} (header)",
+    "text": "{}（文件头）",
+    "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged"
+  },
+  {
+    "source": "{} (name)",
+    "text": "{}（文件名）",
+    "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged"
+  },
+  {
+    "source": "{} (set)",
+    "text": "{}（手动指定）",
+    "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged"
+  },
+  {
+    "source": ", but gets {}",
+    "text": "，但收到的是 {}",
+    "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged"
+  },
+  {
+    "source": "starting: {}",
+    "text": "正在启动：{}",
+    "file": "OptiScaler/menu/menu_common.cpp",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged"
+  },
+  {
+    "source": "more than {} LUTs in the stack",
+    "text": "堆栈中的 LUT 超过 {} 个",
+    "file": "OptiScaler/dlssnr/DlssNr_LutChain.h",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged"
+  },
+  {
+    "source": "{}: {} {} from {}, {}",
+    "text": "{}：{} {}，来自 {}，{}",
+    "file": "OptiScaler/misc/XeModuleInfo.cpp",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged",
+    "raw_fields": [
+      0,
+      1
+    ]
+  },
+  {
+    "source": "{}; the game's own {} is loaded too",
+    "text": "{}；游戏自带的 {} 也已加载",
+    "file": "OptiScaler/misc/XeModuleInfo.cpp",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged"
+  },
+  {
+    "source": "LUT_1D_SIZE given twice, without its number or out of range (2..{:d}) (line {:d})",
+    "text": "LUT_1D_SIZE 重复指定、缺少数值或超出范围（2..{:d}）（第 {:d} 行）",
+    "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged"
+  },
+  {
+    "source": "{} needs two increasing numbers (line {:d})",
+    "text": "{} 需要两个递增数值（第 {:d} 行）",
+    "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "data row on line {:d} is not a finite number",
+    "text": "第 {:d} 行的数据不是有限数值",
+    "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged"
+  },
+  {
+    "source": "more data rows than LUT_1D_SIZE {:d} calls for, and no LUT_3D_SIZE (line {:d})",
+    "text": "数据行数超过 LUT_1D_SIZE {:d} 所需数量，且未指定 LUT_3D_SIZE（第 {:d} 行）",
+    "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged"
+  },
+  {
+    "source": "expected {:d} data rows for LUT_1D_SIZE {:d}, found {:d}",
+    "text": "预期 {:d} 行数据（LUT_1D_SIZE {:d}），实际为 {:d} 行",
+    "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged"
   }
 ]

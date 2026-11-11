@@ -12,6 +12,12 @@ DISPLAY_FILES = [
  'OptiScaler/dlssnr/DlssNr_LutFile.h',
 ]
 FUNCTIONS = {
+ 'OptiScaler/menu/NotificationsPage.cpp': ['LabelOf'],
+ 'OptiScaler/menu/FgStatusRule.h': ['Describe'],
+ 'OptiScaler/framegen/f5low/F5LowRules.h': ['GeneratorLabel', 'DlssgFilesMissing', 'IntelFilesMissing', 'CheckAvailable', 'RunStateLabel'],
+ 'OptiScaler/dlssnr/DlssNr_LutSpaces.h': ['LutSpaceName', 'LutGamutName', 'FrameDecodeName', 'DetectLookSpaces'],
+ 'OptiScaler/misc/XeModuleInfo.cpp': ['SourceOf', 'VersionOf', 'SignatureOf'],
+
  'OptiScaler/output/SdrToHdr_Status.h': ['TurnsOffAtStartText', 'AppliesLaterText', 'StatusLine'],
  'OptiScaler/output/SdrToHdr_Common.h': ['ReasonText'],
  'OptiScaler/dlssnr/DlssNr_ExposureAutoScan.cpp': ['PhaseName', 'AutoStatus'],
@@ -43,6 +49,9 @@ TABLES = {
  'OptiScaler/shaders/dlssnr/DlssNr_Spatial.h': [('kNamedLayouts', [0])],
 }
 PRODUCER_FILES = [
+ 'OptiScaler/dlssnr/DlssNr_LutChain.h',
+ 'OptiScaler/shaders/f5lut/F5Lut_*.cpp',
+
  'OptiScaler/shaders/dlssnr/superior/Pipeline.inl',
  'OptiScaler/native/SharedFrame.cpp', 'OptiScaler/native/SharedFrameVk.cpp',
  'OptiScaler/native/DebugPreviewDx11.h', 'OptiScaler/native/DebugPreviewVk.h',
@@ -94,7 +103,12 @@ def find_f5_candidates(text, rel, rules):
             b=masked.find('{',q);semi=masked.find(';',q)
             if b<0 or (semi>=0 and semi<b): continue
             e=find_matching(text,b,'{','}')
-            if e>=0: result+=literals(text,rel,b+1,e,'f5:return:'+name,rules)
+            if e>=0:
+                candidates = literals(text,rel,b+1,e,'f5:return:'+name,rules)
+                # Authenticode loading tokens are not returned to the menu.
+                if rel == 'OptiScaler/misc/XeModuleInfo.cpp' and name == 'SignatureOf':
+                    candidates = [c for c in candidates if c.source not in ('wintrust.dll', 'WinVerifyTrust')]
+                result += candidates
     for table,columns in TABLES.get(rel,[]):
         m=re.search(r'\b'+table+r'\s*\[\s*\d*\s*\]\s*=\s*\{',masked)
         if not m: continue
@@ -108,14 +122,26 @@ def find_f5_candidates(text, rel, rules):
     if any(fnmatch.fnmatch(rel,p) for p in PRODUCER_FILES):
         # Only status/error assignments and reason-producing calls, never generic logging or code strings.
         names=r'(?:_error|_why|_refusal|g_refusal|reason|modelError|status|standsAside|ErrorMessage|TemporalDetail|FlipMetering|why|detail|whyNot|kBelowMinimumFps|kEdgeCompression|err|g_modelError|failure)'
+        if rel == 'OptiScaler/dlssnr/DlssNr_LutChain.h':
+            names = '(?:' + names + '|error)'
         if rel == 'OptiScaler/native/SharedFrameVk.cpp':
             names = '(?:' + names + '|error)'  # VkInterop::Load output displayed by DebugPreviewVk
         for m in re.finditer(r'\b'+names+r'\s*=(?!=)',masked):
             semi=masked.find(';',m.end())
             if semi>=0: result+=literals(text,rel,m.end(),semi,'f5:status-assignment',rules)
-        for m in re.finditer(r'\b(?:Fail|Disable|Say|ReportLutStatus|SetStatus|SetError|GiveUpOutput|GiveUp|runtime_error|recordModelError)\s*\(',masked):
+        calls = r'(?:Fail|Disable|Say|ReportLutStatus|SetStatus|SetError|GiveUpOutput|GiveUp|runtime_error|recordModelError)'
+        if '/shaders/f5lut/' in rel: calls = calls[:-1] + '|Report)'
+        for m in re.finditer(r'\b'+calls+r'\s*\(',masked):
             p=masked.find('(',m.start());q=find_matching(text,p)
             if q>=0: result+=literals(text,rel,p+1,q,'f5:status-call',rules)
+    if rel == 'OptiScaler/shaders/dlssnr/DlssNr_Dx12.cpp':
+        for m in re.finditer(r'\bstatus\.note\s*=', masked):
+            semi = masked.find(';', m.end())
+            if semi >= 0: result += literals(text, rel, m.end(), semi, 'f5:post-lut-note', rules)
+    if rel == 'OptiScaler/misc/XeModuleInfo.cpp':
+        for m in re.finditer(r'\bline\s*(?:\+?=)', masked):
+            semi = masked.find(';', m.end())
+            if semi >= 0: result += literals(text, rel, m.end(), semi, 'f5:module-display', rules)
     # Aggregate initializer syntax is the dominant notification constructor form.
     for m in re.finditer(r'\bImGui::InsertNotification\s*\(',masked):
         p=masked.find('(',m.start());q=find_matching(text,p)

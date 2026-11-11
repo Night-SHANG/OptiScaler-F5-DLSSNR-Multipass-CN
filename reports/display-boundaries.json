@@ -1,13 +1,17 @@
 {
-  "calls": 1054,
+  "calls": 1132,
   "files": [
     {
       "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-      "display_calls": 357
+      "display_calls": 409
     },
     {
       "file": "OptiScaler/include/imgui/ImGuiNotify.hpp",
       "display_calls": 8
+    },
+    {
+      "file": "OptiScaler/menu/NotificationsPage.cpp",
+      "display_calls": 13
     },
     {
       "file": "OptiScaler/menu/PluginsPage.cpp",
@@ -15,7 +19,7 @@
     },
     {
       "file": "OptiScaler/menu/menu_common.cpp",
-      "display_calls": 536
+      "display_calls": 548
     },
     {
       "file": "OptiScaler/menu/menu_common.h",
@@ -27,7 +31,7 @@
     },
     {
       "file": "OptiScaler/native/NativeDriver.cpp",
-      "display_calls": 57
+      "display_calls": 58
     },
     {
       "file": "OptiScaler/native/NativeDriverDx11.cpp",

@@ -96,7 +96,7 @@ function Assert-NoForbiddenPayload([string]$Stage, [switch]$AllowForwarderBuildI
     if ($items | Where-Object { $_.Attributes -band [IO.FileAttributes]::ReparsePoint }) { throw 'Linked package payload' }
     $bad = @($items | Where-Object { -not $_.PSIsContainer -and (
         $_.Name -ieq 'nvngx_dlssnr.dll' -or $_.Name -match '^(nvngx_dlss.*|sl\..*)\.dll$' -or
-        $_.Name -match '\.(pdb|exp|lib|ilk|asi)$|latewarp|nrtrace' -or $_.Name -ieq 'dlssg_sm86.dll'
+        $_.Name -match '\.(pdb|exp|lib|ilk|asi)$|latewarp|nrtrace' -or $_.Name -ieq 'dlssg_sm86.dll' -or $_.Name -ieq 'f5low.dll'
     ) })
     # MSVC writes these two import/link products next to the built forwarder.
     # The upstream explicit packaging allowlist does not copy them. Never allow
@@ -166,9 +166,9 @@ if ($LASTEXITCODE -ne 0 -or -not $submodules -or @($submodules | Where-Object { 
 # Packaging and project staging logic are immutable audited inputs.
 $upstreamPackager = Join-Path $SourceRoot 'package_release.ps1'
 $hybridFetcher = Join-Path $SourceRoot 'get_hybrid_assets.ps1'
-Assert-Hash $upstreamPackager 'cc274ff0d11ace00172b49a5330d2aa648dd5952c25ba877e2c71c9acf369bcc'
+Assert-Hash $upstreamPackager '08eedbba9154b2f09685c7eddbd40b1c6cb3b24156a4bc58f43419de383600c8'
 Assert-Hash $hybridFetcher '5fcd0c8018c1030e63e664d5df56e9a757bdafda77df688354cd4527e90172b1'
-Assert-Hash (Join-Path $SourceRoot 'OptiScaler/OptiScaler.vcxproj') 'c8040f6dd9340d9a7e5cd5ced7f0d922e25e31b78b3a2ab50ee7fdc8cb8d9744'
+Assert-Hash (Join-Path $SourceRoot 'OptiScaler/OptiScaler.vcxproj') 'fd4c54668bb3ebc5f0e6bd6e43c33193c7c565bce6ac4f109592be1597ac05ac'
 $buildEvidencePath = Join-Path $repo 'reports/build-evidence.json'
 Assert-Leaf $buildEvidencePath
 $buildEvidence = Get-Content -LiteralPath $buildEvidencePath -Raw | ConvertFrom-Json
@@ -205,8 +205,9 @@ $hybridManifestPath = Join-Path $hybridScratch 'asset-manifest.json'
 $hybridManifest = Get-Content -LiteralPath $hybridManifestPath -Raw | ConvertFrom-Json
 if (@($hybridManifest.files).Count -ne 15) { throw 'Expected exactly 15 verified hybrid assets' }
 $packageVersion = "$version-cn-$($cnCommit.Substring(0, 12))"
-$packageArguments = @('-Version', $packageVersion, '-SkipBuild', '-HybridAssetsDirectory', $hybridScratch)
-# No proprietary or optional runtime switches are forwarded. The pinned defaults apply.
+$packageArguments = @('-Version', $packageVersion, '-SkipBuild', '-NoF5Low', '-HybridAssetsDirectory', $hybridScratch)
+# Explicitly exclude the newly required external F5Low kit; retain audited XeSS bytes.
+# No proprietary runtime inclusion or license-acceptance switches are forwarded.
 Invoke-PinnedPowerShellScript $upstreamPackager $packageArguments
 $sourceZip = Join-Path $SourceRoot "release/OptiScaler-DLSSNR-F5-$packageVersion.zip"
 Assert-Leaf $sourceZip
@@ -231,7 +232,7 @@ Copy-Item -LiteralPath (Join-Path $repo 'README.zh-CN.md') -Destination (Join-Pa
 Copy-Item -LiteralPath (Join-Path $repo 'UPSTREAM.md') -Destination (Join-Path $stage 'UPSTREAM.CN.md')
 $metadata = [ordered]@{
     schema = 1; upstream_repository = $cfg.repository; upstream_commit = $pin; upstream_version = $version;
-    cn_commit = $cnCommit; package_version = $packageVersion; variant = 'downloader-only';
+    cn_commit = $cnCommit; package_version = $packageVersion; variant = 'downloader-only'; f5low_kit_included = $false;
     configuration = 'Release'; platform = 'x64'; toolset = 'v143'; msbuild_version = $buildEvidence.msbuild_version;
     hybrid_archive_url = $hybridArchiveUrl; hybrid_archive_sha256 = $hybridArchiveHash;
     hybrid_assets = @($hybridManifest.files); recursive_submodules = @($submodules);

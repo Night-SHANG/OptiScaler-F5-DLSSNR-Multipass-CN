@@ -1,0 +1,16 @@
+{
+  "compatible": true,
+  "repository": "https://github.com/janblade/OptiScaler-F5-DLSSNR-Multipass.git",
+  "branch": "main",
+  "commit": "f10dedf93a2d5412c753c751c120d52b223800f6",
+  "upstream_version": "main-f10dedf93a2d",
+  "baseline_commit": "f10dedf93a2d5412c753c751c120d52b223800f6",
+  "normalizer": "cpp-structure-v1",
+  "protected_file_count": 1607,
+  "audited_source_count": 24,
+  "source_file_count": 1261,
+  "gitlink_count": 10,
+  "changed_audited_sources": [],
+  "verified_worktree": true,
+  "recursive_submodule_worktrees_verified": false
+}

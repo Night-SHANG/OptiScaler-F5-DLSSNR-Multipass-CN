@@ -429,6 +429,24 @@ class ContractTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.contract_module.load_contract(path)
 
+    def test_november_audit_preserves_previous_contract_and_tightens_changed_sources(self):
+        previous = self.contract_module.load_contract(ROOT / 'audit/2026-10-31/upstream-contract.json')
+        current = self.contract_module.load_contract(ROOT / 'upstream-contract.json')
+        self.assertEqual(previous['baseline_commit'], '4d72d53e521b34a5cda9dd4f63ee7f4cd0438035')
+        self.assertEqual(current['baseline_commit'], 'f10dedf93a2d5412c753c751c120d52b223800f6')
+        self.assertEqual(current['gitlinks'], previous['gitlinks'])
+        for path, record in current['audited_sources'].items():
+            self.assertEqual(record, previous['audited_sources'][path])
+            self.assertEqual(record['mutable_literal_ordinals'], [])
+        for path in ('OptiScaler/framegen/f5low/F5Low.cpp',
+                     'OptiScaler/dlssnr/forwarder/dlssnr_forwarder.rc',
+                     'tools/finish_release_zip.py', 'external/f5low/README.md'):
+            self.assertIn(path, current['protected_files'])
+        for path in ('setup_windows.bat', 'setup_linux.sh', 'Streamlined_fetcher_windows.bat',
+                     'get_streamline.ps1', 'get_hybrid_assets.ps1', '.gitmodules',
+                     'redist/streamline/manifest.json'):
+            self.assertEqual(current['protected_files'][path], previous['protected_files'][path])
+
     def test_checked_in_contract_preserves_audit_hashes_and_path_sets(self):
         contract = self.contract_module.load_contract(ROOT / 'audit/v0.1.32/upstream-contract.json')
         self.assertEqual(contract['baseline_commit'], BASELINE)

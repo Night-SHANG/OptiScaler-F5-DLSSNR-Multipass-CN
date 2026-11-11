@@ -242,6 +242,15 @@ class BuildContractTests(unittest.TestCase):
                           'AcceptAmpereMfgLicenses', 'EnableRtx40Mfg', 'patchedPackagerText']:
             self.assertNotIn(forbidden, text)
 
+    def test_packager_explicitly_excludes_unreviewed_f5low_kit(self):
+        text = self.text('tools/package.ps1')
+        arguments = next(line for line in text.splitlines() if line.startswith('$packageArguments ='))
+        self.assertIn("'-NoF5Low'", arguments)
+        self.assertNotIn('F5LowKit', arguments)
+        self.assertIn("$_.Name -ieq 'f5low.dll'", text)
+        self.assertIn("f5low_kit_included = $false", text)
+        self.assertNotIn('finish_release_zip.py', text)
+
     def test_packager_reads_current_identity_before_upstream_execution(self):
         text = self.text('tools/package.ps1')
         for token in ['$pin = [string]$cfg.commit', '$version = [string]$cfg.upstream_version',
@@ -252,9 +261,9 @@ class BuildContractTests(unittest.TestCase):
         self.assertNotIn("$version = 'v0.1.32'", text)
         self.assertLess(text.index('Assert-UpstreamConfig $cfg'),
                         text.index('Invoke-PinnedPowerShellScript $hybridFetcher'))
-        for fingerprint in ('cc274ff0d11ace00172b49a5330d2aa648dd5952c25ba877e2c71c9acf369bcc',
+        for fingerprint in ('08eedbba9154b2f09685c7eddbd40b1c6cb3b24156a4bc58f43419de383600c8',
                             '5fcd0c8018c1030e63e664d5df56e9a757bdafda77df688354cd4527e90172b1',
-                            'c8040f6dd9340d9a7e5cd5ced7f0d922e25e31b78b3a2ab50ee7fdc8cb8d9744'):
+                            'fd4c54668bb3ebc5f0e6bd6e43c33193c7c565bce6ac4f109592be1597ac05ac'):
             self.assertIn(fingerprint, text)
 
     def test_build_import_exception_is_not_used_for_public_stage(self):
@@ -390,7 +399,7 @@ class PowerShellValidationTests(unittest.TestCase):
                       "catch { $rejected=$true }; if (-not $rejected) { throw 'Unsafe payload accepted' }")
             self.invoke(prefix + reject.replace('{flag}', ''))
             for name in ('other.lib', 'OptiScaler.pdb', 'nvngx_dlssnr.dll', 'sl.common.dll',
-                         'child/nvngx.dll_dlssnr.lib'):
+                         'child/nvngx.dll_dlssnr.lib', 'OptiScaler/plugins/f5low.dll'):
                 file = root / name; file.parent.mkdir(parents=True, exist_ok=True)
                 file.write_bytes(b'must never be accepted')
                 self.invoke(prefix + reject.replace('{flag}', '-AllowForwarderBuildImports'))

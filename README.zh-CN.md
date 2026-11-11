@@ -1,6 +1,6 @@
 # OptiScaler F5 中文版使用说明
 
-> 2026-10-31 云端适配候选：`main-4d72d53e521b` / `4d72d53e521b34a5cda9dd4f63ee7f4cd0438035`。已补新界面与动态状态，Windows 编译/打包及 GPU 实机尚待验证；不是已发布成品。[本轮审计](docs/UPSTREAM-AUDIT-2026-10-31.md)。历史 v0.1.32 契约保存在 `audit/v0.1.32/`。
+> 2026-11-11 维护候选：`main-f10dedf93a2d` / `f10dedf93a2d5412c753c751c120d52b223800f6`，跟进上游 0.1.37.2 合并后的 main。新增 F5Low、LUT 堆栈、原生混合、深度淡化及通知历史的中文显示与动态提示适配。Windows 编译/打包结果以同提交 CI 为准，GPU 实机尚未验收。[本轮审计](docs/UPSTREAM-AUDIT-2026-11-11.md)。历史契约保存在 `audit/v0.1.32/` 和 `audit/2026-10-31/`。
 
 本项目为 **OptiScaler F5 DLSSNR Multipass v0.1.32** 建立初始简体中文审计基线，提交为 `fadc3bf67f6c8548e94914baec3f2e551ba8d8a4`。当前构建使用仓库 `upstream.json` 的完整 SHA；安装包以 `BUILD-INFO.CN.json` 为准。它是社区派生项目，不是上游官方发布。
 
@@ -90,3 +90,7 @@ python tools/localize_f5.py --source _upstream --channel master
 请提供中文仓库提交或 artifact 名、上游版本、游戏、GPU、驱动、渲染 API、语言/字体/主题/缩放设置，以及具体页面截图和可复现步骤。日志中可能含有个人路径，分享前请检查。
 
 翻译问题和中文适配回归提交到本中文仓库。上游也会出现的问题，请附英文模式复现与固定上游版本。来源、署名及各组件许可见仓库 `UPSTREAM.md`，安装包内见 `UPSTREAM.CN.md`；主许可证原文保持不变。
+
+## 0.1.37.2 维护候选的可选组件边界
+
+本轮包含 F5Low 功能的界面汉化，但保持 downloader-only 打包；通过上游 `-NoF5Low` 明确排除新外部 kit，不捆绑 `f5low.dll`，也不替换已固定的 Intel XeSS 依赖。F5Low 专属帧生成功能需使用者另行取得兼容 kit 并处理相关许可；包内不存在该 DLL 时，不应把汉化选项出现理解为功能已可用。普通 XeFG 与其他路径的可用性仍取决于上游、硬件和运行库。

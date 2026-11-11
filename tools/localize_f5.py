@@ -76,6 +76,7 @@ def patch_file(path,root,names):
     if rel == 'OptiScaler/dlssnr/DlssNr_Menu.cpp':
         # Explicit source-boundary exceptions: labels/format stay localized while
         # file names remain user data, even when named "Reset" or "Auto (On)".
+        modern_lut = 'static void RenderPostLutSection' in text
         replacements = {
             'current.empty() ? "(none)" : std::filesystem::path(current).filename().string()':
                 'current.empty() ? "(none)" : OptiScalerCN::UI::PathUtf8(std::filesystem::path(current).filename())',
@@ -90,10 +91,25 @@ def patch_file(path,root,names):
             'std::filesystem::path(lutStatus.attemptedPath).filename().string().c_str(),':
                 'OptiScalerCN::UI::Raw(OptiScalerCN::UI::PathUtf8(std::filesystem::path(lutStatus.attemptedPath).filename()).c_str()),',
         }
+        if modern_lut:
+            old = 'OptiScalerCN::UI::BeginCombo("LUT", preview.c_str())'
+            replacements.pop(old)
+            replacements['OptiScalerCN::UI::BeginCombo("Input LUT", preview.c_str())'] = (
+                'OptiScalerCN::UI::BeginComboRawPreview("Input LUT", current.empty() ? OptiScalerCN::UI::TextValue("(none)").c_str() : preview.c_str())')
+            replacements['OptiScalerCN::UI::BeginCombo(label.c_str(), preview.c_str())'] = (
+                'OptiScalerCN::UI::BeginComboRawPreview(label.c_str(), current.empty() ? OptiScalerCN::UI::TextValue("(none)").c_str() : preview.c_str())')
+            replacements['OptiScalerCN::UI::Selectable(path.filename().string().c_str(), pathStr == current)'] = (
+                'OptiScalerCN::UI::SelectableRaw(OptiScalerCN::UI::PathUtf8(path.filename()).c_str(), pathStr == current)')
+            replacements['std::filesystem::path(status.failedPath).filename().string().c_str(),'] = (
+                'OptiScalerCN::UI::Raw(OptiScalerCN::UI::PathUtf8(std::filesystem::path(status.failedPath).filename()).c_str()),')
+            # The precomposed chain contains arbitrary user filenames: never feed
+            # it into recursive generic translation or comma-splitting heuristics.
+            replacements['"Loaded: %s", status.chain.c_str()'] = '"Loaded: %s", OptiScalerCN::UI::Raw(status.chain.c_str())'
         for before, after in replacements.items():
-            if text.count(before) != 1:
+            expected = 2 if modern_lut and before.startswith('current.empty()') else 1
+            if text.count(before) != expected:
                 raise RuntimeError('LUT user-data display anchor changed: ' + before)
-            text = text.replace(before, after, 1)
+            text = text.replace(before, after, expected)
     if rel == 'OptiScaler/dlssnr/DlssNr_Menu.cpp':
         text = patch_profile_user_data(text)
     if rel == 'OptiScaler/menu/PluginsPage.cpp':

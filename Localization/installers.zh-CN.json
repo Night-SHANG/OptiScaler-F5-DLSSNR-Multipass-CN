@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "upstream_commit": "4d72d53e521b34a5cda9dd4f63ee7f4cd0438035",
+  "upstream_commit": "f10dedf93a2d5412c753c751c120d52b223800f6",
   "description": "固定上游安装脚本的显示文本适配；除代码页与 pause 显示支持外，不更改命令、控制流或协议同意要求。",
   "scripts": [
     {

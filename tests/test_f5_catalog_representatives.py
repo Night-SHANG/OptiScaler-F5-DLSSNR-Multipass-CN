@@ -10,6 +10,11 @@ from pathlib import Path
 import argparse, json, sys
 PERSISTED_KEYS = {"framegen", "nr.options", "nr.debug"}
 PROBES = [
+    ('OptiScaler/menu/NotificationsPage.cpp', 0, 'Nothing yet.'),
+    ('OptiScaler/dlssnr/DlssNr_Menu.cpp', 0, 'Native Presets'),
+    ('OptiScaler/dlssnr/DlssNr_Menu.cpp', 0, 'Fade NR with distance'),
+    ('OptiScaler/dlssnr/DlssNr_Menu.cpp', 0, 'LUT stack##f5lut'),
+    ('OptiScaler/menu/menu_common.cpp', 0, 'Frame Generator'),
     ('OptiScaler/menu/MenuPages.h', 39, 'framegen'),
     ('OptiScaler/menu/MenuPages.h', 39, 'Frame Generation'),
     ('OptiScaler/menu/MenuPages.h', 47, 'nr.options'),
@@ -188,7 +193,7 @@ PROBES = [
     ('OptiScaler/dlssnr/DlssNr_LutFile.h', 166, 'a data row appeared before LUT_3D_SIZE (line '),
     ('OptiScaler/dlssnr/DlssNr_LutFile.h', 173, 'more data rows than LUT_3D_SIZE '),
     ('OptiScaler/dlssnr/DlssNr_LutFile.h', 173, ' calls for'),
-    ('OptiScaler/dlssnr/DlssNr_LutFile.h', 184, 'this is a 1D LUT (LUT_1D_SIZE); only 3D LUTs (LUT_3D_SIZE) can be applied here'),
+    ('OptiScaler/dlssnr/DlssNr_LutFile.h', 0, 'no LUT_3D_SIZE or LUT_1D_SIZE found'),
     ('OptiScaler/dlssnr/DlssNr_LutFile.h', 192, 'expected '),
     ('OptiScaler/dlssnr/DlssNr_LutFile.h', 192, ' data rows for LUT_3D_SIZE '),
     ('OptiScaler/inputs/NVNGX_DLSS_Dx12.cpp', 1081, 'Falling back to FSR 2.1.2'),

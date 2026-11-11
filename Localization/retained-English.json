@@ -1,5 +1,5 @@
 {
-  "upstream_commit": "4d72d53e521b34a5cda9dd4f63ee7f4cd0438035",
+  "upstream_commit": "f10dedf93a2d5412c753c751c120d52b223800f6",
   "note": "Retained entries include technical catalog noise; this is not a count of untranslated prose.",
   "entries": [
     {
@@ -9,103 +9,127 @@
       "occurrences": [
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 287,
+          "line": 302,
           "callee": "ImGui::TextWrapped",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 341,
+          "line": 356,
           "callee": "ImGui::SetTooltip",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 481,
+          "line": 496,
           "callee": "ImGui::TextWrapped",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 482,
+          "line": 497,
           "callee": "ImGui::TextWrapped",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 483,
+          "line": 498,
           "callee": "ImGui::TextWrapped",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 484,
+          "line": 499,
           "callee": "ImGui::TextWrapped",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 1182,
+          "line": 1224,
           "callee": "ImGui::TextWrapped",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 1276,
+          "line": 1342,
           "callee": "ImGui::TextWrapped",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 1322,
+          "line": 1388,
           "callee": "ImGui::SetTooltip",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 1496,
+          "line": 1579,
           "callee": "ImGui::TextWrapped",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 1675,
+          "line": 1758,
           "callee": "ImGui::SetTooltip",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 2013,
+          "line": 2097,
           "callee": "ImGui::TextColored",
           "arg": 1
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 3012,
+          "line": 3187,
           "callee": "ImGui::TextDisabled",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 3132,
+          "line": 3320,
           "callee": "ImGui::TextWrapped",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 4024,
+          "line": 3899,
           "callee": "ImGui::TextWrapped",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 4069,
+          "line": 3913,
           "callee": "ImGui::TextWrapped",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 4075,
+          "line": 4559,
+          "callee": "ImGui::TextWrapped",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 4604,
+          "callee": "ImGui::TextWrapped",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 4610,
+          "callee": "ImGui::TextWrapped",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/NotificationsPage.cpp",
+          "line": 114,
+          "callee": "ImGui::TextColored",
+          "arg": 1
+        },
+        {
+          "file": "OptiScaler/menu/NotificationsPage.cpp",
+          "line": 123,
           "callee": "ImGui::TextWrapped",
           "arg": 0
         },
@@ -135,38 +159,86 @@
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 943,
+          "line": 965,
           "callee": "ImGui::SetTooltip",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 4714,
+          "line": 4259,
+          "callee": "ImGui::TextColored",
+          "arg": 1
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 4262,
+          "callee": "ImGui::TextColored",
+          "arg": 1
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 4265,
           "callee": "ImGui::TextDisabled",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 5588,
+          "line": 5026,
+          "callee": "ImGui::TextColored",
+          "arg": 1
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 5041,
+          "callee": "ImGui::TextColored",
+          "arg": 1
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 5049,
+          "callee": "ImGui::TextColored",
+          "arg": 1
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 5239,
+          "callee": "ImGui::TextDisabled",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 5241,
           "callee": "ImGui::SetTooltip",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 6346,
+          "line": 5894,
+          "callee": "ImGui::SetTooltip",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 6655,
           "callee": "ImGui::TextColored",
           "arg": 1
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 6373,
+          "line": 6682,
           "callee": "ImGui::TextColored",
           "arg": 1
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 7117,
+          "line": 7426,
           "callee": "ImGui::TextWrapped",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/misc/XeModuleInfo.cpp",
+          "line": 323,
+          "callee": ".setContent",
           "arg": 0
         },
         {
@@ -189,73 +261,73 @@
         },
         {
           "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 311,
+          "line": 366,
           "callee": "ImGui::TextDisabled",
           "arg": 0
         },
         {
           "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 356,
+          "line": 411,
           "callee": "ImGui::SetTooltip",
           "arg": 0
         },
         {
           "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 373,
+          "line": 428,
           "callee": "ImGui::SetTooltip",
           "arg": 0
         },
         {
           "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 456,
+          "line": 511,
           "callee": "ImGui::SetTooltip",
           "arg": 0
         },
         {
           "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 461,
+          "line": 516,
           "callee": "ImGui::SetTooltip",
           "arg": 0
         },
         {
           "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 467,
+          "line": 522,
           "callee": "ImGui::SetTooltip",
           "arg": 0
         },
         {
           "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 472,
+          "line": 527,
           "callee": "ImGui::SetTooltip",
           "arg": 0
         },
         {
           "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 478,
+          "line": 533,
           "callee": "ImGui::SetTooltip",
           "arg": 0
         },
         {
           "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 489,
+          "line": 544,
           "callee": "ImGui::SetTooltip",
           "arg": 0
         },
         {
           "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 493,
+          "line": 548,
           "callee": "ImGui::SetTooltip",
           "arg": 0
         },
         {
           "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 501,
+          "line": 556,
           "callee": "ImGui::SetTooltip",
           "arg": 0
         },
         {
           "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 506,
+          "line": 561,
           "callee": "ImGui::SetTooltip",
           "arg": 0
         },
@@ -310,9 +382,15 @@
       "occurrences": [
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 2114,
+          "line": 2199,
           "callee": "ImGui::SetTooltip",
           "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/NotificationsPage.cpp",
+          "line": 119,
+          "callee": "ImGui::TextColored",
+          "arg": 1
         }
       ]
     },
@@ -323,7 +401,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 2548,
+          "line": 2723,
           "callee": "ImGui::TextColored:vararg",
           "arg": 5
         }
@@ -354,33 +432,20 @@
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 2956,
+          "line": 3131,
           "callee": "ImGui::SmallButton",
           "arg": 0
         },
         {
           "file": "OptiScaler/shaders/dlssnr/DlssNr_DeferredSr.inl",
-          "line": 692,
+          "line": 712,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/shaders/dlssnr/DlssNr_DeferredSr.inl",
-          "line": 693,
+          "line": 713,
           "callee": "f5:display-data",
-          "arg": 0
-        }
-      ]
-    },
-    {
-      "key": "ui.auto.80cf900e44c2",
-      "source": "LUT",
-      "reason": "品牌、API、算法、模型或行业技术名称；保持可识别性和与上游文档的对应。",
-      "occurrences": [
-        {
-          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 3358,
-          "callee": "ImGui::BeginCombo",
           "arg": 0
         }
       ]
@@ -392,7 +457,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 2316,
+          "line": 2338,
           "callee": "StrFmt",
           "arg": 0
         }
@@ -405,7 +470,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 2329,
+          "line": 2351,
           "callee": "StrFmt",
           "arg": 0
         }
@@ -418,7 +483,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 2346,
+          "line": 2368,
           "callee": "StrFmt",
           "arg": 0
         }
@@ -431,7 +496,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 2373,
+          "line": 2395,
           "callee": "StrFmt",
           "arg": 0
         }
@@ -444,13 +509,13 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 2508,
+          "line": 2531,
           "callee": "ImGui::TextColored",
           "arg": 1
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 2597,
+          "line": 2621,
           "callee": "ImGui::TextColored",
           "arg": 1
         }
@@ -463,7 +528,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 2864,
+          "line": 2894,
           "callee": "ImGui::Text",
           "arg": 0
         }
@@ -476,19 +541,19 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 2864,
+          "line": 2894,
           "callee": "ImGui::Text:vararg",
           "arg": 1
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 2883,
+          "line": 2913,
           "callee": "ImGui::Text:vararg",
           "arg": 1
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 2901,
+          "line": 2931,
           "callee": "ImGui::Text:vararg",
           "arg": 1
         }
@@ -501,19 +566,19 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 2319,
+          "line": 2341,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 2867,
+          "line": 2897,
           "callee": "ImGui::Text:vararg",
           "arg": 6
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 2904,
+          "line": 2934,
           "callee": "ImGui::Text:vararg",
           "arg": 6
         }
@@ -526,7 +591,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 2883,
+          "line": 2913,
           "callee": "ImGui::Text",
           "arg": 0
         }
@@ -539,7 +604,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 2901,
+          "line": 2931,
           "callee": "ImGui::Text",
           "arg": 0
         }
@@ -552,7 +617,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 3019,
+          "line": 3049,
           "callee": "c-string-array",
           "arg": 0
         }
@@ -565,7 +630,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 3019,
+          "line": 3049,
           "callee": "c-string-array",
           "arg": 0
         }
@@ -578,31 +643,31 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 3080,
+          "line": 3110,
           "callee": "StrFmt",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 4429,
+          "line": 4624,
           "callee": "StrFmt",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 4434,
+          "line": 4629,
           "callee": "StrFmt",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 5635,
+          "line": 5941,
           "callee": "StrFmt",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 5640,
+          "line": 5946,
           "callee": "StrFmt",
           "arg": 0
         }
@@ -615,7 +680,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 3085,
+          "line": 3115,
           "callee": "StrFmt",
           "arg": 0
         }
@@ -628,7 +693,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 3890,
+          "line": 3911,
           "callee": "PopulateCombo",
           "arg": 0
         }
@@ -641,7 +706,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 4186,
+          "line": 4123,
           "callee": "c-string-array",
           "arg": 0
         }
@@ -654,13 +719,13 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 4430,
+          "line": 4625,
           "callee": "ImGui::BeginCombo",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 5636,
+          "line": 5942,
           "callee": "ImGui::BeginCombo",
           "arg": 0
         }
@@ -673,7 +738,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 5211,
+          "line": 5515,
           "callee": "ImGui::Text",
           "arg": 0
         }
@@ -686,7 +751,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 5931,
+          "line": 6237,
           "callee": "container:std::vector<MenuOption",
           "arg": 0
         },
@@ -705,7 +770,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 6283,
+          "line": 6589,
           "callee": "ImGui::SeparatorText",
           "arg": 0
         }
@@ -718,7 +783,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 6291,
+          "line": 6597,
           "callee": "container:std::vector<MenuOption",
           "arg": 0
         }
@@ -731,7 +796,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 6482,
+          "line": 6791,
           "callee": "ImGui::RadioButton",
           "arg": 0
         }
@@ -744,13 +809,13 @@
       "occurrences": [
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 3820,
+          "line": 4354,
           "callee": "c-string-array",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 6786,
+          "line": 7095,
           "callee": "container:std::vector<MenuOption",
           "arg": 0
         }
@@ -763,13 +828,13 @@
       "occurrences": [
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 3820,
+          "line": 4354,
           "callee": "c-string-array",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 6790,
+          "line": 7099,
           "callee": "container:std::vector<MenuOption",
           "arg": 0
         }
@@ -782,13 +847,13 @@
       "occurrences": [
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 3820,
+          "line": 4354,
           "callee": "c-string-array",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 6792,
+          "line": 7101,
           "callee": "container:std::vector<MenuOption",
           "arg": 0
         }
@@ -801,13 +866,13 @@
       "occurrences": [
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 3821,
+          "line": 4355,
           "callee": "c-string-array",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 6794,
+          "line": 7103,
           "callee": "container:std::vector<MenuOption",
           "arg": 0
         }
@@ -820,13 +885,13 @@
       "occurrences": [
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 3821,
+          "line": 4355,
           "callee": "c-string-array",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 6796,
+          "line": 7105,
           "callee": "container:std::vector<MenuOption",
           "arg": 0
         }
@@ -839,13 +904,13 @@
       "occurrences": [
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 3821,
+          "line": 4355,
           "callee": "c-string-array",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 6798,
+          "line": 7107,
           "callee": "container:std::vector<MenuOption",
           "arg": 0
         }
@@ -858,13 +923,13 @@
       "occurrences": [
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 3821,
+          "line": 4355,
           "callee": "c-string-array",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 6800,
+          "line": 7109,
           "callee": "container:std::vector<MenuOption",
           "arg": 0
         }
@@ -877,7 +942,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 6939,
+          "line": 7248,
           "callee": "ImGui::Checkbox",
           "arg": 0
         }
@@ -890,37 +955,37 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 7910,
+          "line": 8224,
           "callee": "StrFmt",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 8531,
+          "line": 8854,
           "callee": "ImGui::Text",
           "arg": 0
         },
         {
           "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 445,
+          "line": 500,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 447,
+          "line": 502,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 449,
+          "line": 504,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 474,
+          "line": 529,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -933,7 +998,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 8240,
+          "line": 8554,
           "callee": "ImGui::BeginChild",
           "arg": 0
         }
@@ -946,7 +1011,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 8325,
+          "line": 8641,
           "callee": "ImGui::BeginChild",
           "arg": 0
         }
@@ -959,7 +1024,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 8410,
+          "line": 8733,
           "callee": "StrFmt",
           "arg": 0
         }
@@ -972,19 +1037,19 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 8444,
+          "line": 8767,
           "callee": "StrFmt",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 8468,
+          "line": 8791,
           "callee": "StrFmt",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 8493,
+          "line": 8816,
           "callee": "StrFmt",
           "arg": 0
         }
@@ -997,7 +1062,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 8482,
+          "line": 8805,
           "callee": "StrFmt",
           "arg": 0
         }
@@ -1010,7 +1075,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 8523,
+          "line": 8846,
           "callee": "ImGui::Text",
           "arg": 0
         }
@@ -1023,7 +1088,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 8546,
+          "line": 8869,
           "callee": "StrFmt",
           "arg": 0
         }
@@ -1036,7 +1101,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 9004,
+          "line": 9327,
           "callee": "StrFmt",
           "arg": 0
         }
@@ -1049,7 +1114,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 9005,
+          "line": 9328,
           "callee": "StrFmt",
           "arg": 0
         }
@@ -1062,7 +1127,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 9115,
+          "line": 9438,
           "callee": "ImGui::Begin",
           "arg": 0
         }
@@ -1075,7 +1140,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 9134,
+          "line": 9457,
           "callee": "ImGui::TextColored",
           "arg": 1
         }
@@ -1517,31 +1582,31 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 5967,
+          "line": 6273,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/native/NativeLowLatency.cpp",
-          "line": 374,
+          "line": 377,
           "callee": "f5:return:PathText",
           "arg": 0
         },
         {
           "file": "OptiScaler/native/NativeLowLatency.cpp",
-          "line": 380,
+          "line": 383,
           "callee": "f5:return:PathText",
           "arg": 0
         },
         {
           "file": "OptiScaler/native/NativeLowLatency.cpp",
-          "line": 393,
+          "line": 396,
           "callee": "f5:return:PathText",
           "arg": 0
         },
         {
           "file": "OptiScaler/native/NativeLowLatency.cpp",
-          "line": 397,
+          "line": 400,
           "callee": "f5:return:PathText",
           "arg": 0
         }
@@ -1554,19 +1619,19 @@
       "occurrences": [
         {
           "file": "OptiScaler/native/NativeLowLatency.cpp",
-          "line": 377,
+          "line": 380,
           "callee": "f5:return:PathText",
           "arg": 0
         },
         {
           "file": "OptiScaler/native/NativeLowLatency.cpp",
-          "line": 385,
+          "line": 388,
           "callee": "f5:return:PathText",
           "arg": 0
         },
         {
           "file": "OptiScaler/native/NativeLowLatency.cpp",
-          "line": 391,
+          "line": 394,
           "callee": "f5:return:PathText",
           "arg": 0
         }
@@ -1579,19 +1644,19 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 5969,
+          "line": 6275,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/native/NativeLowLatency.cpp",
-          "line": 377,
+          "line": 380,
           "callee": "f5:return:PathText",
           "arg": 0
         },
         {
           "file": "OptiScaler/native/NativeLowLatency.cpp",
-          "line": 385,
+          "line": 388,
           "callee": "f5:return:PathText",
           "arg": 0
         }
@@ -1604,13 +1669,13 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 5983,
+          "line": 6289,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/native/NativeLowLatency.cpp",
-          "line": 387,
+          "line": 390,
           "callee": "f5:return:PathText",
           "arg": 0
         }
@@ -1623,31 +1688,31 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 5965,
+          "line": 6271,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 5980,
+          "line": 6286,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/native/NativeLowLatency.cpp",
-          "line": 389,
+          "line": 392,
           "callee": "f5:return:PathText",
           "arg": 0
         },
         {
           "file": "OptiScaler/native/NativeLowLatency.cpp",
-          "line": 415,
+          "line": 418,
           "callee": "f5:return:OutputText",
           "arg": 0
         },
         {
           "file": "OptiScaler/native/NativeLowLatency.cpp",
-          "line": 420,
+          "line": 423,
           "callee": "f5:return:OutputText",
           "arg": 0
         }
@@ -1660,31 +1725,31 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 6558,
+          "line": 6867,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 6580,
+          "line": 6889,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 379,
+          "line": 434,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 481,
+          "line": 536,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 509,
+          "line": 564,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -1697,103 +1762,103 @@
       "occurrences": [
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 3249,
+          "line": 3437,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 3266,
+          "line": 3454,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 3392,
+          "line": 3422,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 3400,
+          "line": 3430,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 3408,
+          "line": 3438,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 3420,
+          "line": 3450,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 6645,
+          "line": 6954,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 6715,
+          "line": 7024,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 6722,
+          "line": 7031,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 6726,
+          "line": 7035,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 6730,
+          "line": 7039,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 6734,
+          "line": 7043,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 6738,
+          "line": 7047,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 6742,
+          "line": 7051,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 413,
+          "line": 468,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 418,
+          "line": 473,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 484,
+          "line": 539,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -1806,7 +1871,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 107,
+          "line": 122,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -1819,7 +1884,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 128,
+          "line": 143,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -1832,7 +1897,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 162,
+          "line": 177,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -1845,211 +1910,223 @@
       "occurrences": [
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 548,
+          "line": 544,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 2214,
+          "line": 2299,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 3238,
+          "line": 3426,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 3243,
+          "line": 3431,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 3388,
+          "line": 3577,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 3857,
+          "line": 3813,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 4125,
+          "line": 4391,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 4140,
+          "line": 4660,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 4150,
+          "line": 4706,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 4215,
+          "line": 4745,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 4217,
+          "line": 4755,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 4218,
+          "line": 4823,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 4220,
+          "line": 4825,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 4237,
+          "line": 4826,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 4239,
+          "line": 4828,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 4240,
+          "line": 4845,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 4242,
+          "line": 4847,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 4263,
+          "line": 4848,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 4266,
+          "line": 4850,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 4267,
+          "line": 4871,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 4269,
+          "line": 4874,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 4297,
+          "line": 4875,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 4368,
+          "line": 4877,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 4377,
+          "line": 4905,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 4976,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 4985,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 3381,
+          "line": 3411,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 4224,
+          "line": 4161,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 4645,
+          "line": 4840,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 4652,
+          "line": 4847,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 6618,
+          "line": 6927,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 6654,
+          "line": 6963,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 6662,
+          "line": 6971,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 6849,
+          "line": 7158,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 7004,
+          "line": 7313,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 7781,
+          "line": 8095,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 8793,
+          "line": 9116,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2062,7 +2139,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 2245,
+          "line": 2330,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2075,7 +2152,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 2253,
+          "line": 2338,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2088,19 +2165,19 @@
       "occurrences": [
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 2569,
+          "line": 2744,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 2591,
+          "line": 2766,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 2816,
+          "line": 2991,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2113,13 +2190,13 @@
       "occurrences": [
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 2638,
+          "line": 2813,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 2645,
+          "line": 2820,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2132,13 +2209,13 @@
       "occurrences": [
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 2653,
+          "line": 2828,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 2665,
+          "line": 2840,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2151,19 +2228,19 @@
       "occurrences": [
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 2766,
+          "line": 2941,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 2772,
+          "line": 2947,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 2780,
+          "line": 2955,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2176,13 +2253,13 @@
       "occurrences": [
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 2793,
+          "line": 2968,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 2801,
+          "line": 2976,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2195,13 +2272,13 @@
       "occurrences": [
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 2833,
+          "line": 3008,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 4360,
+          "line": 4968,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2214,7 +2291,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 3183,
+          "line": 3371,
           "callee": "c-string-array",
           "arg": 0
         }
@@ -2227,7 +2304,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 3277,
+          "line": 3465,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2240,13 +2317,13 @@
       "occurrences": [
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 3485,
+          "line": 3985,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 3495,
+          "line": 3995,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2259,37 +2336,37 @@
       "occurrences": [
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 3561,
+          "line": 4061,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 3567,
+          "line": 4067,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 3574,
+          "line": 4074,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 3581,
+          "line": 4081,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 7065,
+          "line": 7374,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 7069,
+          "line": 7378,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2302,25 +2379,25 @@
       "occurrences": [
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 3588,
+          "line": 4088,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 3595,
+          "line": 4095,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 3601,
+          "line": 4101,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 3608,
+          "line": 4108,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2333,7 +2410,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 3755,
+          "line": 4289,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2346,7 +2423,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 4030,
+          "line": 4565,
           "callee": "c-string-array",
           "arg": 0
         }
@@ -2359,7 +2436,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 4049,
+          "line": 4584,
           "callee": "c-string-array",
           "arg": 0
         },
@@ -2378,7 +2455,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 635,
+          "line": 657,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2391,7 +2468,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 636,
+          "line": 658,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2404,7 +2481,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 637,
+          "line": 659,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2417,7 +2494,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 638,
+          "line": 660,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2430,7 +2507,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 639,
+          "line": 661,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2443,7 +2520,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 640,
+          "line": 662,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2456,7 +2533,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 641,
+          "line": 663,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2469,7 +2546,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 642,
+          "line": 664,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2482,7 +2559,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 643,
+          "line": 665,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2495,7 +2572,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 644,
+          "line": 666,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2508,7 +2585,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 645,
+          "line": 667,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2521,7 +2598,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 646,
+          "line": 668,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2534,7 +2611,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 647,
+          "line": 669,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2547,7 +2624,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 648,
+          "line": 670,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2560,7 +2637,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 649,
+          "line": 671,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2573,7 +2650,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 650,
+          "line": 672,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2586,7 +2663,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 651,
+          "line": 673,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2599,7 +2676,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 652,
+          "line": 674,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2612,7 +2689,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 655,
+          "line": 677,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2625,7 +2702,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 656,
+          "line": 678,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2638,7 +2715,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 657,
+          "line": 679,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2651,7 +2728,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 658,
+          "line": 680,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2664,7 +2741,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 659,
+          "line": 681,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2677,7 +2754,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 660,
+          "line": 682,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2690,7 +2767,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 1763,
+          "line": 1785,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2703,7 +2780,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 1764,
+          "line": 1786,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2716,7 +2793,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 2210,
+          "line": 2232,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2729,7 +2806,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 2216,
+          "line": 2238,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2742,13 +2819,13 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 2223,
+          "line": 2245,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 2242,
+          "line": 2264,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2761,13 +2838,13 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 2227,
+          "line": 2249,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 2246,
+          "line": 2268,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2780,13 +2857,13 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 2234,
+          "line": 2256,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 2250,
+          "line": 2272,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2799,7 +2876,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 2280,
+          "line": 2302,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2812,13 +2889,13 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 2286,
+          "line": 2308,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 3822,
+          "line": 3840,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2831,7 +2908,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 2290,
+          "line": 2312,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2844,7 +2921,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 2294,
+          "line": 2316,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2857,7 +2934,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 3019,
+          "line": 3049,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2870,7 +2947,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 3019,
+          "line": 3049,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2883,7 +2960,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 3019,
+          "line": 3049,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2896,7 +2973,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 3019,
+          "line": 3049,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2909,7 +2986,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 3687,
+          "line": 3693,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2922,7 +2999,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 3689,
+          "line": 3695,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2935,7 +3012,19 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 3747,
+          "line": 3756,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 4231,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriverDx12.cpp",
+          "line": 54,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2948,7 +3037,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 3821,
+          "line": 3839,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2961,7 +3050,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 3821,
+          "line": 3839,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2974,7 +3063,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 3822,
+          "line": 3840,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -2987,7 +3076,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 3823,
+          "line": 3841,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -3000,7 +3089,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 3824,
+          "line": 3842,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -3013,7 +3102,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 3877,
+          "line": 3898,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -3026,37 +3115,37 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 3959,
+          "line": 4313,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 3973,
+          "line": 4327,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 4818,
+          "line": 5083,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 4826,
+          "line": 5091,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 4997,
+          "line": 5301,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 5005,
+          "line": 5309,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -3069,25 +3158,25 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 4020,
+          "line": 4376,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 4332,
+          "line": 4527,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 5035,
+          "line": 5339,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 6221,
+          "line": 6527,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -3100,7 +3189,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 4628,
+          "line": 4823,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -3113,49 +3202,49 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 5325,
+          "line": 5629,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 5846,
+          "line": 6152,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 5853,
+          "line": 6159,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 5865,
+          "line": 6171,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 5870,
+          "line": 6176,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 6568,
+          "line": 6877,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 6590,
+          "line": 6899,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/native/NativeDriver.cpp",
-          "line": 388,
+          "line": 443,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -3168,7 +3257,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 5563,
+          "line": 5869,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -3181,7 +3270,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 5918,
+          "line": 6224,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -3194,7 +3283,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 6084,
+          "line": 6390,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -3207,7 +3296,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 6869,
+          "line": 7178,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -3220,7 +3309,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 6927,
+          "line": 7236,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -3233,7 +3322,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 7051,
+          "line": 7360,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -3246,7 +3335,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 7157,
+          "line": 7466,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -3259,13 +3348,13 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 7988,
+          "line": 8302,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 8802,
+          "line": 9125,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -3278,7 +3367,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 8406,
+          "line": 8729,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -3291,7 +3380,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 8432,
+          "line": 8755,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -3304,7 +3393,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 8541,
+          "line": 8864,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -3317,13 +3406,13 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 8713,
+          "line": 9036,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 8799,
+          "line": 9122,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -3336,7 +3425,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 8861,
+          "line": 9184,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -3349,7 +3438,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 9006,
+          "line": 9329,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -3362,7 +3451,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 9006,
+          "line": 9329,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -3375,7 +3464,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
-          "line": 90,
+          "line": 305,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -3388,7 +3477,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
-          "line": 93,
+          "line": 308,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -3401,7 +3490,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
-          "line": 99,
+          "line": 345,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -3414,7 +3503,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
-          "line": 117,
+          "line": 363,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -3427,13 +3516,13 @@
       "occurrences": [
         {
           "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
-          "line": 127,
+          "line": 373,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
-          "line": 136,
+          "line": 382,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -3446,7 +3535,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
-          "line": 127,
+          "line": 373,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -3459,7 +3548,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/MenuPages.h",
-          "line": 47,
+          "line": 51,
           "callee": "f5:table:kPages",
           "arg": 0
         }
@@ -3478,13 +3567,13 @@
         },
         {
           "file": "OptiScaler/shaders/dlssnr/DlssNr_DeferredSr.inl",
-          "line": 623,
+          "line": 643,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/shaders/dlssnr/DlssNr_Late.inl",
-          "line": 197,
+          "line": 213,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -3503,7 +3592,7 @@
         },
         {
           "file": "OptiScaler/shaders/dlssnr/DlssNr_Late.inl",
-          "line": 198,
+          "line": 214,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -3522,19 +3611,19 @@
         },
         {
           "file": "OptiScaler/shaders/dlssnr/DlssNr_DeferredSr.inl",
-          "line": 572,
+          "line": 588,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/shaders/dlssnr/DlssNr_DeferredSr.inl",
-          "line": 577,
+          "line": 593,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/shaders/dlssnr/DlssNr_Late.inl",
-          "line": 199,
+          "line": 215,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -3547,7 +3636,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/shaders/dlssnr/DlssNr_Late.inl",
-          "line": 838,
+          "line": 909,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -3560,7 +3649,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 6354,
+          "line": 6663,
           "callee": "c-string-array",
           "arg": 0
         },
@@ -3578,7 +3667,7 @@
         },
         {
           "file": "OptiScaler/shaders/dlssnr/DlssNr_Late.inl",
-          "line": 838,
+          "line": 909,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -3591,7 +3680,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/shaders/dlssnr/DlssNr_Late.inl",
-          "line": 838,
+          "line": 909,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -3617,7 +3706,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/shaders/dlssnr/DlssNr_DeferredSr.inl",
-          "line": 482,
+          "line": 498,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -3637,26 +3726,13 @@
       ]
     },
     {
-      "key": "ui.auto.c5c0c39a4e7e",
-      "source": "LUT##card",
-      "reason": "LUT 为查找表通用技术缩写，##card 为隐藏 ImGui ID。",
-      "occurrences": [
-        {
-          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 3917,
-          "callee": "f5:display-data",
-          "arg": 0
-        }
-      ]
-    },
-    {
       "key": "ui.auto.e9d6e810d493",
       "source": "Superior Scaling",
       "reason": "上游独立算法/模式专名，中文提示中解释含义；保持产品辨识。",
       "occurrences": [
         {
           "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
-          "line": 3958,
+          "line": 4492,
           "callee": "c-string-array",
           "arg": 0
         }
@@ -3669,7 +3745,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 3297,
+          "line": 3327,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -3682,13 +3758,13 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 4538,
+          "line": 4733,
           "callee": "f5:display-data",
           "arg": 0
         },
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 5702,
+          "line": 6008,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -3701,7 +3777,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 6400,
+          "line": 6709,
           "callee": "c-string-array",
           "arg": 0
         }
@@ -3714,7 +3790,7 @@
       "occurrences": [
         {
           "file": "OptiScaler/menu/menu_common.cpp",
-          "line": 6984,
+          "line": 7293,
           "callee": "f5:display-data",
           "arg": 0
         }
@@ -3793,6 +3869,465 @@
           "file": "OptiScaler/output/SdrToHdr_Status.h",
           "line": 105,
           "callee": "f5:return:StatusLine",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.94adb85313bc",
+      "source": "INPUT GAMMA",
+      "reason": "LUT 文件头解析键，属于配置/文件格式标识，不作界面译文替换。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
+          "line": 246,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.e6dfe43cbd50",
+      "source": "INPUT COLOR SPACE",
+      "reason": "LUT 文件头解析键，属于配置/文件格式标识，不作界面译文替换。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
+          "line": 248,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.bd2d71f164cb",
+      "source": "INPUT COLOUR SPACE",
+      "reason": "LUT 文件头解析键，属于配置/文件格式标识，不作界面译文替换。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
+          "line": 248,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.204330d009ad",
+      "source": "OUTPUT GAMMA",
+      "reason": "LUT 文件头解析键，属于配置/文件格式标识，不作界面译文替换。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
+          "line": 250,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.8d8f2d044226",
+      "source": "OUTPUT COLOR SPACE",
+      "reason": "LUT 文件头解析键，属于配置/文件格式标识，不作界面译文替换。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
+          "line": 252,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.4dfa06c73635",
+      "source": "OUTPUT COLOUR SPACE",
+      "reason": "LUT 文件头解析键，属于配置/文件格式标识，不作界面译文替换。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
+          "line": 252,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.38bdd77cb590",
+      "source": "1D ",
+      "reason": "维度/倍数/版本格式或移除符号控件；保留占位符和隐藏 ID。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
+          "line": 262,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.30465b484dfc",
+      "source": "LUT_1D_INPUT_RANGE",
+      "reason": "LUT 文件头解析键，属于配置/文件格式标识，不作界面译文替换。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
+          "line": 322,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
+          "line": 331,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.af99e2802d3a",
+      "source": "LUT_3D_INPUT_RANGE",
+      "reason": "LUT 文件头解析键，属于配置/文件格式标识，不作界面译文替换。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
+          "line": 322,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.5cceef445808",
+      "source": "ARRI LogC3 AWG3",
+      "reason": "品牌、后端名称或标准色彩空间/色域标识，保留行业名称便于准确选择。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_LutSpaces.h",
+          "line": 74,
+          "callee": "f5:return:LutSpaceName",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.316aa81636a8",
+      "source": "ARRI LogC4 AWG4",
+      "reason": "品牌、后端名称或标准色彩空间/色域标识，保留行业名称便于准确选择。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_LutSpaces.h",
+          "line": 76,
+          "callee": "f5:return:LutSpaceName",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.370e9baabc29",
+      "source": "ACEScct AP1",
+      "reason": "品牌、后端名称或标准色彩空间/色域标识，保留行业名称便于准确选择。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_LutSpaces.h",
+          "line": 78,
+          "callee": "f5:return:LutSpaceName",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.8f238e3e0c90",
+      "source": "S-Log3 S-Gamut3.Cine",
+      "reason": "品牌、后端名称或标准色彩空间/色域标识，保留行业名称便于准确选择。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_LutSpaces.h",
+          "line": 80,
+          "callee": "f5:return:LutSpaceName",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.5cc400735967",
+      "source": "V-Log V-Gamut",
+      "reason": "品牌、后端名称或标准色彩空间/色域标识，保留行业名称便于准确选择。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_LutSpaces.h",
+          "line": 82,
+          "callee": "f5:return:LutSpaceName",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.0175d32a53aa",
+      "source": "DaVinci Intermediate DWG",
+      "reason": "品牌、后端名称或标准色彩空间/色域标识，保留行业名称便于准确选择。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_LutSpaces.h",
+          "line": 84,
+          "callee": "f5:return:LutSpaceName",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.a2614197e1ae",
+      "source": "AWG3",
+      "reason": "品牌、后端名称或标准色彩空间/色域标识，保留行业名称便于准确选择。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_LutSpaces.h",
+          "line": 97,
+          "callee": "f5:return:LutGamutName",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.d2ec24e79dab",
+      "source": "AWG4",
+      "reason": "品牌、后端名称或标准色彩空间/色域标识，保留行业名称便于准确选择。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_LutSpaces.h",
+          "line": 99,
+          "callee": "f5:return:LutGamutName",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.a75555334464",
+      "source": "AP1",
+      "reason": "品牌、后端名称或标准色彩空间/色域标识，保留行业名称便于准确选择。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_LutSpaces.h",
+          "line": 101,
+          "callee": "f5:return:LutGamutName",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.3fb1d3357e95",
+      "source": "S-Gamut3.Cine",
+      "reason": "品牌、后端名称或标准色彩空间/色域标识，保留行业名称便于准确选择。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_LutSpaces.h",
+          "line": 103,
+          "callee": "f5:return:LutGamutName",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.416db6fde83b",
+      "source": "V-Gamut",
+      "reason": "品牌、后端名称或标准色彩空间/色域标识，保留行业名称便于准确选择。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_LutSpaces.h",
+          "line": 105,
+          "callee": "f5:return:LutGamutName",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.2cc4531703da",
+      "source": "DaVinci Wide Gamut",
+      "reason": "品牌、后端名称或标准色彩空间/色域标识，保留行业名称便于准确选择。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_LutSpaces.h",
+          "line": 107,
+          "callee": "f5:return:LutGamutName",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.f754ee354153",
+      "source": "BT.709",
+      "reason": "品牌、后端名称或标准色彩空间/色域标识，保留行业名称便于准确选择。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_LutSpaces.h",
+          "line": 109,
+          "callee": "f5:return:LutGamutName",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.0d4374fda65b",
+      "source": "x##postlutremove",
+      "reason": "维度/倍数/版本格式或移除符号控件；保留占位符和隐藏 ID。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3774,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+          "line": 3780,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.8942ec590eac",
+      "source": "XeFG Tensor",
+      "reason": "品牌、后端名称或标准色彩空间/色域标识，保留行业名称便于准确选择。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/framegen/f5low/F5LowRules.h",
+          "line": 99,
+          "callee": "f5:return:GeneratorLabel",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.23d5c574e9e3",
+      "source": "DLSS-G (NVIDIA)",
+      "reason": "品牌、后端名称或标准色彩空间/色域标识，保留行业名称便于准确选择。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/framegen/f5low/F5LowRules.h",
+          "line": 101,
+          "callee": "f5:return:GeneratorLabel",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.da0195f805cc",
+      "source": "F5LUT",
+      "reason": "品牌、后端名称或标准色彩空间/色域标识，保留行业名称便于准确选择。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/MenuPages.h",
+          "line": 50,
+          "callee": "f5:table:kPages",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.bc7aa67fcc79",
+      "source": "  (x{})",
+      "reason": "维度/倍数/版本格式或移除符号控件；保留占位符和隐藏 ID。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/NotificationsPage.cpp",
+          "line": 120,
+          "callee": "ImGui::TextColored:vararg",
+          "arg": 3
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.d733cdb2aa50",
+      "source": "F5Low",
+      "reason": "品牌、后端名称或标准色彩空间/色域标识，保留行业名称便于准确选择。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 3759,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 4225,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 4903,
+          "callee": "f5:display-data",
+          "arg": 0
+        },
+        {
+          "file": "OptiScaler/native/NativeDriverDx12.cpp",
+          "line": 60,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.714440aa4613",
+      "source": "fgHudUi",
+      "reason": "内部控件分组键或模块描述解析分隔符；保持原始程序标识。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 3976,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.11a606c7a5ef",
+      "source": "xefgMain",
+      "reason": "内部控件分组键或模块描述解析分隔符；保持原始程序标识。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 4971,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.0b70336f83fd",
+      "source": " from ",
+      "reason": "内部控件分组键或模块描述解析分隔符；保持原始程序标识。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/menu/menu_common.cpp",
+          "line": 5229,
+          "callee": "f5:display-data",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.9810fbcd63cb",
+      "source": "v{}.{}.{}.{}",
+      "reason": "维度/倍数/版本格式或移除符号控件；保留占位符和隐藏 ID。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/misc/XeModuleInfo.cpp",
+          "line": 84,
+          "callee": "f5:return:VersionOf",
+          "arg": 0
+        }
+      ]
+    },
+    {
+      "key": "ui.auto.ba4b819c785b",
+      "source": "DLSS-G",
+      "reason": "品牌、后端名称或标准色彩空间/色域标识，保留行业名称便于准确选择。",
+      "occurrences": [
+        {
+          "file": "OptiScaler/native/NativeDriverDx12.cpp",
+          "line": 56,
+          "callee": "f5:display-data",
           "arg": 0
         }
       ]
