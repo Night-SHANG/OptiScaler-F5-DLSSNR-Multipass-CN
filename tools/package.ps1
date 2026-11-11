@@ -9,6 +9,8 @@ $ErrorActionPreference = 'Stop'
 $repo = [IO.Path]::GetFullPath((Split-Path -Parent $PSScriptRoot))
 $hybridArchiveHash = '3e735f825b85872d20c35c0d75404c1a28b7b6e11ca28ef06243a18225191037'
 $hybridArchiveUrl = 'https://github.com/wilsjo2/OptiScaler-DLSSNR-PreSR-Multipass/releases/download/v0.7.5-nr-fixes/OptiScaler-DLSSNR-v0.7.5-nr-fixes.zip'
+$f5lowArchiveHash = '97fa6fb53a2278dfc651e4de2b2201f399f40ce49474b5f8199a2e5794d87f56'
+$f5lowArchiveUrl = 'https://github.com/janblade/f5low-fg/releases/download/v1.1.0.140/f5low-kit-1.1.0.140%2B1f17d38.zip'
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 
 function Assert-UpstreamConfig($Config) {
@@ -91,7 +93,8 @@ function Assert-SafeArchive([string]$Path) {
         }
     } finally { $archive.Dispose() }
 }
-function Assert-NoForbiddenPayload([string]$Stage, [switch]$AllowForwarderBuildImports) {
+function Assert-NoForbiddenPayload([string]$Stage, [switch]$AllowForwarderBuildImports, [switch]$AllowPinnedF5Low) {
+    if ($AllowForwarderBuildImports -and $AllowPinnedF5Low) { throw 'Build and package payload exceptions cannot be combined' }
     $items = @(Get-ChildItem -LiteralPath $Stage -Recurse -Force)
     if ($items | Where-Object { $_.Attributes -band [IO.FileAttributes]::ReparsePoint }) { throw 'Linked package payload' }
     $bad = @($items | Where-Object { -not $_.PSIsContainer -and (
@@ -106,9 +109,28 @@ function Assert-NoForbiddenPayload([string]$Stage, [switch]$AllowForwarderBuildI
         $allowed = @((Join-Path $root 'nvngx.dll_dlssnr.lib'), (Join-Path $root 'nvngx.dll_dlssnr.exp'))
         $bad = @($bad | Where-Object { $allowed -inotcontains $_.FullName })
     }
+    if ($AllowPinnedF5Low) {
+        # Only this exact final-stage path and these official kit bytes are allowed.
+        # The unchanged build stage must still reject every f5low.dll.
+        $plugin = [IO.Path]::GetFullPath((Join-Path $Stage 'OptiScaler/plugins/f5low.dll'))
+        Assert-Hash $plugin '0993352a97a05537a88bd1d0266cb62ae581f219b75fc588fbc15eeeacb48fa4'
+        $bad = @($bad | Where-Object { $_.FullName -cne $plugin })
+    }
     if ($bad.Count) { throw "Forbidden public payload: $($bad.Name -join ', ')" }
 }
-function Assert-StagedDependencies([string]$Stage) {
+function Assert-F5LowIntel([string]$Path) {
+    Assert-Pe64 $Path
+    Assert-Hash $Path '752b1491350a29fb2850fa4d0d14f62d79980e0b3cd067d147bb2469c1ec3182'
+    if ((Get-Item -LiteralPath $Path).VersionInfo.FileVersion -cne '1.3.4.95') {
+        throw 'F5Low requires exactly Intel libxess_fg.dll 1.3.4.95'
+    }
+    $signature = Get-AuthenticodeSignature -LiteralPath $Path
+    if ($signature.Status -ne 'Valid' -or $null -eq $signature.SignerCertificate -or
+        $signature.SignerCertificate.Subject -notmatch '(^|,\s*)O=Intel Corporation(,|$)') {
+        throw 'F5Low Intel library must retain a valid Intel Corporation signature'
+    }
+}
+function Assert-StagedDependencies([string]$Stage, [switch]$PackageStage) {
     # Check every dependency copied by the unchanged Release PostBuildEvent, byte for byte.
     $pairs = @(
         @('external/xess/LICENSE.txt', 'Licenses/XeSS_LICENSE.txt'),
@@ -128,7 +150,17 @@ function Assert-StagedDependencies([string]$Stage) {
         if (-not $files.Count) { throw "Required dependency source set is empty: $source" }
         foreach ($file in $files) { $pairs += ,@("$($mapping[0])/$($file.Name)", "$($mapping[2])/$($file.Name)") }
     }
-    foreach ($pair in $pairs) { Assert-Hash (Join-Path $Stage $pair[1]) (Get-Sha (Join-Path $SourceRoot $pair[0])) }
+    foreach ($pair in $pairs) {
+        if ($PackageStage -and $pair[1] -ceq 'OptiScaler/libxess_fg.dll') {
+            # Build-stage 1.3.1.78 remains byte-for-byte checked against the pinned
+            # submodule; only the packaged kit's exact newer Intel DLL replaces it.
+            Assert-F5LowIntel (Join-Path $Stage $pair[1])
+        } elseif ($PackageStage -and $pair[1] -ceq 'Licenses/XeSS_LICENSE.txt') {
+            Assert-Hash (Join-Path $Stage $pair[1]) '784be42c39a4a4d03cf85d88e15e59d75828fca773ce45b8dbfffbd7eaf208df'
+        } else {
+            Assert-Hash (Join-Path $Stage $pair[1]) (Get-Sha (Join-Path $SourceRoot $pair[0]))
+        }
+    }
 }
 function Write-Checksums([string]$Stage) {
     $lines = @(Get-ChildItem -LiteralPath $Stage -Recurse -File | Where-Object { $_.Name -ne 'SHA256SUMS.txt' } |
@@ -204,16 +236,30 @@ Invoke-PinnedPowerShellScript $hybridFetcher @('-Destination', $hybridScratch, '
 $hybridManifestPath = Join-Path $hybridScratch 'asset-manifest.json'
 $hybridManifest = Get-Content -LiteralPath $hybridManifestPath -Raw | ConvertFrom-Json
 if (@($hybridManifest.files).Count -ne 15) { throw 'Expected exactly 15 verified hybrid assets' }
+$f5lowArchivePath = Join-Path $work 'f5low-kit-1.1.0.140.zip'
+Invoke-WebRequest -Uri $f5lowArchiveUrl -OutFile $f5lowArchivePath
+Assert-Hash $f5lowArchivePath $f5lowArchiveHash
+Assert-SafeArchive $f5lowArchivePath
+$f5lowAuditPath = Join-Path $work 'f5low-kit-audit.json'
+& python (Join-Path $PSScriptRoot 'f5low_kit.py') --archive $f5lowArchivePath --manifest $f5lowAuditPath
+if ($LASTEXITCODE -ne 0) { throw 'Pinned F5Low kit verification failed before upstream extraction' }
 $packageVersion = "$version-cn-$($cnCommit.Substring(0, 12))"
-$packageArguments = @('-Version', $packageVersion, '-SkipBuild', '-NoF5Low', '-HybridAssetsDirectory', $hybridScratch)
-# Explicitly exclude the newly required external F5Low kit; retain audited XeSS bytes.
-# No proprietary runtime inclusion or license-acceptance switches are forwarded.
+$packageArguments = @('-Version', $packageVersion, '-SkipBuild', '-F5LowKit', $f5lowArchivePath, '-F5LowKitSha256', $f5lowArchiveHash, '-HybridAssetsDirectory', $hybridScratch)
+# The unchanged audited packager checks Intel's signature/version and both auto
+# defaults before returning. The kit matches the upstream 0.1.37.2 main package.
+# No NVIDIA runtime inclusion or license-acceptance switches are forwarded.
 Invoke-PinnedPowerShellScript $upstreamPackager $packageArguments
 $sourceZip = Join-Path $SourceRoot "release/OptiScaler-DLSSNR-F5-$packageVersion.zip"
 Assert-Leaf $sourceZip
 Assert-SafeArchive $sourceZip
 $stage = Join-Path $work 'cn-stage'
 Expand-Archive -LiteralPath $sourceZip -DestinationPath $stage
+$f5lowManifestPath = Join-Path $work 'f5low-kit-manifest.json'
+# Preserve all seven kit files and change only FGOutput/FrameGenerator from auto
+# after the upstream checks have completed, before final checksums are generated.
+& python (Join-Path $PSScriptRoot 'f5low_kit.py') --archive $f5lowArchivePath --stage $stage --manifest $f5lowManifestPath
+if ($LASTEXITCODE -ne 0) { throw 'F5Low final stage/default verification failed' }
+$f5lowManifest = Get-Content -LiteralPath $f5lowManifestPath -Raw | ConvertFrom-Json
 
 # Preserve the source archive's license and notices as well as the upstream runtime licenses.
 $archive = [IO.Compression.ZipFile]::OpenRead($archivePath)
@@ -232,7 +278,8 @@ Copy-Item -LiteralPath (Join-Path $repo 'README.zh-CN.md') -Destination (Join-Pa
 Copy-Item -LiteralPath (Join-Path $repo 'UPSTREAM.md') -Destination (Join-Path $stage 'UPSTREAM.CN.md')
 $metadata = [ordered]@{
     schema = 1; upstream_repository = $cfg.repository; upstream_commit = $pin; upstream_version = $version;
-    cn_commit = $cnCommit; package_version = $packageVersion; variant = 'downloader-only'; f5low_kit_included = $false;
+    cn_commit = $cnCommit; package_version = $packageVersion; variant = 'downloader-only'; f5low_kit_included = $true;
+    f5low_kit = $f5lowManifest;
     configuration = 'Release'; platform = 'x64'; toolset = 'v143'; msbuild_version = $buildEvidence.msbuild_version;
     hybrid_archive_url = $hybridArchiveUrl; hybrid_archive_sha256 = $hybridArchiveHash;
     hybrid_assets = @($hybridManifest.files); recursive_submodules = @($submodules);
@@ -240,8 +287,10 @@ $metadata = [ordered]@{
     packaged_at_utc = [DateTime]::UtcNow.ToString('o'); game_runtime_validation = 'not performed by this workflow'
 }
 $metadata | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $stage 'BUILD-INFO.CN.json') -Encoding utf8
-Assert-StagedDependencies $stage
-Assert-NoForbiddenPayload $stage
+Assert-StagedDependencies $stage -PackageStage
+Assert-NoForbiddenPayload $stage -AllowPinnedF5Low
+& python -c "import json,sys; from pathlib import Path; sys.path.insert(0,sys.argv[1]); from f5low_kit import verify_staged_f5low; stage=Path(sys.argv[2]); verify_staged_f5low(stage,json.loads((stage/'BUILD-INFO.CN.json').read_text(encoding='utf-8-sig')))" $PSScriptRoot $stage
+if ($LASTEXITCODE -ne 0) { throw 'Final F5Low payload verification failed' }
 foreach ($dll in @('OptiScaler.dll', 'nvngx.dll_dlssnr.dll')) {
     Assert-Pe64 (Join-Path $stage $dll)
     Assert-Hash (Join-Path $stage $dll) (Get-Sha (Join-Path $builtStage $dll))
@@ -284,5 +333,6 @@ $metadata['verified_archive_files'] = $entries.Count
 $metadata | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $OutputDir 'build-metadata.json') -Encoding utf8
 [IO.File]::WriteAllText(($zipPath + '.sha256'), "$zipHash *$zipName`n", [Text.UTF8Encoding]::new($false))
 Copy-Item -LiteralPath $hybridManifestPath -Destination (Join-Path $repo 'reports/hybrid-asset-manifest.json')
+Copy-Item -LiteralPath $f5lowManifestPath -Destination (Join-Path $repo 'reports/f5low-kit-manifest.json')
 Write-Host "PACKAGE=$zipName"
 Write-Host "SHA256=$zipHash"

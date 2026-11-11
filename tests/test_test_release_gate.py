@@ -196,6 +196,41 @@ class ReleaseGateTests(unittest.TestCase):
         self.assertEqual(set(package['assets']), {self.fixture.name, self.fixture.name + '.sha256', 'build-metadata.json'})
         self.assertEqual(self.context['sha'], SHA)
 
+    def test_fixed_legacy_publisher_rejects_unverified_f5low_payload(self):
+        for name in ('f5low.dll', 'OptiScaler/plugins/f5low.dll', 'nested/F5LOW.DLL',
+                     'Licenses/f5low_LICENSE.txt'):
+            with self.subTest(name=name):
+                self.fixture.payload[name] = pe64()
+                self.fixture.write()
+                with self.assertRaises(self.gate.GateError):
+                    self.package()
+                del self.fixture.payload[name]
+
+    def test_fixed_legacy_publisher_keeps_existing_intel_runtime(self):
+        self.fixture.payload['OptiScaler/libxess_fg.dll'] = pe64()
+        self.fixture.payload['Licenses/XeSS_LICENSE.txt'] = b'historical Intel license'
+        self.fixture.write()
+        self.assertEqual(self.package()['metadata']['upstream_version'], 'v0.1.32')
+
+    def test_fixed_legacy_publisher_rejects_f5low_metadata_claims(self):
+        for changes in ({'f5low_kit_included': True}, {'f5low_kit_included': 'false'},
+                        {'f5low_kit': {}}, {'f5low_kit_included': False, 'f5low_kit': {}}):
+            with self.subTest(changes=changes):
+                self.fixture.inner.update(changes)
+                self.fixture.write()
+                with self.assertRaises(self.gate.GateError):
+                    self.package()
+                self.fixture.inner.pop('f5low_kit_included', None)
+                self.fixture.inner.pop('f5low_kit', None)
+
+    def test_fixed_release_cannot_publish_a_new_kit_by_direct_call(self):
+        package = self.package()
+        package['metadata'].update(f5low_kit_included=True, f5low_kit=self.gate.f5low_kit.expected_metadata())
+        github = FakeGitHub(self.gate, package, self.context)
+        with self.assertRaisesRegex(self.gate.GateError, 'Fixed legacy release'):
+            self.gate.publish(package, self.context, github)
+        self.assertEqual(github.mutations, [])
+
     def test_every_gate_mismatch_fails_closed(self):
         for key, value in [('GITHUB_ACTIONS', 'false'), ('GITHUB_EVENT_NAME', 'workflow_dispatch'),
                            ('GITHUB_REF', 'refs/heads/other'), ('GITHUB_REPOSITORY', 'other/repo'),

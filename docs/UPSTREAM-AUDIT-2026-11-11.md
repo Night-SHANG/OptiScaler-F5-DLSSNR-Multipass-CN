@@ -13,14 +13,14 @@ The previous exact contract and pin are retained under `audit/2026-10-31/`. The 
 
 - `.gitmodules` and all ten gitlinks are unchanged. Recursive dependency worktrees still need the independent Windows build gate; this review does not claim they are initialized.
 - All four installer inputs, `get_hybrid_assets.ps1`, NVIDIA Streamline manifest, existing legal notices/licenses, original font and ImGui core anchors are unchanged. Installer translation pairs and fingerprints require no renewal. `ImGuiNotify.hpp` did change for notification integration and is now exact-byte protected.
-- The new `external/f5low/README.md` is dependency documentation and remains protected, not exempted as ordinary documentation. It describes an external GPL-3.0 F5Low kit and Intel XeSS-FG 1.3.4.95. No kit binaries are in this upstream tree, and none were downloaded, accepted or redistributed for this audit.
+- The new `external/f5low/README.md` is dependency documentation and remains protected, not exempted as ordinary documentation. It describes an external GPL-3.0 F5Low kit and Intel XeSS-FG 1.3.4.95. No kit binaries are in this upstream tree. The subsequent release-content correction verified the official kit and upstream release ZIP; absence from Git history is not absence from the release package. See `F5LOW-DISTRIBUTION-AUDIT-2026-11-11.md`.
 - The kit path is git-ignored except its README. Existing XeSS gitlink remains unchanged and the MSBuild output still uses its 1.3.1.78 library.
 
 ## Packaging and build review
 
 `package_release.ps1` now requires an external F5Low kit by default. Its kit branch checks archive/manifest hashes, the exact Intel version/hash/signature, export strings and binary path hygiene; stages F5Low plus the replacement Intel DLL and license notices. It also changes forwarder selection to the newest output, checks its version against OptiScaler, and requires shipped `FGOutput=auto` and `FrameGenerator=auto`.
 
-The CN wrapper explicitly supplies upstream's supported `-NoF5Low` switch. This preserves the existing downloader-only, pinned-dependency package without silently adding a new external runtime. It rejects `f5low.dll` in both build/public payload checks and records `f5low_kit_included: false` in metadata. Existing dependency byte comparisons, prohibited NVIDIA runtime checks, exact build-evidence hashes, archive validation and installer-output checks remain intact. F5Low UI/source support is present, but the optional kit is not bundled; this is a deliberate release-content limitation, not full F5Low distribution support.
+The first candidate explicitly supplied `-NoF5Low`, incorrectly retaining the old release-content boundary despite the new upstream main ZIP bundling F5Low. This choice is corrected: the wrapper obtains the official, hash-pinned 1.1.0.140 kit, passes `-F5LowKit` and `-F5LowKitSha256`, and validates its exact files and notices. Build output retains the original submodule Intel bytes; only the final package admits the pinned kit Intel 1.3.4.95. F5Low is allowed only at its exact plugin path with its audited hash. Metadata records the included kit and source. Existing NVIDIA runtime exclusions and other source/build/installer checks remain. After the original packager's auto-default gate, a narrow checked transformation sets only FGOutput and FrameGenerator to the values in the upstream player ZIP and regenerates final checksums.
 
 New audited packager SHA256: `08eedbba9154b2f09685c7eddbd40b1c6cb3b24156a4bc58f43419de383600c8`.
 New main project SHA256: `fd4c54668bb3ebc5f0e6bd6e43c33193c7c565bce6ac4f109592be1597ac05ac`.
@@ -33,7 +33,7 @@ Upstream's package workflow additionally downloads user-supplied kit URLs and ca
 ## Verification and limits
 
 - Exact immutable-object, HEAD, index and pristine worktree verification passed: 1,261 sources, ten gitlinks, no changed structured sources.
-- A new packaging regression failed before implementation on the missing `-NoF5Low`, then passed after the wrapper change. It also checks optional-kit rejection, metadata and absence of upstream finishing-script invocation.
+- The initial regression for `-NoF5Low` recorded the now-superseded exclusion. The correction replaces it with pinned-kit integration, exact final-stage exceptions, metadata and defaults tests; malformed archives, wrong bytes/paths, missing notices and mismatched metadata must fail. Final counts are reported by the exact-commit CI, not inferred here.
 - Build/packaging contract suite: 25 tests passed, with six PowerShell-only tests skipped because PowerShell is unavailable in this Linux cloud workspace.
 - Upstream compatibility suite: 31 tests passed, including historical contract retention, unchanged dependency/installer evidence and no expanded mutable slots, alongside real-Git hostile-input rejection tests.
 - Installer suite: 19 tests passed, with two platform-specific tests skipped; no installer adapter implementation or fingerprint change was necessary.

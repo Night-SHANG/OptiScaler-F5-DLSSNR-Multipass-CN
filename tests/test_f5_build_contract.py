@@ -242,14 +242,28 @@ class BuildContractTests(unittest.TestCase):
                           'AcceptAmpereMfgLicenses', 'EnableRtx40Mfg', 'patchedPackagerText']:
             self.assertNotIn(forbidden, text)
 
-    def test_packager_explicitly_excludes_unreviewed_f5low_kit(self):
+    def test_packager_includes_only_the_verified_upstream_f5low_kit(self):
         text = self.text('tools/package.ps1')
-        arguments = next(line for line in text.splitlines() if line.startswith('$packageArguments ='))
-        self.assertIn("'-NoF5Low'", arguments)
-        self.assertNotIn('F5LowKit', arguments)
-        self.assertIn("$_.Name -ieq 'f5low.dll'", text)
-        self.assertIn("f5low_kit_included = $false", text)
+        self.assertNotIn("'-NoF5Low'", text)
+        self.assertIn("'-F5LowKit'", text)
+        self.assertIn("'-F5LowKitSha256'", text)
+        self.assertIn('f5low_kit.py', text)
+        self.assertIn('f5low_kit_included = $true', text)
+        self.assertIn('Assert-StagedDependencies $builtStage', text)
+        self.assertIn('Assert-StagedDependencies $stage -PackageStage', text)
+        self.assertIn('Assert-NoForbiddenPayload $stage -AllowPinnedF5Low', text)
         self.assertNotIn('finish_release_zip.py', text)
+
+    def test_real_kit_probes_run_after_packaging_before_artifact_upload(self):
+        text = self.text('.github/workflows/build.yml')
+        package = text.index('& ./tools/package.ps1')
+        probes = text.index('F5LOW_KIT_ZIP')
+        upload = text.index('- name: Upload verified package')
+        self.assertLess(package, probes)
+        self.assertLess(probes, upload)
+        self.assertIn("-p 'test_f5low*'", text)
+        self.assertIn('verify_package_f5low', text)
+        self.assertIn('F5Low official-kit regression failed', text)
 
     def test_packager_reads_current_identity_before_upstream_execution(self):
         text = self.text('tools/package.ps1')
@@ -269,7 +283,7 @@ class BuildContractTests(unittest.TestCase):
     def test_build_import_exception_is_not_used_for_public_stage(self):
         text = self.text('tools/package.ps1')
         self.assertIn('Assert-NoForbiddenPayload $builtStage -AllowForwarderBuildImports', text)
-        self.assertIn('Assert-NoForbiddenPayload $stage\n', text)
+        self.assertIn('Assert-NoForbiddenPayload $stage -AllowPinnedF5Low\n', text)
         self.assertNotIn('Assert-NoForbiddenPayload $stage -AllowForwarderBuildImports', text)
         self.assertEqual(text.count('-AllowForwarderBuildImports'), 1)
         self.assertIn("'nvngx.dll_dlssnr.lib'", text)

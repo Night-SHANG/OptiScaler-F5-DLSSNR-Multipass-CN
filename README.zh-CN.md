@@ -18,10 +18,11 @@
 
 ## 依赖与安装包差异
 
-这里采用固定上游的 **downloader-only** 打包方式，不能假定与任意上游 Release ZIP 的内容相同。
+本次 0.1.37.2 包含与上游主包相同的 **F5Low 1.1.0.140 + Intel XeSS-FG 1.3.4.95**。元数据中的 **downloader-only** 仅指沿用的 NVIDIA 运行库获取策略，不表示排除 F5Low；下列其他可选组件仍有分发差异。
 
 - 包含本次源码编译的 `OptiScaler.dll` 和 `nvngx.dll_dlssnr.dll`，以及上游构建阶段要求的后端依赖和许可证。
 - 包含固定来源、校验哈希的 15 个 hybrid 资源及其许可。资源存在不代表已在相应 GPU 上验证。
+- 包含官方 F5Low kit 的 `OptiScaler/plugins/f5low.dll`、原始 Intel `OptiScaler/libxess_fg.dll` 及 GPL/链接例外、Intel、zstd 许可和对应源码出处。详见 [组件核验](docs/F5LOW-DISTRIBUTION-AUDIT-2026-11-11.md)。
 - **不包含 `nvngx_dlssnr.dll`**。这是另行取得的 NVIDIA Neural Rendering 运行库，与开源转发器 `nvngx.dll_dlssnr.dll` 是两个不同文件。
 - 不预打包可选的 NVIDIA DLSS/Streamline 帧生成 DLL、Ampere MFG DLL 或外部 vendor-neutral port。保留上游 `get_streamline.ps1` 和清单；是否取得可选依赖、接受其许可由使用者决定。
 - 不附带 Windows 中文字体，也不修改系统字体。优先使用使用者指定的字体或已有 Windows CJK 字体。
@@ -91,6 +92,8 @@ python tools/localize_f5.py --source _upstream --channel master
 
 翻译问题和中文适配回归提交到本中文仓库。上游也会出现的问题，请附英文模式复现与固定上游版本。来源、署名及各组件许可见仓库 `UPSTREAM.md`，安装包内见 `UPSTREAM.CN.md`；主许可证原文保持不变。
 
-## 0.1.37.2 维护候选的可选组件边界
+## 0.1.37.2 的 F5Low 组件
 
-本轮包含 F5Low 功能的界面汉化，但保持 downloader-only 打包；通过上游 `-NoF5Low` 明确排除新外部 kit，不捆绑 `f5low.dll`，也不替换已固定的 Intel XeSS 依赖。F5Low 专属帧生成功能需使用者另行取得兼容 kit 并处理相关许可；包内不存在该 DLL 时，不应把汉化选项出现理解为功能已可用。普通 XeFG 与其他路径的可用性仍取决于上游、硬件和运行库。
+F5Low kit 与上游正式主包一致。最终安装包使用 `FGOutput=f5low`、`FrameGenerator=xefg_tensor`；这只是默认输出/生成器选择，不表示在所有游戏中自动启用插帧。请按上游指南选择合适的 FG Input，保存设置并重启游戏。F5Low 需要受支持的 NVIDIA GPU 和渲染路径。每次启动的后台初始化利用本机 Intel DLL 在内存准备工作数据，不会联网下载缺失的组件。
+
+上游另提供 F5Low 1.1.0.184 可选更新，本包不静默替换主包的 1.1.0.140。F5Low 的 DLSS-G 后端仍需要 NVIDIA Streamline/DLSS-G 文件，须通过保留的下载器另行取得；自有 XeFG Tensor 路径的 F5Low/Intel 文件已经包含。Windows 编译与包校验不等于真实游戏兼容性验收。

@@ -40,7 +40,7 @@ F5 新增了整树显示来源清点、`.inl` 与间接状态来源识别、显�
 
 打包校验整个来源 ZIP、15 个资源及其清单，并在 `Licenses/HybridSource/` 保留来源包中的许可与声明。资源路径和逐文件哈希记录在构建元数据中。
 
-构建产物采用 downloader-only 契约（新上游额外显式传入 `-NoF5Low`），不自动启用接受 NVIDIA/Ampere 许可的选项。专有 `nvngx_dlssnr.dll`、可选 DLSS/Streamline 和外部 vendor-neutral port 不在本包交付范围；运行所需的独立下载与许可由使用者按固定上游说明处理。
+构建产物包含固定官方 F5Low 1.1.0.140 kit 和未修改的 Intel XeSS-FG 1.3.4.95。`downloader-only` 仅指既有 NVIDIA 可选运行库策略，不自动启用接受 NVIDIA/Ampere 许可的选项。专有 `nvngx_dlssnr.dll`、可选 DLSS/Streamline 和外部 vendor-neutral port 不在本包交付范围；运行所需的独立下载与许可由使用者按固定上游说明处理。
 
 ## 验证声明
 
@@ -50,4 +50,4 @@ F5 新增了整树显示来源清点、`.inl` 与间接状态来源识别、显�
 
 当前固定 main `f10dedf93a2d5412c753c751c120d52b223800f6` 是上游 0.1.37.2 发布分支的合并提交，不等于该版本标签自身，包版本因此保留 `main-f10dedf93a2d`。上一候选 `4d72d53e521b34a5cda9dd4f63ee7f4cd0438035` 的 pin 与兼容性契约保存在 `audit/2026-10-31/`。
 
-新外部 F5Low kit 不在本次分发范围，`f5low.dll` 被打包门禁禁止。所有十个子模块 pin、四份安装脚本、既有许可与 Streamline 清单未变。[审计明细](docs/UPSTREAM-AUDIT-2026-11-11.md)。
+本次修正先前显式排除 F5Low 的打包选择，改为上游主包相同的官方 kit。只允许固定 SHA 的 `OptiScaler/plugins/f5low.dll` 和 Intel 1.3.4.95，保留 GPL 第7节附加许可、Intel 许可、zstd BSD 许可、MFGUnlock 通知和对应源码入口。所有十个子模块 pin、四份安装脚本、既有许可与 Streamline 清单未变；构建阶段仍校验子模块原始 Intel 字节，最终包另行校验 kit 版本。见 [组件与许可核验](docs/F5LOW-DISTRIBUTION-AUDIT-2026-11-11.md) 和 [源码审计](docs/UPSTREAM-AUDIT-2026-11-11.md)。

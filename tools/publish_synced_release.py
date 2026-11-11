@@ -68,7 +68,8 @@ def prepare_publication(artifact_dir, env, event, *, root=ROOT, sync_identity):
                  'Missing, stale or empty localization coverage blocks sync publication')
     context['progress_section'] = notes.render_section(stats, context['sha'])
     package = core.verify_artifact(artifact_dir, context['sha'], loc / 'installers.zh-CN.json',
-                                   upstream=cfg['commit'], upstream_version=cfg['upstream_version'])
+                                   upstream=cfg['commit'], upstream_version=cfg['upstream_version'],
+                                   require_f5low=True)
     return package, context
 
 
