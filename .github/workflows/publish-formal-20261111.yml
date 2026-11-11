@@ -1,0 +1,1068 @@
+name: Publish reviewed formal F5 once
+"on":
+  push:
+    branches: ["release-formal/20261111-82537883"]
+    paths: [".github/workflows/publish-formal-20261111.yml"]
+permissions:
+  contents: read
+concurrency:
+  group: "formal-f5-v0.1.37.2-cn.1"
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - name: Fixed manifest verify
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          """One-shot formal F5 publication; stdlib only; no downloaded code executes.
+
+          Adapted from retain-candidate-20261031.yml. Every write is attempted at most
+          once. Failures preserve existing and partially-created data for reconciliation.
+          """
+          import hashlib
+          import io
+          import json
+          import os
+          import re
+          import stat
+          import struct
+          import sys
+          import urllib.error
+          import urllib.parse
+          import urllib.request
+          import zipfile
+
+          REPOSITORY = 'Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN'
+          UPSTREAM_REPOSITORY = 'https://github.com/janblade/OptiScaler-F5-DLSSNR-Multipass.git'
+          TAG = 'v0.1.37.2-cn.1'
+          TITLE = 'OptiScaler F5 CN 0.1.37.2 · 汉化更新 2026-11-11'
+          HYBRID_HASH = '3e735f825b85872d20c35c0d75404c1a28b7b6e11ca28ef06243a18225191037'
+          KIT_SHA256 = '97fa6fb53a2278dfc651e4de2b2201f399f40ce49474b5f8199a2e5794d87f56'
+          KIT_URL = 'https://github.com/janblade/f5low-fg/releases/download/v1.1.0.140/f5low-kit-1.1.0.140%2B1f17d38.zip'
+          KIT_SOURCE = '1f17d38621270dd1fc0f835ea79f1b90bf1d6c7a'
+          FILE_SHA256 = {
+              'f5low.dll': '0993352a97a05537a88bd1d0266cb62ae581f219b75fc588fbc15eeeacb48fa4',
+              'libxess_fg.dll': '752b1491350a29fb2850fa4d0d14f62d79980e0b3cd067d147bb2469c1ec3182',
+              'LICENSE': '1ecec4c8ae6cd206ecab7be3457953616a5d497dc438d53bc726287724f77a58',
+              'XeSS_LICENSE.txt': '784be42c39a4a4d03cf85d88e15e59d75828fca773ce45b8dbfffbd7eaf208df',
+              'zstd_LICENSE.txt': 'd3baadc2e1dd7a7e0b483633e6b39743c16a16f28d696baff507fcd451f3d4ad',
+              'README-KIT.txt': 'b34da9e444ca20d6157105722d3bfae64f1d996218b8d37289687e4c199d30f0',
+              'kit_hashes.txt': '02ef995f35e19d69647005e93b7cd485d8da3b5e50901fb91e4520e6bf2c32d4',
+          }
+          FILE_SIZES = {'f5low.dll': 6350848, 'libxess_fg.dll': 22866056, 'LICENSE': 37871,
+                        'XeSS_LICENSE.txt': 4194, 'zstd_LICENSE.txt': 1579,
+                        'README-KIT.txt': 1596, 'kit_hashes.txt': 484}
+          STAGED_PATHS = {
+              'f5low.dll': 'OptiScaler/plugins/f5low.dll',
+              'libxess_fg.dll': 'OptiScaler/libxess_fg.dll',
+              'LICENSE': 'Licenses/f5low_LICENSE.txt',
+              'XeSS_LICENSE.txt': 'Licenses/XeSS_LICENSE.txt',
+              'zstd_LICENSE.txt': 'Licenses/f5low_zstd_LICENSE.txt',
+              'README-KIT.txt': 'Licenses/f5low_README-KIT.txt',
+              'kit_hashes.txt': 'Licenses/f5low_kit_hashes.txt',
+          }
+          REQUIRED = ('OptiScaler.dll', 'nvngx.dll_dlssnr.dll', 'BUILD-INFO.CN.json', 'SHA256SUMS.txt',
+                      'README.CN.zh-CN.md', 'UPSTREAM.CN.md', 'OptiScalerCN.ini', 'LICENSE', 'README.md',
+                      'INSTALL-DLSSNR.md', 'OptiScaler.ini', 'setup_windows.bat', 'setup_linux.sh',
+                      'get_streamline.ps1', 'redist/streamline/manifest.json',
+                      '!! EXTRACT ALL FILES TO GAME FOLDER !!', 'Licenses/HybridSource/LICENSE')
+
+
+          class Stop(RuntimeError):
+              pass
+
+
+          def require(ok, message):
+              if not ok:
+                  raise Stop(message)
+
+
+          def sha(data):
+              return hashlib.sha256(data).hexdigest()
+
+
+          def object_json(data, label):
+              def unique(pairs):
+                  result = {}
+                  for key, value in pairs:
+                      require(key not in result, 'duplicate JSON key: ' + label)
+                      result[key] = value
+                  return result
+              try:
+                  value = json.loads(data.decode('utf-8-sig') if isinstance(data, bytes) else data,
+                                     object_pairs_hook=unique,
+                                     parse_constant=lambda _: (_ for _ in ()).throw(ValueError('nonfinite')))
+              except (ValueError, UnicodeError) as ex:
+                  raise Stop('invalid JSON: ' + label) from ex
+              require(isinstance(value, dict), 'JSON object required: ' + label)
+              return value
+
+
+          def expected_kit():
+              return {'version': '1.1.0.140', 'archive_url': KIT_URL, 'archive_sha256': KIT_SHA256,
+                      'source_repository': 'https://github.com/janblade/f5low-fg', 'source_commit': KIT_SOURCE,
+                      'intel_version': '1.3.4.95',
+                      'files': [{'path': n, 'sha256': FILE_SHA256[n], 'size': FILE_SIZES[n]} for n in sorted(FILE_SHA256)]}
+
+
+          def package_name(m):
+              return ('OptiScaler-F5-DLSSNR-Multipass-CN-' + m['upstream_version'] + '-cn-'
+                      + m['checkout'][:12] + '-' + m['upstream'][:12] + '.zip')
+
+
+          def positive(value):
+              return type(value) is int and value > 0
+
+
+          def validate_manifest(m):
+              keys = {'repository', 'head', 'checkout', 'tree', 'base', 'upstream', 'upstream_version',
+                      'branch', 'publish_branch', 'workflow_path', 'pr', 'tag', 'title', 'notes',
+                      'runs', 'artifact', 'assets', 'make_latest'}
+              require(isinstance(m, dict) and set(m) == keys, 'manifest keys must match the reviewed schema')
+              require(m['repository'] == REPOSITORY and m['tag'] == TAG and m['title'] == TITLE,
+                      'fixed repository/tag/title mismatch')
+              for key in ('head', 'checkout', 'tree', 'base', 'upstream'):
+                  require(isinstance(m[key], str) and re.fullmatch('[0-9a-f]{40}', m[key]), 'invalid full SHA: ' + key)
+              require(isinstance(m['upstream_version'], str) and
+                      (m['upstream_version'] == 'main-' + m['upstream'][:12]
+                       or re.fullmatch(r'v[0-9]+\.[0-9]+\.[0-9]+(?:\.[0-9]+)?', m['upstream_version'])),
+                      'invalid upstream version')
+              for key in ('branch', 'publish_branch'):
+                  require(isinstance(m[key], str) and re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_./-]{1,150}', m[key])
+                          and '..' not in m[key] and '//' not in m[key] and not m[key].endswith(('/', '.', '.lock'))
+                          and all(not x.startswith('.') for x in m[key].split('/')), 'invalid branch: ' + key)
+              require(m['publish_branch'].startswith('release-formal/') and m['branch'] != m['publish_branch']
+                      and m['branch'] != 'main', 'isolated publication/source branch required')
+              require(isinstance(m['workflow_path'], str) and re.fullmatch(
+                  r'\.github/workflows/publish-formal-[A-Za-z0-9_-]+\.yml', m['workflow_path']), 'invalid workflow path')
+              require(positive(m['pr']) and m['make_latest'] in ('true', 'false'), 'invalid PR/latest policy')
+              require(isinstance(m['notes'], str) and 0 < len(m['notes']) <= 20000
+                      and ('未进行游戏/GPU实测' in m['notes'] or 'Game/GPU runtime validation not performed' in m['notes']),
+                      'notes must explicitly disclose missing game/GPU tests')
+              require(('$' + '{{') not in m['notes'], 'GitHub expression syntax forbidden in embedded notes')
+              require(isinstance(m['runs'], list) and 1 <= len(m['runs']) <= 4, 'invalid run count')
+              run_ids = set()
+              for r in m['runs']:
+                  require(isinstance(r, dict) and set(r) == {'id', 'head_sha', 'head_branch', 'workflow_id', 'path', 'run_attempt', 'event', 'jobs'}, 'invalid run schema')
+                  require(positive(r['id']) and r['id'] not in run_ids and positive(r['workflow_id'])
+                          and positive(r['run_attempt']), 'invalid run identity')
+                  run_ids.add(r['id'])
+                  require(r['head_sha'] == m['head'] and r['head_branch'] == m['branch']
+                          and r['path'] == '.github/workflows/build.yml' and r['event'] == 'pull_request', 'run/source binding mismatch')
+                  require(isinstance(r['jobs'], list) and len(r['jobs']) == 4, 'expected all four fixed build jobs')
+                  wanted = {'build': 'success', 'portable-contracts': 'success',
+                            'publish-test-release': 'skipped', 'publish-synced-test-release': 'skipped'}
+                  got = {}; ids = set()
+                  for j in r['jobs']:
+                      require(isinstance(j, dict) and set(j) == {'id', 'name', 'conclusion'}
+                              and positive(j['id']) and j['id'] not in ids and j['name'] not in got, 'invalid job identity')
+                      got[j['name']] = j['conclusion']; ids.add(j['id'])
+                  require(got == wanted, 'build and portable jobs must succeed; publishers must be skipped')
+              a = m['artifact']
+              require(isinstance(a, dict) and set(a) == {'id', 'name', 'size_in_bytes', 'digest'}
+                      and positive(a['id']) and positive(a['size_in_bytes']) and a['size_in_bytes'] <= 512*1024**2
+                      and isinstance(a['digest'], str) and re.fullmatch('sha256:[0-9a-f]{64}', a['digest']), 'invalid artifact schema')
+              require(a['name'] == 'OptiScaler-F5-CN-' + m['checkout'] + '-' + str(m['runs'][0]['run_attempt']),
+                      'artifact name/checkout/attempt mismatch')
+              name = package_name(m); expected = {name, name + '.sha256', 'build-metadata.json'}
+              require(isinstance(m['assets'], list) and len(m['assets']) == 3, 'expected original three assets')
+              seen = set()
+              for a in m['assets']:
+                  require(isinstance(a, dict) and set(a) == {'member', 'name', 'sha256', 'size'}
+                          and a['member'] == a['name'] and a['name'] in expected and a['name'] not in seen,
+                          'asset renaming/replacement is forbidden')
+                  require(positive(a['size']) and a['size'] <= 512*1024**2 and isinstance(a['sha256'], str)
+                          and re.fullmatch('[0-9a-f]{64}', a['sha256']), 'invalid asset size/hash')
+                  seen.add(a['name'])
+              require(seen == expected, 'original asset identity mismatch')
+
+
+          def safe_entries(z):
+              entries = z.infolist(); require(0 < len(entries) <= 10000, 'invalid ZIP entry count')
+              seen = set(); total = 0; result = {}
+              for i in entries:
+                  name = i.orig_filename
+                  require(name == i.filename and name and not re.search(r'(^/|[\\:\x00-\x1f])', name), 'unsafe ZIP path')
+                  parts = name.rstrip('/').split('/')
+                  require(all(x not in ('', '.', '..') and not re.search(r'[. ]$|[<>"|?*]', x)
+                              and not re.match(r'(?i)^(CON|PRN|AUX|NUL|COM[1-9]|LPT[1-9])(?:\.|$)', x)
+                              for x in parts), 'unsafe ZIP path component')
+                  key = name.rstrip('/').casefold()
+                  require(key not in seen, 'duplicate/case-colliding ZIP member'); seen.add(key)
+                  kind = stat.S_IFMT(i.external_attr >> 16)
+                  require(kind in (0, stat.S_IFREG, stat.S_IFDIR) and not i.flag_bits & 1, 'special/encrypted ZIP member')
+                  require(not (kind == stat.S_IFDIR and not i.is_dir()) and not (kind == stat.S_IFREG and i.is_dir()), 'ZIP kind/name conflict')
+                  total += i.file_size
+                  require(i.file_size <= 512*1024**2 and total <= 2*1024**3, 'ZIP expansion budget exceeded')
+                  if not i.is_dir(): result[name] = i
+              files = {n.casefold() for n in result}
+              for name in seen:
+                  parts = name.split('/')
+                  require(not any('/'.join(parts[:i]) in files for i in range(1, len(parts))), 'ZIP file/parent collision')
+              return result
+
+
+          def verify_defaults(data):
+              expected = {b'FGOutput': (b'FrameGen', b'f5low'), b'FrameGenerator': (b'F5Low', b'xefg_tensor')}
+              found = set(); sections = set(); section = b''
+              for index, line in enumerate(data.splitlines()):
+                  if index == 0: line = line.removeprefix(b'\xef\xbb\xbf')
+                  match = re.fullmatch(rb'\[([^]\r\n]+)\][ \t]*(?:[;#].*)?', line.strip())
+                  if match:
+                      section = match[1]
+                      if section.lower() in (b'framegen', b'f5low'):
+                          require(section.lower() not in sections, 'duplicate defaults section'); sections.add(section.lower())
+                      continue
+                  key = re.match(rb'^[ \t]*(FGOutput|FrameGenerator)[ \t]*=', line, re.I)
+                  if key:
+                      canonical = next(k for k in expected if k.lower() == key[1].lower())
+                      target, value = expected[canonical]
+                      require(canonical not in found and section == target and line == canonical+b'='+value,
+                              'F5Low defaults mismatch')
+                      found.add(canonical)
+              require(found == set(expected), 'F5Low defaults missing')
+
+
+          def verify_package(files, m):
+              name = package_name(m); package = files[name]
+              require(len(files['build-metadata.json']) <= 4*1024**2 and len(files[name+'.sha256']) <= 1024, 'metadata size budget')
+              meta = object_json(files['build-metadata.json'], 'build metadata')
+              require(meta.get('package') == name and meta.get('sha256') == sha(package), 'package metadata identity mismatch')
+              require(files[name+'.sha256'] in ((sha(package)+' *'+name+'\n').encode(), (sha(package)+' *'+name+'\r\n').encode()), 'checksum sidecar mismatch')
+              identity = {'schema': 1, 'cn_commit': m['checkout'], 'upstream_commit': m['upstream'],
+                          'upstream_version': m['upstream_version'], 'upstream_repository': UPSTREAM_REPOSITORY,
+                          'package_version': m['upstream_version']+'-cn-'+m['checkout'][:12],
+                          'variant': 'downloader-only', 'configuration': 'Release', 'platform': 'x64', 'toolset': 'v143',
+                          'hybrid_archive_sha256': HYBRID_HASH, 'game_runtime_validation': 'not performed by this workflow'}
+              for k,v in identity.items(): require(meta.get(k) == v and type(meta.get(k)) is type(v), 'build identity mismatch: '+k)
+              require(meta.get('f5low_kit_included') is True and meta.get('f5low_kit') == expected_kit(), 'F5Low kit metadata mismatch')
+              require(isinstance(meta.get('recursive_submodules'), list) and meta['recursive_submodules']
+                      and all(isinstance(x,str) and re.fullmatch(r' [0-9a-f]{40} [^\r\n]+', x) for x in meta['recursive_submodules']), 'submodule evidence missing')
+              require(all(isinstance(meta.get(k),str) and meta[k] for k in ('msbuild_version','built_at_utc','packaged_at_utc')), 'toolchain/time evidence missing')
+              with zipfile.ZipFile(io.BytesIO(package)) as z:
+                  entries = safe_entries(z)
+                  require(set(REQUIRED) | set(STAGED_PATHS.values()) <= set(entries), 'required package file missing')
+                  hashes = {}
+                  for n,i in entries.items():
+                      base = n.rsplit('/',1)[-1].casefold()
+                      require(not re.search(r'^(nvngx_dlss.*|sl\..*)\.dll$|\.(pdb|exp|lib|ilk|asi)$|latewarp|nrtrace', base)
+                              and base != 'dlssg_sm86.dll', 'forbidden downloader-only binary')
+                      if base in ('f5low.dll', 'libxess_fg.dll'):
+                          require(n in (STAGED_PATHS['f5low.dll'], STAGED_PATHS['libxess_fg.dll']), 'unexpected F5Low DLL path')
+                      if n.casefold().startswith('optiscaler/plugins/'):
+                          require(n == STAGED_PATHS['f5low.dll'], 'unexpected F5Low plugin path')
+                      with z.open(i) as stream: hashes[n] = hashlib.file_digest(stream, 'sha256').hexdigest()
+                  for key,dest in STAGED_PATHS.items():
+                      require(entries[dest].file_size == FILE_SIZES[key] and hashes[dest] == FILE_SHA256[key], 'pinned F5Low component mismatch: '+key)
+                  for n in ('BUILD-INFO.CN.json','SHA256SUMS.txt','OptiScaler.ini'):
+                      require(entries[n].file_size <= 4*1024**2, 'oversized package metadata')
+                  inner = object_json(z.read('BUILD-INFO.CN.json'), 'inner build metadata')
+                  require(inner == {k:v for k,v in meta.items() if k not in ('package','sha256','verified_archive_files')}, 'inner/outer metadata mismatch')
+                  verify_defaults(z.read('OptiScaler.ini'))
+                  checksums = {}
+                  for line in z.read('SHA256SUMS.txt').decode('utf-8-sig').splitlines():
+                      match = re.fullmatch(r'([0-9a-f]{64}) \*(.+)', line)
+                      require(match and match[2] not in checksums, 'invalid internal checksum manifest')
+                      checksums[match[2]] = match[1]
+                  require(checksums == {k:v for k,v in hashes.items() if k != 'SHA256SUMS.txt'}, 'internal checksums mismatch')
+                  require(type(meta.get('verified_archive_files')) is int and meta['verified_archive_files'] == len(entries), 'archive file count mismatch')
+                  binaries = meta.get('binaries')
+                  require(isinstance(binaries,list) and len(binaries) == 2, 'compiled binary evidence missing')
+                  records = {b.get('name'):b.get('sha256') for b in binaries if isinstance(b,dict)}
+                  require(set(records) == {'OptiScaler.dll','nvngx.dll_dlssnr.dll'}, 'compiled binary names mismatch')
+                  for n,h in records.items():
+                      require(hashes[n] == h, 'compiled binary hash mismatch')
+                      with z.open(n) as stream:
+                          data = stream.read(1024*1024+96)
+                      require(len(data) >= 256 and data[:2] == b'MZ', 'invalid PE DLL')
+                      off = struct.unpack_from('<I',data,0x3c)[0]
+                      require(off <= len(data)-96 and data[off:off+4] == b'PE\0\0'
+                              and struct.unpack_from('<H',data,off+4)[0] == 0x8664
+                              and struct.unpack_from('<H',data,off+24)[0] == 0x20b
+                              and struct.unpack_from('<H',data,off+22)[0] & 0x2000, 'invalid x64 DLL header')
+                  hybrid = meta.get('hybrid_assets')
+                  require(isinstance(hybrid,list) and len(hybrid) == 15, 'expected fifteen hybrid assets')
+                  paths = set()
+                  for item in hybrid:
+                      require(isinstance(item,dict) and isinstance(item.get('path'),str), 'invalid hybrid record')
+                      n = 'OptiScaler/nvfp4/hybrid/' + item['path']
+                      require(n not in paths and n in hashes and hashes[n] == item.get('sha256'), 'hybrid content mismatch')
+                      paths.add(n)
+
+
+          def extract_assets(blob, m):
+              require(isinstance(blob,bytes) and len(blob) == m['artifact']['size_in_bytes'], 'archive size mismatch')
+              require('sha256:'+sha(blob) == m['artifact']['digest'], 'archive hash mismatch')
+              try:
+                  with zipfile.ZipFile(io.BytesIO(blob)) as z:
+                      entries = safe_entries(z)
+                      require(set(entries) == {a['member'] for a in m['assets']} and len(z.infolist()) == 3, 'artifact members mismatch')
+                      files = {}
+                      for a in m['assets']:
+                          require(entries[a['member']].file_size == a['size'], 'asset size mismatch')
+                          data = z.read(a['member'])
+                          require(sha(data) == a['sha256'], 'asset hash mismatch')
+                          files[a['name']] = data
+                  verify_package(files, m)
+                  return files
+              except (zipfile.BadZipFile, UnicodeError, RuntimeError) as ex:
+                  if isinstance(ex, Stop): raise
+                  raise Stop('invalid package archive') from ex
+
+
+          def guard(m, env, event):
+              validate_manifest(m)
+              expected = {'GITHUB_ACTIONS':'true','GITHUB_EVENT_NAME':'push','GITHUB_REPOSITORY':m['repository'],
+                          'GITHUB_REF':'refs/heads/'+m['publish_branch'],'GITHUB_RUN_ATTEMPT':'1',
+                          'GITHUB_WORKFLOW_REF':m['repository']+'/'+m['workflow_path']+'@refs/heads/'+m['publish_branch']}
+              for k,v in expected.items(): require(env.get(k) == v, 'context mismatch: '+k)
+              require(re.fullmatch('[0-9a-f]{40}',env.get('GITHUB_SHA','')) and re.fullmatch('[1-9][0-9]*',env.get('GITHUB_RUN_ID','')), 'invalid workflow SHA/run')
+              require(env.get('GITHUB_SERVER_URL','https://github.com') == 'https://github.com'
+                      and env.get('GITHUB_API_URL','https://api.github.com') == 'https://api.github.com', 'unexpected GitHub server')
+              require(event.get('after') == env['GITHUB_SHA'] and event.get('before') == m['head']
+                      and event.get('ref') == expected['GITHUB_REF'], 'publisher must be single push after reviewed source')
+              require(event.get('forced') is False and event.get('deleted') is False, 'forced/deleted event')
+              require(event.get('repository',{}).get('full_name') == m['repository'], 'event repository mismatch')
+
+
+          class NoRedirect(urllib.request.HTTPRedirectHandler):
+              def redirect_request(self,*args,**kwargs):
+                  return None
+
+
+          class API:
+              def __init__(self, token, write=False):
+                  require(isinstance(token,str) and token, 'empty ephemeral workflow token')
+                  self.token=token; self.write=write; self.opener=urllib.request.build_opener(NoRedirect)
+
+              def request(self, method, path, body=None, binary=False):
+                  require(method in ('GET','POST','PATCH') and (method == 'GET' or self.write), 'forbidden/read-only API method')
+                  url = path if path.startswith('https://') else 'https://api.github.com'+path
+                  u = urllib.parse.urlsplit(url)
+                  require(u.scheme == 'https' and u.hostname in ('api.github.com','uploads.github.com')
+                          and not u.username and not u.password and u.port in (None,443) and not u.fragment, 'untrusted API endpoint')
+                  data = body if isinstance(body,bytes) else json.dumps(body).encode() if body is not None else None
+                  accept = 'application/octet-stream' if binary and re.fullmatch(r'/repos/[^/]+/[^/]+/releases/assets/[0-9]+',u.path) else 'application/vnd.github+json'
+                  endpoint = method+' '+u.path
+                  print('GitHub request:',endpoint,flush=True)
+                  headers = {'Authorization':'Bearer '+self.token,'Accept':accept,'X-GitHub-Api-Version':'2022-11-28',
+                             'Content-Type':'application/octet-stream' if isinstance(body,bytes) else 'application/json'}
+                  try:
+                      response = self.opener.open(urllib.request.Request(url,data=data,method=method,headers=headers),timeout=180)
+                  except urllib.error.HTTPError as ex:
+                      if ex.code == 404 and method == 'GET' and not binary: return None
+                      if ex.code in (301,302,303,307,308) and method == 'GET' and binary:
+                          target=ex.headers.get('Location',''); host=urllib.parse.urlsplit(target)
+                          require(host.scheme == 'https' and not host.username and not host.password and host.port in (None,443)
+                                  and host.hostname and (host.hostname.endswith('.blob.core.windows.net')
+                                  or host.hostname == 'release-assets.githubusercontent.com'
+                                  or host.hostname.endswith('.githubusercontent.com')), 'untrusted download redirect')
+                          # Fresh request has NO Authorization. Chained redirects remain disabled.
+                          try: response=self.opener.open(urllib.request.Request(target,headers={'Accept':'application/octet-stream'}),timeout=180)
+                          except Exception: raise Stop('redirected download failed (URL redacted)') from None
+                      else: raise Stop('GitHub HTTP '+str(ex.code)+' at '+endpoint+' (body/query redacted; never retry writes)') from None
+                  except Exception:
+                      raise Stop('GitHub request failed at '+endpoint+' (details redacted; never retry writes)') from None
+                  with response:
+                      data=response.read(512*1024**2+1)
+                      require(len(data) <= 512*1024**2, 'response exceeds limit')
+                  if binary: return data
+                  try: return json.loads(data)
+                  except (ValueError,UnicodeError): raise Stop('invalid GitHub JSON response at '+endpoint) from None
+
+
+          def verify_publisher(api,m,publisher):
+              root='/repos/'+m['repository']
+              ref=api.request('GET',root+'/git/ref/heads/'+m['publish_branch'])
+              require(ref and ref.get('object',{}).get('sha') == publisher, 'publisher branch changed')
+              commit=api.request('GET',root+'/commits/'+publisher)
+              require(commit and [p.get('sha') for p in commit.get('parents',[])] == [m['head']], 'publisher parent mismatch')
+              changed=commit.get('files',[])
+              require(len(changed) == 1 and changed[0].get('filename') == m['workflow_path']
+                      and changed[0].get('status') == 'added', 'publisher must only add fixed workflow')
+
+
+          def verify_source(api,m):
+              root='/repos/'+m['repository']
+              ref=api.request('GET',root+'/git/ref/heads/'+m['branch'])
+              require(ref and ref.get('object',{}).get('sha') == m['head'], 'source branch changed')
+              for commit in (m['head'],m['checkout']):
+                  c=api.request('GET',root+'/git/commits/'+commit)
+                  require(c and c.get('tree',{}).get('sha') == m['tree'], 'source/checkout tree mismatch')
+              pr=api.request('GET',root+'/pulls/'+str(m['pr']))
+              require(pr and pr.get('state') == 'open' and pr.get('head',{}).get('sha') == m['head']
+                      and pr.get('head',{}).get('ref') == m['branch']
+                      and pr.get('base',{}).get('sha') == m['base'] and pr.get('base',{}).get('ref') == 'main'
+                      and pr.get('head',{}).get('repo',{}).get('full_name') == m['repository']
+                      and pr.get('base',{}).get('repo',{}).get('full_name') == m['repository'], 'PR binding changed')
+
+
+          def verify_runs(api,m):
+              root='/repos/'+m['repository']
+              for expected in m['runs']:
+                  path=root+'/actions/runs/'+str(expected['id'])
+                  run=api.request('GET',path)
+                  for key in ('id','head_sha','head_branch','workflow_id','path','run_attempt','event'):
+                      require(run and run.get(key) == expected[key], 'run mismatch: '+key)
+                  require(run.get('repository',{}).get('full_name') == m['repository'] and run.get('status') == 'completed'
+                          and run.get('conclusion') == 'success', 'run not green')
+                  attempt=api.request('GET',path+'/attempts/'+str(expected['run_attempt']))
+                  require(attempt and attempt.get('status') == 'completed' and attempt.get('conclusion') == 'success'
+                          and attempt.get('head_sha') == m['head'] and attempt.get('run_attempt') == expected['run_attempt'], 'attempt mismatch')
+                  jobs=api.request('GET',path+'/attempts/'+str(expected['run_attempt'])+'/jobs?per_page=100')
+                  require(jobs and jobs.get('total_count') == len(expected['jobs'])
+                          and len(jobs.get('jobs',[])) == len(expected['jobs']), 'job count mismatch')
+                  actual={j['id']:j for j in jobs['jobs']}
+                  require(len(actual) == len(expected['jobs']), 'duplicate job IDs')
+                  for j in expected['jobs']:
+                      got=actual.get(j['id'])
+                      require(got and got.get('name') == j['name'] and got.get('status') == 'completed'
+                              and got.get('conclusion') == j['conclusion'], 'job mismatch')
+
+
+          def verify_remote(api,m):
+              root='/repos/'+m['repository']
+              verify_source(api,m)
+              verify_runs(api,m)
+              a=api.request('GET',root+'/actions/artifacts/'+str(m['artifact']['id']))
+              for k in ('id','name','size_in_bytes','digest'):
+                  require(a and a.get(k) == m['artifact'][k], 'artifact mismatch: '+k)
+              require(a.get('expired') is False and a.get('workflow_run',{}).get('id') == m['runs'][0]['id']
+                      and a.get('workflow_run',{}).get('head_sha') == m['head'], 'artifact run mismatch')
+              return extract_assets(api.request('GET',root+'/actions/artifacts/'+str(a['id'])+'/zip',binary=True),m)
+
+
+          def verify_uploaded(api,root,rid,files):
+              assets=api.request('GET',root+'/releases/'+str(rid)+'/assets?per_page=100')
+              require(isinstance(assets,list) and len(assets) == len(files), 'asset count mismatch')
+              seen=set()
+              for a in assets:
+                  require(a.get('name') in files and a['name'] not in seen and a.get('state') == 'uploaded', 'unexpected/duplicate asset')
+                  seen.add(a['name']); data=files[a['name']]
+                  require(a.get('size') == len(data), 'uploaded size mismatch')
+                  if a.get('digest'): require(a['digest'] == 'sha256:'+sha(data), 'uploaded digest mismatch')
+                  # Always read back the bytes, even when GitHub reports its own digest.
+                  require(sha(api.request('GET',root+'/releases/assets/'+str(a['id']),binary=True)) == sha(data), 'downloaded asset mismatch')
+
+
+          def check_release(value,m,rid,draft):
+              require(value and value.get('id') == rid and value.get('tag_name') == m['tag']
+                      and value.get('draft') is draft and value.get('prerelease') is False
+                      and value.get('target_commitish') == m['head']
+                      and value.get('name') == m['title'] and value.get('body') == m['notes'], 'release identity/state mismatch')
+
+
+          def publish(api,m,files,publisher):
+              root='/repos/'+m['repository']; tag=urllib.parse.quote(m['tag'],safe='')
+              require(api.request('GET',root+'/git/ref/tags/'+tag) is None, 'tag already exists')
+              require(api.request('GET',root+'/releases/tags/'+tag) is None, 'release already exists')
+              page=1
+              while True:
+                  existing=api.request('GET',root+'/releases?per_page=100&page='+str(page))
+                  require(isinstance(existing,list), 'cannot inspect existing drafts')
+                  require(all(x.get('tag_name') != m['tag'] for x in existing), 'draft/tag collision')
+                  if len(existing)<100: break
+                  page+=1; require(page<=100, 'too many releases to inspect safely')
+              rid=None; stage='tag creation'; publication_requested=False
+              try:
+                  ref=api.request('POST',root+'/git/refs',{'ref':'refs/tags/'+m['tag'],'sha':m['head']})
+                  require(ref and ref.get('object',{}).get('type') == 'commit' and ref['object']['sha'] == m['head'], 'new tag target mismatch')
+                  stage='draft creation'
+                  created=api.request('POST',root+'/releases',{'tag_name':m['tag'],'target_commitish':m['head'],
+                      'name':m['title'],'body':m['notes'],'draft':True,'prerelease':False,'make_latest':'false'})
+                  require(created and positive(created.get('id')), 'invalid new draft ID')
+                  rid=created['id']; check_release(created,m,rid,True)
+                  for name,data in files.items():
+                      stage='asset upload '+name
+                      uploaded=api.request('POST','https://uploads.github.com'+root+'/releases/'+str(rid)
+                          +'/assets?name='+urllib.parse.quote(name,safe=''),data)
+                      require(uploaded and uploaded.get('name') == name and uploaded.get('size') == len(data)
+                              and uploaded.get('state') == 'uploaded', 'upload response identity mismatch')
+                  stage='draft readback'; verify_uploaded(api,root,rid,files)
+                  ref=api.request('GET',root+'/git/ref/tags/'+tag)
+                  require(ref and ref.get('object',{}).get('type') == 'commit' and ref['object']['sha'] == m['head'], 'prepublication tag target mismatch')
+                  check_release(api.request('GET',root+'/releases/'+str(rid)),m,rid,True)
+                  # Recheck mutable source and publisher bindings immediately before public visibility.
+                  verify_publisher(api,m,publisher)
+                  verify_source(api,m)
+                  verify_runs(api,m)
+                  stage='public transition'; publication_requested=True
+                  api.request('PATCH',root+'/releases/'+str(rid),{'draft':False,'prerelease':False,'make_latest':m['make_latest']})
+                  stage='public readback'; check_release(api.request('GET',root+'/releases/'+str(rid)),m,rid,False)
+                  ref=api.request('GET',root+'/git/ref/tags/'+tag)
+                  require(ref and ref.get('object',{}).get('type') == 'commit' and ref['object']['sha'] == m['head'], 'tag target mismatch')
+                  verify_uploaded(api,root,rid,files)
+                  return rid
+              except Exception as ex:
+                  state='publication uncertain; release may be public' if publication_requested else 'publication stopped; a tag/draft/upload may already exist'
+                  detail='; '+str(ex) if isinstance(ex,Stop) else '; error details redacted'
+                  raise Stop(state+'; stage='+stage+'; release ID='+str(rid)
+                             +'; preserve all tag/draft/assets; reconcile exact state before any retry; no cleanup'+detail) from None
+
+
+          def add_provenance(files,m,env):
+              result=dict(files)
+              provenance={**m,'source_commit':m['head'],'build_checkout_commit':m['checkout'],
+                          'publisher_commit':env['GITHUB_SHA'],'publisher_run':env['GITHUB_RUN_ID'],
+                          'release_prerelease':False,'original_assets_unchanged':True,
+                          'game_gpu_runtime_validation':'not performed',
+                          'f5low_official_identity':expected_kit()}
+              result['provenance.json']=(json.dumps(provenance,ensure_ascii=False,sort_keys=True,indent=2)+'\n').encode()
+              result['SHA256SUMS']=''.join(sha(v)+'  '+k+'\n' for k,v in sorted(result.items())).encode()
+              return result
+
+
+          def ci_main(m,mode):
+              require(mode in ('verify','publish'), 'invalid mode')
+              with open(os.environ['GITHUB_EVENT_PATH'],'rb') as file: event=object_json(file.read(),'push event')
+              guard(m,os.environ,event)
+              api=API(os.environ['GITHUB_TOKEN'],write=mode=='publish')
+              verify_publisher(api,m,os.environ['GITHUB_SHA'])
+              files=add_provenance(verify_remote(api,m),m,os.environ)
+              if mode == 'publish': print('Verified new formal release ID',publish(api,m,files,os.environ['GITHUB_SHA']))
+              else: print('Read-only verification passed for',m['repository'])
+
+          MANIFEST = object_json('{"artifact":{"digest":"sha256:51ab3e253caa495a2553d0d676ecdfb4b8c7c4b212130ae528287b0cf4593e5b","id":13839366333,"name":"OptiScaler-F5-CN-fa2abcb3676f5362d84d79d2f5dbd867e1832533-1","size_in_bytes":178355529},"assets":[{"member":"OptiScaler-F5-DLSSNR-Multipass-CN-main-f10dedf93a2d-cn-fa2abcb3676f-f10dedf93a2d.zip.sha256","name":"OptiScaler-F5-DLSSNR-Multipass-CN-main-f10dedf93a2d-cn-fa2abcb3676f-f10dedf93a2d.zip.sha256","sha256":"a9c55e68297b39d6213e72e552595c3492da630b9923ad4a9653776847b9fdb4","size":151},{"member":"build-metadata.json","name":"build-metadata.json","sha256":"f7a34d587f8001454f3d95cd75c470975cba2438990912fd455c9e0263628faa","size":6119},{"member":"OptiScaler-F5-DLSSNR-Multipass-CN-main-f10dedf93a2d-cn-fa2abcb3676f-f10dedf93a2d.zip","name":"OptiScaler-F5-DLSSNR-Multipass-CN-main-f10dedf93a2d-cn-fa2abcb3676f-f10dedf93a2d.zip","sha256":"11f23aa44983b3e54d36edd294758e39176477ad36c1c9c316b321a8af0f425c","size":178348573}],"base":"0af315ae0e3e7dd832aa75ca2b3db870e6b501bf","branch":"maintenance/f5-upstream-20261031","checkout":"fa2abcb3676f5362d84d79d2f5dbd867e1832533","head":"8253788399dfb97f4478e2f0c5e845cfa41a2e74","make_latest":"true","notes":"## OptiScaler F5 CN 0.1.37.2 \\u6b63\\u5f0f\\u6c49\\u5316\\u7248\\n\\n\\u8ddf\\u8fdb\\u4e0a\\u6e38 0.1.37.2 \\u5408\\u5e76\\u540e\\u7684 main\\uff0c\\u5e76\\u8865\\u9f50\\u65b0\\u589e\\u754c\\u9762\\u3001\\u52a8\\u6001\\u72b6\\u6001\\u4e0e\\u60ac\\u505c\\u63d0\\u793a\\u3002\\u6d3b\\u52a8\\u8bcd\\u6761 2967\\uff0c\\u626b\\u63cf\\u7f3a\\u8bd1/\\u8fc7\\u671f\\u5747\\u4e3a 0\\uff1bAI \\u5ba1\\u6821\\u4e0d\\u7b49\\u4e8e\\u5168\\u90e8\\u754c\\u9762\\u4eba\\u5de5\\u9010\\u5c4f\\u9a8c\\u6536\\u3002\\n\\n### F5Low \\u4e0e\\u5b89\\u88c5\\u5185\\u5bb9\\n- \\u5305\\u542b\\u4e0e\\u4e0a\\u6e38 0.1.37.2 \\u4e3b\\u5305\\u76f8\\u540c\\u7684\\u5b98\\u65b9 F5Low 1.1.0.140 \\u548c\\u672a\\u4fee\\u6539\\u7684 Intel XeSS-FG 1.3.4.95\\u3002\\u5b8c\\u6574\\u4fdd\\u7559 GPL/\\u94fe\\u63a5\\u4f8b\\u5916\\u3001Intel\\u3001zstd \\u8bb8\\u53ef\\u53ca\\u5bf9\\u5e94\\u6e90\\u7801\\u51fa\\u5904\\u3002\\n- \\u9ed8\\u8ba4 FGOutput=f5low\\u3001FrameGenerator=xefg_tensor\\u3002\\u8bf7\\u5b8c\\u6574\\u89e3\\u538b\\u5b89\\u88c5 ZIP\\uff0c\\u5907\\u4efd\\u539f\\u5b89\\u88c5\\uff0c\\u6309\\u4e0a\\u6e38\\u8bf4\\u660e\\u9009\\u62e9 FG Input\\u3001\\u4fdd\\u5b58\\u8bbe\\u7f6e\\u5e76\\u91cd\\u542f\\u3002\\u4e0d\\u8981\\u53ea\\u590d\\u5236 OptiScaler.dll\\u3002\\n- \\u4e0d\\u9759\\u9ed8\\u5347\\u7ea7\\u4e0a\\u6e38\\u53e6\\u884c\\u63d0\\u4f9b\\u7684 F5Low 1.1.0.184 \\u53ef\\u9009\\u66f4\\u65b0\\u3002\\n- NVIDIA \\u4f9d\\u8d56\\u83b7\\u53d6\\u7b56\\u7565\\u6cbf\\u7528\\u6b64\\u524d\\u7248\\u672c\\uff1aDLSS-NR \\u6a21\\u578b nvngx_dlssnr.dll \\u9700\\u53e6\\u884c\\u63d0\\u4f9b\\uff1b\\u5305\\u5185 get_streamline.ps1 \\u7528\\u4e8e\\u53d6\\u5f97 NVIDIA Streamline/DLSS-G \\u6587\\u4ef6\\u3002F5Low \\u7684 DLSS-G \\u540e\\u7aef\\u9700\\u8981\\u8fd9\\u4e9b\\u6587\\u4ef6\\u3002Ampere MFG \\u4e0e\\u5916\\u90e8 vendor-neutral port \\u4e0d\\u6346\\u7ed1\\u3002\\n\\n### \\u6838\\u9a8c\\u4e0e\\u5df2\\u77e5\\u8303\\u56f4\\n- Windows MSVC v143 Release x64 \\u7f16\\u8bd1\\u3001\\u6253\\u5305\\u548c Linux \\u53ef\\u79fb\\u690d\\u68c0\\u67e5\\u901a\\u8fc7\\u3002\\n- Windows \\u5168\\u5957322\\u9879\\u6d4b\\u8bd5\\uff1a318\\u901a\\u8fc7\\u30014\\u8df3\\u8fc7\\uff1b\\u6253\\u5305\\u540e\\u9488\\u5bf9\\u771f\\u5b9e\\u5b98\\u65b9kit\\u53ca\\u53d1\\u5e03\\u95e8\\u7981\\u768428\\u9879\\u56de\\u5f52\\u5168\\u90e8\\u901a\\u8fc7\\uff0c\\u8865\\u8dd1\\u4e86\\u6b64\\u524d\\u4e09\\u9879kit\\u4f9d\\u8d56\\u68c0\\u67e5\\u3002\\u5269\\u4f59POSIX\\u4e13\\u7528\\u68c0\\u67e5\\u4e0d\\u9002\\u7528\\u4e8eWindows\\u3002\\n- \\u5b98\\u65b9kit ZIP\\u53ca\\u4e03\\u6587\\u4ef6\\u56fa\\u5b9a\\u54c8\\u5e0c\\u3001Intel\\u7248\\u672c\\u548c\\u7b7e\\u540d\\u3001\\u6700\\u7ec8\\u5305\\u8def\\u5f84/\\u6821\\u9a8c\\u548c/\\u5143\\u6570\\u636e/\\u4e24\\u9879\\u9ed8\\u8ba4\\u503c\\u901a\\u8fc7\\u6838\\u9a8c\\u3002\\u53d1\\u5e03\\u524d\\u540e\\u518d\\u8bfb\\u56de\\u4e0a\\u4f20\\u6587\\u4ef6\\u68c0\\u67e5\\u3002\\n- \\u672a\\u8fdb\\u884c\\u6e38\\u620f/GPU\\u5b9e\\u6d4b\\u3002\\u4e2d\\u6587\\u6392\\u7248\\u3001\\u4e3b\\u9898/\\u7f29\\u653e\\u548c\\u786c\\u4ef6\\u517c\\u5bb9\\u6027\\u4ecd\\u9700\\u5b9e\\u673a\\u786e\\u8ba4\\uff0c\\u7f16\\u8bd1\\u5b58\\u5728\\u65e2\\u6709\\u544a\\u8b66\\u3002\\n- \\u5df2\\u52a0\\u8f7dLUT\\u94fe\\u7684\\u9884\\u7ec4\\u5408\\u6587\\u672c\\u5305\\u542b\\u4efb\\u610f\\u6587\\u4ef6\\u540d\\uff0c\\u90e8\\u5206\\u8fde\\u63a5\\u8bcd\\u4ecd\\u4fdd\\u7559\\u82f1\\u6587\\uff1b\\u672a\\u77e5\\u5916\\u90e8DLL/\\u9a71\\u52a8\\u8bca\\u65ad\\u4fdd\\u6301\\u539f\\u6587\\u56de\\u9000\\u3002\\n- \\u4e0a\\u6e38\\u62a5\\u544a\\uff1aFinished Picture \\u4e0e Run the upscaler on the picture \\u540c\\u65f6\\u542f\\u7528\\u5e76\\u4f7f\\u7528F5Low\\u63d2\\u5e27\\u65f6\\u53ef\\u80fd\\u89e6\\u53d1\\u6e38\\u620f\\u51bb\\u7ed3/\\u9a71\\u52a8\\u91cd\\u7f6e\\u3002\\u9047\\u5230\\u6b64\\u60c5\\u51b5\\u8bf7\\u5173\\u95ed\\u4e24\\u9879\\u5e76\\u91cd\\u542f\\uff0c\\u8be6\\u89c1[\\u4e0a\\u6e38\\u53d1\\u5e03\\u8bf4\\u660e](https://github.com/janblade/OptiScaler-F5-DLSSNR-Multipass/releases/tag/v0.1.37.2)\\u3002\\u52ff\\u7528\\u4e8e\\u5e26\\u53cd\\u4f5c\\u5f0a\\u4fdd\\u62a4\\u7684\\u591a\\u4eba\\u6e38\\u620f\\u3002\\n\\n### \\u6765\\u6e90\\u4e0e\\u4e0b\\u8f7d\\u6821\\u9a8c\\n- [\\u7ef4\\u62a4\\u63d0\\u4ea4](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/commit/8253788399dfb97f4478e2f0c5e845cfa41a2e74)\\uff1a8253788399dfb97f4478e2f0c5e845cfa41a2e74\\u3002\\n- \\u5b9e\\u9645CI checkout\\uff1afa2abcb3676f5362d84d79d2f5dbd867e1832533\\u3002\\u4e0e\\u7ef4\\u62a4\\u63d0\\u4ea4\\u5171\\u4eab\\u6e90\\u7801\\u681134a3e75953e14e8a5bf085390de45fef08d0dca3\\u3002\\n- \\u56fa\\u5b9a\\u4e0a\\u6e38\\uff1af10dedf93a2d5412c753c751c120d52b223800f6\\uff08main-f10dedf93a2d\\uff09\\u3002\\n- [\\u901a\\u8fc7\\u7684CI](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/actions/runs/42983545095) \\u00b7 [\\u7ec4\\u4ef6\\u4e0e\\u65e7\\u7248\\u5b9e\\u7269\\u6838\\u9a8c](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/blob/8253788399dfb97f4478e2f0c5e845cfa41a2e74/docs/F5LOW-DISTRIBUTION-AUDIT-2026-11-11.md) \\u00b7 [F5Low\\u5bf9\\u5e94\\u6e90\\u7801](https://github.com/janblade/f5low-fg/tree/1f17d38621270dd1fc0f835ea79f1b90bf1d6c7a)\\u3002\\n- \\u5b89\\u88c5ZIP SHA-256\\uff1a11f23aa44983b3e54d36edd294758e39176477ad36c1c9c316b321a8af0f425c\\u3002\\n\\n\\u539f\\u59cb\\u6784\\u5efaZIP\\u3001\\u540c\\u540d.sha256\\u548cbuild-metadata\\u4fdd\\u7559\\u539f\\u540d\\u4e0e\\u539f\\u5b57\\u8282\\uff1bprovenance.json\\u4e0eSHA256SUMS\\u63d0\\u4f9b\\u6765\\u6e90\\u4e0e\\u6821\\u9a8c\\u8bb0\\u5f55\\u3002\\u7248\\u672c\\u6807\\u9898/\\u6807\\u7b7e\\u65b9\\u4fbf\\u8bc6\\u522b\\uff0cZIP\\u540d\\u79f0\\u4fdd\\u7559\\u5b9e\\u9645\\u6784\\u5efa\\u8eab\\u4efd\\u3002\\u72ec\\u7acb\\u65b0\\u589e\\u6b63\\u5f0f\\u7248\\uff0c\\u4fdd\\u7559\\u6240\\u6709\\u65e7\\u7248\\uff1b\\u672a\\u5408\\u5e76main\\uff0c\\u672a\\u8986\\u76d6\\u65e7\\u8d44\\u4ea7\\u3002\\n","pr":1,"publish_branch":"release-formal/20261111-82537883","repository":"Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN","runs":[{"event":"pull_request","head_branch":"maintenance/f5-upstream-20261031","head_sha":"8253788399dfb97f4478e2f0c5e845cfa41a2e74","id":42983545095,"jobs":[{"conclusion":"success","id":130399322939,"name":"build"},{"conclusion":"success","id":130399322722,"name":"portable-contracts"},{"conclusion":"skipped","id":130403292780,"name":"publish-test-release"},{"conclusion":"skipped","id":130403293216,"name":"publish-synced-test-release"}],"path":".github/workflows/build.yml","run_attempt":1,"workflow_id":390123952}],"tag":"v0.1.37.2-cn.1","title":"OptiScaler F5 CN 0.1.37.2 \\u00b7 \\u6c49\\u5316\\u66f4\\u65b0 2026-11-11","tree":"34a3e75953e14e8a5bf085390de45fef08d0dca3","upstream":"f10dedf93a2d5412c753c751c120d52b223800f6","upstream_version":"main-f10dedf93a2d","workflow_path":".github/workflows/publish-formal-20261111.yml"}', "fixed manifest")
+          try:
+              ci_main(MANIFEST, 'verify')
+          except Exception as ex:
+              print(str(ex) if isinstance(ex, Stop) else "Publication gate failed; preserve remote state and reconcile before retry", file=sys.stderr)
+              sys.exit(1)
+          PY
+  publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    needs: verify
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - name: Fixed manifest publish
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          """One-shot formal F5 publication; stdlib only; no downloaded code executes.
+
+          Adapted from retain-candidate-20261031.yml. Every write is attempted at most
+          once. Failures preserve existing and partially-created data for reconciliation.
+          """
+          import hashlib
+          import io
+          import json
+          import os
+          import re
+          import stat
+          import struct
+          import sys
+          import urllib.error
+          import urllib.parse
+          import urllib.request
+          import zipfile
+
+          REPOSITORY = 'Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN'
+          UPSTREAM_REPOSITORY = 'https://github.com/janblade/OptiScaler-F5-DLSSNR-Multipass.git'
+          TAG = 'v0.1.37.2-cn.1'
+          TITLE = 'OptiScaler F5 CN 0.1.37.2 · 汉化更新 2026-11-11'
+          HYBRID_HASH = '3e735f825b85872d20c35c0d75404c1a28b7b6e11ca28ef06243a18225191037'
+          KIT_SHA256 = '97fa6fb53a2278dfc651e4de2b2201f399f40ce49474b5f8199a2e5794d87f56'
+          KIT_URL = 'https://github.com/janblade/f5low-fg/releases/download/v1.1.0.140/f5low-kit-1.1.0.140%2B1f17d38.zip'
+          KIT_SOURCE = '1f17d38621270dd1fc0f835ea79f1b90bf1d6c7a'
+          FILE_SHA256 = {
+              'f5low.dll': '0993352a97a05537a88bd1d0266cb62ae581f219b75fc588fbc15eeeacb48fa4',
+              'libxess_fg.dll': '752b1491350a29fb2850fa4d0d14f62d79980e0b3cd067d147bb2469c1ec3182',
+              'LICENSE': '1ecec4c8ae6cd206ecab7be3457953616a5d497dc438d53bc726287724f77a58',
+              'XeSS_LICENSE.txt': '784be42c39a4a4d03cf85d88e15e59d75828fca773ce45b8dbfffbd7eaf208df',
+              'zstd_LICENSE.txt': 'd3baadc2e1dd7a7e0b483633e6b39743c16a16f28d696baff507fcd451f3d4ad',
+              'README-KIT.txt': 'b34da9e444ca20d6157105722d3bfae64f1d996218b8d37289687e4c199d30f0',
+              'kit_hashes.txt': '02ef995f35e19d69647005e93b7cd485d8da3b5e50901fb91e4520e6bf2c32d4',
+          }
+          FILE_SIZES = {'f5low.dll': 6350848, 'libxess_fg.dll': 22866056, 'LICENSE': 37871,
+                        'XeSS_LICENSE.txt': 4194, 'zstd_LICENSE.txt': 1579,
+                        'README-KIT.txt': 1596, 'kit_hashes.txt': 484}
+          STAGED_PATHS = {
+              'f5low.dll': 'OptiScaler/plugins/f5low.dll',
+              'libxess_fg.dll': 'OptiScaler/libxess_fg.dll',
+              'LICENSE': 'Licenses/f5low_LICENSE.txt',
+              'XeSS_LICENSE.txt': 'Licenses/XeSS_LICENSE.txt',
+              'zstd_LICENSE.txt': 'Licenses/f5low_zstd_LICENSE.txt',
+              'README-KIT.txt': 'Licenses/f5low_README-KIT.txt',
+              'kit_hashes.txt': 'Licenses/f5low_kit_hashes.txt',
+          }
+          REQUIRED = ('OptiScaler.dll', 'nvngx.dll_dlssnr.dll', 'BUILD-INFO.CN.json', 'SHA256SUMS.txt',
+                      'README.CN.zh-CN.md', 'UPSTREAM.CN.md', 'OptiScalerCN.ini', 'LICENSE', 'README.md',
+                      'INSTALL-DLSSNR.md', 'OptiScaler.ini', 'setup_windows.bat', 'setup_linux.sh',
+                      'get_streamline.ps1', 'redist/streamline/manifest.json',
+                      '!! EXTRACT ALL FILES TO GAME FOLDER !!', 'Licenses/HybridSource/LICENSE')
+
+
+          class Stop(RuntimeError):
+              pass
+
+
+          def require(ok, message):
+              if not ok:
+                  raise Stop(message)
+
+
+          def sha(data):
+              return hashlib.sha256(data).hexdigest()
+
+
+          def object_json(data, label):
+              def unique(pairs):
+                  result = {}
+                  for key, value in pairs:
+                      require(key not in result, 'duplicate JSON key: ' + label)
+                      result[key] = value
+                  return result
+              try:
+                  value = json.loads(data.decode('utf-8-sig') if isinstance(data, bytes) else data,
+                                     object_pairs_hook=unique,
+                                     parse_constant=lambda _: (_ for _ in ()).throw(ValueError('nonfinite')))
+              except (ValueError, UnicodeError) as ex:
+                  raise Stop('invalid JSON: ' + label) from ex
+              require(isinstance(value, dict), 'JSON object required: ' + label)
+              return value
+
+
+          def expected_kit():
+              return {'version': '1.1.0.140', 'archive_url': KIT_URL, 'archive_sha256': KIT_SHA256,
+                      'source_repository': 'https://github.com/janblade/f5low-fg', 'source_commit': KIT_SOURCE,
+                      'intel_version': '1.3.4.95',
+                      'files': [{'path': n, 'sha256': FILE_SHA256[n], 'size': FILE_SIZES[n]} for n in sorted(FILE_SHA256)]}
+
+
+          def package_name(m):
+              return ('OptiScaler-F5-DLSSNR-Multipass-CN-' + m['upstream_version'] + '-cn-'
+                      + m['checkout'][:12] + '-' + m['upstream'][:12] + '.zip')
+
+
+          def positive(value):
+              return type(value) is int and value > 0
+
+
+          def validate_manifest(m):
+              keys = {'repository', 'head', 'checkout', 'tree', 'base', 'upstream', 'upstream_version',
+                      'branch', 'publish_branch', 'workflow_path', 'pr', 'tag', 'title', 'notes',
+                      'runs', 'artifact', 'assets', 'make_latest'}
+              require(isinstance(m, dict) and set(m) == keys, 'manifest keys must match the reviewed schema')
+              require(m['repository'] == REPOSITORY and m['tag'] == TAG and m['title'] == TITLE,
+                      'fixed repository/tag/title mismatch')
+              for key in ('head', 'checkout', 'tree', 'base', 'upstream'):
+                  require(isinstance(m[key], str) and re.fullmatch('[0-9a-f]{40}', m[key]), 'invalid full SHA: ' + key)
+              require(isinstance(m['upstream_version'], str) and
+                      (m['upstream_version'] == 'main-' + m['upstream'][:12]
+                       or re.fullmatch(r'v[0-9]+\.[0-9]+\.[0-9]+(?:\.[0-9]+)?', m['upstream_version'])),
+                      'invalid upstream version')
+              for key in ('branch', 'publish_branch'):
+                  require(isinstance(m[key], str) and re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_./-]{1,150}', m[key])
+                          and '..' not in m[key] and '//' not in m[key] and not m[key].endswith(('/', '.', '.lock'))
+                          and all(not x.startswith('.') for x in m[key].split('/')), 'invalid branch: ' + key)
+              require(m['publish_branch'].startswith('release-formal/') and m['branch'] != m['publish_branch']
+                      and m['branch'] != 'main', 'isolated publication/source branch required')
+              require(isinstance(m['workflow_path'], str) and re.fullmatch(
+                  r'\.github/workflows/publish-formal-[A-Za-z0-9_-]+\.yml', m['workflow_path']), 'invalid workflow path')
+              require(positive(m['pr']) and m['make_latest'] in ('true', 'false'), 'invalid PR/latest policy')
+              require(isinstance(m['notes'], str) and 0 < len(m['notes']) <= 20000
+                      and ('未进行游戏/GPU实测' in m['notes'] or 'Game/GPU runtime validation not performed' in m['notes']),
+                      'notes must explicitly disclose missing game/GPU tests')
+              require(('$' + '{{') not in m['notes'], 'GitHub expression syntax forbidden in embedded notes')
+              require(isinstance(m['runs'], list) and 1 <= len(m['runs']) <= 4, 'invalid run count')
+              run_ids = set()
+              for r in m['runs']:
+                  require(isinstance(r, dict) and set(r) == {'id', 'head_sha', 'head_branch', 'workflow_id', 'path', 'run_attempt', 'event', 'jobs'}, 'invalid run schema')
+                  require(positive(r['id']) and r['id'] not in run_ids and positive(r['workflow_id'])
+                          and positive(r['run_attempt']), 'invalid run identity')
+                  run_ids.add(r['id'])
+                  require(r['head_sha'] == m['head'] and r['head_branch'] == m['branch']
+                          and r['path'] == '.github/workflows/build.yml' and r['event'] == 'pull_request', 'run/source binding mismatch')
+                  require(isinstance(r['jobs'], list) and len(r['jobs']) == 4, 'expected all four fixed build jobs')
+                  wanted = {'build': 'success', 'portable-contracts': 'success',
+                            'publish-test-release': 'skipped', 'publish-synced-test-release': 'skipped'}
+                  got = {}; ids = set()
+                  for j in r['jobs']:
+                      require(isinstance(j, dict) and set(j) == {'id', 'name', 'conclusion'}
+                              and positive(j['id']) and j['id'] not in ids and j['name'] not in got, 'invalid job identity')
+                      got[j['name']] = j['conclusion']; ids.add(j['id'])
+                  require(got == wanted, 'build and portable jobs must succeed; publishers must be skipped')
+              a = m['artifact']
+              require(isinstance(a, dict) and set(a) == {'id', 'name', 'size_in_bytes', 'digest'}
+                      and positive(a['id']) and positive(a['size_in_bytes']) and a['size_in_bytes'] <= 512*1024**2
+                      and isinstance(a['digest'], str) and re.fullmatch('sha256:[0-9a-f]{64}', a['digest']), 'invalid artifact schema')
+              require(a['name'] == 'OptiScaler-F5-CN-' + m['checkout'] + '-' + str(m['runs'][0]['run_attempt']),
+                      'artifact name/checkout/attempt mismatch')
+              name = package_name(m); expected = {name, name + '.sha256', 'build-metadata.json'}
+              require(isinstance(m['assets'], list) and len(m['assets']) == 3, 'expected original three assets')
+              seen = set()
+              for a in m['assets']:
+                  require(isinstance(a, dict) and set(a) == {'member', 'name', 'sha256', 'size'}
+                          and a['member'] == a['name'] and a['name'] in expected and a['name'] not in seen,
+                          'asset renaming/replacement is forbidden')
+                  require(positive(a['size']) and a['size'] <= 512*1024**2 and isinstance(a['sha256'], str)
+                          and re.fullmatch('[0-9a-f]{64}', a['sha256']), 'invalid asset size/hash')
+                  seen.add(a['name'])
+              require(seen == expected, 'original asset identity mismatch')
+
+
+          def safe_entries(z):
+              entries = z.infolist(); require(0 < len(entries) <= 10000, 'invalid ZIP entry count')
+              seen = set(); total = 0; result = {}
+              for i in entries:
+                  name = i.orig_filename
+                  require(name == i.filename and name and not re.search(r'(^/|[\\:\x00-\x1f])', name), 'unsafe ZIP path')
+                  parts = name.rstrip('/').split('/')
+                  require(all(x not in ('', '.', '..') and not re.search(r'[. ]$|[<>"|?*]', x)
+                              and not re.match(r'(?i)^(CON|PRN|AUX|NUL|COM[1-9]|LPT[1-9])(?:\.|$)', x)
+                              for x in parts), 'unsafe ZIP path component')
+                  key = name.rstrip('/').casefold()
+                  require(key not in seen, 'duplicate/case-colliding ZIP member'); seen.add(key)
+                  kind = stat.S_IFMT(i.external_attr >> 16)
+                  require(kind in (0, stat.S_IFREG, stat.S_IFDIR) and not i.flag_bits & 1, 'special/encrypted ZIP member')
+                  require(not (kind == stat.S_IFDIR and not i.is_dir()) and not (kind == stat.S_IFREG and i.is_dir()), 'ZIP kind/name conflict')
+                  total += i.file_size
+                  require(i.file_size <= 512*1024**2 and total <= 2*1024**3, 'ZIP expansion budget exceeded')
+                  if not i.is_dir(): result[name] = i
+              files = {n.casefold() for n in result}
+              for name in seen:
+                  parts = name.split('/')
+                  require(not any('/'.join(parts[:i]) in files for i in range(1, len(parts))), 'ZIP file/parent collision')
+              return result
+
+
+          def verify_defaults(data):
+              expected = {b'FGOutput': (b'FrameGen', b'f5low'), b'FrameGenerator': (b'F5Low', b'xefg_tensor')}
+              found = set(); sections = set(); section = b''
+              for index, line in enumerate(data.splitlines()):
+                  if index == 0: line = line.removeprefix(b'\xef\xbb\xbf')
+                  match = re.fullmatch(rb'\[([^]\r\n]+)\][ \t]*(?:[;#].*)?', line.strip())
+                  if match:
+                      section = match[1]
+                      if section.lower() in (b'framegen', b'f5low'):
+                          require(section.lower() not in sections, 'duplicate defaults section'); sections.add(section.lower())
+                      continue
+                  key = re.match(rb'^[ \t]*(FGOutput|FrameGenerator)[ \t]*=', line, re.I)
+                  if key:
+                      canonical = next(k for k in expected if k.lower() == key[1].lower())
+                      target, value = expected[canonical]
+                      require(canonical not in found and section == target and line == canonical+b'='+value,
+                              'F5Low defaults mismatch')
+                      found.add(canonical)
+              require(found == set(expected), 'F5Low defaults missing')
+
+
+          def verify_package(files, m):
+              name = package_name(m); package = files[name]
+              require(len(files['build-metadata.json']) <= 4*1024**2 and len(files[name+'.sha256']) <= 1024, 'metadata size budget')
+              meta = object_json(files['build-metadata.json'], 'build metadata')
+              require(meta.get('package') == name and meta.get('sha256') == sha(package), 'package metadata identity mismatch')
+              require(files[name+'.sha256'] in ((sha(package)+' *'+name+'\n').encode(), (sha(package)+' *'+name+'\r\n').encode()), 'checksum sidecar mismatch')
+              identity = {'schema': 1, 'cn_commit': m['checkout'], 'upstream_commit': m['upstream'],
+                          'upstream_version': m['upstream_version'], 'upstream_repository': UPSTREAM_REPOSITORY,
+                          'package_version': m['upstream_version']+'-cn-'+m['checkout'][:12],
+                          'variant': 'downloader-only', 'configuration': 'Release', 'platform': 'x64', 'toolset': 'v143',
+                          'hybrid_archive_sha256': HYBRID_HASH, 'game_runtime_validation': 'not performed by this workflow'}
+              for k,v in identity.items(): require(meta.get(k) == v and type(meta.get(k)) is type(v), 'build identity mismatch: '+k)
+              require(meta.get('f5low_kit_included') is True and meta.get('f5low_kit') == expected_kit(), 'F5Low kit metadata mismatch')
+              require(isinstance(meta.get('recursive_submodules'), list) and meta['recursive_submodules']
+                      and all(isinstance(x,str) and re.fullmatch(r' [0-9a-f]{40} [^\r\n]+', x) for x in meta['recursive_submodules']), 'submodule evidence missing')
+              require(all(isinstance(meta.get(k),str) and meta[k] for k in ('msbuild_version','built_at_utc','packaged_at_utc')), 'toolchain/time evidence missing')
+              with zipfile.ZipFile(io.BytesIO(package)) as z:
+                  entries = safe_entries(z)
+                  require(set(REQUIRED) | set(STAGED_PATHS.values()) <= set(entries), 'required package file missing')
+                  hashes = {}
+                  for n,i in entries.items():
+                      base = n.rsplit('/',1)[-1].casefold()
+                      require(not re.search(r'^(nvngx_dlss.*|sl\..*)\.dll$|\.(pdb|exp|lib|ilk|asi)$|latewarp|nrtrace', base)
+                              and base != 'dlssg_sm86.dll', 'forbidden downloader-only binary')
+                      if base in ('f5low.dll', 'libxess_fg.dll'):
+                          require(n in (STAGED_PATHS['f5low.dll'], STAGED_PATHS['libxess_fg.dll']), 'unexpected F5Low DLL path')
+                      if n.casefold().startswith('optiscaler/plugins/'):
+                          require(n == STAGED_PATHS['f5low.dll'], 'unexpected F5Low plugin path')
+                      with z.open(i) as stream: hashes[n] = hashlib.file_digest(stream, 'sha256').hexdigest()
+                  for key,dest in STAGED_PATHS.items():
+                      require(entries[dest].file_size == FILE_SIZES[key] and hashes[dest] == FILE_SHA256[key], 'pinned F5Low component mismatch: '+key)
+                  for n in ('BUILD-INFO.CN.json','SHA256SUMS.txt','OptiScaler.ini'):
+                      require(entries[n].file_size <= 4*1024**2, 'oversized package metadata')
+                  inner = object_json(z.read('BUILD-INFO.CN.json'), 'inner build metadata')
+                  require(inner == {k:v for k,v in meta.items() if k not in ('package','sha256','verified_archive_files')}, 'inner/outer metadata mismatch')
+                  verify_defaults(z.read('OptiScaler.ini'))
+                  checksums = {}
+                  for line in z.read('SHA256SUMS.txt').decode('utf-8-sig').splitlines():
+                      match = re.fullmatch(r'([0-9a-f]{64}) \*(.+)', line)
+                      require(match and match[2] not in checksums, 'invalid internal checksum manifest')
+                      checksums[match[2]] = match[1]
+                  require(checksums == {k:v for k,v in hashes.items() if k != 'SHA256SUMS.txt'}, 'internal checksums mismatch')
+                  require(type(meta.get('verified_archive_files')) is int and meta['verified_archive_files'] == len(entries), 'archive file count mismatch')
+                  binaries = meta.get('binaries')
+                  require(isinstance(binaries,list) and len(binaries) == 2, 'compiled binary evidence missing')
+                  records = {b.get('name'):b.get('sha256') for b in binaries if isinstance(b,dict)}
+                  require(set(records) == {'OptiScaler.dll','nvngx.dll_dlssnr.dll'}, 'compiled binary names mismatch')
+                  for n,h in records.items():
+                      require(hashes[n] == h, 'compiled binary hash mismatch')
+                      with z.open(n) as stream:
+                          data = stream.read(1024*1024+96)
+                      require(len(data) >= 256 and data[:2] == b'MZ', 'invalid PE DLL')
+                      off = struct.unpack_from('<I',data,0x3c)[0]
+                      require(off <= len(data)-96 and data[off:off+4] == b'PE\0\0'
+                              and struct.unpack_from('<H',data,off+4)[0] == 0x8664
+                              and struct.unpack_from('<H',data,off+24)[0] == 0x20b
+                              and struct.unpack_from('<H',data,off+22)[0] & 0x2000, 'invalid x64 DLL header')
+                  hybrid = meta.get('hybrid_assets')
+                  require(isinstance(hybrid,list) and len(hybrid) == 15, 'expected fifteen hybrid assets')
+                  paths = set()
+                  for item in hybrid:
+                      require(isinstance(item,dict) and isinstance(item.get('path'),str), 'invalid hybrid record')
+                      n = 'OptiScaler/nvfp4/hybrid/' + item['path']
+                      require(n not in paths and n in hashes and hashes[n] == item.get('sha256'), 'hybrid content mismatch')
+                      paths.add(n)
+
+
+          def extract_assets(blob, m):
+              require(isinstance(blob,bytes) and len(blob) == m['artifact']['size_in_bytes'], 'archive size mismatch')
+              require('sha256:'+sha(blob) == m['artifact']['digest'], 'archive hash mismatch')
+              try:
+                  with zipfile.ZipFile(io.BytesIO(blob)) as z:
+                      entries = safe_entries(z)
+                      require(set(entries) == {a['member'] for a in m['assets']} and len(z.infolist()) == 3, 'artifact members mismatch')
+                      files = {}
+                      for a in m['assets']:
+                          require(entries[a['member']].file_size == a['size'], 'asset size mismatch')
+                          data = z.read(a['member'])
+                          require(sha(data) == a['sha256'], 'asset hash mismatch')
+                          files[a['name']] = data
+                  verify_package(files, m)
+                  return files
+              except (zipfile.BadZipFile, UnicodeError, RuntimeError) as ex:
+                  if isinstance(ex, Stop): raise
+                  raise Stop('invalid package archive') from ex
+
+
+          def guard(m, env, event):
+              validate_manifest(m)
+              expected = {'GITHUB_ACTIONS':'true','GITHUB_EVENT_NAME':'push','GITHUB_REPOSITORY':m['repository'],
+                          'GITHUB_REF':'refs/heads/'+m['publish_branch'],'GITHUB_RUN_ATTEMPT':'1',
+                          'GITHUB_WORKFLOW_REF':m['repository']+'/'+m['workflow_path']+'@refs/heads/'+m['publish_branch']}
+              for k,v in expected.items(): require(env.get(k) == v, 'context mismatch: '+k)
+              require(re.fullmatch('[0-9a-f]{40}',env.get('GITHUB_SHA','')) and re.fullmatch('[1-9][0-9]*',env.get('GITHUB_RUN_ID','')), 'invalid workflow SHA/run')
+              require(env.get('GITHUB_SERVER_URL','https://github.com') == 'https://github.com'
+                      and env.get('GITHUB_API_URL','https://api.github.com') == 'https://api.github.com', 'unexpected GitHub server')
+              require(event.get('after') == env['GITHUB_SHA'] and event.get('before') == m['head']
+                      and event.get('ref') == expected['GITHUB_REF'], 'publisher must be single push after reviewed source')
+              require(event.get('forced') is False and event.get('deleted') is False, 'forced/deleted event')
+              require(event.get('repository',{}).get('full_name') == m['repository'], 'event repository mismatch')
+
+
+          class NoRedirect(urllib.request.HTTPRedirectHandler):
+              def redirect_request(self,*args,**kwargs):
+                  return None
+
+
+          class API:
+              def __init__(self, token, write=False):
+                  require(isinstance(token,str) and token, 'empty ephemeral workflow token')
+                  self.token=token; self.write=write; self.opener=urllib.request.build_opener(NoRedirect)
+
+              def request(self, method, path, body=None, binary=False):
+                  require(method in ('GET','POST','PATCH') and (method == 'GET' or self.write), 'forbidden/read-only API method')
+                  url = path if path.startswith('https://') else 'https://api.github.com'+path
+                  u = urllib.parse.urlsplit(url)
+                  require(u.scheme == 'https' and u.hostname in ('api.github.com','uploads.github.com')
+                          and not u.username and not u.password and u.port in (None,443) and not u.fragment, 'untrusted API endpoint')
+                  data = body if isinstance(body,bytes) else json.dumps(body).encode() if body is not None else None
+                  accept = 'application/octet-stream' if binary and re.fullmatch(r'/repos/[^/]+/[^/]+/releases/assets/[0-9]+',u.path) else 'application/vnd.github+json'
+                  endpoint = method+' '+u.path
+                  print('GitHub request:',endpoint,flush=True)
+                  headers = {'Authorization':'Bearer '+self.token,'Accept':accept,'X-GitHub-Api-Version':'2022-11-28',
+                             'Content-Type':'application/octet-stream' if isinstance(body,bytes) else 'application/json'}
+                  try:
+                      response = self.opener.open(urllib.request.Request(url,data=data,method=method,headers=headers),timeout=180)
+                  except urllib.error.HTTPError as ex:
+                      if ex.code == 404 and method == 'GET' and not binary: return None
+                      if ex.code in (301,302,303,307,308) and method == 'GET' and binary:
+                          target=ex.headers.get('Location',''); host=urllib.parse.urlsplit(target)
+                          require(host.scheme == 'https' and not host.username and not host.password and host.port in (None,443)
+                                  and host.hostname and (host.hostname.endswith('.blob.core.windows.net')
+                                  or host.hostname == 'release-assets.githubusercontent.com'
+                                  or host.hostname.endswith('.githubusercontent.com')), 'untrusted download redirect')
+                          # Fresh request has NO Authorization. Chained redirects remain disabled.
+                          try: response=self.opener.open(urllib.request.Request(target,headers={'Accept':'application/octet-stream'}),timeout=180)
+                          except Exception: raise Stop('redirected download failed (URL redacted)') from None
+                      else: raise Stop('GitHub HTTP '+str(ex.code)+' at '+endpoint+' (body/query redacted; never retry writes)') from None
+                  except Exception:
+                      raise Stop('GitHub request failed at '+endpoint+' (details redacted; never retry writes)') from None
+                  with response:
+                      data=response.read(512*1024**2+1)
+                      require(len(data) <= 512*1024**2, 'response exceeds limit')
+                  if binary: return data
+                  try: return json.loads(data)
+                  except (ValueError,UnicodeError): raise Stop('invalid GitHub JSON response at '+endpoint) from None
+
+
+          def verify_publisher(api,m,publisher):
+              root='/repos/'+m['repository']
+              ref=api.request('GET',root+'/git/ref/heads/'+m['publish_branch'])
+              require(ref and ref.get('object',{}).get('sha') == publisher, 'publisher branch changed')
+              commit=api.request('GET',root+'/commits/'+publisher)
+              require(commit and [p.get('sha') for p in commit.get('parents',[])] == [m['head']], 'publisher parent mismatch')
+              changed=commit.get('files',[])
+              require(len(changed) == 1 and changed[0].get('filename') == m['workflow_path']
+                      and changed[0].get('status') == 'added', 'publisher must only add fixed workflow')
+
+
+          def verify_source(api,m):
+              root='/repos/'+m['repository']
+              ref=api.request('GET',root+'/git/ref/heads/'+m['branch'])
+              require(ref and ref.get('object',{}).get('sha') == m['head'], 'source branch changed')
+              for commit in (m['head'],m['checkout']):
+                  c=api.request('GET',root+'/git/commits/'+commit)
+                  require(c and c.get('tree',{}).get('sha') == m['tree'], 'source/checkout tree mismatch')
+              pr=api.request('GET',root+'/pulls/'+str(m['pr']))
+              require(pr and pr.get('state') == 'open' and pr.get('head',{}).get('sha') == m['head']
+                      and pr.get('head',{}).get('ref') == m['branch']
+                      and pr.get('base',{}).get('sha') == m['base'] and pr.get('base',{}).get('ref') == 'main'
+                      and pr.get('head',{}).get('repo',{}).get('full_name') == m['repository']
+                      and pr.get('base',{}).get('repo',{}).get('full_name') == m['repository'], 'PR binding changed')
+
+
+          def verify_runs(api,m):
+              root='/repos/'+m['repository']
+              for expected in m['runs']:
+                  path=root+'/actions/runs/'+str(expected['id'])
+                  run=api.request('GET',path)
+                  for key in ('id','head_sha','head_branch','workflow_id','path','run_attempt','event'):
+                      require(run and run.get(key) == expected[key], 'run mismatch: '+key)
+                  require(run.get('repository',{}).get('full_name') == m['repository'] and run.get('status') == 'completed'
+                          and run.get('conclusion') == 'success', 'run not green')
+                  attempt=api.request('GET',path+'/attempts/'+str(expected['run_attempt']))
+                  require(attempt and attempt.get('status') == 'completed' and attempt.get('conclusion') == 'success'
+                          and attempt.get('head_sha') == m['head'] and attempt.get('run_attempt') == expected['run_attempt'], 'attempt mismatch')
+                  jobs=api.request('GET',path+'/attempts/'+str(expected['run_attempt'])+'/jobs?per_page=100')
+                  require(jobs and jobs.get('total_count') == len(expected['jobs'])
+                          and len(jobs.get('jobs',[])) == len(expected['jobs']), 'job count mismatch')
+                  actual={j['id']:j for j in jobs['jobs']}
+                  require(len(actual) == len(expected['jobs']), 'duplicate job IDs')
+                  for j in expected['jobs']:
+                      got=actual.get(j['id'])
+                      require(got and got.get('name') == j['name'] and got.get('status') == 'completed'
+                              and got.get('conclusion') == j['conclusion'], 'job mismatch')
+
+
+          def verify_remote(api,m):
+              root='/repos/'+m['repository']
+              verify_source(api,m)
+              verify_runs(api,m)
+              a=api.request('GET',root+'/actions/artifacts/'+str(m['artifact']['id']))
+              for k in ('id','name','size_in_bytes','digest'):
+                  require(a and a.get(k) == m['artifact'][k], 'artifact mismatch: '+k)
+              require(a.get('expired') is False and a.get('workflow_run',{}).get('id') == m['runs'][0]['id']
+                      and a.get('workflow_run',{}).get('head_sha') == m['head'], 'artifact run mismatch')
+              return extract_assets(api.request('GET',root+'/actions/artifacts/'+str(a['id'])+'/zip',binary=True),m)
+
+
+          def verify_uploaded(api,root,rid,files):
+              assets=api.request('GET',root+'/releases/'+str(rid)+'/assets?per_page=100')
+              require(isinstance(assets,list) and len(assets) == len(files), 'asset count mismatch')
+              seen=set()
+              for a in assets:
+                  require(a.get('name') in files and a['name'] not in seen and a.get('state') == 'uploaded', 'unexpected/duplicate asset')
+                  seen.add(a['name']); data=files[a['name']]
+                  require(a.get('size') == len(data), 'uploaded size mismatch')
+                  if a.get('digest'): require(a['digest'] == 'sha256:'+sha(data), 'uploaded digest mismatch')
+                  # Always read back the bytes, even when GitHub reports its own digest.
+                  require(sha(api.request('GET',root+'/releases/assets/'+str(a['id']),binary=True)) == sha(data), 'downloaded asset mismatch')
+
+
+          def check_release(value,m,rid,draft):
+              require(value and value.get('id') == rid and value.get('tag_name') == m['tag']
+                      and value.get('draft') is draft and value.get('prerelease') is False
+                      and value.get('target_commitish') == m['head']
+                      and value.get('name') == m['title'] and value.get('body') == m['notes'], 'release identity/state mismatch')
+
+
+          def publish(api,m,files,publisher):
+              root='/repos/'+m['repository']; tag=urllib.parse.quote(m['tag'],safe='')
+              require(api.request('GET',root+'/git/ref/tags/'+tag) is None, 'tag already exists')
+              require(api.request('GET',root+'/releases/tags/'+tag) is None, 'release already exists')
+              page=1
+              while True:
+                  existing=api.request('GET',root+'/releases?per_page=100&page='+str(page))
+                  require(isinstance(existing,list), 'cannot inspect existing drafts')
+                  require(all(x.get('tag_name') != m['tag'] for x in existing), 'draft/tag collision')
+                  if len(existing)<100: break
+                  page+=1; require(page<=100, 'too many releases to inspect safely')
+              rid=None; stage='tag creation'; publication_requested=False
+              try:
+                  ref=api.request('POST',root+'/git/refs',{'ref':'refs/tags/'+m['tag'],'sha':m['head']})
+                  require(ref and ref.get('object',{}).get('type') == 'commit' and ref['object']['sha'] == m['head'], 'new tag target mismatch')
+                  stage='draft creation'
+                  created=api.request('POST',root+'/releases',{'tag_name':m['tag'],'target_commitish':m['head'],
+                      'name':m['title'],'body':m['notes'],'draft':True,'prerelease':False,'make_latest':'false'})
+                  require(created and positive(created.get('id')), 'invalid new draft ID')
+                  rid=created['id']; check_release(created,m,rid,True)
+                  for name,data in files.items():
+                      stage='asset upload '+name
+                      uploaded=api.request('POST','https://uploads.github.com'+root+'/releases/'+str(rid)
+                          +'/assets?name='+urllib.parse.quote(name,safe=''),data)
+                      require(uploaded and uploaded.get('name') == name and uploaded.get('size') == len(data)
+                              and uploaded.get('state') == 'uploaded', 'upload response identity mismatch')
+                  stage='draft readback'; verify_uploaded(api,root,rid,files)
+                  ref=api.request('GET',root+'/git/ref/tags/'+tag)
+                  require(ref and ref.get('object',{}).get('type') == 'commit' and ref['object']['sha'] == m['head'], 'prepublication tag target mismatch')
+                  check_release(api.request('GET',root+'/releases/'+str(rid)),m,rid,True)
+                  # Recheck mutable source and publisher bindings immediately before public visibility.
+                  verify_publisher(api,m,publisher)
+                  verify_source(api,m)
+                  verify_runs(api,m)
+                  stage='public transition'; publication_requested=True
+                  api.request('PATCH',root+'/releases/'+str(rid),{'draft':False,'prerelease':False,'make_latest':m['make_latest']})
+                  stage='public readback'; check_release(api.request('GET',root+'/releases/'+str(rid)),m,rid,False)
+                  ref=api.request('GET',root+'/git/ref/tags/'+tag)
+                  require(ref and ref.get('object',{}).get('type') == 'commit' and ref['object']['sha'] == m['head'], 'tag target mismatch')
+                  verify_uploaded(api,root,rid,files)
+                  return rid
+              except Exception as ex:
+                  state='publication uncertain; release may be public' if publication_requested else 'publication stopped; a tag/draft/upload may already exist'
+                  detail='; '+str(ex) if isinstance(ex,Stop) else '; error details redacted'
+                  raise Stop(state+'; stage='+stage+'; release ID='+str(rid)
+                             +'; preserve all tag/draft/assets; reconcile exact state before any retry; no cleanup'+detail) from None
+
+
+          def add_provenance(files,m,env):
+              result=dict(files)
+              provenance={**m,'source_commit':m['head'],'build_checkout_commit':m['checkout'],
+                          'publisher_commit':env['GITHUB_SHA'],'publisher_run':env['GITHUB_RUN_ID'],
+                          'release_prerelease':False,'original_assets_unchanged':True,
+                          'game_gpu_runtime_validation':'not performed',
+                          'f5low_official_identity':expected_kit()}
+              result['provenance.json']=(json.dumps(provenance,ensure_ascii=False,sort_keys=True,indent=2)+'\n').encode()
+              result['SHA256SUMS']=''.join(sha(v)+'  '+k+'\n' for k,v in sorted(result.items())).encode()
+              return result
+
+
+          def ci_main(m,mode):
+              require(mode in ('verify','publish'), 'invalid mode')
+              with open(os.environ['GITHUB_EVENT_PATH'],'rb') as file: event=object_json(file.read(),'push event')
+              guard(m,os.environ,event)
+              api=API(os.environ['GITHUB_TOKEN'],write=mode=='publish')
+              verify_publisher(api,m,os.environ['GITHUB_SHA'])
+              files=add_provenance(verify_remote(api,m),m,os.environ)
+              if mode == 'publish': print('Verified new formal release ID',publish(api,m,files,os.environ['GITHUB_SHA']))
+              else: print('Read-only verification passed for',m['repository'])
+
+          MANIFEST = object_json('{"artifact":{"digest":"sha256:51ab3e253caa495a2553d0d676ecdfb4b8c7c4b212130ae528287b0cf4593e5b","id":13839366333,"name":"OptiScaler-F5-CN-fa2abcb3676f5362d84d79d2f5dbd867e1832533-1","size_in_bytes":178355529},"assets":[{"member":"OptiScaler-F5-DLSSNR-Multipass-CN-main-f10dedf93a2d-cn-fa2abcb3676f-f10dedf93a2d.zip.sha256","name":"OptiScaler-F5-DLSSNR-Multipass-CN-main-f10dedf93a2d-cn-fa2abcb3676f-f10dedf93a2d.zip.sha256","sha256":"a9c55e68297b39d6213e72e552595c3492da630b9923ad4a9653776847b9fdb4","size":151},{"member":"build-metadata.json","name":"build-metadata.json","sha256":"f7a34d587f8001454f3d95cd75c470975cba2438990912fd455c9e0263628faa","size":6119},{"member":"OptiScaler-F5-DLSSNR-Multipass-CN-main-f10dedf93a2d-cn-fa2abcb3676f-f10dedf93a2d.zip","name":"OptiScaler-F5-DLSSNR-Multipass-CN-main-f10dedf93a2d-cn-fa2abcb3676f-f10dedf93a2d.zip","sha256":"11f23aa44983b3e54d36edd294758e39176477ad36c1c9c316b321a8af0f425c","size":178348573}],"base":"0af315ae0e3e7dd832aa75ca2b3db870e6b501bf","branch":"maintenance/f5-upstream-20261031","checkout":"fa2abcb3676f5362d84d79d2f5dbd867e1832533","head":"8253788399dfb97f4478e2f0c5e845cfa41a2e74","make_latest":"true","notes":"## OptiScaler F5 CN 0.1.37.2 \\u6b63\\u5f0f\\u6c49\\u5316\\u7248\\n\\n\\u8ddf\\u8fdb\\u4e0a\\u6e38 0.1.37.2 \\u5408\\u5e76\\u540e\\u7684 main\\uff0c\\u5e76\\u8865\\u9f50\\u65b0\\u589e\\u754c\\u9762\\u3001\\u52a8\\u6001\\u72b6\\u6001\\u4e0e\\u60ac\\u505c\\u63d0\\u793a\\u3002\\u6d3b\\u52a8\\u8bcd\\u6761 2967\\uff0c\\u626b\\u63cf\\u7f3a\\u8bd1/\\u8fc7\\u671f\\u5747\\u4e3a 0\\uff1bAI \\u5ba1\\u6821\\u4e0d\\u7b49\\u4e8e\\u5168\\u90e8\\u754c\\u9762\\u4eba\\u5de5\\u9010\\u5c4f\\u9a8c\\u6536\\u3002\\n\\n### F5Low \\u4e0e\\u5b89\\u88c5\\u5185\\u5bb9\\n- \\u5305\\u542b\\u4e0e\\u4e0a\\u6e38 0.1.37.2 \\u4e3b\\u5305\\u76f8\\u540c\\u7684\\u5b98\\u65b9 F5Low 1.1.0.140 \\u548c\\u672a\\u4fee\\u6539\\u7684 Intel XeSS-FG 1.3.4.95\\u3002\\u5b8c\\u6574\\u4fdd\\u7559 GPL/\\u94fe\\u63a5\\u4f8b\\u5916\\u3001Intel\\u3001zstd \\u8bb8\\u53ef\\u53ca\\u5bf9\\u5e94\\u6e90\\u7801\\u51fa\\u5904\\u3002\\n- \\u9ed8\\u8ba4 FGOutput=f5low\\u3001FrameGenerator=xefg_tensor\\u3002\\u8bf7\\u5b8c\\u6574\\u89e3\\u538b\\u5b89\\u88c5 ZIP\\uff0c\\u5907\\u4efd\\u539f\\u5b89\\u88c5\\uff0c\\u6309\\u4e0a\\u6e38\\u8bf4\\u660e\\u9009\\u62e9 FG Input\\u3001\\u4fdd\\u5b58\\u8bbe\\u7f6e\\u5e76\\u91cd\\u542f\\u3002\\u4e0d\\u8981\\u53ea\\u590d\\u5236 OptiScaler.dll\\u3002\\n- \\u4e0d\\u9759\\u9ed8\\u5347\\u7ea7\\u4e0a\\u6e38\\u53e6\\u884c\\u63d0\\u4f9b\\u7684 F5Low 1.1.0.184 \\u53ef\\u9009\\u66f4\\u65b0\\u3002\\n- NVIDIA \\u4f9d\\u8d56\\u83b7\\u53d6\\u7b56\\u7565\\u6cbf\\u7528\\u6b64\\u524d\\u7248\\u672c\\uff1aDLSS-NR \\u6a21\\u578b nvngx_dlssnr.dll \\u9700\\u53e6\\u884c\\u63d0\\u4f9b\\uff1b\\u5305\\u5185 get_streamline.ps1 \\u7528\\u4e8e\\u53d6\\u5f97 NVIDIA Streamline/DLSS-G \\u6587\\u4ef6\\u3002F5Low \\u7684 DLSS-G \\u540e\\u7aef\\u9700\\u8981\\u8fd9\\u4e9b\\u6587\\u4ef6\\u3002Ampere MFG \\u4e0e\\u5916\\u90e8 vendor-neutral port \\u4e0d\\u6346\\u7ed1\\u3002\\n\\n### \\u6838\\u9a8c\\u4e0e\\u5df2\\u77e5\\u8303\\u56f4\\n- Windows MSVC v143 Release x64 \\u7f16\\u8bd1\\u3001\\u6253\\u5305\\u548c Linux \\u53ef\\u79fb\\u690d\\u68c0\\u67e5\\u901a\\u8fc7\\u3002\\n- Windows \\u5168\\u5957322\\u9879\\u6d4b\\u8bd5\\uff1a318\\u901a\\u8fc7\\u30014\\u8df3\\u8fc7\\uff1b\\u6253\\u5305\\u540e\\u9488\\u5bf9\\u771f\\u5b9e\\u5b98\\u65b9kit\\u53ca\\u53d1\\u5e03\\u95e8\\u7981\\u768428\\u9879\\u56de\\u5f52\\u5168\\u90e8\\u901a\\u8fc7\\uff0c\\u8865\\u8dd1\\u4e86\\u6b64\\u524d\\u4e09\\u9879kit\\u4f9d\\u8d56\\u68c0\\u67e5\\u3002\\u5269\\u4f59POSIX\\u4e13\\u7528\\u68c0\\u67e5\\u4e0d\\u9002\\u7528\\u4e8eWindows\\u3002\\n- \\u5b98\\u65b9kit ZIP\\u53ca\\u4e03\\u6587\\u4ef6\\u56fa\\u5b9a\\u54c8\\u5e0c\\u3001Intel\\u7248\\u672c\\u548c\\u7b7e\\u540d\\u3001\\u6700\\u7ec8\\u5305\\u8def\\u5f84/\\u6821\\u9a8c\\u548c/\\u5143\\u6570\\u636e/\\u4e24\\u9879\\u9ed8\\u8ba4\\u503c\\u901a\\u8fc7\\u6838\\u9a8c\\u3002\\u53d1\\u5e03\\u524d\\u540e\\u518d\\u8bfb\\u56de\\u4e0a\\u4f20\\u6587\\u4ef6\\u68c0\\u67e5\\u3002\\n- \\u672a\\u8fdb\\u884c\\u6e38\\u620f/GPU\\u5b9e\\u6d4b\\u3002\\u4e2d\\u6587\\u6392\\u7248\\u3001\\u4e3b\\u9898/\\u7f29\\u653e\\u548c\\u786c\\u4ef6\\u517c\\u5bb9\\u6027\\u4ecd\\u9700\\u5b9e\\u673a\\u786e\\u8ba4\\uff0c\\u7f16\\u8bd1\\u5b58\\u5728\\u65e2\\u6709\\u544a\\u8b66\\u3002\\n- \\u5df2\\u52a0\\u8f7dLUT\\u94fe\\u7684\\u9884\\u7ec4\\u5408\\u6587\\u672c\\u5305\\u542b\\u4efb\\u610f\\u6587\\u4ef6\\u540d\\uff0c\\u90e8\\u5206\\u8fde\\u63a5\\u8bcd\\u4ecd\\u4fdd\\u7559\\u82f1\\u6587\\uff1b\\u672a\\u77e5\\u5916\\u90e8DLL/\\u9a71\\u52a8\\u8bca\\u65ad\\u4fdd\\u6301\\u539f\\u6587\\u56de\\u9000\\u3002\\n- \\u4e0a\\u6e38\\u62a5\\u544a\\uff1aFinished Picture \\u4e0e Run the upscaler on the picture \\u540c\\u65f6\\u542f\\u7528\\u5e76\\u4f7f\\u7528F5Low\\u63d2\\u5e27\\u65f6\\u53ef\\u80fd\\u89e6\\u53d1\\u6e38\\u620f\\u51bb\\u7ed3/\\u9a71\\u52a8\\u91cd\\u7f6e\\u3002\\u9047\\u5230\\u6b64\\u60c5\\u51b5\\u8bf7\\u5173\\u95ed\\u4e24\\u9879\\u5e76\\u91cd\\u542f\\uff0c\\u8be6\\u89c1[\\u4e0a\\u6e38\\u53d1\\u5e03\\u8bf4\\u660e](https://github.com/janblade/OptiScaler-F5-DLSSNR-Multipass/releases/tag/v0.1.37.2)\\u3002\\u52ff\\u7528\\u4e8e\\u5e26\\u53cd\\u4f5c\\u5f0a\\u4fdd\\u62a4\\u7684\\u591a\\u4eba\\u6e38\\u620f\\u3002\\n\\n### \\u6765\\u6e90\\u4e0e\\u4e0b\\u8f7d\\u6821\\u9a8c\\n- [\\u7ef4\\u62a4\\u63d0\\u4ea4](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/commit/8253788399dfb97f4478e2f0c5e845cfa41a2e74)\\uff1a8253788399dfb97f4478e2f0c5e845cfa41a2e74\\u3002\\n- \\u5b9e\\u9645CI checkout\\uff1afa2abcb3676f5362d84d79d2f5dbd867e1832533\\u3002\\u4e0e\\u7ef4\\u62a4\\u63d0\\u4ea4\\u5171\\u4eab\\u6e90\\u7801\\u681134a3e75953e14e8a5bf085390de45fef08d0dca3\\u3002\\n- \\u56fa\\u5b9a\\u4e0a\\u6e38\\uff1af10dedf93a2d5412c753c751c120d52b223800f6\\uff08main-f10dedf93a2d\\uff09\\u3002\\n- [\\u901a\\u8fc7\\u7684CI](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/actions/runs/42983545095) \\u00b7 [\\u7ec4\\u4ef6\\u4e0e\\u65e7\\u7248\\u5b9e\\u7269\\u6838\\u9a8c](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/blob/8253788399dfb97f4478e2f0c5e845cfa41a2e74/docs/F5LOW-DISTRIBUTION-AUDIT-2026-11-11.md) \\u00b7 [F5Low\\u5bf9\\u5e94\\u6e90\\u7801](https://github.com/janblade/f5low-fg/tree/1f17d38621270dd1fc0f835ea79f1b90bf1d6c7a)\\u3002\\n- \\u5b89\\u88c5ZIP SHA-256\\uff1a11f23aa44983b3e54d36edd294758e39176477ad36c1c9c316b321a8af0f425c\\u3002\\n\\n\\u539f\\u59cb\\u6784\\u5efaZIP\\u3001\\u540c\\u540d.sha256\\u548cbuild-metadata\\u4fdd\\u7559\\u539f\\u540d\\u4e0e\\u539f\\u5b57\\u8282\\uff1bprovenance.json\\u4e0eSHA256SUMS\\u63d0\\u4f9b\\u6765\\u6e90\\u4e0e\\u6821\\u9a8c\\u8bb0\\u5f55\\u3002\\u7248\\u672c\\u6807\\u9898/\\u6807\\u7b7e\\u65b9\\u4fbf\\u8bc6\\u522b\\uff0cZIP\\u540d\\u79f0\\u4fdd\\u7559\\u5b9e\\u9645\\u6784\\u5efa\\u8eab\\u4efd\\u3002\\u72ec\\u7acb\\u65b0\\u589e\\u6b63\\u5f0f\\u7248\\uff0c\\u4fdd\\u7559\\u6240\\u6709\\u65e7\\u7248\\uff1b\\u672a\\u5408\\u5e76main\\uff0c\\u672a\\u8986\\u76d6\\u65e7\\u8d44\\u4ea7\\u3002\\n","pr":1,"publish_branch":"release-formal/20261111-82537883","repository":"Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN","runs":[{"event":"pull_request","head_branch":"maintenance/f5-upstream-20261031","head_sha":"8253788399dfb97f4478e2f0c5e845cfa41a2e74","id":42983545095,"jobs":[{"conclusion":"success","id":130399322939,"name":"build"},{"conclusion":"success","id":130399322722,"name":"portable-contracts"},{"conclusion":"skipped","id":130403292780,"name":"publish-test-release"},{"conclusion":"skipped","id":130403293216,"name":"publish-synced-test-release"}],"path":".github/workflows/build.yml","run_attempt":1,"workflow_id":390123952}],"tag":"v0.1.37.2-cn.1","title":"OptiScaler F5 CN 0.1.37.2 \\u00b7 \\u6c49\\u5316\\u66f4\\u65b0 2026-11-11","tree":"34a3e75953e14e8a5bf085390de45fef08d0dca3","upstream":"f10dedf93a2d5412c753c751c120d52b223800f6","upstream_version":"main-f10dedf93a2d","workflow_path":".github/workflows/publish-formal-20261111.yml"}', "fixed manifest")
+          try:
+              ci_main(MANIFEST, 'publish')
+          except Exception as ex:
+              print(str(ex) if isinstance(ex, Stop) else "Publication gate failed; preserve remote state and reconcile before retry", file=sys.stderr)
+              sys.exit(1)
+          PY
