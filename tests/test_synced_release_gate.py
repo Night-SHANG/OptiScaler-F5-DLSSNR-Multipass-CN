@@ -1,5 +1,6 @@
 """Future sync releases reuse the complete fixed publisher verifier, offline only."""
 from copy import deepcopy
+from contextlib import ExitStack
 import importlib
 import json
 from pathlib import Path
@@ -13,14 +14,29 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
 from test_test_release_gate import PackageFixture, FakeGitHub, SHA, PIN, REPO, TAG, context_data, digest
 import publish_test_release as core
+import f5low_kit
 
 NEXT_PIN = 'b' * 40
 NEXT_VERSION = 'v0.1.33-rc.1'
 SYNC_TAG = 'cn-test-' + NEXT_PIN[:12] + '-' + SHA[:12]
 IDENTITY = 'c' * 64
 
+# Only the externally trusted byte policy is substituted for inert local data.
+# The real path, metadata, defaults, size and SHA verification remains enabled.
+F5LOW_FILES = {name: ('inert release fixture: ' + name).encode() for name in f5low_kit.STAGED_PATHS}
+F5LOW_INI = b'[FrameGen]\nFGOutput=f5low\nEnabled=auto\n[F5Low]\nFrameGenerator=xefg_tensor\n'
 
-def future_fixture(root, version=NEXT_VERSION):
+
+def f5low_fixture_policy():
+    stack = ExitStack()
+    stack.enter_context(patch.object(f5low_kit, 'FILE_SHA256',
+                                     {name: digest(data) for name, data in F5LOW_FILES.items()}))
+    stack.enter_context(patch.object(f5low_kit, 'FILE_SIZES',
+                                     {name: len(data) for name, data in F5LOW_FILES.items()}))
+    return stack
+
+
+def future_fixture(root, version=NEXT_VERSION, *, include_f5low=True):
     fixture = PackageFixture(root)
     for item in fixture.artifacts.iterdir():
         item.unlink()
@@ -29,6 +45,10 @@ def future_fixture(root, version=NEXT_VERSION):
     catalog = json.loads(fixture.catalog.read_text())
     catalog['upstream_commit'] = NEXT_PIN
     fixture.catalog.write_text(json.dumps(catalog))
+    if include_f5low:
+        fixture.payload.update({f5low_kit.STAGED_PATHS[name]: data for name, data in F5LOW_FILES.items()})
+        fixture.payload['OptiScaler.ini'] = F5LOW_INI
+        fixture.inner.update(f5low_kit_included=True, f5low_kit=f5low_kit.expected_metadata())
     fixture.write()
     return fixture
 
@@ -54,13 +74,15 @@ class SyncGitHub(FakeGitHub):
 
 class ParameterizedVerifierTests(unittest.TestCase):
     def setUp(self):
+        self.policy = f5low_fixture_policy()
+        self.addCleanup(self.policy.close)
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
         self.fixture = future_fixture(Path(self.temp.name))
 
     def package(self):
         return core.verify_artifact(self.fixture.artifacts, SHA, self.fixture.catalog,
-                                    upstream=NEXT_PIN, upstream_version=NEXT_VERSION)
+                                    upstream=NEXT_PIN, upstream_version=NEXT_VERSION, require_f5low=True)
 
     def test_validated_future_identity_uses_all_existing_package_gates(self):
         self.assertEqual(self.package()['metadata']['upstream_commit'], NEXT_PIN)
@@ -71,6 +93,18 @@ class ParameterizedVerifierTests(unittest.TestCase):
     def test_default_fixed_publisher_still_rejects_future_package(self):
         with self.assertRaises(core.GateError):
             core.verify_artifact(self.fixture.artifacts, SHA, self.fixture.catalog)
+
+    def test_parameterized_identity_does_not_implicitly_allow_f5low(self):
+        with self.assertRaises(core.GateError):
+            core.verify_artifact(self.fixture.artifacts, SHA, self.fixture.catalog,
+                                 upstream=NEXT_PIN, upstream_version=NEXT_VERSION)
+
+    def test_legacy_parameterized_fixture_remains_available_outside_sync(self):
+        with tempfile.TemporaryDirectory() as temp:
+            fixture = future_fixture(Path(temp), include_f5low=False)
+            metadata = core.verify_artifact(fixture.artifacts, SHA, fixture.catalog,
+                                            upstream=NEXT_PIN, upstream_version=NEXT_VERSION)['metadata']
+            self.assertNotIn('f5low_kit', metadata)
 
     def test_future_verifier_keeps_inner_manifest_pe_and_installer_gates(self):
         for defect in ('manifest', 'pe', 'installer', 'hybrid', 'license'):
@@ -92,17 +126,17 @@ class ParameterizedVerifierTests(unittest.TestCase):
                     fixture.write()
                 with self.assertRaises(core.GateError):
                     core.verify_artifact(fixture.artifacts, SHA, fixture.catalog,
-                                         upstream=NEXT_PIN, upstream_version=NEXT_VERSION)
+                                         upstream=NEXT_PIN, upstream_version=NEXT_VERSION, require_f5low=True)
 
     def test_main_snapshot_version_is_bound_to_upstream_sha(self):
         with tempfile.TemporaryDirectory() as temp:
             version = 'main-' + NEXT_PIN[:12]
             fixture = future_fixture(Path(temp), version)
             self.assertEqual(core.verify_artifact(fixture.artifacts, SHA, fixture.catalog,
-                             upstream=NEXT_PIN, upstream_version=version)['metadata']['upstream_version'], version)
+                             upstream=NEXT_PIN, upstream_version=version, require_f5low=True)['metadata']['upstream_version'], version)
             with self.assertRaises(core.GateError):
                 core.verify_artifact(fixture.artifacts, SHA, fixture.catalog,
-                                     upstream=NEXT_PIN, upstream_version='main-' + 'd' * 12)
+                                     upstream=NEXT_PIN, upstream_version='main-' + 'd' * 12, require_f5low=True)
 
     def test_transport_accepts_only_fixed_or_deterministic_test_tags(self):
         for tag in ('latest', 'v1.0.0', SYNC_TAG + '/extra', '--force', 'cn-test-short-short'):
@@ -123,6 +157,8 @@ class ParameterizedVerifierTests(unittest.TestCase):
 
 class SyncedPublisherTests(unittest.TestCase):
     def setUp(self):
+        self.policy = f5low_fixture_policy()
+        self.addCleanup(self.policy.close)
         self.assertTrue((ROOT / 'tools/publish_synced_release.py').is_file(),
                         'The narrowly scoped future sync release publisher must exist')
         self.sync = importlib.import_module('publish_synced_release')
@@ -158,6 +194,25 @@ class SyncedPublisherTests(unittest.TestCase):
         return self.sync.prepare_publication(self.fixture.artifacts, self.env, self.event,
                                               root=self.root, sync_identity=IDENTITY)
 
+    def test_sync_publisher_requires_f5low_even_without_included_flag(self):
+        del self.fixture.inner['f5low_kit_included']
+        self.fixture.write()
+        with self.assertRaises(core.GateError):
+            self.prepare()
+
+    def test_sync_always_selects_f5low_policy_not_artifact_claim(self):
+        with patch.object(core, 'verify_artifact', wraps=core.verify_artifact) as verify:
+            self.prepare()
+        self.assertIs(verify.call_args.kwargs['require_f5low'], True)
+
+    def test_sync_publisher_cannot_publish_legacy_package_by_direct_call(self):
+        package, context = self.prepare()
+        del package['metadata']['f5low_kit_included']
+        github = SyncGitHub(core, package, context)
+        with self.assertRaisesRegex(core.GateError, 'pinned official F5Low'):
+            core.publish(package, context, github)
+        self.assertEqual(github.mutations, [])
+
     def test_dispatch_context_and_body_bind_exact_commit_coverage_and_identity(self):
         package, context = self.prepare()
         self.assertEqual(context['tag'], SYNC_TAG)
@@ -173,6 +228,15 @@ class SyncedPublisherTests(unittest.TestCase):
         self.assertIn('GPU/游戏', payload['body'])
         self.assertIn('字体', payload['body'])
         self.assertIn('downloader-only', payload['body'])
+        self.assertIn('F5Low140', payload['body'])
+        self.assertIn('1.3.4.95', payload['body'])
+        self.assertIn('默认后端为 xefg_tensor', payload['body'])
+        self.assertIn('downloader-only 仅指 NVIDIA', payload['body'])
+        self.assertIn('包内现有下载器', payload['body'])
+        self.assertIn('DLSS-NR 模型（`nvngx_dlssnr.dll`）需用户另行提供', payload['body'])
+        self.assertIn('`get_streamline.ps1` 仅用于获取 NVIDIA Streamline/DLSS-G 文件', payload['body'])
+        self.assertIn('不捆绑 Ampere MFG 及 vendor-neutral port', payload['body'])
+        self.assertNotIn('或外部 vendor-neutral 组件', payload['body'])
         self.assertIn(core.ownership_marker(package, context), payload['body'])
 
     def test_only_exact_dispatch_inputs_with_successful_results_are_accepted(self):

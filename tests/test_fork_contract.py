@@ -19,7 +19,12 @@ class F5ForkContractTests(unittest.TestCase):
         self.assertEqual(cfg['repository'], 'https://github.com/janblade/OptiScaler-F5-DLSSNR-Multipass.git')
         self.assertEqual(cfg['branch'], 'main')
         self.assertRegex(cfg['commit'], r'^[0-9a-f]{40}$')
-        self.assertEqual(contract['baseline_commit'], PIN)
+        self.assertEqual(contract['baseline_commit'], 'f10dedf93a2d5412c753c751c120d52b223800f6')
+        self.assertEqual(load_contract(ROOT / 'audit/2026-10-31/upstream-contract.json')['baseline_commit'], '4d72d53e521b34a5cda9dd4f63ee7f4cd0438035')
+        archived_pin = json.loads((ROOT / 'audit/2026-10-31/upstream.json').read_text(encoding='utf-8'))
+        self.assertEqual(archived_pin['commit'], '4d72d53e521b34a5cda9dd4f63ee7f4cd0438035')
+        self.assertEqual(archived_pin['upstream_version'], 'main-4d72d53e521b')
+        self.assertEqual(load_contract(ROOT / 'audit/v0.1.32/upstream-contract.json')['baseline_commit'], PIN)
         validate_config({**cfg, 'commit': PIN, 'upstream_version': 'v0.1.32'}, contract)
         self.assertEqual(cfg['package_prefix'], 'OptiScaler-F5-DLSSNR-Multipass-CN')
 

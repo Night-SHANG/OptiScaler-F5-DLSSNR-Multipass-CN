@@ -44,7 +44,7 @@ CASES = [
     ('> scan 0.1234  ->  white 80.00   [editing]', '> 扫描 0.1234  ->  白点 80.00   [编辑中]'),
     ('could not open C:\\LUTs\\Off.cube', '无法打开 C:\\LUTs\\Off.cube'),
     ('LUT_3D_SIZE is missing its number (line 18)', 'LUT_3D_SIZE 缺少数值（第 18 行）'),
-    ('LUT_3D_SIZE 99 is out of range (2..65)', 'LUT_3D_SIZE 99 超出范围（2..65）'),
+    ('LUT_3D_SIZE 129 is out of range (2..128)', 'LUT_3D_SIZE 129 超出范围（2..128）'),
     ('DOMAIN_MIN needs three numbers (line 2)', 'DOMAIN_MIN 需要三个数值（第 2 行）'),
     ('could not parse line 7: Off %n {0}##id', '无法解析第 7 行：Off %n {0}##id'),
     ('data row on line 12 needs three numbers', '第 12 行的数据需要三个数值'),
@@ -61,17 +61,26 @@ CASES = [
     ('Could not start: no bytecode for TrustMask Classify', '无法启动：缺少 TrustMask Classify 的字节码'),
     ('Could not start: no bytecode for SceneCut Reduce', '无法启动：缺少 SceneCut Reduce 的字节码'),
     ('Could not start: creating the pipeline Classify', '无法启动：正在创建管线 Classify'),
-    ('Error writing dlssg_sm86.ini: Could not finish writing dlssg_sm86.ini', '写入 dlssg_sm86.ini 时出错：无法完成 dlssg_sm86.ini 的写入'),
+    # Legacy Ampere component was removed upstream; unknown nested error stays raw.
+    ('Error writing dlssg_sm86.ini: Could not finish writing dlssg_sm86.ini', '写入 dlssg_sm86.ini 时出错：Could not finish writing dlssg_sm86.ini'),
     ('Failed to load dlssg_sm86.dll (error code 126).', '加载 dlssg_sm86.dll 失败（错误码 126）。'),
     ('buffer, 512 bytes', '缓冲区，512 字节'),
     ('You are missing the following dlls from the streamline folder:\n- sl.common.dll\n- sl.dlss_g.dll\n', 'streamline 文件夹中缺少以下 DLL：\n- sl.common.dll\n- sl.dlss_g.dll\n'),
     ('TYPED DEPTH', '深度：已选中 1920x1080，反向 Z （下次启动时关闭查找器）'),
     ('TYPED PLURAL', '扫描 0.12345  →  白点 80.00（3 个点）'),
     ('TYPED RAW LOADED', '已加载：Auto (Off).cube（17^3）'),
+    ("F5Low: waiting for the game's swap chain", 'F5Low：正在等待游戏交换链'),
+    ('F5Low: paused', 'F5Low：已暂停'),
+    ('Auto: ARRI LogC4 AWG4 (header)', '自动：ARRI LogC4 AWG4（文件头）'),
+    ('Post LUT 3', '后置 LUT 3'),
+    ('Look input 2', '调色输入空间 2'),
+    ('LUT_1D_SIZE given twice, without its number or out of range (2..65536) (line 4)', 'LUT_1D_SIZE 重复指定、缺少数值或超出范围（2..65536）（第 4 行）'),
+    ('TYPED RAW STACK', '已加载：Reset, Off.cube (33^3), baked at 33^3'),
     ('TYPED RAW LUT ERROR', 'Off.cube：无法解析第 7 行：Off %n {0}##id'),
 ]
 
 TYPED = {
+'TYPED RAW STACK': 'OptiScalerCN::UI::Text("Loaded: %s",OptiScalerCN::UI::Raw("Reset, Off.cube (33^3), baked at 33^3"));',
 'TYPED DEPTH': 'OptiScalerCN::UI::Text("Depth: picked %ux%u%s%s",1920u,1080u,", reversed-Z"," (finder off at next start)");',
 'TYPED PLURAL': 'OptiScalerCN::UI::Text("Scan %.5f  ->  white point %.2f   (%u point%s)",0.12345,80.0,3u,"s");',
 'TYPED RAW LOADED': 'OptiScalerCN::UI::Text("Loaded: %s (%d^3)",OptiScalerCN::UI::Raw("Auto (Off).cube"),17);',
@@ -87,7 +96,10 @@ def run(repo,source):
         assert (materialized/name).read_bytes()==(overlay/name).read_bytes(), 'Materialized header is stale: '+name
     menu=(source/'OptiScaler/dlssnr/DlssNr_Menu.cpp').read_text(encoding='utf-8-sig')
     assert menu.count('OptiScalerCN::UI::Raw(OptiScalerCN::UI::ComparisonValue(cal.compareWords).c_str())')==1, 'Comparison producer bypasses its required grammar-aware display adapter'
-    assert menu.count('OptiScalerCN::UI::PathUtf8(')==4, 'Not all four LUT filename display paths convert to UTF-8'
+    assert menu.count('OptiScalerCN::UI::PathUtf8(')==7, 'Expected four Input LUT and three post-stack filename display paths in UTF-8'
+    assert 'BeginComboRawPreview("Input LUT"' in menu
+    assert 'BeginComboRawPreview(label.c_str()' in menu
+    assert '"Loaded: %s", OptiScalerCN::UI::Raw(status.chain.c_str())' in menu, 'LUT chain filenames must remain raw'
     assert 'std::string pathStr = path.string();' in menu, 'LUT stored path semantics were unexpectedly changed'
     common=(source/'OptiScaler/menu/menu_common.cpp').read_text(encoding='utf-8-sig')
     assert 'OptiScalerCN::UI::SeparatorTextEx(0, label, ImGui::FindRenderedTextEnd(label)' in common, 'help-separator labels are not localized'

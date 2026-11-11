@@ -2,13 +2,19 @@
 """Independent representative source coverage, NOT an exhaustive coverage measure.
 
 Run after scanning: python test_catalog_representative_fixture.py --repo target
-204 human-visible source entries must be present; 3 persisted MenuPages keys absent.
+Current source probes must be present; 3 persisted MenuPages keys absent.
+Retired upstream probes are preserved in audit/v0.1.32/retired-representatives.json.
 This proves catalog inclusion only, not translation, rendering or runtime coverage.
 """
 from pathlib import Path
 import argparse, json, sys
 PERSISTED_KEYS = {"framegen", "nr.options", "nr.debug"}
 PROBES = [
+    ('OptiScaler/menu/NotificationsPage.cpp', 0, 'Nothing yet.'),
+    ('OptiScaler/dlssnr/DlssNr_Menu.cpp', 0, 'Native Presets'),
+    ('OptiScaler/dlssnr/DlssNr_Menu.cpp', 0, 'Fade NR with distance'),
+    ('OptiScaler/dlssnr/DlssNr_Menu.cpp', 0, 'LUT stack##f5lut'),
+    ('OptiScaler/menu/menu_common.cpp', 0, 'Frame Generator'),
     ('OptiScaler/menu/MenuPages.h', 39, 'framegen'),
     ('OptiScaler/menu/MenuPages.h', 39, 'Frame Generation'),
     ('OptiScaler/menu/MenuPages.h', 47, 'nr.options'),
@@ -29,8 +35,6 @@ PROBES = [
     ('OptiScaler/menu/menu_common.cpp', 2716, ' or '),
     ('OptiScaler/menu/menu_common.cpp', 2854, 'On + Ext'),
     ('OptiScaler/menu/menu_common.cpp', 2858, 'Just Ext'),
-    ('OptiScaler/menu/menu_common.cpp', 3487, "Above 2X, every generated frame can land at the midpoint between two real frames, so 3X/4X\nshows more frames but no smoother motion. This gives each its own time.\nAuto / Reuse Blackwell kernel: uses the Blackwell interpolation kernel the DLSSG module\nalready carries. This is the default.\nRewrite blend weight: edits the Ada kernel's PTX instead. It only works on DLSSG builds\nit recognises. Try it only if 3X/4X motion is not smoother.\nini: [DLSSG] AdaTemporalFix. Save Settings and restart to apply."),
-    ('OptiScaler/menu/menu_common.cpp', 3524, "Asking for more than one generated frame while hardware flip metering is on can freeze the picture.\nThis edits NVIDIA's Streamline DLSS-G plugin in memory, when it loads, so that it paces in\nsoftware instead. It refuses unless the plugin's code is of the shape it recognises.\nUse it only if 3X or more freezes. [NvApi] DisableFlipMetering=true (ini only) is milder; try\nthat first.\nini: [DLSSG] AdaFlipMeteringPatch. Save Settings and restart to apply."),
     ('OptiScaler/menu/menu_common.cpp', 6557, 'Only FSR1 and Bicubic are supported when Ratio is below 1.0.'),
     ('OptiScaler/dlssnr/DlssNr_Menu.cpp', 159, 'Model input brightness##'),
     ('OptiScaler/dlssnr/DlssNr_Menu.cpp', 166, 'Reset##'),
@@ -55,7 +59,6 @@ PROBES = [
     ('OptiScaler/dlssnr/DlssNr_Menu.cpp', 1342, 'NR only'),
     ('OptiScaler/dlssnr/DlssNr_Menu.cpp', 1344, 'NR + frame generation'),
     ('OptiScaler/dlssnr/DlssNr_Menu.cpp', 1346, 'motion only'),
-    ('OptiScaler/dlssnr/DlssNr_Menu.cpp', 1348, "FG only (game's upscaler)"),
     ('OptiScaler/dlssnr/DlssNr_Menu.cpp', 1497, 'Auto (over %u frames)'),
     ('OptiScaler/dlssnr/DlssNr_Menu.cpp', 1497, 'Auto (off)'),
     ('OptiScaler/dlssnr/DlssNr_Menu.cpp', 1617, 'Compress screen edges: '),
@@ -181,17 +184,6 @@ PROBES = [
     ('OptiScaler/native/VkFrameSource.cpp', 305, 'The game also shows pictures from a second graphics device. Optical F5Low stays on the first one.'),
     ('OptiScaler/native/VkFrameSource.cpp', 322, 'This graphics device cannot share its pictures with Optical F5Low.'),
     ('OptiScaler/native/VkPresentBridge.cpp', 1025, 'the D3D12 device was removed (Present returned 0x{:X})'),
-    ('OptiScaler/framegen/dlssg/MfgUnlockPtx.h', 531, 'not a readable module image'),
-    ('OptiScaler/framegen/dlssg/MfgUnlockPtx.h', 537, 'no supported temporal-kernel descriptor found'),
-    ('OptiScaler/framegen/dlssg/MfgUnlockPtx.h', 554, 'allocation failed'),
-    ('OptiScaler/framegen/dlssg/MfgUnlockPtx.h', 577, 'no descriptor slot was writable'),
-    ('OptiScaler/framegen/dlssg/MfgUnlockPtx.h', 583, 'redirected {} {} descriptor(s) from a {}-byte fatbin to a {}-byte rebuild'),
-    ('OptiScaler/framegen/dlssg/AmpereMfgLoader.cpp', 92, 'Cannot enable SM86/SM75 MFG while Ada (RTX 40) MFG unlock is enabled.'),
-    ('OptiScaler/framegen/dlssg/AmpereMfgLoader.cpp', 101, 'SM86/SM75 MFG requires an NVIDIA GPU.'),
-    ('OptiScaler/framegen/dlssg/AmpereMfgLoader.cpp', 141, 'dlssg_sm86.dll not found in OptiScaler/dlssg_sm86/ or dlssg_sm86/ subfolders.'),
-    ('OptiScaler/framegen/dlssg/AmpereMfgLoader.cpp', 157, 'Failed to open dlssg_sm86.ini for writing.'),
-    ('OptiScaler/framegen/dlssg/AmpereMfgLoader.cpp', 170, 'Error writing dlssg_sm86.ini: '),
-    ('OptiScaler/framegen/dlssg/AmpereMfgLoader.cpp', 186, 'Failed to load dlssg_sm86.dll (error code '),
     ('OptiScaler/dlssnr/DlssNr_LutFile.h', 62, 'could not open '),
     ('OptiScaler/dlssnr/DlssNr_LutFile.h', 103, 'LUT_3D_SIZE given twice'),
     ('OptiScaler/dlssnr/DlssNr_LutFile.h', 110, 'LUT_3D_SIZE is missing its number (line '),
@@ -201,7 +193,7 @@ PROBES = [
     ('OptiScaler/dlssnr/DlssNr_LutFile.h', 166, 'a data row appeared before LUT_3D_SIZE (line '),
     ('OptiScaler/dlssnr/DlssNr_LutFile.h', 173, 'more data rows than LUT_3D_SIZE '),
     ('OptiScaler/dlssnr/DlssNr_LutFile.h', 173, ' calls for'),
-    ('OptiScaler/dlssnr/DlssNr_LutFile.h', 184, 'this is a 1D LUT (LUT_1D_SIZE); only 3D LUTs (LUT_3D_SIZE) can be applied here'),
+    ('OptiScaler/dlssnr/DlssNr_LutFile.h', 0, 'no LUT_3D_SIZE or LUT_1D_SIZE found'),
     ('OptiScaler/dlssnr/DlssNr_LutFile.h', 192, 'expected '),
     ('OptiScaler/dlssnr/DlssNr_LutFile.h', 192, ' data rows for LUT_3D_SIZE '),
     ('OptiScaler/inputs/NVNGX_DLSS_Dx12.cpp', 1081, 'Falling back to FSR 2.1.2'),
@@ -216,6 +208,19 @@ PROBES = [
     ('OptiScaler/include/imgui/ImGuiNotify.hpp', 243, 'Warning'),
     ('OptiScaler/include/imgui/ImGuiNotify.hpp', 245, 'Error'),
     ('OptiScaler/include/imgui/ImGuiNotify.hpp', 247, 'Info'),
+    ('OptiScaler/menu/PluginsPage.cpp', 0, 'Plugins'),
+    ('OptiScaler/menu/PluginsPage.cpp', 0, 'ASI plugins are off'),
+    ('OptiScaler/plugins/PluginsView.h', 0, 'access denied'),
+    ('OptiScaler/plugins/PluginsView.h', 0, 'waiting, loads after {} s'),
+    ('OptiScaler/framegen/mfgunlock/Status.h', 0, 'active: {} of {} patches'),
+    ('OptiScaler/native/FlowDebugViews.h', 0, 'Motion arrows'),
+    ('OptiScaler/native/FlowDebugViews.h', 0, 'Confidence / rejection'),
+    ('OptiScaler/native/NativeDriver.cpp', 0, 'Depth size (0 = automatic)##depthsize'),
+    ('OptiScaler/dlssnr/DlssNr_Menu.cpp', 0, 'NR Profiles'),
+    ('OptiScaler/dlssnr/DlssNr_Menu.cpp', 0, 'new profile name'),
+    ('OptiScaler/dlssnr/DlssNr_Menu.cpp', 0, 'Superior Scaling'),
+    ('OptiScaler/menu/menu_common.cpp', 0, 'Convert SDR to HDR'),
+    ('OptiScaler/menu/menu_common.cpp', 0, 'Dynamic MFG##xefg'),
 ]
 
 def run(repo):

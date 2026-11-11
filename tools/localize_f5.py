@@ -34,6 +34,29 @@ def patch_hash(path):
     text=text.replace(anchor,anchor+HASH_HOOK,1)
     write_source_text(path,text,encoding)
 
+# Profiles arrived after the original audited baseline. Names and executable
+# filenames are user data, never dictionary keys (including names like Reset).
+PROFILE_RAW_REPLACEMENTS = {
+    'OptiScalerCN::UI::BeginCombo("Profile##nrprofile", pick ? pick->name.c_str() : "(none saved yet)")':
+        'OptiScalerCN::UI::BeginComboRawPreview("Profile##nrprofile", pick ? pick->name.c_str() : OptiScalerCN::UI::TextValue("(none saved yet)").c_str())',
+    'OptiScalerCN::UI::Selectable(profiles[i].name.c_str(), i == selected)':
+        'OptiScalerCN::UI::SelectableRaw(profiles[i].name.c_str(), i == selected)',
+    'OptiScalerCN::UI::SetTooltip("Saved in %s", profiles[i].file.savedFrom.c_str())':
+        'OptiScalerCN::UI::SetTooltip("Saved in %s", OptiScalerCN::UI::Raw(profiles[i].file.savedFrom.c_str()))',
+    'askName.c_str());': 'OptiScalerCN::UI::Raw(askName.c_str()));',
+    'pick->name.c_str(), pick->file.savedFrom.c_str());':
+        'OptiScalerCN::UI::Raw(pick->name.c_str()), OptiScalerCN::UI::Raw(pick->file.savedFrom.c_str()));',
+}
+
+def patch_profile_user_data(text):
+    if '"Profile##nrprofile"' not in text:
+        return text  # Historical baseline has no profile UI.
+    for before, after in PROFILE_RAW_REPLACEMENTS.items():
+        if text.count(before) != 1:
+            raise RuntimeError('profile user-data display anchor changed: ' + before)
+        text = text.replace(before, after, 1)
+    return text
+
 def patch_file(path,root,names):
     rel=path.relative_to(root).as_posix()
     text,encoding=read_source_text(path);masked=mask_cpp(text);changes=[]
@@ -53,6 +76,7 @@ def patch_file(path,root,names):
     if rel == 'OptiScaler/dlssnr/DlssNr_Menu.cpp':
         # Explicit source-boundary exceptions: labels/format stay localized while
         # file names remain user data, even when named "Reset" or "Auto (On)".
+        modern_lut = 'static void RenderPostLutSection' in text
         replacements = {
             'current.empty() ? "(none)" : std::filesystem::path(current).filename().string()':
                 'current.empty() ? "(none)" : OptiScalerCN::UI::PathUtf8(std::filesystem::path(current).filename())',
@@ -67,10 +91,38 @@ def patch_file(path,root,names):
             'std::filesystem::path(lutStatus.attemptedPath).filename().string().c_str(),':
                 'OptiScalerCN::UI::Raw(OptiScalerCN::UI::PathUtf8(std::filesystem::path(lutStatus.attemptedPath).filename()).c_str()),',
         }
+        if modern_lut:
+            old = 'OptiScalerCN::UI::BeginCombo("LUT", preview.c_str())'
+            replacements.pop(old)
+            replacements['OptiScalerCN::UI::BeginCombo("Input LUT", preview.c_str())'] = (
+                'OptiScalerCN::UI::BeginComboRawPreview("Input LUT", current.empty() ? OptiScalerCN::UI::TextValue("(none)").c_str() : preview.c_str())')
+            replacements['OptiScalerCN::UI::BeginCombo(label.c_str(), preview.c_str())'] = (
+                'OptiScalerCN::UI::BeginComboRawPreview(label.c_str(), current.empty() ? OptiScalerCN::UI::TextValue("(none)").c_str() : preview.c_str())')
+            replacements['OptiScalerCN::UI::Selectable(path.filename().string().c_str(), pathStr == current)'] = (
+                'OptiScalerCN::UI::SelectableRaw(OptiScalerCN::UI::PathUtf8(path.filename()).c_str(), pathStr == current)')
+            replacements['std::filesystem::path(status.failedPath).filename().string().c_str(),'] = (
+                'OptiScalerCN::UI::Raw(OptiScalerCN::UI::PathUtf8(std::filesystem::path(status.failedPath).filename()).c_str()),')
+            # The precomposed chain contains arbitrary user filenames: never feed
+            # it into recursive generic translation or comma-splitting heuristics.
+            replacements['"Loaded: %s", status.chain.c_str()'] = '"Loaded: %s", OptiScalerCN::UI::Raw(status.chain.c_str())'
         for before, after in replacements.items():
-            if text.count(before) != 1:
+            expected = 2 if modern_lut and before.startswith('current.empty()') else 1
+            if text.count(before) != expected:
                 raise RuntimeError('LUT user-data display anchor changed: ' + before)
-            text = text.replace(before, after, 1)
+            text = text.replace(before, after, expected)
+    if rel == 'OptiScaler/dlssnr/DlssNr_Menu.cpp':
+        text = patch_profile_user_data(text)
+    if rel == 'OptiScaler/menu/PluginsPage.cpp':
+        # ASI row labels are user filenames, unlike localized built-in/loader labels.
+        before = 'OptiScalerCN::UI::TextUnformatted(row.label.c_str());'
+        if text.count(before) != 1:
+            raise RuntimeError('plugin filename display anchor changed')
+        text = text.replace(before, 'ImGui::TextUnformatted(row.label.c_str());', 1)
+        before = 'folder.empty() ? "(not read yet)" : folder.c_str(),'
+        if text.count(before) != 1:
+            raise RuntimeError('plugin folder display anchor changed')
+        text = text.replace(before,
+            'OptiScalerCN::UI::Raw(folder.empty() ? OptiScalerCN::UI::TextValue("(not read yet)").c_str() : folder.c_str()),', 1)
     if INCLUDE not in text:
         pch='#include "pch.h"\n'
         if pch in text:text=text.replace(pch,pch+INCLUDE,1)

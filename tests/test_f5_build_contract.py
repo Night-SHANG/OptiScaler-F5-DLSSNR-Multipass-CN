@@ -242,6 +242,29 @@ class BuildContractTests(unittest.TestCase):
                           'AcceptAmpereMfgLicenses', 'EnableRtx40Mfg', 'patchedPackagerText']:
             self.assertNotIn(forbidden, text)
 
+    def test_packager_includes_only_the_verified_upstream_f5low_kit(self):
+        text = self.text('tools/package.ps1')
+        self.assertNotIn("'-NoF5Low'", text)
+        self.assertIn("'-F5LowKit'", text)
+        self.assertIn("'-F5LowKitSha256'", text)
+        self.assertIn('f5low_kit.py', text)
+        self.assertIn('f5low_kit_included = $true', text)
+        self.assertIn('Assert-StagedDependencies $builtStage', text)
+        self.assertIn('Assert-StagedDependencies $stage -PackageStage', text)
+        self.assertIn('Assert-NoForbiddenPayload $stage -AllowPinnedF5Low', text)
+        self.assertNotIn('finish_release_zip.py', text)
+
+    def test_real_kit_probes_run_after_packaging_before_artifact_upload(self):
+        text = self.text('.github/workflows/build.yml')
+        package = text.index('& ./tools/package.ps1')
+        probes = text.index('F5LOW_KIT_ZIP')
+        upload = text.index('- name: Upload verified package')
+        self.assertLess(package, probes)
+        self.assertLess(probes, upload)
+        self.assertIn("-p 'test_f5low*'", text)
+        self.assertIn('verify_package_f5low', text)
+        self.assertIn('F5Low official-kit regression failed', text)
+
     def test_packager_reads_current_identity_before_upstream_execution(self):
         text = self.text('tools/package.ps1')
         for token in ['$pin = [string]$cfg.commit', '$version = [string]$cfg.upstream_version',
@@ -252,15 +275,15 @@ class BuildContractTests(unittest.TestCase):
         self.assertNotIn("$version = 'v0.1.32'", text)
         self.assertLess(text.index('Assert-UpstreamConfig $cfg'),
                         text.index('Invoke-PinnedPowerShellScript $hybridFetcher'))
-        for fingerprint in ('ceb7cf129a654591e70f897c0ba410039a94eb626c507fd252584969ff4a5a1c',
+        for fingerprint in ('08eedbba9154b2f09685c7eddbd40b1c6cb3b24156a4bc58f43419de383600c8',
                             '5fcd0c8018c1030e63e664d5df56e9a757bdafda77df688354cd4527e90172b1',
-                            '516fb296ea12deab12a2d35a1a96ea1a87955a3bfeb3e2bb1a033b0519c7d774'):
+                            'fd4c54668bb3ebc5f0e6bd6e43c33193c7c565bce6ac4f109592be1597ac05ac'):
             self.assertIn(fingerprint, text)
 
     def test_build_import_exception_is_not_used_for_public_stage(self):
         text = self.text('tools/package.ps1')
         self.assertIn('Assert-NoForbiddenPayload $builtStage -AllowForwarderBuildImports', text)
-        self.assertIn('Assert-NoForbiddenPayload $stage\n', text)
+        self.assertIn('Assert-NoForbiddenPayload $stage -AllowPinnedF5Low\n', text)
         self.assertNotIn('Assert-NoForbiddenPayload $stage -AllowForwarderBuildImports', text)
         self.assertEqual(text.count('-AllowForwarderBuildImports'), 1)
         self.assertIn("'nvngx.dll_dlssnr.lib'", text)
@@ -390,7 +413,7 @@ class PowerShellValidationTests(unittest.TestCase):
                       "catch { $rejected=$true }; if (-not $rejected) { throw 'Unsafe payload accepted' }")
             self.invoke(prefix + reject.replace('{flag}', ''))
             for name in ('other.lib', 'OptiScaler.pdb', 'nvngx_dlssnr.dll', 'sl.common.dll',
-                         'child/nvngx.dll_dlssnr.lib'):
+                         'child/nvngx.dll_dlssnr.lib', 'OptiScaler/plugins/f5low.dll'):
                 file = root / name; file.parent.mkdir(parents=True, exist_ok=True)
                 file.write_bytes(b'must never be accepted')
                 self.invoke(prefix + reject.replace('{flag}', '-AllowForwarderBuildImports'))

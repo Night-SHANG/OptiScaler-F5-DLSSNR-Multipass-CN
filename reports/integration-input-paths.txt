@@ -1,0 +1,5 @@
+Licenses/MFGUnlock_LICENSE.txt
+Licenses/RenoDX_ATTRIBUTION.txt
+OptiScaler/OptiScaler.vcxproj
+package_release.ps1
+redist/streamline/manifest.json

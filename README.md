@@ -1,5 +1,7 @@
 # OptiScaler F5 DLSSNR Multipass CN
 
+> 2026-11-11 维护候选：`main-f10dedf93a2d` / `f10dedf93a2d5412c753c751c120d52b223800f6`（上游 0.1.37.2）。已补新界面与动态状态，并修正 F5Low 发布组件。Windows 编译与打包以对应提交 CI 为准；GPU 实机尚未验证。[本轮审计](docs/UPSTREAM-AUDIT-2026-11-11.md)。历史契约保存在 `audit/`。
+
 [janblade/OptiScaler-F5-DLSSNR-Multipass](https://github.com/janblade/OptiScaler-F5-DLSSNR-Multipass) 的社区简体中文适配层。初始审计基线为 **v0.1.32**，提交 **`fadc3bf67f6c8548e94914baec3f2e551ba8d8a4`**。本项目不是上游官方中文版。
 
 本仓库维护词库、显示边界适配、中文字体处理和可复现的构建流程；构建时取得固定上游源码及其递归子模块，不复制整份上游到本仓库，每次构建仍固定到完整 SHA。每日检查上游 `main`，仅在兼容性、译文和全套测试门槛通过后推进当前 `upstream.json`。
@@ -10,6 +12,12 @@
 - [覆盖清单与未验证范围](COVERAGE.md)
 - [贡献与检查步骤](CONTRIBUTING.md)
 - [构建工作流](.github/workflows/build.yml)
+
+## 最新维护候选
+
+当前维护分支固定到上游 `f10dedf93a2d5412c753c751c120d52b223800f6`（0.1.37.2 合并后的 main），通过现有 [草稿 PR #1](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/pull/1) 验证，不代表已合并或发布。新增 F5Low 控件、LUT 堆栈/颜色空间、深度淡化、原生混合及通知历史的中文适配。见 [2026-11-11 审计](docs/UPSTREAM-AUDIT-2026-11-11.md)。
+
+**本包包含与上游 0.1.37.2 主包相同的 F5Low 1.1.0.140 和 Intel XeSS-FG 1.3.4.95**，固定官方来源及逐文件 SHA，保留全部相关许可与源码出处。默认输出/生成器与上游主包一致。NVIDIA Streamline/DLSS-G 等既有可选下载差异见 [组件核验](docs/F5LOW-DISTRIBUTION-AUDIT-2026-11-11.md)，不能将此说明理解为所有硬件或游戏均已实测。
 
 ## 当前交付边界
 

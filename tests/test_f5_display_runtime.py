@@ -30,7 +30,7 @@ void shapes(){
  SliderScalar("x",ImGuiDataType_S32,ptr,&i,&i,"%d",0); SliderScalarN("x",ImGuiDataType_S32,ptr,1,&i,&i);
  SliderAngle("x",f,-1.0f,1.0f,"%.2f"); DragFloat("x",f,0.1f); DragFloat2("x",f); DragFloat3("x",f); DragFloat4("x",f);
  DragInt("x",&i); DragInt2("x",ints); DragInt3("x",ints); DragInt4("x",ints); DragScalar("x",ImGuiDataType_S32,ptr);
- InputFloat("x",f); InputFloat2("x",f); InputFloat3("x",f); InputFloat4("x",f); InputInt("x",&i);
+ InputFloat("x",f); InputFloat2("x",f); InputFloat3("x",f); InputFloat4("x",f); InputInt("x",&i); InputInt2("x",ints,ImGuiInputTextFlags_EnterReturnsTrue);
  // menu_common.cpp RawFlags and Display/Render Width call shapes.
  InputScalar("##RawFlags",ImGuiDataType_U32,&u,NULL,NULL,"%08X",ImGuiInputTextFlags_CharsHexadecimal);
  InputScalar("Display Width",ImGuiDataType_U32,&u,NULL,NULL,"%u");
@@ -170,6 +170,12 @@ void Text(const char* format, ...) {
 bool InputText(const char* label,char* buffer,size_t size,ImGuiInputTextFlags,ImGuiInputTextCallback,void*) {
  capturedLabel=label; if(size>8) std::strcpy(buffer,"Edited%"); return true;
 }
+bool InputTextWithHint(const char* label,const char* hint,char* buffer,size_t size,ImGuiInputTextFlags,ImGuiInputTextCallback,void*) {
+ capturedLabel=label; captured=hint; if(size>8) std::strcpy(buffer,"Edited%"); return true;
+}
+bool InputInt2(const char* label,int* values,ImGuiInputTextFlags flags) {
+ capturedLabel=label; capturedFlags=flags; values[0]=23;values[1]=42;return true;
+}
 bool SliderInt(const char* label,int* value,int low,int high,const char* format,ImGuiSliderFlags) {
  capturedLabel=label; captured=format; *value=high; return true;
 }
@@ -221,6 +227,12 @@ int main(){
  check(OptiScalerCN::UI::InputText("Apply",edited,sizeof edited),"input return value forwarded");
  check(std::string(edited)=="Edited%","mutable InputText buffer reaches original API");
  check(PatchedHash(capturedLabel.c_str(),0,777)==UpstreamHash("Apply",0,777),"input label source ID preserved");
+ check(OptiScalerCN::UI::InputTextWithHint("Apply","Off",edited,sizeof edited),"hint return forwarded");
+ check(captured=="关闭" && std::string(edited)=="Edited%","hint translated, mutable buffer not translated");
+ int pair[2]={};
+ check(OptiScalerCN::UI::InputInt2("Apply",pair,ImGuiInputTextFlags_EnterReturnsTrue),"InputInt2 return forwarded");
+ check(pair[0]==23 && pair[1]==42 && capturedFlags==ImGuiInputTextFlags_EnterReturnsTrue,"InputInt2 data and flags forwarded");
+ check(PatchedHash(capturedLabel.c_str(),0,777)==UpstreamHash("Apply",0,777),"InputInt2 source ID preserved");
  int number=0;
  check(OptiScalerCN::UI::SliderInt("Apply",&number,0,4,"%d (normal)"),"numeric return value forwarded");
  check(number==4 && captured=="%d（常规）","numeric pointer and translated display format preserved");

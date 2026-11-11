@@ -1,0 +1,29 @@
+{
+  "upstream_commit": "f10dedf93a2d5412c753c751c120d52b223800f6",
+  "total": 2967,
+  "reviewed": 241,
+  "machine_translated": 2726,
+  "missing": 0,
+  "stale": 0,
+  "changed_display_translations": 2735,
+  "retained_technical_entries": 232,
+  "effective": 2967,
+  "coverage": 100.0,
+  "scan_raw": {
+    "added": 295,
+    "changed": 7,
+    "removed": 24
+  },
+  "scan_unique": {
+    "added": 295,
+    "changed": 7,
+    "removed": 24
+  },
+  "scan_active_unique": {
+    "added": 295,
+    "changed": 7,
+    "removed": 0
+  },
+  "scan_removed_obsolete_unique": 24,
+  "newly_effective": 295
+}

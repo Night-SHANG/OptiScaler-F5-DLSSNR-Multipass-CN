@@ -1,5 +1,7 @@
 # 上游、复用与许可证
 
+> 2026-10-31 云端适配候选：`main-4d72d53e521b` / `4d72d53e521b34a5cda9dd4f63ee7f4cd0438035`。已补新界面与动态状态，Windows 编译/打包及 GPU 实机尚待验证；不是已发布成品。[本轮审计](docs/UPSTREAM-AUDIT-2026-10-31.md)。历史 v0.1.32 契约保存在 `audit/v0.1.32/`。
+
 ## 初始审计基线
 
 - 上游：[janblade/OptiScaler-F5-DLSSNR-Multipass](https://github.com/janblade/OptiScaler-F5-DLSSNR-Multipass)
@@ -8,7 +10,7 @@
 - 原分支：`main`，仅说明来源；实际构建以完整提交为准。
 - 本仓库：[Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN)
 
-`upstream-contract.json` 保存这个不可自动重写的审计基线；`upstream.json` 保存当前选定的完整构建 SHA。持续同步只能推进通过该契约的后续上游提交：完整源文件路径和语法结构、非显示字符串、脚本、项目、依赖 gitlink、许可证与资源指纹均受保护。仅少量明确审计过的显示字符串位置允许变化，且仍须完整扫描、零 missing/stale 与原有所有测试通过。具体见中文仓库 `CONTINUOUS-LOCALIZATION.md`。
+历史初始契约保存在 `audit/v0.1.32/upstream-contract.json`。当前 `upstream-contract.json` 保存本轮显式复审后的基线，全部变更输入精确冻结；`upstream.json` 保存当前选定的完整构建 SHA。持续同步只能推进通过该契约的后续上游提交：完整源文件路径和语法结构、非显示字符串、脚本、项目、依赖 gitlink、许可证与资源指纹均受保护。仅少量明确审计过的显示字符串位置允许变化，且仍须完整扫描、零 missing/stale 与原有所有测试通过。具体见中文仓库 `CONTINUOUS-LOCALIZATION.md`。
 
 完整构建的子模块使用固定提交记录的递归 gitlink，不执行 `submodule update --remote`。不兼容升级必须人工复审扫描范围、显示边界、字体锚点、构建和打包契约，不能自动重新生成契约让失败消失。
 
@@ -38,8 +40,14 @@ F5 新增了整树显示来源清点、`.inl` 与间接状态来源识别、显�
 
 打包校验整个来源 ZIP、15 个资源及其清单，并在 `Licenses/HybridSource/` 保留来源包中的许可与声明。资源路径和逐文件哈希记录在构建元数据中。
 
-构建产物采用上游默认 downloader-only 契约，不自动启用接受 NVIDIA/Ampere 许可的选项。专有 `nvngx_dlssnr.dll`、可选 DLSS/Streamline 和外部 vendor-neutral port 不在本包交付范围；运行所需的独立下载与许可由使用者按固定上游说明处理。
+构建产物包含固定官方 F5Low 1.1.0.140 kit 和未修改的 Intel XeSS-FG 1.3.4.95。`downloader-only` 仅指既有 NVIDIA 可选运行库策略，不自动启用接受 NVIDIA/Ampere 许可的选项。专有 `nvngx_dlssnr.dll`、可选 DLSS/Streamline 和外部 vendor-neutral port 不在本包交付范围；运行所需的独立下载与许可由使用者按固定上游说明处理。
 
 ## 验证声明
 
 源码测试、静态扫描、主机 C++ 探针、Windows 编译、安装包完整性与实际游戏 GPU/UI 验收是不同环节。只报告实际完成的环节；构建元数据明确记录本流程不执行游戏运行验收。词库计数不能作为所有界面、所有语言排版或所有 GPU 已验证的证明。
+
+## 2026-11-11 固定版本
+
+当前固定 main `f10dedf93a2d5412c753c751c120d52b223800f6` 是上游 0.1.37.2 发布分支的合并提交，不等于该版本标签自身，包版本因此保留 `main-f10dedf93a2d`。上一候选 `4d72d53e521b34a5cda9dd4f63ee7f4cd0438035` 的 pin 与兼容性契约保存在 `audit/2026-10-31/`。
+
+本次修正先前显式排除 F5Low 的打包选择，改为上游主包相同的官方 kit。只允许固定 SHA 的 `OptiScaler/plugins/f5low.dll` 和 Intel 1.3.4.95，保留 GPL 第7节附加许可、Intel 许可、zstd BSD 许可、MFGUnlock 通知和对应源码入口。所有十个子模块 pin、四份安装脚本、既有许可与 Streamline 清单未变；构建阶段仍校验子模块原始 Intel 字节，最终包另行校验 kit 版本。见 [组件与许可核验](docs/F5LOW-DISTRIBUTION-AUDIT-2026-11-11.md) 和 [源码审计](docs/UPSTREAM-AUDIT-2026-11-11.md)。
