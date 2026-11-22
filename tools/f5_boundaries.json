@@ -39,6 +39,7 @@
     "InputFloat3",
     "InputFloat4",
     "InputInt",
+    "InputInt2",
     "InputScalar",
     "InputText",
     "InputTextMultiline",

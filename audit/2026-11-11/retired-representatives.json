@@ -1,0 +1,27 @@
+{
+  "previous_upstream": "f10dedf93a2d5412c753c751c120d52b223800f6",
+  "current_upstream": "956bb7198e819da857710f7f9ace223790a7ba55",
+  "retired": [
+    {
+      "file": "OptiScaler/shaders/dlssnr/DlssNr_Late.inl",
+      "line": 444,
+      "source": "This screen colour format is not supported.",
+      "reason": "The display producer now adds the runtime format; replace with the actual visible format fragment.",
+      "replacement": "This screen colour format is not supported ("
+    },
+    {
+      "file": "OptiScaler/shaders/dlssnr/DlssNr_Dx12.cpp",
+      "line": 712,
+      "source": "nvngx.dll_dlssnr.dll is missing",
+      "reason": "User-facing source now explicitly describes where to restore the built NR forwarder.",
+      "replacement": "nvngx.dll_dlssnr.dll is missing. Copy it from the release zip next to OptiScaler.dll"
+    },
+    {
+      "file": "OptiScaler/shaders/dlssnr/DlssNr_Dx12.cpp",
+      "line": 3221,
+      "source": "the pre-SR active colour staging texture could not be allocated",
+      "reason": "Old technical text remains only in a log; its display branch now returns the explanatory retry hint.",
+      "replacement": "a texture for NR before SR could not be made (often low video memory). Lower the model resolution or texture quality, then Retry"
+    }
+  ]
+}

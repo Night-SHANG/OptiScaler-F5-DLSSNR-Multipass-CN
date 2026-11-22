@@ -71,6 +71,42 @@ inline std::string ComparisonValue(std::string_view source)
     result += Runtime::Translate(source.substr(start));
     return result;
 }
+// Status producers format these exact trusted words around externally named
+// modules. Match only statically generated boundaries, never inner path bytes.
+inline std::string StatusReplacementValue(const std::string& source, bool userFolder)
+{
+    return userFolder ? source : TextValue(source.c_str());
+}
+inline std::string StatusWeightsValue(const std::string& base, const std::string& a, const std::string& b)
+{
+    auto text = TextValue(base.c_str());
+    if (!a.empty() || !b.empty())
+        text += TextValue(", weights A: ") + (a.empty() ? TextValue("stock") : a)
+             + TextValue(", B: ") + (b.empty() ? TextValue("stock") : b);
+    return text;
+}
+inline std::string VulkanStatusValue(const std::string& source)
+{
+    if (!Loc::IsChineseActive()) return source;
+    constexpr std::string_view suffixes[] = {
+        " (Neural Rendering off)", " (Neural Rendering on Vulkan)",
+        " (Neural Rendering on D3D12, Optical F5Low copies)",
+        " (Neural Rendering on D3D12, Finished Picture copies)",
+        " (Finished Picture is not running)", " (Neural Rendering on D3D12)"
+    };
+    constexpr std::string_view backendPrefix = "Native swapchain, but the upscaler is still ";
+    for (const auto suffix : suffixes)
+    {
+        if (source.size() < suffix.size() ||
+            source.compare(source.size() - suffix.size(), suffix.size(), suffix) != 0) continue;
+        const auto first = source.substr(0, source.size() - suffix.size());
+        auto label = first.compare(0, backendPrefix.size(), backendPrefix) == 0
+            ? TextValue(backendPrefix.data()) + first.substr(backendPrefix.size())
+            : TextValue(first.c_str());
+        return label + TextValue(suffix.data());
+    }
+    return TextValue(source.c_str());
+}
 struct StringArgument { std::string value; bool isNull; };
 inline StringArgument Wrap(RawText value) { return { value.value ? value.value : "", value.value == nullptr }; }
 inline StringArgument Wrap(const char* value) { return { TextValue(value), value == nullptr }; }
@@ -160,6 +196,8 @@ template<class... Args> inline auto InputFloat4(const char* label, Args&&... arg
 { const auto values = std::make_tuple(Wrap(args)...); return std::apply([&](const auto&... value) { return ImGui::InputFloat4(LabelValue(label).c_str(), Pass(value)...); }, values); }
 template<class... Args> inline auto InputInt(const char* label, Args&&... args)
 { const auto values = std::make_tuple(Wrap(args)...); return std::apply([&](const auto&... value) { return ImGui::InputInt(LabelValue(label).c_str(), Pass(value)...); }, values); }
+inline bool InputInt2(const char* label, int values[2], ImGuiInputTextFlags flags = 0)
+{ return ImGui::InputInt2(LabelValue(label).c_str(), values, flags); }
 inline bool InputScalar(const char* label, ImGuiDataType type, void* data,
                         const void* step = nullptr, const void* fastStep = nullptr,
                         const char* format = nullptr, ImGuiInputTextFlags flags = 0)
@@ -169,8 +207,8 @@ template<class... Args> inline auto InputText(const char* label, Args&&... args)
 { return ImGui::InputText(LabelValue(label).c_str(), std::forward<Args>(args)...); }
 template<class... Args> inline auto InputTextMultiline(const char* label, Args&&... args)
 { return ImGui::InputTextMultiline(LabelValue(label).c_str(), std::forward<Args>(args)...); }
-template<class... Args> inline auto InputTextWithHint(const char* label, Args&&... args)
-{ return ImGui::InputTextWithHint(LabelValue(label).c_str(), std::forward<Args>(args)...); }
+template<class... Args> inline auto InputTextWithHint(const char* label, const char* hint, Args&&... args)
+{ return ImGui::InputTextWithHint(LabelValue(label).c_str(), TextValue(hint).c_str(), std::forward<Args>(args)...); }
 template<class... Args> inline auto ColorEdit3(const char* label, Args&&... args)
 { return ImGui::ColorEdit3(LabelValue(label).c_str(), std::forward<Args>(args)...); }
 template<class... Args> inline auto ColorEdit4(const char* label, Args&&... args)

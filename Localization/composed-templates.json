@@ -322,5 +322,733 @@
     "text": "回退至原始 FP8：M={:d}，尺寸={:d}x{:d}；初始化：{}",
     "file": "OptiScaler/dlssnr/DlssNrNative.cpp",
     "reason": "Finite fallback suffix; avoid ambiguous adjacent number/string padding"
+  },
+  {
+    "source": "Saved {}.",
+    "text": "已保存 {}。",
+    "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+    "reason": "Profile say() result display: anchored full status; profile name and external error are opaque user data",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "Loaded {}.",
+    "text": "已加载 {}。",
+    "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+    "reason": "Profile say() result display: anchored full status; profile name and external error are opaque user data",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "Loaded {}",
+    "text": "已加载 {}",
+    "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+    "reason": "Profile say() result display: anchored full status; profile name and external error are opaque user data",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "Deleted {}.",
+    "text": "已删除 {}。",
+    "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+    "reason": "Profile say() result display: anchored full status; profile name and external error are opaque user data",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "Could not save {}: {}",
+    "text": "无法保存 {}：{}",
+    "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+    "reason": "Profile say() result display: anchored full status; profile name and external error are opaque user data",
+    "raw_fields": [
+      0,
+      1
+    ]
+  },
+  {
+    "source": "Could not load {}: {}",
+    "text": "无法加载 {}：{}",
+    "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+    "reason": "Profile say() result display: anchored full status; profile name and external error are opaque user data",
+    "raw_fields": [
+      0,
+      1
+    ]
+  },
+  {
+    "source": "Could not delete {}: {}",
+    "text": "无法删除 {}：{}",
+    "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+    "reason": "Profile say() result display: anchored full status; profile name and external error are opaque user data",
+    "raw_fields": [
+      0,
+      1
+    ]
+  },
+  {
+    "source": "Could not delete {}.",
+    "text": "无法删除 {}。",
+    "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+    "reason": "Profile say() result display: anchored full status; profile name and external error are opaque user data",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "waiting, loads after {} s",
+    "text": "等待中，将在 {} 秒后加载",
+    "file": "OptiScaler/plugins/PluginsView.h",
+    "reason": "Rendered PluginsView row.state / FormatStatus full-string template; never changes registry states or identifiers",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "failed to load ({})",
+    "text": "加载失败（{}）",
+    "file": "OptiScaler/plugins/PluginsView.h",
+    "reason": "Rendered PluginsView row.state / FormatStatus full-string template; never changes registry states or identifiers",
+    "raw_fields": []
+  },
+  {
+    "source": "0x{:X}, {}",
+    "text": "0x{:X}，{}",
+    "file": "OptiScaler/plugins/PluginsView.h",
+    "reason": "Rendered PluginsView row.state / FormatStatus full-string template; never changes registry states or identifiers",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "active: {} of {} patches",
+    "text": "已启用：{} / {} 项补丁",
+    "file": "OptiScaler/framegen/mfgunlock/Status.h",
+    "reason": "Rendered PluginsView row.state / FormatStatus full-string template; never changes registry states or identifiers",
+    "raw_fields": [
+      0,
+      1
+    ]
+  },
+  {
+    "source": "stood aside: {}",
+    "text": "已让路：{}",
+    "file": "OptiScaler/framegen/mfgunlock/Status.h",
+    "reason": "Rendered PluginsView row.state / FormatStatus full-string template; never changes registry states or identifiers",
+    "raw_fields": []
+  },
+  {
+    "source": "Could not save {}: NRProfiles or the file is a link; not saved.",
+    "text": "无法保存 {}：NRProfiles 或目标文件是链接；未保存。",
+    "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+    "reason": "Profile say result with exact Config Save/LoadDlssNrProfile internal error; opaque name and OS error captures",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "Could not save {}: Could not write the file.",
+    "text": "无法保存 {}：无法写入文件。",
+    "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+    "reason": "Profile say result with exact Config Save/LoadDlssNrProfile internal error; opaque name and OS error captures",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "Could not save {}: Could not make the folder: {}",
+    "text": "无法保存 {}：无法创建文件夹：{}",
+    "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+    "reason": "Profile say result with exact Config Save/LoadDlssNrProfile internal error; opaque name and OS error captures",
+    "raw_fields": [
+      0,
+      1
+    ]
+  },
+  {
+    "source": "Could not load {}: Not an NR profile this build can read (or made by a newer build).",
+    "text": "无法加载 {}：此版本无法读取该 NR 配置文件（也可能由更新版本创建）。",
+    "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+    "reason": "Profile say result with exact Config Save/LoadDlssNrProfile internal error; opaque name and OS error captures",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "container@{} cannot be rewritten for sm_75: {}",
+    "text": "容器@{} 无法为 sm_75 重写：{}",
+    "file": "OptiScaler/framegen/mfgunlock/MfgUnlock.cpp",
+    "reason": "Reviewed MFG producer diagnostic composition; technical captures remain raw",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "{} architecture sites incomplete",
+    "text": "{} 架构位置不完整",
+    "file": "OptiScaler/framegen/mfgunlock/MfgUnlock.cpp",
+    "reason": "Reviewed MFG producer diagnostic composition; technical captures remain raw",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "{} kernel check: {}",
+    "text": "{} 内核检查：{}",
+    "file": "OptiScaler/framegen/mfgunlock/MfgUnlock.cpp",
+    "reason": "Reviewed MFG producer diagnostic composition; technical captures remain raw",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "{} fatbin container(s) could not be retargeted to sm_86",
+    "text": "{} 个 fatbin 容器无法重定向至 sm_86",
+    "file": "OptiScaler/framegen/mfgunlock/MfgUnlock.cpp",
+    "reason": "Reviewed MFG producer diagnostic composition; technical captures remain raw",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "{}: expected exactly one minimum-architecture store, found {}",
+    "text": "{}：预期恰好一处最小架构写入，实际找到 {}",
+    "file": "OptiScaler/framegen/mfgunlock/MfgUnlock.cpp",
+    "reason": "Reviewed MFG producer diagnostic composition; technical captures remain raw",
+    "raw_fields": [
+      0,
+      1
+    ]
+  },
+  {
+    "source": "unrewritten construct left in the PTX: {}",
+    "text": "PTX 中仍有未重写的结构：{}",
+    "file": "OptiScaler/framegen/mfgunlock/MfgUnlock.cpp",
+    "reason": "Reviewed MFG producer diagnostic composition; technical captures remain raw",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "searching ({} more waiting their turn)",
+    "text": "搜索中（另有 {} 个仍在排队）",
+    "file": "OptiScaler/dlssnr/DlssNr_ExposureAutoScan.cpp",
+    "reason": "Exact AutoStatus rendered composition; shape/count retained raw",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "searching: nothing to search yet, the game makes its buffers at a loading screen",
+    "text": "搜索中：尚无可搜索对象，游戏会在加载画面期间创建缓冲区",
+    "file": "OptiScaler/dlssnr/DlssNr_ExposureAutoScan.cpp",
+    "reason": "Exact AutoStatus rendered composition; shape/count retained raw",
+    "raw_fields": []
+  },
+  {
+    "source": "found the game's exposure ({})",
+    "text": "已找到游戏曝光（{}）",
+    "file": "OptiScaler/dlssnr/DlssNr_ExposureAutoScan.cpp",
+    "reason": "Exact AutoStatus rendered composition; shape/count retained raw",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "The signal changes to {} at the next resolution / window change",
+    "text": "信号将在下次分辨率或窗口变化时变为 {}",
+    "file": "OptiScaler/output/SdrToHdr_Status.h",
+    "reason": "StatusLine signalHint; only HDR10/scRGB technical signal capture",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "Could not make the debug view's shared buffer: {}",
+    "text": "无法创建调试视图的共享缓冲区：{}",
+    "file": "OptiScaler/native/DebugPreviewVk.h",
+    "reason": "Exact debug preview error display; nested shared-resource errors translated by exact template",
+    "raw_fields": []
+  },
+  {
+    "source": "Could not make the debug view's shared picture: {}",
+    "text": "无法创建调试视图的共享画面：{}",
+    "file": "OptiScaler/native/DebugPreviewDx11.h",
+    "reason": "Exact debug preview error display; nested shared-resource errors translated by exact template",
+    "raw_fields": []
+  },
+  {
+    "source": "The debug view cannot be shared with this Vulkan device: {}",
+    "text": "无法与此 Vulkan 设备共享调试视图：{}",
+    "file": "OptiScaler/native/DebugPreviewVk.h",
+    "reason": "Exact debug preview error display; nested shared-resource errors translated by exact template",
+    "raw_fields": []
+  },
+  {
+    "source": "{}: waiting for the game's swap chain",
+    "text": "{}：正在等待游戏交换链",
+    "file": "OptiScaler/menu/FgStatusRule.h",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "{}: off, {}",
+    "text": "{}：已关闭，{}",
+    "file": "OptiScaler/menu/FgStatusRule.h",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "{}: off (follows the game's DLSS FG setting)",
+    "text": "{}：已关闭（跟随游戏的 DLSS FG 设置）",
+    "file": "OptiScaler/menu/FgStatusRule.h",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "{}: off (Active is unticked)",
+    "text": "{}：已关闭（未勾选启用）",
+    "file": "OptiScaler/menu/FgStatusRule.h",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "{}: paused",
+    "text": "{}：已暂停",
+    "file": "OptiScaler/menu/FgStatusRule.h",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "{}: 1X (Dynamic MFG holds back)",
+    "text": "{}：1 倍（动态多帧生成暂缓）",
+    "file": "OptiScaler/menu/FgStatusRule.h",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "{}: waiting for the game's frames",
+    "text": "{}：正在等待游戏帧",
+    "file": "OptiScaler/menu/FgStatusRule.h",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "Post LUT {}",
+    "text": "后置 LUT {}",
+    "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged"
+  },
+  {
+    "source": "Look input {}",
+    "text": "调色输入空间 {}",
+    "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged"
+  },
+  {
+    "source": "LUT strength {}",
+    "text": "LUT 强度 {}",
+    "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged"
+  },
+  {
+    "source": "Auto: the picture",
+    "text": "自动：原始画面",
+    "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged"
+  },
+  {
+    "source": "Auto: {}",
+    "text": "自动：{}",
+    "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged"
+  },
+  {
+    "source": "{} in {}",
+    "text": "{}，色域 {}",
+    "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged"
+  },
+  {
+    "source": "{} (header)",
+    "text": "{}（文件头）",
+    "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged"
+  },
+  {
+    "source": "{} (name)",
+    "text": "{}（文件名）",
+    "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged"
+  },
+  {
+    "source": "{} (set)",
+    "text": "{}（手动指定）",
+    "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged"
+  },
+  {
+    "source": ", but gets {}",
+    "text": "，但收到的是 {}",
+    "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged"
+  },
+  {
+    "source": "starting: {}",
+    "text": "正在启动：{}",
+    "file": "OptiScaler/menu/menu_common.cpp",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged"
+  },
+  {
+    "source": "more than {} LUTs in the stack",
+    "text": "堆栈中的 LUT 超过 {} 个",
+    "file": "OptiScaler/dlssnr/DlssNr_LutChain.h",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged"
+  },
+  {
+    "source": "{}: {} {} from {}, {}",
+    "text": "{}：{} {}，来自 {}，{}",
+    "file": "OptiScaler/misc/XeModuleInfo.cpp",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged",
+    "raw_fields": [
+      0,
+      1
+    ]
+  },
+  {
+    "source": "{}; the game's own {} is loaded too",
+    "text": "{}；游戏自带的 {} 也已加载",
+    "file": "OptiScaler/misc/XeModuleInfo.cpp",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged"
+  },
+  {
+    "source": "LUT_1D_SIZE given twice, without its number or out of range (2..{:d}) (line {:d})",
+    "text": "LUT_1D_SIZE 重复指定、缺少数值或超出范围（2..{:d}）（第 {:d} 行）",
+    "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged"
+  },
+  {
+    "source": "{} needs two increasing numbers (line {:d})",
+    "text": "{} 需要两个递增数值（第 {:d} 行）",
+    "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "data row on line {:d} is not a finite number",
+    "text": "第 {:d} 行的数据不是有限数值",
+    "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged"
+  },
+  {
+    "source": "more data rows than LUT_1D_SIZE {:d} calls for, and no LUT_3D_SIZE (line {:d})",
+    "text": "数据行数超过 LUT_1D_SIZE {:d} 所需数量，且未指定 LUT_3D_SIZE（第 {:d} 行）",
+    "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged"
+  },
+  {
+    "source": "expected {:d} data rows for LUT_1D_SIZE {:d}, found {:d}",
+    "text": "预期 {:d} 行数据（LUT_1D_SIZE {:d}），实际为 {:d} 行",
+    "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
+    "reason": "November upstream display composition; producers and persistent keys remain unchanged"
+  },
+  {
+    "source": "Runs on: {}",
+    "text": "运行于：{}",
+    "file": "OptiScaler/dlssnr/DlssNr_VulkanRoute.h",
+    "reason": "渲染端范围内的已核实动态状态；保留源控制结构和运行时参数。"
+  },
+  {
+    "source": "{} (bridge)",
+    "text": "{}（桥接）",
+    "file": "OptiScaler/dlssnr/DlssNr_VulkanRoute.h",
+    "reason": "渲染端范围内的已核实动态状态；保留源控制结构和运行时参数。"
+  },
+  {
+    "source": "{} runs on D3D12: it needs the Vulkan bridge.",
+    "text": "{} 在 D3D12 上运行，需要启用 Vulkan 桥接。",
+    "file": "OptiScaler/dlssnr/DlssNr_VulkanRoute.h",
+    "reason": "渲染端范围内的已核实动态状态；保留源控制结构和运行时参数。"
+  },
+  {
+    "source": "The game's upscaler runs on its D3D12 copy ({}), so Neural Rendering runs on D3D12.",
+    "text": "游戏的超分辨率运行在它的 D3D12 副本（{}），因此神经渲染在 D3D12 上运行。",
+    "file": "OptiScaler/dlssnr/DlssNr_VulkanRoute.h",
+    "reason": "渲染端范围内的已核实动态状态；保留源控制结构和运行时参数。",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "Native swapchain, but the upscaler is still {}",
+    "text": "原生交换链，但超分辨率仍为 {}",
+    "file": "OptiScaler/dlssnr/DlssNr_VulkanRoute.h",
+    "reason": "渲染端范围内的已核实动态状态；保留源控制结构和运行时参数。",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "Failed: {}",
+    "text": "失败：{}",
+    "file": "OptiScaler/menu/StatusPageRules.h",
+    "reason": "渲染端范围内的已核实动态状态；保留源控制结构和运行时参数。"
+  },
+  {
+    "source": "On ({})",
+    "text": "已开启（{}）",
+    "file": "OptiScaler/menu/StatusPageRules.h",
+    "reason": "渲染端范围内的已核实动态状态；保留源控制结构和运行时参数。",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "All {:.2f}",
+    "text": "全部预设 {:.2f}",
+    "file": "OptiScaler/menu/StatusPageRules.h",
+    "reason": "渲染端范围内的已核实动态状态；保留源控制结构和运行时参数。"
+  },
+  {
+    "source": "{} (not active)",
+    "text": "{}（未启用）",
+    "file": "OptiScaler/menu/StatusPageRules.h",
+    "reason": "渲染端范围内的已核实动态状态；保留源控制结构和运行时参数。"
+  },
+  {
+    "source": "{} pass, working scale {:.2f}",
+    "text": "{} 次 Pass，工作比例 {:.2f}",
+    "file": "OptiScaler/menu/StatusPageRules.h",
+    "reason": "渲染端范围内的已核实动态状态；保留源控制结构和运行时参数。"
+  },
+  {
+    "source": "{} passes, working scale {:.2f}",
+    "text": "{} 次 Pass，工作比例 {:.2f}",
+    "file": "OptiScaler/menu/StatusPageRules.h",
+    "reason": "渲染端范围内的已核实动态状态；保留源控制结构和运行时参数。"
+  },
+  {
+    "source": "Model every {}nd frame",
+    "text": "模型每隔 {} 帧运行一次",
+    "file": "OptiScaler/menu/StatusPageRules.h",
+    "reason": "渲染端范围内的已核实动态状态；保留源控制结构和运行时参数。"
+  },
+  {
+    "source": "Model every {}rd frame",
+    "text": "模型每隔 {} 帧运行一次",
+    "file": "OptiScaler/menu/StatusPageRules.h",
+    "reason": "渲染端范围内的已核实动态状态；保留源控制结构和运行时参数。"
+  },
+  {
+    "source": "Model every {}th frame",
+    "text": "模型每隔 {} 帧运行一次",
+    "file": "OptiScaler/menu/StatusPageRules.h",
+    "reason": "渲染端范围内的已核实动态状态；保留源控制结构和运行时参数。"
+  },
+  {
+    "source": "{} w/VKD3D-Proton",
+    "text": "{}（经 VKD3D-Proton）",
+    "file": "OptiScaler/menu/StatusPageRules.h",
+    "reason": "渲染端范围内的已核实动态状态；保留源控制结构和运行时参数。"
+  },
+  {
+    "source": "{} w/DXVK",
+    "text": "{}（经 DXVK）",
+    "file": "OptiScaler/menu/StatusPageRules.h",
+    "reason": "渲染端范围内的已核实动态状态；保留源控制结构和运行时参数。"
+  },
+  {
+    "source": "F5Low is not available: {}",
+    "text": "F5Low 不可用：{}",
+    "file": "OptiScaler/framegen/f5low/F5Low_Vk.cpp",
+    "reason": "渲染端范围内的已核实动态状态；保留源控制结构和运行时参数。"
+  },
+  {
+    "source": "F5Low: {} (format {}, colour space {})",
+    "text": "F5Low：{}（格式 {}，色彩空间 {}）",
+    "file": "OptiScaler/framegen/f5low/F5Low_Vk.cpp",
+    "reason": "渲染端范围内的已核实动态状态；保留源控制结构和运行时参数。",
+    "raw_fields": [
+      1,
+      2
+    ]
+  },
+  {
+    "source": "No D3D12 device on the game's GPU: {}",
+    "text": "游戏显卡上没有可用的 D3D12 设备：{}",
+    "file": "OptiScaler/framegen/f5low/F5Low_Vk.cpp",
+    "reason": "渲染端范围内的已核实动态状态；保留源控制结构和运行时参数。",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "Sharing with the D3D12 device failed: {}",
+    "text": "无法与 D3D12 设备共享：{}",
+    "file": "OptiScaler/framegen/f5low/F5Low_Vk.cpp",
+    "reason": "渲染端范围内的已核实动态状态；保留源控制结构和运行时参数。",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "vkQueueSubmit failed: {}",
+    "text": "vkQueueSubmit 执行失败：{}",
+    "file": "OptiScaler/framegen/f5low/F5Low_Vk.cpp",
+    "reason": "渲染端范围内的已核实动态状态；保留源控制结构和运行时参数。",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "f5low refused a frame ({}): {}",
+    "text": "f5low 拒绝处理此帧（{}）：{}",
+    "file": "OptiScaler/framegen/f5low/F5Low_Vk.cpp",
+    "reason": "渲染端范围内的已核实动态状态；保留源控制结构和运行时参数。",
+    "raw_fields": [
+      1
+    ]
+  },
+  {
+    "source": "Sharing the picture failed: {}",
+    "text": "无法共享画面：{}",
+    "file": "OptiScaler/framegen/f5low/F5Low_Vk.cpp",
+    "reason": "渲染端范围内的已核实动态状态；保留源控制结构和运行时参数。",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "Sharing a generated frame failed: {}",
+    "text": "无法共享生成帧：{}",
+    "file": "OptiScaler/framegen/f5low/F5Low_Vk.cpp",
+    "reason": "渲染端范围内的已核实动态状态；保留源控制结构和运行时参数。",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "Sharing the HUD-less picture failed: {}",
+    "text": "无法共享无 HUD 画面：{}",
+    "file": "OptiScaler/framegen/f5low/F5Low_Vk.cpp",
+    "reason": "渲染端范围内的已核实动态状态；保留源控制结构和运行时参数。",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "Sharing the motion vectors failed: {}",
+    "text": "无法共享运动矢量：{}",
+    "file": "OptiScaler/framegen/f5low/F5Low_Vk.cpp",
+    "reason": "渲染端范围内的已核实动态状态；保留源控制结构和运行时参数。",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "Sharing the depth failed: {}",
+    "text": "无法共享深度数据：{}",
+    "file": "OptiScaler/framegen/f5low/F5Low_Vk.cpp",
+    "reason": "渲染端范围内的已核实动态状态；保留源控制结构和运行时参数。",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "f5low could not resize its frames: {}",
+    "text": "f5low 无法调整帧大小：{}",
+    "file": "OptiScaler/framegen/f5low/F5Low_Vk.cpp",
+    "reason": "渲染端范围内的已核实动态状态；保留源控制结构和运行时参数。",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "f5low could not make its frames: {}",
+    "text": "f5low 无法创建帧：{}",
+    "file": "OptiScaler/framegen/f5low/F5Low_Vk.cpp",
+    "reason": "渲染端范围内的已核实动态状态；保留源控制结构和运行时参数。",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "This screen colour format is not supported ({}).",
+    "text": "不支持此屏幕颜色格式（{}）。",
+    "file": "OptiScaler/shaders/dlssnr/DlssNr_Late.inl",
+    "reason": "Translate trusted diagnostics around raw renderer format code",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "This screen colour space is not supported (Vulkan {}).",
+    "text": "不支持此屏幕色彩空间（Vulkan {}）。",
+    "file": "OptiScaler/shaders/dlssnr/DlssNr_Late.inl",
+    "reason": "Translate trusted diagnostics around raw renderer format code",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "Auto: the picture, but gets {}",
+    "text": "自动：原始画面，但收到的是 {}",
+    "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+    "reason": "静态界面文案包裹动态名称，同时保持原始后端、文件夹与 ImGui ID。"
+  },
+  {
+    "source": "Use the Vulkan upscaler ({})",
+    "text": "改用 Vulkan 超分辨率（{}）",
+    "file": "OptiScaler/dlssnr/DlssNr_Menu.cpp",
+    "reason": "静态界面文案包裹动态名称，同时保持原始后端、文件夹与 ImGui ID。",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "Custom: {}",
+    "text": "自定义：{}",
+    "file": "OptiScaler/menu/menu_common.cpp",
+    "reason": "静态界面文案包裹动态名称，同时保持原始后端、文件夹与 ImGui ID。",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "From OptiScaler's custom\\{}\\dlssg folder",
+    "text": "来自 OptiScaler 的 custom\\{}\\dlssg 文件夹",
+    "file": "OptiScaler/menu/menu_common.cpp",
+    "reason": "静态界面文案包裹动态名称，同时保持原始后端、文件夹与 ImGui ID。",
+    "raw_fields": [
+      0
+    ]
+  },
+  {
+    "source": "No DLSS-G dll in custom\\{}\\dlssg",
+    "text": "custom\\{}\\dlssg 中没有 DLSS-G DLL",
+    "file": "OptiScaler/menu/menu_common.cpp",
+    "reason": "静态界面文案包裹动态名称，同时保持原始后端、文件夹与 ImGui ID。",
+    "raw_fields": [
+      0
+    ]
   }
 ]

@@ -1,0 +1,12 @@
+{
+  "previous_upstream": "4d72d53e521b34a5cda9dd4f63ee7f4cd0438035",
+  "current_upstream": "f10dedf93a2d5412c753c751c120d52b223800f6",
+  "retired": [
+    {
+      "file": "OptiScaler/dlssnr/DlssNr_LutFile.h",
+      "line": 184,
+      "source": "this is a 1D LUT (LUT_1D_SIZE); only 3D LUTs (LUT_3D_SIZE) can be applied here",
+      "reason": "Upstream added 1D LUT support; this rejection path no longer exists."
+    }
+  ]
+}

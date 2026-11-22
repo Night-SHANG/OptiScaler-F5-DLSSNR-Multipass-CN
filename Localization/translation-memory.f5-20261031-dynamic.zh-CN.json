@@ -1,0 +1,19 @@
+{
+  "Saved {}.": "已保存 {}。",
+  "Loaded {}.": "已加载 {}。",
+  "Loaded {}": "已加载 {}",
+  "Deleted {}.": "已删除 {}。",
+  "Could not save {}: {}": "无法保存 {}：{}",
+  "Could not load {}: {}": "无法加载 {}：{}",
+  "Could not delete {}: {}": "无法删除 {}：{}",
+  "Could not delete {}.": "无法删除 {}。",
+  "waiting, loads after {} s": "等待中，将在 {} 秒后加载",
+  "failed to load ({})": "加载失败（{}）",
+  "0x{:X}, {}": "0x{:X}，{}",
+  "active: {} of {} patches": "已启用：{} / {} 项补丁",
+  "stood aside: {}": "已让路：{}",
+  "Could not save {}: NRProfiles or the file is a link; not saved.": "无法保存 {}：NRProfiles 或目标文件是链接；未保存。",
+  "Could not save {}: Could not write the file.": "无法保存 {}：无法写入文件。",
+  "Could not save {}: Could not make the folder: {}": "无法保存 {}：无法创建文件夹：{}",
+  "Could not load {}: Not an NR profile this build can read (or made by a newer build).": "无法加载 {}：此版本无法读取该 NR 配置文件（也可能由更新版本创建）。"
+}

@@ -1,0 +1,10 @@
+{
+  "repository": "https://github.com/janblade/OptiScaler-F5-DLSSNR-Multipass.git",
+  "branch": "main",
+  "commit": "fadc3bf67f6c8548e94914baec3f2e551ba8d8a4",
+  "upstream_version": "v0.1.32",
+  "distribution_name": "OptiScaler F5 DLSSNR Multipass CN",
+  "upstream_name": "janblade/OptiScaler-F5-DLSSNR-Multipass",
+  "package_prefix": "OptiScaler-F5-DLSSNR-Multipass-CN",
+  "release_prefix": "OptiScaler F5 DLSSNR Multipass CN"
+}

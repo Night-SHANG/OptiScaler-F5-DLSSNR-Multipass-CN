@@ -20,6 +20,8 @@ import tempfile
 import time
 import zipfile
 
+import f5low_kit
+
 ROOT = Path(__file__).resolve().parents[1]
 REPOSITORY = 'Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN'
 TAG = 'v0.1.32-cn-test.1'
@@ -117,8 +119,12 @@ def pe64(data, name):
 
 
 def verify_artifact(directory, sha, catalog_path=ROOT / 'Localization/installers.zh-CN.json',
-                    *, upstream=UPSTREAM, upstream_version='v0.1.32'):
-    """Validate downloaded same-run package bytes without extracting any ZIP."""
+                    *, upstream=UPSTREAM, upstream_version='v0.1.32', require_f5low=False):
+    """Validate same-run bytes; current sync explicitly requires the pinned F5Low kit.
+
+    The default preserves the historical fixed publisher, which must not admit
+    an F5Low kit merely because an artifact claims it includes one.
+    """
     directory = Path(directory)
     require(directory.is_dir() and not directory.is_symlink(), 'Missing or linked artifact directory')
     require(re.fullmatch('[0-9a-f]{40}', sha), 'Invalid CN commit')
@@ -134,6 +140,10 @@ def verify_artifact(directory, sha, catalog_path=ROOT / 'Localization/installers
     require(paths[name + '.sha256'].stat().st_size <= 1024, 'Checksum sidecar exceeds size budget')
     require(0 < paths[name].stat().st_size <= 2 * 1024**3, 'Package exceeds size budget')
     metadata = object_json(paths['build-metadata.json'].read_bytes(), 'build-metadata.json')
+    require(type(require_f5low) is bool, 'F5Low verification policy must be explicit boolean')
+    if not require_f5low:
+        require(('f5low_kit_included' not in metadata or metadata['f5low_kit_included'] is False)
+                and 'f5low_kit' not in metadata, 'Fixed legacy package must not claim an unverified F5Low kit')
     actual = file_hash(paths[name])
     require(metadata.get('package') == name and metadata.get('sha256') == actual, 'Package SHA256 or name mismatch')
     require(paths[name + '.sha256'].read_bytes() in
@@ -171,6 +181,9 @@ def verify_artifact(directory, sha, catalog_path=ROOT / 'Localization/installers
             if entry.is_dir():
                 continue
             base = entry.filename.rsplit('/', 1)[-1]
+            if not require_f5low:
+                require(base.casefold() != 'f5low.dll' and not base.casefold().startswith('f5low_'),
+                        'F5Low kit requires the current sync verification policy')
             require(not re.search(r'(?i)^(nvngx_dlss.*|sl\..*)\.dll$|\.(pdb|exp|lib|ilk|asi)$|latewarp|nrtrace', base)
                     and base.lower() != 'dlssg_sm86.dll', f'Forbidden downloader-only payload: {base}')
             with archive.open(entry) as stream:
@@ -247,6 +260,11 @@ def verify_artifact(directory, sha, catalog_path=ROOT / 'Localization/installers
             'Chinese installation guide missing')
     require(re.search(r'(?m)^Language\s*=\s*zh-CN\s*$', captured['OptiScalerCN.ini'].decode('utf-8-sig')),
             'Default Chinese language setting missing')
+    if require_f5low:
+        try:
+            f5low_kit.verify_package_f5low(paths[name], metadata)
+        except (ValueError, OSError, UnicodeError, zipfile.BadZipFile) as exc:
+            raise GateError(f'F5Low kit verification failed: {exc}') from exc
     return {'assets': paths, 'hashes': {n: file_hash(p) for n, p in paths.items()}, 'metadata': metadata}
 
 
@@ -419,6 +437,23 @@ def release_payload(package, context):
     upstream_version = context.get('upstream_version', 'v0.1.32')
     require(meta.get('upstream_commit') == upstream and meta.get('upstream_version') == upstream_version,
             'Package/release upstream identity mismatch')
+    if tag_name == TAG:
+        require(('f5low_kit_included' not in meta or meta['f5low_kit_included'] is False)
+                and 'f5low_kit' not in meta, 'Fixed legacy release must not include an F5Low kit')
+        component_notice = ('本包采用 downloader-only 方式，不包含专有 `nvngx_dlssnr.dll`，'
+                            '也不预打包可选 NVIDIA DLSS/Streamline、Ampere MFG 或外部 vendor-neutral 组件。'
+                            '需要的专有模型/运行库请按固定上游指南另行取得并核验，许可由使用者自行确认。')
+    else:
+        kit = f5low_kit.expected_metadata()
+        require(meta.get('f5low_kit_included') is True and meta.get('f5low_kit') == kit,
+                'Sync release requires the pinned official F5Low kit')
+        component_notice = (f'本包包含官方固定 F5Low{kit["version"].rsplit(".", 1)[-1]}（{kit["version"]}）'
+                            f'及 Intel 帧生成运行库 {kit["intel_version"]}，'
+                            '保留全部配套许可；默认输出为 F5Low，默认后端为 xefg_tensor。'
+                            'downloader-only 仅指 NVIDIA 运行库。'
+                            'DLSS-NR 模型（`nvngx_dlssnr.dll`）需用户另行提供并按固定上游指南核验；'
+                            '包内现有下载器 `get_streamline.ps1` 仅用于获取 NVIDIA Streamline/DLSS-G 文件；'
+                            '不捆绑 Ampere MFG 及 vendor-neutral port。许可由使用者自行确认。')
     body = f'''## F5 简体中文测试版
 
 这是社区测试版（Pre-release），固定上游 F5 {upstream_version}。请先备份原安装，勿用于带反作弊保护的多人游戏。
@@ -436,7 +471,7 @@ def release_payload(package, context):
 ### 测试范围与安装提醒
 
 - Windows 编译成功不等于游戏内运行、画面或中文排版通过。没有执行实际 GPU/游戏验证，也没有确认全部主题、缩放、GPU 或驱动组合。
-- 本包采用 downloader-only 方式，不包含专有 `nvngx_dlssnr.dll`，也不预打包可选 NVIDIA DLSS/Streamline、Ampere MFG 或外部 vendor-neutral 组件。需要的专有模型/运行库请按固定上游指南另行取得并核验，许可由使用者自行确认。
+- {component_notice}
 - 中文菜单需要系统已安装或自行提供兼容且覆盖词库的中文字体；包内不附带 Windows 字体，字体不可用时会回退英文。
 - 下载 ZIP 及同名 `.sha256`，校验后完整解压到游戏 EXE 目录。中文安装入口为 `setup_windows.bat`，详细步骤见包内 `README.CN.zh-CN.md`。保留原始许可和署名。
 - 请用游戏名、GPU、驱动、渲染 API、语言/字体/主题/缩放、截图及复现步骤反馈问题；分享日志前检查个人路径。

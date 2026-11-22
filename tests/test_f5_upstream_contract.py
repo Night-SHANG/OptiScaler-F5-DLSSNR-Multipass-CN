@@ -429,8 +429,46 @@ class ContractTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.contract_module.load_contract(path)
 
+    def test_november_audit_preserves_previous_contract_and_tightens_changed_sources(self):
+        previous = self.contract_module.load_contract(ROOT / 'audit/2026-10-31/upstream-contract.json')
+        current = self.contract_module.load_contract(ROOT / 'audit/2026-11-11/upstream-contract.json')
+        self.assertEqual(previous['baseline_commit'], '4d72d53e521b34a5cda9dd4f63ee7f4cd0438035')
+        self.assertEqual(current['baseline_commit'], 'f10dedf93a2d5412c753c751c120d52b223800f6')
+        self.assertEqual(current['gitlinks'], previous['gitlinks'])
+        for path, record in current['audited_sources'].items():
+            self.assertEqual(record, previous['audited_sources'][path])
+            self.assertEqual(record['mutable_literal_ordinals'], [])
+        for path in ('OptiScaler/framegen/f5low/F5Low.cpp',
+                     'OptiScaler/dlssnr/forwarder/dlssnr_forwarder.rc',
+                     'tools/finish_release_zip.py', 'external/f5low/README.md'):
+            self.assertIn(path, current['protected_files'])
+        for path in ('setup_windows.bat', 'setup_linux.sh', 'Streamlined_fetcher_windows.bat',
+                     'get_streamline.ps1', 'get_hybrid_assets.ps1', '.gitmodules',
+                     'redist/streamline/manifest.json'):
+            self.assertEqual(current['protected_files'][path], previous['protected_files'][path])
+
+    def test_v0139_changes_only_the_audited_dependency_pin_and_keeps_exact_protection(self):
+        previous = self.contract_module.load_contract(ROOT / 'audit/2026-11-11/upstream-contract.json')
+        current = self.contract_module.load_contract(ROOT / 'upstream-contract.json')
+        self.assertEqual(current['baseline_commit'], '956bb7198e819da857710f7f9ace223790a7ba55')
+        self.assertEqual(set(current['gitlinks']), set(previous['gitlinks']))
+        self.assertEqual({key for key in current['gitlinks'] if current['gitlinks'][key] != previous['gitlinks'][key]},
+                         {'external/FidelityFX-SDK-v2'})
+        self.assertEqual(current['gitlinks']['external/FidelityFX-SDK-v2'], '7539ae8b6568ad29ed78a753404351daf3b5cca7')
+        for path, record in current['audited_sources'].items():
+            self.assertEqual(record, previous['audited_sources'][path])
+            self.assertEqual(record['mutable_literal_ordinals'], [])
+        for path in ('OptiScaler/menu/StatusPage.cpp', 'OptiScaler/menu/StatusPageRules.h',
+                     'OptiScaler/dlssnr/DlssNr_WeightsRules.h', 'OptiScaler/dlssnr/DlssNr_VulkanRoute.h',
+                     'plugin_sdk/LICENSE', 'OptiScaler/dlssnr/forwarder/dlssnr_forwarder.cpp'):
+            self.assertIn(path, current['protected_files'])
+        for path in ('setup_windows.bat', 'setup_linux.sh', 'Streamlined_fetcher_windows.bat',
+                     'get_streamline.ps1', 'get_hybrid_assets.ps1', '.gitmodules', 'package_release.ps1',
+                     'redist/streamline/manifest.json'):
+            self.assertEqual(current['protected_files'][path], previous['protected_files'][path])
+
     def test_checked_in_contract_preserves_audit_hashes_and_path_sets(self):
-        contract = self.contract_module.load_contract(ROOT / 'upstream-contract.json')
+        contract = self.contract_module.load_contract(ROOT / 'audit/v0.1.32/upstream-contract.json')
         self.assertEqual(contract['baseline_commit'], BASELINE)
         expected = {
             'package_release.ps1': 'ceb7cf129a654591e70f897c0ba410039a94eb626c507fd252584969ff4a5a1c',
@@ -439,13 +477,13 @@ class ContractTests(unittest.TestCase):
         }
         for name, sha in expected.items():
             self.assertEqual(contract['protected_files'][name]['sha256'], sha)
-        installers = json.loads((ROOT / 'Localization/installers.zh-CN.json').read_text())
+        installers = json.loads((ROOT / 'audit/v0.1.32/installers.zh-CN.json').read_text())
         for record in installers['scripts']:
             self.assertEqual(contract['protected_files'][record['path']]['sha256'], record['source_sha256'])
         redist = installers['redist']
         self.assertEqual(contract['protected_files'][redist['path']]['sha256'], redist['sha256'])
-        inventory = json.loads((ROOT / 'reports/coverage-inventory.json').read_text())
-        boundaries = json.loads((ROOT / 'reports/display-boundaries.json').read_text())
+        inventory = json.loads((ROOT / 'audit/v0.1.32/coverage-inventory.json').read_text())
+        boundaries = json.loads((ROOT / 'audit/v0.1.32/display-boundaries.json').read_text())
         audited = set(inventory['source_files']) | {record['file'] for record in boundaries['files']}
         self.assertEqual(set(contract['audited_sources']), audited)
         self.assertIn('OptiScaler/include/imgui/imgui.cpp', contract['protected_files'])

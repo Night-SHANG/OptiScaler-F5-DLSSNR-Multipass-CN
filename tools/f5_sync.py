@@ -38,7 +38,7 @@ IDENTITY_PATHS = (
     'Localization/composed-templates.json', 'Localization/installers.zh-CN.json',
     'Localization/OptiScalerCN.ini', 'tools/localize_f5.py', 'tools/localize_source.py',
     'tools/generate_cpp.py', 'tools/f5_font_patch.py', 'tools/f5_boundaries.json',
-    'tools/f5_installer_patch.py', 'tools/loclib.py', 'tools/package.ps1',
+    'tools/f5_installer_patch.py', 'tools/loclib.py', 'tools/package.ps1', 'tools/f5low_kit.py',
     'README.zh-CN.md', 'UPSTREAM.md',
 )
 

@@ -1,3 +1,27 @@
+# 2026-11-11 候选覆盖更新
+
+固定上游 `f10dedf93a2d5412c753c751c120d52b223800f6`（0.1.37.2 合并后的 main）。活动候选 **2967**：实际显示译文 **2735**、有理由技术保留 **232**；missing/stale 均为 0。相对上一候选新增 295 项、移除 24 项，其中 7 项被扫描器识别为改写源文；净增 271。
+
+继承人工 reviewed 状态 241，machine_translated 2726；本轮 AI 翻译/复审没有升级为人工确认。新增记忆 271 项中含技术保留及扫描误收，不能把记忆数量直接当作新的可见译文数量。完整数据见 `reports/maintenance-summary.json` 与 `reports/coverage-inventory.json`。
+
+新增覆盖包含 F5Low 后端/状态和缺依赖原因、FG 概览、LUT 输入空间/堆栈/1D 错误、深度淡化、原生混合、第二 DLSS 视图、通知历史、模块签名和版本悬停信息。原始配置/路径/用户名称及 ImGui ID 保持；7 处 LUT 名称按 UTF-8 显示并保留原文。
+
+明确边界：包含任意文件名的预组合 LUT 已加载链描述原样显示，其连接词可能仍为英文；未知外部 DLL/驱动诊断保持回退。本次修正后捆绑与上游主包相同的 F5Low 1.1.0.140 kit，具体分发与许可边界见 [组件审计](docs/F5LOW-DISTRIBUTION-AUDIT-2026-11-11.md)。静态零缺译不证明所有运行时路径或像素布局完整，Windows/MSVC 结果以当前提交 CI 为准，游戏 GPU、主题/缩放、中文截断尚未验收。
+
+以下均为之前候选和 v0.1.32 的历史记录，不是本轮新验证结果。
+
+# 2026-10-31 候选覆盖更新
+
+当前固定上游 `4d72d53e521b34a5cda9dd4f63ee7f4cd0438035`。当前 2696 活动条目：2495 显示译文、201 技术保留，missing/stale 均为 0；净增 430、移除 119。本轮新界面、提示、数组和动态状态经独立源代码路径检查；计数以 `reports/coverage-inventory.json` 为准，不能等同游戏全界面或视觉验收。
+
+- 补齐 InputInt2、InputTextWithHint 提示、PluginsPage/PluginsView/PluginRegistry 宽字符状态、FlowDebugViews 数组、MFG 状态和 NR Profiles 组合消息。
+- 用户配置名称、ASI 文件名、目录及外部系统错误保留原始数据；技术项逐条理由见 `Localization/retained-English.json`。
+- 新 pin 注入 1054 处显示调用、13 个文件。C++ 显示边界 173 断言、203 项独立代表、58 组合样例（C++17/20）通过；完整复跑结果见本轮审计。
+- 已载入 Profile 后的额外 LUT 警告可能继续显示原文，因为用户名称与错误字段无法从旧组合串中可靠拆分；未知外部错误仍保留英文 fallback。
+- Windows MSVC/完整打包、递归子模块实际构建、GPU/字体排版真机仍未验证。
+
+以下为历史 v0.1.32 覆盖记录，不应解释为当前候选的计数或版本：
+
 # F5 简体中文覆盖与验收清单
 
 固定上游：`janblade/OptiScaler-F5-DLSSNR-Multipass@fadc3bf67f6c8548e94914baec3f2e551ba8d8a4`（v0.1.32）。本记录截至 2026-10-20 13:20（北京时间），属于源码与可移植测试证据；Windows 构建结果以对应 Actions run 为准。

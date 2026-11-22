@@ -172,6 +172,13 @@
     ],
     ".setButtonLabel": [
       0
+    ],
+    "ImGui::InputInt2": [
+      0
+    ],
+    "ImGui::InputTextWithHint": [
+      0,
+      1
     ]
   },
   "scan_containers": [

@@ -1,0 +1,140 @@
+# Localization scan report
+
+- Channel: **master**
+- Upstream commit: `f10dedf93a2d5412c753c751c120d52b223800f6`
+- Active UI strings: **2967**
+- Added: **295**
+- Removed: **24**
+- Source changed / translation stale: **0**
+- Missing zh-CN: **0**
+- Effective zh-CN coverage: **100.00%**
+
+## Added
+
+- `ui.auto.577d1ab96b04` — 'F5Low frame generation is off'
+- `ui.auto.c2eb6a192a51` — 'more than {} LUTs in the stack'
+- `ui.auto.90a0e7a177e5` — ' LUTs in the stack'
+- `ui.auto.850d0e5c3027` — 'more than '
+- `ui.auto.68f83569c421` — 'every LUT is off or at strength 0'
+- `ui.auto.303393b68e1c` — 'LUT_1D_SIZE given twice, without its number or out of range (2..{:d}) (line {:d})'
+- `ui.auto.912ae32e001b` — 'data row on line {:d} is not a finite number'
+- `ui.auto.ec0323a661ba` — 'expected {:d} data rows for LUT_1D_SIZE {:d}, found {:d}'
+- `ui.auto.ae17721234ad` — 'more data rows than LUT_1D_SIZE {:d} calls for, and no LUT_3D_SIZE (line {:d})'
+- `ui.auto.5ffe8938e103` — '{} needs two increasing numbers (line {:d})'
+- `ui.auto.94adb85313bc` — 'INPUT GAMMA'
+- `ui.auto.e6dfe43cbd50` — 'INPUT COLOR SPACE'
+- `ui.auto.bd2d71f164cb` — 'INPUT COLOUR SPACE'
+- `ui.auto.204330d009ad` — 'OUTPUT GAMMA'
+- `ui.auto.8d8f2d044226` — 'OUTPUT COLOR SPACE'
+- `ui.auto.4dfa06c73635` — 'OUTPUT COLOUR SPACE'
+- `ui.auto.38bdd77cb590` — '1D '
+- `ui.auto.e56377edc427` — 'LUT_1D_SIZE given twice, without its number or out of range (2..'
+- `ui.auto.0b5b4ee4fcdf` — ') (line '
+- `ui.auto.30465b484dfc` — 'LUT_1D_INPUT_RANGE'
+- `ui.auto.af99e2802d3a` — 'LUT_3D_INPUT_RANGE'
+- `ui.auto.c048c7cfc631` — ' needs two increasing numbers (line '
+- `ui.auto.a198537b7c4f` — ' is not a finite number'
+- `ui.auto.67813fd0e07f` — 'more data rows than LUT_1D_SIZE '
+- `ui.auto.11cb6e7629b0` — ' calls for, and no LUT_3D_SIZE (line '
+- `ui.auto.9c4a025cb9b4` — ' data rows for LUT_1D_SIZE '
+- `ui.auto.4386d259f8d4` — 'no LUT_3D_SIZE or LUT_1D_SIZE found'
+- `ui.auto.69bdc296d986` — 'Linear Rec.709'
+- `ui.auto.5cceef445808` — 'ARRI LogC3 AWG3'
+- `ui.auto.316aa81636a8` — 'ARRI LogC4 AWG4'
+- `ui.auto.370e9baabc29` — 'ACEScct AP1'
+- `ui.auto.8f238e3e0c90` — 'S-Log3 S-Gamut3.Cine'
+- `ui.auto.5cc400735967` — 'V-Log V-Gamut'
+- `ui.auto.0175d32a53aa` — 'DaVinci Intermediate DWG'
+- `ui.auto.3d6b6b6c3733` — 'sRGB picture'
+- `ui.auto.a2614197e1ae` — 'AWG3'
+- `ui.auto.d2ec24e79dab` — 'AWG4'
+- `ui.auto.a75555334464` — 'AP1'
+- `ui.auto.3fb1d3357e95` — 'S-Gamut3.Cine'
+- `ui.auto.416db6fde83b` — 'V-Gamut'
+- `ui.auto.2cc4531703da` — 'DaVinci Wide Gamut'
+- `ui.auto.f754ee354153` — 'BT.709'
+- `ui.auto.563bb2bbb045` — 'Linear HDR, exact'
+- `ui.auto.f1fa19a76133` — 'PQ, exact up to paper white'
+- `ui.auto.987ac988f772` — 'gamma 2.2 SDR, highlights estimated'
+- `ui.auto.de2fe44a97ca` — 'SDR, highlights estimated'
+- `ui.auto.594fd1615a34` — 'header'
+- `ui.auto.6ae999552a0d` — 'name'
+- `ui.auto.08ec219f1025` — ', but gets {}'
+- `ui.auto.6b11a693c4cd` — 'Auto: the picture'
+- `ui.auto.94e1b737b056` — 'Auto: {}'
+- `ui.auto.817cbce51c42` — 'LUT strength {}'
+- `ui.auto.075a3c62e1f4` — 'Look input {}'
+- `ui.auto.2f28f3debb13` — 'Post LUT {}'
+- `ui.auto.89b0f20ef1bc` — '{} (header)'
+- `ui.auto.f25306f3a8c0` — '{} (name)'
+- `ui.auto.9a1f11f8a44b` — '{} (set)'
+- `ui.auto.e21ab044158b` — '{} in {}'
+- `ui.auto.11150b3ee532` — 'Motion only: nothing uses it, so none of it runs (Idle).'
+- `ui.auto.b568987ea261` — "Paused: the game's own frame generation is on, and NR on the finished picture cannot run under it. Turn off frame generation in the game's settings (OptiScaler's frame generation works with it), or set NR Pass at: After Super Resolution."
+- `ui.auto.cd188a5278a0` — "Paused: the game's own frame generation is on."
+- `ui.auto.ed3af6fddf0c` — 'Stood down: the game keeps switching formats or sizes. Runs again once it settles.'
+- `ui.auto.560d9be8df39` — 'The game uses %u more DLSS feature(s) (a preview or second camera): %s.'
+- `ui.auto.afdcc1e84fb5` — 'left as they are'
+- `ui.auto.d51adad7a37d` — 'each with a model of its own'
+- `ui.auto.ad78e2d7d42e` — 'some with a model of their own, the rest left as they are'
+- `ui.auto.7bc6ab57396b` — "Saves this game's NR settings under a name and loads them back: the look, passes, quality and reuse, and the game's own exposure, colour encoding, Optical F5Low tuning and edge compression settings. Not in a profile: Enable Neural Rendering, the toggle key, the display's paper white, the Optical F5Low mode and the debug views. A profile saved in another game keeps this game's Optical F5Low tuning.\nFiles are in OptiScaler\\NRProfiles; copy one into the same folder of another install of the game to share it. Green = the profile's settings are what is in effect.\nSave Settings (at the bottom) still saves this game's OptiScaler.ini; a profile is a separate file."
+- `ui.auto.d55781719b1c` — "%s was saved in %s: its exposure settings are for that game (this game's Optical F5Low tuning stays)."
+- `ui.auto.30bfd13c882b` — 'Native Presets'
+- `ui.auto.2d44d68d609b` — 'Native blend'
+- `ui.auto.6b128ea86394` — "Shows NR's result as it is, without OptiScaler's own blending. Runs NR on the finished picture with Replace, and turns off Separate skin / environment controls and Restore Sharpness. Use NR's Intensity for the strength.\nGreen = on; click again to put your earlier settings back. Changing the placement, the composition or one of those controls, or pressing a quality tier, ends it and keeps your change.\nIt cannot run while the game's own frame generation is on; use OptiScaler's frame generation instead."
+- `ui.auto.bfade5097ea0` — 'Needs a native DirectX 12 game (Finished Picture does not run on Vulkan).'
+- `ui.auto.9ae94d0b16e6` — "Paused: the game's own frame generation is on. Turn it off in the game's settings to see Native blend."
+- `ui.auto.a0ffce877c08` — "The game's own frame generation is on. Native blend runs NR on the finished picture, which pauses under it: turn off frame generation in the game first."
+- `ui.auto.1365b1b44f1a` — "This picture is HDR, so NR's result still goes through a brightness curve here. Not a true native match."
+- `ui.auto.094b49af170b` — "A colour grade is on, so this is not NR's result as it is."
+- `ui.auto.f3fe1e4a7a8c` — "Colour Encoding is forced to gamma 2.2, so the picture is converted on the way in and back out. Not NR's result as it is."
+- `ui.auto.d713895acb4b` — "Run the model before Super Resolution is on: NR's changes are enlarged, not shown as they are."
+- `ui.auto.d5934723eae2` — "Paused: the game's own frame generation is on. Turn it off in the game's settings, or pick After Super Resolution."
+- `ui.auto.4e22985ec56c` — 'Input LUT'
+- `ui.auto.87342e141fdc` — "Applies a colour grade (.cube LUT) to the picture NR works from. Put files in OptiScaler\\LUTs and press Rescan. Strong grades also affect exposure, skin detection and reuse. To grade NR's result instead, use the F5LUT page."
+- `ui.auto.6172ea88a71d` — 'None (the picture)'
+- `ui.auto.a39d97b1f592` — ': the picture'
+- `ui.auto.64d2f058b2c6` — ' in '
+- `ui.auto.dcc796bd7fde` — ', from the LUT above'
+- `ui.auto.9e0bf4bff2de` — ', but gets '
+- `ui.auto.ceb006a52c86` — 'Enable LUTs##postlutstack'
+- `ui.auto.58dff18f6589` — 'LUT strength 4'
+- `ui.auto.5d0723a45eec` — 'Post LUT'
+- `ui.auto.fa904100e431` — 'Post LUT '
+- `ui.auto.c7c3ab1ad065` — 'On: this LUT is applied. Untick to skip it and keep its settings.'
+- `ui.auto.1fba949d4a2d` — 'Off: this LUT is skipped; its settings are kept. Tick to apply it.'
+- `ui.auto.0d4374fda65b` — 'x##postlutremove'
+- `ui.auto.0e7b8f574642` — 'Look input'
+- `ui.auto.e4a3b2def466` — 'Look input '
+- `ui.auto.a260bc6106f6` — 'LUT strength '
+- `ui.auto.4a4d6f62b2b4` — 'Reset##postlutstrengthreset'
+- `ui.auto.37ec5d2c5883` — 'Applied top to bottom.'
+- `ui.auto.f440282196cc` — 'Add LUT##postlut'
+- `ui.auto.f41ec8cd6166` — 'Rescan##postlut'
+
+## Removed
+
+- `ui.auto.e33c1cdc66bd`
+- `ui.auto.80cf900e44c2`
+- `ui.auto.da6f4f834cad`
+- `ui.auto.f66d2c5fffbd`
+- `ui.auto.40c498805679`
+- `ui.auto.333409933b7c`
+- `ui.auto.27cc86e5674d`
+- `ui.auto.3d8cb2175dca`
+- `ui.auto.8091b32f5fc6`
+- `ui.auto.6e23184d03ec`
+- `ui.auto.595d066d151c`
+- `ui.auto.f68619f79fc4`
+- `ui.auto.7fe1fa654581`
+- `ui.auto.8ae78cb11ee3`
+- `ui.auto.f0572004732c`
+- `ui.auto.524be9cb94a3`
+- `ui.auto.603d3013bcca`
+- `ui.auto.021291299191`
+- `ui.auto.1566ac7c61ae`
+- `ui.auto.bf5fb546884b`
+- `ui.auto.5d9388f7b5b4`
+- `ui.auto.c5c0c39a4e7e`
+- `ui.auto.8e9c26d98859`
+- `ui.auto.e64d3947f317`
