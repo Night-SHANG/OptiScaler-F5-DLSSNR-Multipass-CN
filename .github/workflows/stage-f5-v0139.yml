@@ -1,0 +1,46 @@
+name: Stage audited F5 v0.1.39 Chinese candidate
+on:
+  push:
+    branches: ['ci-stage/f5-v0.1.39-cn.1']
+    paths: ['.github/workflows/stage-f5-v0139.yml', '.github/f5-v0139-candidate.patch.b64']
+permissions:
+  contents: write
+concurrency:
+  group: stage-f5-v0139-once
+  cancel-in-progress: false
+jobs:
+  restore:
+    if: github.repository == 'Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Verify and stage only immutable reviewed source
+        shell: bash
+        env:
+          EXPECTED_PARENT: '8253788399dfb97f4478e2f0c5e845cfa41a2e74'
+          EXPECTED_TREE: '778939afd24c62f5063ef37313198ba0fad3808e'
+          PATCH_SHA256: '502c76d096427b524da4a3de8d6b2d3cc92dfd2eb65c122d3ea83ac9d3ef71cd'
+          DESTINATION: 'refs/heads/ci-candidate/f5-v0.1.39-cn.1'
+        run: |
+          set -euo pipefail
+          git show HEAD:.github/f5-v0139-candidate.patch.b64 | base64 -d > "$RUNNER_TEMP/reviewed.patch.gz"
+          printf '%s  %s\n' "$PATCH_SHA256" "$RUNNER_TEMP/reviewed.patch.gz" | sha256sum -c -
+          gzip -d "$RUNNER_TEMP/reviewed.patch.gz"
+          git checkout --detach "$EXPECTED_PARENT"
+          test -z "$(git status --porcelain)"
+          git apply --check --index "$RUNNER_TEMP/reviewed.patch"
+          git apply --index "$RUNNER_TEMP/reviewed.patch"
+          test "$(git write-tree)" = "$EXPECTED_TREE"
+          test -z "$(git diff --cached --name-only -- '.github/workflows')"
+          git -c core.hooksPath=/dev/null -c user.name='github-actions[bot]' \
+            -c user.email='41898282+github-actions[bot]@users.noreply.github.com' \
+            commit -m 'feat: sync audited F5 v0.1.39 and complete Chinese display coverage'
+          test "$(git rev-parse HEAD^{tree})" = "$EXPECTED_TREE"
+          test "$(git rev-parse HEAD^)" = "$EXPECTED_PARENT"
+          git push origin "HEAD:$DESTINATION"
+          test "$(git ls-remote origin "$DESTINATION" | cut -f1)" = "$(git rev-parse HEAD)"
+          echo "Verified candidate: $(git rev-parse HEAD); tree: $EXPECTED_TREE"
