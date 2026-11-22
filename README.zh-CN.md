@@ -1,6 +1,6 @@
 # OptiScaler F5 中文版使用说明
 
-> 2026-11-11 维护候选：`main-f10dedf93a2d` / `f10dedf93a2d5412c753c751c120d52b223800f6`，跟进上游 0.1.37.2 合并后的 main。新增 F5Low、LUT 堆栈、原生混合、深度淡化及通知历史的中文显示与动态提示适配。Windows 编译/打包结果以同提交 CI 为准，GPU 实机尚未验收。[本轮审计](docs/UPSTREAM-AUDIT-2026-11-11.md)。历史契约保存在 `audit/v0.1.32/` 和 `audit/2026-10-31/`。
+> 2026-11-22：跟进上游 `v0.1.39`（`956bb7198e819da857710f7f9ace223790a7ba55`），新增状态页、模型权重、Vulkan 与 F5Low 动态状态汉化，补查动态 LUT。Windows 编译与打包以对应提交 CI 为准，GPU 实机尚未验证。[本轮审计](docs/UPSTREAM-AUDIT-2026-11-22.md)。
 
 本项目为 **OptiScaler F5 DLSSNR Multipass v0.1.32** 建立初始简体中文审计基线，提交为 `fadc3bf67f6c8548e94914baec3f2e551ba8d8a4`。当前构建使用仓库 `upstream.json` 的完整 SHA；安装包以 `BUILD-INFO.CN.json` 为准。它是社区派生项目，不是上游官方发布。
 
@@ -18,7 +18,7 @@
 
 ## 依赖与安装包差异
 
-本次 0.1.37.2 包含与上游主包相同的 **F5Low 1.1.0.140 + Intel XeSS-FG 1.3.4.95**。元数据中的 **downloader-only** 仅指沿用的 NVIDIA 运行库获取策略，不表示排除 F5Low；下列其他可选组件仍有分发差异。
+本次 0.1.39 包含与上游主包相同的 **F5Low 1.1.0.208 + Intel XeSS-FG 1.3.4.95**。元数据中的 **downloader-only** 仅指沿用的 NVIDIA 运行库获取策略，不表示排除 F5Low；下列其他可选组件仍有分发差异。
 
 - 包含本次源码编译的 `OptiScaler.dll` 和 `nvngx.dll_dlssnr.dll`，以及上游构建阶段要求的后端依赖和许可证。
 - 包含固定来源、校验哈希的 15 个 hybrid 资源及其许可。资源存在不代表已在相应 GPU 上验证。
@@ -96,4 +96,4 @@ python tools/localize_f5.py --source _upstream --channel master
 
 F5Low kit 与上游正式主包一致。最终安装包使用 `FGOutput=f5low`、`FrameGenerator=xefg_tensor`；这只是默认输出/生成器选择，不表示在所有游戏中自动启用插帧。请按上游指南选择合适的 FG Input，保存设置并重启游戏。F5Low 需要受支持的 NVIDIA GPU 和渲染路径。每次启动的后台初始化利用本机 Intel DLL 在内存准备工作数据，不会联网下载缺失的组件。
 
-上游另提供 F5Low 1.1.0.184 可选更新，本包不静默替换主包的 1.1.0.140。F5Low 的 DLSS-G 后端仍需要 NVIDIA Streamline/DLSS-G 文件，须通过保留的下载器另行取得；自有 XeFG Tensor 路径的 F5Low/Intel 文件已经包含。Windows 编译与包校验不等于真实游戏兼容性验收。
+F5Low 的 DLSS-G 后端仍需要 NVIDIA Streamline/DLSS-G 文件，须通过下载器另行取得；自有 XeFG Tensor 路径的 F5Low/Intel 文件已包含。

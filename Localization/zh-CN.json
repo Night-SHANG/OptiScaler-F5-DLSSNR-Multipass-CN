@@ -19289,6 +19289,2202 @@
       "state": "machine_translated",
       "source_hash": "6056037fa885740344f138ba8175d921483ccbcccaf34a46e5a6a9ce9ed6a35a",
       "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.726c5ab79d13": {
+      "text": "面积下采样失败",
+      "state": "machine_translated",
+      "source_hash": "3c683bcaf19dae99465abecb124ce59cd0e2223c2bd485c9bf14b00c50b961ec",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.7d23f3fe9088": {
+      "text": "引导计算调度失败",
+      "state": "machine_translated",
+      "source_hash": "66002cfcbe202eaae48018d5a33f534faba721b36ca254ea34faccd8b1204394",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.b1c98ce48260": {
+      "text": "降回原生分辨率的步骤失败",
+      "state": "machine_translated",
+      "source_hash": "74182766f3400c5f391985a2e11a1fcf8a255874a43443e16c3cd93e67f387fc",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.66bde790178d": {
+      "text": "合成失败",
+      "state": "machine_translated",
+      "source_hash": "b9d4aa9d571ac6a07248ad8002f203dd711f28aec16eb7b47cbbd41fc36341bb",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.9802cb1c8f9f": {
+      "text": "Vulkan 的最终画面模式无法设置捕获处理（",
+      "state": "machine_translated",
+      "source_hash": "449eefebc6ac4ad3696ff13f7535574d61b6c93cf2830b1f57cd751081de8d92",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.6fa487624753": {
+      "text": "队列族（设备创建时 OptiScaler 尚未检测到它）",
+      "state": "machine_translated",
+      "source_hash": "c43e8891fe5c02c717a014cefb6a5a848b321c4682a9dca844d42b92b213ebe8",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.b9a73a2795f9": {
+      "text": "存储格式",
+      "state": "machine_translated",
+      "source_hash": "87866635a706663545cdbf72b2ee3163aaea0699f729ccc836b1453c7fa463f4",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.f5a697aae543": {
+      "text": "描述符集合布局",
+      "state": "machine_translated",
+      "source_hash": "b250cf44f6c3cd2388281b9e2a9d27f62708ff07f1f3c7b702f505ed24fb7146",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.540a8015b702": {
+      "text": "流水线布局",
+      "state": "machine_translated",
+      "source_hash": "62e877a03ab613d0fd1aa60c7e9d18a74054d5c543bf984dd27998650b3a2400",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.cb548626421f": {
+      "text": "描述符池",
+      "state": "machine_translated",
+      "source_hash": "1dd29f68a92d8804a5a9b21bffedba458c771086531aa32298f8b03f2909833f",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.c4105d4a4808": {
+      "text": "描述符集合",
+      "state": "machine_translated",
+      "source_hash": "11fc6a9eec8aa0224fc0d34977741ffc55fd640a309d8f81cfca24d68a974256",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.ae7d2ec984c7": {
+      "text": "计算流水线",
+      "state": "machine_translated",
+      "source_hash": "943996887118cc3c78e7869890fa15d1276751227335485e14de0949d491fc1d",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.e8730b4329c2": {
+      "text": "Vulkan 的“最终画面”模式只能处理完整画面：请关闭“在超分辨率前运行模型”和“超分前生成”。",
+      "state": "machine_translated",
+      "source_hash": "f3f3b18303d39410c3e2baba036c0315b272ab64a021eb2973de85e3c1a5f35c",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.9e267413a2db": {
+      "text": "Vulkan 的最终画面模式无法读取游戏的运动矢量（",
+      "state": "machine_translated",
+      "source_hash": "dfb09283269aecc37ec1021859c1a54260f59156b2225e51b12b7f391c2cc70a",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.927dbc4996bb": {
+      "text": "Vulkan 的最终画面模式无法分配捕获图像。",
+      "state": "machine_translated",
+      "source_hash": "325294dff428e5f2af98209fc0a635ec580f27c6209aabacee7619fd920aefa1",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.a782ea63382f": {
+      "text": "超分辨率输出（",
+      "state": "machine_translated",
+      "source_hash": "fbfb6a6441d6397846b5b7934d1b30bd4e62a1b29d8fa687b01f4b4910b8469b",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.f6324f6abd0e": {
+      "text": "）与屏幕（",
+      "state": "machine_translated",
+      "source_hash": "749c6b545a79efe2289914f435d7cc1706129dd762a69c92f3051d7ca5d96508",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.09245d8941e5": {
+      "text": "游戏的 DLSS 与画面呈现使用不同的队列，暂不支持。",
+      "state": "machine_translated",
+      "source_hash": "3d9be9d5bd6d359e9fca3f2d5246ffc58ad5bde2327f9c8a5af845118114e6d2",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.a0089b1f2da1": {
+      "text": "，按 ",
+      "state": "machine_translated",
+      "source_hash": "a1a110ba02540ac8e730f9d443063e2c93533ca284c2927246f3671329a4d598",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.fe76bc9c8937": {
+      "text": "，以以下尺寸合并：",
+      "state": "machine_translated",
+      "source_hash": "1de920340d7bb30f09a89ea157989bd9cb641973c2a9f0e39014cb849ae5eb3a",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.8114345a1387": {
+      "text": "原装（DLL 自带）",
+      "state": "machine_translated",
+      "source_hash": "7f93db1549552abfe35548b56620f919044300c0946584bda1b9f67a86d5845f",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.5374972bb2f7": {
+      "text": "（缺少此模型的文件）",
+      "state": "machine_translated",
+      "source_hash": "0c28dded41a7e8944d1f44ec085b321a258c5265e9bbee4e401d0d4162166ebb",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.cc4cd295ae5f": {
+      "text": "预设 A 权重",
+      "state": "machine_translated",
+      "source_hash": "cf6e2767b23e72a5496793ccc507875b887629777b563fccc5a4b4dc052ea353",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.3f90d9994358": {
+      "text": "预设 B 权重",
+      "state": "machine_translated",
+      "source_hash": "1cfcb0933db3781a1aa4e4c49a3deaf1a7d1301088399ef15fed8949dc0e8ebc",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.8eeaabd57342": {
+      "text": "当前未使用：没有处理遍使用预设 A（310.9 版 DLL）。",
+      "state": "machine_translated",
+      "source_hash": "c1777b4a8dc41de0ed9889e653f22e13f63e2da7860d809b9516b89ffa31b226",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.03f3b6e1ad4c": {
+      "text": "当前未使用：没有处理遍使用预设 B 或默认预设（310.9 版 DLL）。",
+      "state": "machine_translated",
+      "source_hash": "5763d7cc25adce2bf7d361522b354fe997a468105c1a4662b7697b570dba9fe4",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.b9dc76c68c6c": {
+      "text": "模型权重（所有处理遍）",
+      "state": "machine_translated",
+      "source_hash": "8f318aa5051fc4c312d698ba9534be3ed996fcd60914ba29f8fd21beedda5b47",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.75611c22a9c5": {
+      "text": "每组权重是 OptiScaler\\nr_weights 下的一个文件夹，包含为此 DLL 导出的权重文件。使用该预设的各遍处理都将使用它：预设 A 使用主模型，预设 B 和默认预设使用小模型。“原始权重”指 nvngx_dlssnr.dll 自带的权重。权重文件只能在与其匹配的 DLL 中使用，否则会回退到原始权重，并在 OptiScaler.log 记录原因。切换权重组会重建神经渲染，画面可能短暂停顿。支持 DirectX 12 和 Vulkan（原生或桥接）；DirectX 11 仅在桥接到 DirectX 12 时支持。",
+      "state": "machine_translated",
+      "source_hash": "ec333567e78485900ef152bbf5a4e1a26ef9641b83ce3f342ecd7df2030c293a",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.c314bfe1e17e": {
+      "text": "当前不生效：DirectX 11 仅在桥接至 DirectX 12 时支持。",
+      "state": "machine_translated",
+      "source_hash": "55a8a7833f6ad1cd44ff3de6425f6584b20d18f1883f32ef758b64d34ad09e52",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.9f4016fab9bc": {
+      "text": "使用这些权重组需要本版本的转发器（nvngx.dll_dlssnr.dll）；当前两个模型均使用原始权重。",
+      "state": "machine_translated",
+      "source_hash": "821a59a6c724486f67f7174f0b51c791196066606e8cf5c10d996ea60a7d8266",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.92274b055670": {
+      "text": "2 遍",
+      "state": "machine_translated",
+      "source_hash": "821ada67844aae1d8d809eb658575ea7890404e9cbc08fbeec8a3bc0c6aa0452",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.0573ec749ad4": {
+      "text": "3 遍",
+      "state": "machine_translated",
+      "source_hash": "1903f222f19de75a4445701749033e829d2d4c0ffce83d8572e2173be023b659",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.4fd2720b5073": {
+      "text": "dlss_12",
+      "state": "machine_translated",
+      "source_hash": "d6a41768629f62350c05aac0546fbc26f1f615259e91cde028b380144a18dc7c",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.fe2acb6366e9": {
+      "text": "ffx_12",
+      "state": "machine_translated",
+      "source_hash": "933b54e1ec842b26e863c4773e4416d3c9cbc6f4668b0b0970ea25c20163417a",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.27313767758c": {
+      "text": "fsr21_12",
+      "state": "machine_translated",
+      "source_hash": "465dfcd0de7b63cf643520c04ca71c8a9250a2ef1f1b13413d261500adaddeca",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.b5ecb1c07a24": {
+      "text": "dlss",
+      "state": "machine_translated",
+      "source_hash": "389c1075a3dcb3021d7b270dae55b8b326c5433f30e6e1dd72d5dbf00b4f5666",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.ee8df39d79a3": {
+      "text": "ffx",
+      "state": "machine_translated",
+      "source_hash": "af4e58f44ec7e7810743ae166a226c3792a01285d48e94b47fed8d5eca918487",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.a246b532322d": {
+      "text": "fsr21",
+      "state": "machine_translated",
+      "source_hash": "937ee6115a95373215955d530d8f47f2a5867091773711f7a4a2e0337dbc1462",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.be1312aa982b": {
+      "text": "“仅神经渲染”要求在“NR 选项”中将“神经渲染阶段”设为“最终画面”。再次点击“仅神经渲染”即可设置。",
+      "state": "machine_translated",
+      "source_hash": "fe5b8dc8f2668a04363835d7eb4a0f6dfdf41117742bc0cd4f1a5d171d304bef",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.a8bd0fda940b": {
+      "text": "切换键：%s",
+      "state": "machine_translated",
+      "source_hash": "4a2b18ba69a3aba485f31e09fe4d29932d5aa9176c5477848159a9c9accdf580",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.ea6f66d3cc80": {
+      "text": "在“输入”页面设置##nrtogglekey",
+      "state": "machine_translated",
+      "source_hash": "c29810e6decb33bb06b11efe53b0f5815b5f38c7b3d5a62df0c5f5ae93638266",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.ef7e4ffdb568": {
+      "text": "已暂停：游戏自带的帧生成已开启，无法对最终画面运行神经渲染。请在游戏设置中关闭帧生成（可以使用 OptiScaler 的帧生成），或将“神经渲染阶段”设为“超分辨率后”。",
+      "state": "machine_translated",
+      "source_hash": "afefd4eb168fd7b59e32e9ab54382c5069481efcdfbb3e6ec09921161be99c2c",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.feeeead8963c": {
+      "text": "让神经渲染处理更少像素：保持中间清晰，压缩边缘。这样可以节省 GPU 时间，但边缘会略显柔和。可在“NR 选项”的“性能”中设置。",
+      "state": "machine_translated",
+      "source_hash": "4756799a610e1a93e1568707b6624c61bbd30278ba0913e7e13cbe1cd8311f54",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.ad67c5af9563": {
+      "text": "在“NR 选项”中设置##f5lowcompress",
+      "state": "machine_translated",
+      "source_hash": "0ebaafa7ede21f052ca1a5d0c04d8d07fce948ff06fe8337c7d6db28895a6b8f",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.d5471010355c": {
+      "text": "为当前游戏的神经渲染设置命名并保存，之后可重新加载。配置包含外观、处理遍数、画质和复用，以及游戏曝光、色彩编码、Optical F5Low 调校和边缘压缩设置。不包含神经渲染开关、切换键、显示白点亮度、Optical F5Low 模式或调试视图。加载在其他游戏中保存的配置时，本游戏的Optical F5Low 调校保持不变。\n文件位于 OptiScaler\\NRProfiles。要共享配置，将文件复制到同一游戏另一安装目录的相同文件夹。绿色且带 > 标记表示该配置当前生效。\n底部的“保存设置”仍保存当前游戏的 OptiScaler.ini；配置文件单独保存。",
+      "state": "machine_translated",
+      "source_hash": "6737e7be78e220664aa076f5d2dc90a7554c8fb272ab20b093615838021a642e",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.11daa0e64010": {
+      "text": "\n当前不生效：延后路径会跳过输入风格。",
+      "state": "machine_translated",
+      "source_hash": "e0055b538cdb8103cdd3182e9ba0ae90366972effe014d0dc9fceda7e1a0c322",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.23540595c595": {
+      "text": "\nVulkan 下当前不生效：模型分辨率高于 100%",
+      "state": "machine_translated",
+      "source_hash": "9220e63ccb0fbb1c48f8a361bd837652d0bd0d949eda185fc9be1bd8c497c684",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.53afb32abdf0": {
+      "text": "\nVulkan 下当前不生效：模型分辨率高于 100% 且未开启“压缩屏幕边缘”时，会跳过输入风格。",
+      "state": "machine_translated",
+      "source_hash": "73d02ba4f684c2a086db3ba5edbd0a3dafb95c096783b9aba142fdaca94da957",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.500c8b69b12a": {
+      "text": "且未开启“压缩屏幕边缘”时，会跳过输入风格。",
+      "state": "machine_translated",
+      "source_hash": "0a1a8e617ed611773f9c288b3cd42f8f9361f4bd3a36a8102b3affb2333cced3",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.152199260661": {
+      "text": "设置神经渲染处理后的外观：各遍的风格与强度、曲线、细节强度、色彩强度、皮肤和环境、输入风格。不改变处理遍数、画质档位或曝光。绿色且带 > 标记表示当前生效；更改其中一项会取消这一状态。",
+      "state": "machine_translated",
+      "source_hash": "753fb51137423509b6ba533cbd3cbbd8d778c497e96dc15b319b54150673ea91",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.3617360c9229": {
+      "text": "还会将模型精度设为 NVIDIA（FP8）、关闭“提高模型 Pass 上限”，并",
+      "state": "machine_translated",
+      "source_hash": "3889bb300406837dce6a1131cdef3b3820719766f2ba62723d8eaf26a762a34c",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.1e63d05d444e": {
+      "text": "还会将模型精度设为 NVIDIA（FP8）、关闭“提高模型 Pass 上限”，并恢复默认曝光（白点来源设为自动、自动曝光亮度滑块恢复默认、高光保护设为 2.0x）。",
+      "state": "machine_translated",
+      "source_hash": "da22f7f078b00f5a3efae5c75ec6d064cb3090d5ffdd3fd5f00e716f5d2ffed3",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.a4f3d5af0e5b": {
+      "text": "恢复默认曝光（白点来源设为自动、自动曝光的",
+      "state": "machine_translated",
+      "source_hash": "3fff7a87712fc3cff02e69ee49fdadc4cfe327a7eceeb6f20661ebf03b066eab",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.44e37b2b23ed": {
+      "text": "亮度滑块恢复默认、高光保护设为 2.0x）。",
+      "state": "machine_translated",
+      "source_hash": "e7cf98a16eb9dda8e23fde7ce14b28622e167073f628bd25640c39f0ff1d090f",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.023595fe3b01": {
+      "text": "设置处理遍数，使用 FP8 运行神经渲染并恢复默认曝光。每遍的外观由“外观预设”决定。绿色且带 > 标记表示该遍数当前生效。",
+      "state": "machine_translated",
+      "source_hash": "657a2211140aaedd195a8a19d3377b5361a80d1662266cbbebce0d5bce8276ec",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.48bb2ef45342": {
+      "text": "恢复我的设置##passpresetundo",
+      "state": "machine_translated",
+      "source_hash": "2d99c065e5a3133b9776879a47b9cd0d0260e285b83750c360e14c9fd69f9f17",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.27203c53bab0": {
+      "text": "恢复遍数预设覆盖的曝光、高光保护、模型精度和处理遍数限制设置；处理遍数不变。手动更改其中任意一项后，此按钮不再可用。",
+      "state": "machine_translated",
+      "source_hash": "e9ba048ef7b4370c694aed87c64ee34e8465eb7ae1af5eb840ecc027bf716f18",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.0b46dad86f13": {
+      "text": "为超分辨率前的神经渲染选择画质档位，从高（完整分辨率，画质最佳）到极低（50%，开销最小）。设置放大模式与方法、模型分辨率，并使用合成方式。外观取决于外观预设；已选的Superior Scaling保持不变。绿色且带 > 标记表示当前生效；更改相关设置后会取消这一状态。",
+      "state": "machine_translated",
+      "source_hash": "a0fcfa95e843f392852f7fdfc96ff949663ba35b80d95a35aba46643f1203ef5",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.30b2c85f2f9e": {
+      "text": "为超分辨率后的神经渲染选择画质档位，从高（完整分辨率，画质最佳）到极低（50%，开销最小）。设置放大模式与方法、模型分辨率，并使用合成方式。外观取决于外观预设；已选的Superior Scaling保持不变。绿色且带 > 标记表示当前生效；更改相关设置后会取消这一状态。",
+      "state": "machine_translated",
+      "source_hash": "30309e04471a9840158ea5157edcff19456b91d7412bd0d9ab4b1a4e873a6508",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.31c24e4274ec": {
+      "text": "原样显示神经渲染结果，不使用 OptiScaler 自己的混合。对最终画面运行神经渲染，使用“替换”，并关闭“分别控制皮肤与环境”和“恢复锐化”。用神经渲染强度来调节效果。\n绿色且带 > 标记表示已开启。再次点击可恢复之前的设置。修改运行阶段、合成方式、其中一个相关设置，或选择画质档位，都会退出该模式并保留此次改动。\n游戏自带的帧生成开启时无法使用；请改用 OptiScaler 的帧生成。",
+      "state": "machine_translated",
+      "source_hash": "008fe242564c1860c3210429938bb400a82e5b320e06f111a5a1c00b582f8689",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.cca18b3216e8": {
+      "text": "最终画面模式需要原生 DirectX 12 或 Vulkan 游戏。",
+      "state": "machine_translated",
+      "source_hash": "106c98e3d55a151273b528513f701cd605bc0eb88fc23f679f9267b7cc9b035d",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.33dde38694c6": {
+      "text": "重置##meterlow",
+      "state": "machine_translated",
+      "source_hash": "0a81ed48d4fa6e218121b2767040dd175b91beda75becde541429fac4ff314f1",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.e6b84123d7fa": {
+      "text": "重置##meterhigh",
+      "state": "machine_translated",
+      "source_hash": "1b35d096c1482aae998ab3e9dff1b0b2114a3d0a6f4f0905a9c4b92afb28a341",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.3317af86e78d": {
+      "text": "重置##meterprotect",
+      "state": "machine_translated",
+      "source_hash": "561e3977b59499d356e9a56b9f99102c6bff73cccf4b65b8899970d4707d8178",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.b19b7a4d71ba": {
+      "text": "重置##adaptbrighter",
+      "state": "machine_translated",
+      "source_hash": "4e0fa862555641e296baafbc79dd240cead2e8e9a67bcf00247589438c8f6ded",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.2c120d0b578e": {
+      "text": "重置##adaptdarker",
+      "state": "machine_translated",
+      "source_hash": "ffa9da7425b7902aedfc38232740819ca10df7621e74fc4205c63739e041cdb6",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.0f738652e6de": {
+      "text": "神经渲染阶段",
+      "state": "machine_translated",
+      "source_hash": "49bded0bef41243545a0c6a69cdaf4b3aa9f26c92b2da0429c3212cd6512cdb1",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.889fc4546bae": {
+      "text": "决定神经渲染在哪个阶段运行。\n超分辨率后（默认）：处理已放大的画面。\n超分辨率前：处理较小的画面，开销更低。\n最终画面：在游戏效果之后运行，可能改善绿色噪点，但也会影响 HUD 和菜单（DirectX 12 和原生 Vulkan）。DirectX 12 下，如果原生 Streamline 2 帧生成已注册应用画面的交接流程，神经渲染会在插帧前运行，否则会暂停。Optical F5Low 的超分辨率处理与 XeFG 或 F5Low 帧生成同时使用时，神经渲染会先处理超分输出，再生成帧。Vulkan 下需要关闭帧生成，不支持 dxvk、Vulkan 帧生成桥接，或使用 HLG、Display P3、A2R10G10B10 的显示输出。\n使用光线重建时，神经渲染始终在其后运行。",
+      "state": "machine_translated",
+      "source_hash": "62ead0dc89a6693fa4f39cc6c93c3f46d4e478e4e21b6c3c3bdab72348a02182",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.760835490e18": {
+      "text": "复用瓶颈阶段",
+      "state": "machine_translated",
+      "source_hash": "7c6173ef5841ff3274787b18d0cd62ffa0e3c7adedc188f7f2b4ceada6b3294c",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.bc6b1eb55313": {
+      "text": "复用瓶颈阶段##plain",
+      "state": "machine_translated",
+      "source_hash": "c7968056d71e1344e02872d5de054e03215eb4fd0a7b8c1ff479feb278b560fb",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.21996e6cca45": {
+      "text": "用于普通 FP16 内核（部分修改版 DLSS-NR DLL 使用）：每隔一帧复用模型中变化最慢的阶段。默认开启。",
+      "state": "machine_translated",
+      "source_hash": "4180b235f9d62bafab2d2c5cdba190bfce62f97b848b5ff30dd29eecbc9dfd5b",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.f1b306619c58": {
+      "text": "混合模型已停止。重启游戏后可重新使用，详情见 OptiScaler.log。",
+      "state": "machine_translated",
+      "source_hash": "0dac040ca428567f016c2c2a2023c7d1c3d8e9defd5028fa6373934ef158e869",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.5353434da556": {
+      "text": "混合模型在当前显卡或模型尺寸下无法运行，已回退至 NVIDIA（FP8）。详情见 OptiScaler.log。",
+      "state": "machine_translated",
+      "source_hash": "21724c303db5285f78fc09655e3e4e1d2e516f42bc9b9ecc35dd6a0062e56d86",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.103c2e5b802e": {
+      "text": "将 .cube 调色 LUT 应用于游戏画面。把文件放入 OptiScaler\\LUTs，再点击“重新扫描”。“启用 LUT”会统一开关整个叠加组，并保留设置。\n开启神经渲染时，在其输出结果上调色，不会影响模型的输入、曝光、皮肤检测或复用。神经渲染位于超分辨率之前时，先调色再超分；在“最终画面”模式下，处理整个最终画面，包括界面（DirectX 12 和原生 Vulkan）。关闭神经渲染时，则在游戏绘制 HUD 前对 OptiScaler 的超分输出调色（需使用 OptiScaler 超分辨率）。\n“添加 LUT”会在末尾新增一层，最多四层。由上至下应用：复选框可以开关该层并保留设置，箭头移动位置，x 移除。各层的强度仅控制该层混合量，强效果会叠加。\n外观输入：为相机 Log 色彩空间制作的 LUT（如 ARRILogC4AWG4-to-...、S-Log3）需要对应色彩空间的输入。“自动”会从文件头或名称识别并转换游戏画面，不需要在前面另加转换 LUT；普通 LUT 直接使用原画面。线性 HDR 游戏的转换是精确的，PQ 精确到白点亮度，SDR 的高光为估算；识别有误时可手动选择。“无”始终使用原画面。",
+      "state": "machine_translated",
+      "source_hash": "39c1f8caca312b358adcc0912b108b77ecf8cd89541575940b23dc46328faead",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.aa86d7b0cf9a": {
+      "text": "A/B 对比：在神经渲染运行前调整模型看到的输入风格，不改变游戏自身画面。可组合使用，先平整纹理，再加入结构提示。\n使用合成曲线时，只显示神经渲染相对原图的变动；使用替换曲线时，可查看神经渲染的原样结果（启用风格时会关闭“恢复锐化”，避免把游戏本身的纹理加回来）。\n每种风格都会在模型之前增加一遍处理。模型分辨率高于 100% 且未开启“压缩屏幕边缘”时，会按画面完整尺寸运行，输出分辨率越高，开销越大。Vulkan 下高于 100% 时，只有开启“压缩屏幕边缘”才生效。",
+      "state": "machine_translated",
+      "source_hash": "055b3f61ed8a86382d38b79c7fc5d0d61f19438976813843d51eeb77b1db7be3",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.94ecf9096ffe": {
+      "text": "水彩将纹理简化为色块并保留边缘（可能显得块状）。\n平滑画布让神经渲染看到类似老游戏未贴图的皮肤：简化毛孔和细微明暗，保留轮廓与嘴唇、眼睛等颜色边界，交给神经渲染生成皮肤细节。\n强度：水彩的 0 至 1 控制与原画面混合；平滑画布在 1 以内控制混合，高于 1（最高 3）会对自身结果继续平滑，每增加一步都多一遍处理，并耗费更多 GPU 时间。",
+      "state": "machine_translated",
+      "source_hash": "e983ba6ce7f7c4f276793c0280c6b96326617bfcadde423e3f379feb6482fded",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.2fc7b32fb862": {
+      "text": "设置在模型分辨率低于 100% 时如何放大神经渲染结果。\n经典：放大完整输出。\n匹配残差：只放大神经渲染产生的变化，减少模糊与色偏。\nNVIDIA 残差：按 NVIDIA 的方式只放大改变量；放大方法选“双线性”时，改变量也会限制在各自的边缘一侧。\nSuperior Scaling：采用自身的面积下采样、频率整形与可选独立 DLSS，稳定连续帧中的神经渲染；使用“压缩屏幕边缘”时也支持 100%。原生 Vulkan 下，低于 100% 时可选无 DLSS、CNN 或 Transformer；100% 及以上时可用 CNN 或 Transformer（需开启“100% 及以上也启用”）。仅支持单遍处理，不可同时使用“压缩屏幕边缘”或“复用细节”；不满足条件时回退至匹配残差。100% 及以上时，普通模式仍使用原有的经典合成，降低模型分辨率后会恢复之前保存的残差选项。",
+      "state": "machine_translated",
+      "source_hash": "18c53e25908c1eeb4896b2bd945e50922f386f3919aa7ff8dce57e6ad5f3ea12",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.ab3731ff90d6": {
+      "text": "CNN（推荐）",
+      "state": "machine_translated",
+      "source_hash": "1e58771a1a1befbe9b73685d6695f06dec3568df4ca32a29e92ff2ab818ac15d",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.2daa8b66f4cf": {
+      "text": "无 DLSS",
+      "state": "machine_translated",
+      "source_hash": "d6c7c28f8dfbd8ade694f063038ea87f8c91e793c6b79222096bc8e6d01c3ffb",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.68c170c0011c": {
+      "text": "Transformer",
+      "state": "machine_translated",
+      "source_hash": "7151470ffb9910df8ea70d464e5ce16666df32220d9b63fa5832756ec11153bf",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.65ed671f8af6": {
+      "text": "无 DLSS：开销最小，神经渲染稳定性最低。适合当前游戏和 OptiScaler 设置下画面已足够稳定，或其他 DLSS 选项有明显瑕疵时。\n\nCNN：性能与稳定性的折中，多数情况下推荐。\n\nTransformer：通常比 CNN 更稳定，但开销更高。CNN 不够稳定，或有 Transformer 能避免的画面瑕疵时可以尝试。Transformer 也可能产生不同的瑕疵。",
+      "state": "machine_translated",
+      "source_hash": "66356164ecb7b62d40beaee93ddc39744483074c1ec0aca0cfd6b8997065e138",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.db4aadd8a64e": {
+      "text": "100% 及以上也启用",
+      "state": "machine_translated",
+      "source_hash": "4550fe5423a5ffaeb5cf4fffab8aef6790657977fe1c99fbe77dc7ef11632e77",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.3e77521c99a0": {
+      "text": "关闭：只有模型分辨率低于 100% 时，上方 DLSS 才会稳定神经渲染。\n开启：100% 及以上也生效。高于 100% 时，神经渲染仍在较大尺寸处理，先把结果缩回屏幕尺寸，再用 DLSS 提升稳定性。开销相当于以完整屏幕分辨率运行 DLSS。不与“压缩屏幕边缘”共用，后者有自己的规则。与低于 100% 时一样，Superior Scaling自身的合成会跳过“深度淡化”。原生 Vulkan 也支持，但仅限神经渲染单遍处理。",
+      "state": "machine_translated",
+      "source_hash": "6cb3c761ec4ca0afb105a1540e57d494a9f868b5472d457442d66ce3784f0cd0",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.8dc435f96507": {
+      "text": "为神经渲染结果添加调色（.cube LUT）：",
+      "state": "machine_translated",
+      "source_hash": "35316d58e2a43639adb8f0402cc2bccddfc0adb55212f4c1d73da86099437d34",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.52d9689717b9": {
+      "text": "打开 F5LUT 页面##outputf5lut",
+      "state": "machine_translated",
+      "source_hash": "43cdca576910cccda2dc480737c7b0c70299d1d1d7982366bb595bdaa5c48ef7",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.038a6c895f90": {
+      "text": "使用 Vulkan 超分辨率（",
+      "state": "machine_translated",
+      "source_hash": "726e4357e4922d1579b741f71104b826dd4126c927b20d238bfbec124b6ac0e2",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.74694f34fbbe": {
+      "text": "原生交换链：使用游戏自身的设备和交换链，可运行 FSR FG、DLSS-G 和 F5Low（XeFG Tensor），神经渲染运行于 Vulkan。\n桥接：将游戏交换链移到隐藏窗口，并显示 D3D12 交换链。XeFG 使用 D3D12 库，因此需要桥接。游戏的超分辨率在 D3D12 副本上运行，神经渲染也在 D3D12 上运行。\n请在游戏启动前选择；退出桥接需要重启游戏。",
+      "state": "machine_translated",
+      "source_hash": "bbd324e9afe80b1eaef8aecc591c4ce2dd023b059efc44642a391e5b3de87956",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.fc166eb81361": {
+      "text": "route",
+      "state": "machine_translated",
+      "source_hash": "8a84e406c08ac9594f47222406598f7598e15c55f8044b04813e28c9dee70976",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.daaea52113b2": {
+      "text": "原生交换链：神经渲染使用游戏自身的 Vulkan 设备。\n其余路径使用 D3D12 设备和画面副本，包括在 D3D12 副本上运行的游戏超分辨率（见“帧生成”页的 Vulkan 路径）、Optical F5Low 和最终画面模式。",
+      "state": "machine_translated",
+      "source_hash": "ece52234243787dbb9a8fd6261990ca03b4907517b5d364f40e230f51a144806",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.7c174ee15945": {
+      "text": "nrpage",
+      "state": "machine_translated",
+      "source_hash": "ede5c5fcedadd4f8f8936cb6d799b688100ccae0de22e605887b3034724e1f62",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.86d45eff7f98": {
+      "text": "%s 游戏目前没有发出桥接路径所需的超分调用；Optical F5Low 的神经渲染和帧生成不需要该调用。",
+      "state": "machine_translated",
+      "source_hash": "2773fe54a87a923f707e3cc6f24da093ca9738002a87410c8624ebf3f421a073",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.74272fb21bd0": {
+      "text": "使用桥接##fgbridge",
+      "state": "machine_translated",
+      "source_hash": "35abcf176b3b8bd193edb7e10aea75033b786328b4bd831750f04ce661aa6d0f",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.8bd99a84994e": {
+      "text": "在“Optical F5Low”页面设置##fgbridge",
+      "state": "machine_translated",
+      "source_hash": "06eca4b4f33075a71ef9f726f6df9620660ae3a1b2630bc4e838f20c787e8850",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.e1104591deda": {
+      "text": "原生交换链，但超分辨率仍为 {}",
+      "state": "machine_translated",
+      "source_hash": "0a97c01358ec9802fd5cce463727394f47f50ba13005af9074256fc417e94552",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.e0a7e8ae7d38": {
+      "text": "运行于：{}",
+      "state": "machine_translated",
+      "source_hash": "18380a54a39ae054c4cf86916e5367d49a470680799cf97e90fc658eba68ff3d",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.88c1b947ccb6": {
+      "text": "游戏的超分辨率运行在它的 D3D12 副本（{}），因此神经渲染在 D3D12 上运行。",
+      "state": "machine_translated",
+      "source_hash": "4152baeea9d3ac7b9488d00ce69d93183a20db87ce53e06a994d69851727d6c2",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.d6cc19049412": {
+      "text": "{}（桥接）",
+      "state": "machine_translated",
+      "source_hash": "d54f4fc1b6696eb3853181185d027fd6e17bf4b5d7bd628a17a641085852f8f2",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.d49d1d2de261": {
+      "text": "{} 在 D3D12 上运行，需要启用 Vulkan 桥接。",
+      "state": "machine_translated",
+      "source_hash": "98e0c182041bc8b242cee537f6d396ee965f1b2fa4dda3a57e723e32dab60b73",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.e5dc678314b3": {
+      "text": "（桥接）",
+      "state": "machine_translated",
+      "source_hash": "ff7702c621a64529789d215cc3cb530255bb9e57cde5c57dfe000efd4b80a31d",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.a7d55c56d59a": {
+      "text": " 在 D3D12 上运行，需要启用 Vulkan 桥接。",
+      "state": "machine_translated",
+      "source_hash": "9f5b05a0e0b418c0f193382951af5a95d6a5b44d551cb28e13c9b7103f9269a7",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.61f07fdb414b": {
+      "text": "Vulkan（原生交换链）",
+      "state": "machine_translated",
+      "source_hash": "7ff2886b67ee6320a4427d89b54b0b20df7813551412e0f9afd9963ffa259dde",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.c4d1273d1aac": {
+      "text": "D3D12（游戏超分器的副本）",
+      "state": "machine_translated",
+      "source_hash": "97c0c2a039b9a3231f1dddb354ff5d0b173347b1ebce13628b994514baf2831a",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.ae366b04bcaf": {
+      "text": "D3D12（Vulkan 桥接）",
+      "state": "machine_translated",
+      "source_hash": "57e7ab4455f4961f87e5a75f94a4ba18b8995d78872721436f706ff07dd2ca25",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.8a313cf7b925": {
+      "text": "D3D12（Optical F5Low，使用画面副本）",
+      "state": "machine_translated",
+      "source_hash": "43dd3658770100926ffc3f75b7d3a00f138dd30138b983f742705559cc4eee7e",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.442e55f4f0a0": {
+      "text": "D3D12（最终画面，使用画面副本）",
+      "state": "machine_translated",
+      "source_hash": "4007f24141053b45edcb54246a6a5b4899533f2a744362dcfd593b0c85cf373a",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.da248293c3ef": {
+      "text": "无（最终画面模式未运行，请查看其状态）",
+      "state": "machine_translated",
+      "source_hash": "4aeb9a769420c8a50785d609fef56f9933b9193e44c0de57710a9fc18e0fccdd",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.96f785a15bd3": {
+      "text": "当前：神经渲染已关闭。",
+      "state": "machine_translated",
+      "source_hash": "ef2782f7d58b267f25a7051db3f0a305c936e5695bca4bab9c9e804c902d1cfe",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.e85b65178a2f": {
+      "text": "当前：神经渲染运行在游戏自己的 Vulkan 设备上。",
+      "state": "machine_translated",
+      "source_hash": "5adbd8d17322286026704e6927fd0e5bf31abd4ddbdfe463a32a40a436960ba7",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.a4cd4ab5aff6": {
+      "text": "当前：神经渲染通过桥接在 D3D12 上运行。",
+      "state": "machine_translated",
+      "source_hash": "ae37946a03cacc86ce3c88b89acc124df609d1b9506f5ad35756e3f9ec4a23c8",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.919452a40830": {
+      "text": "当前：Optical F5Low 将画面复制到 D3D12，神经渲染也在此运行。",
+      "state": "machine_translated",
+      "source_hash": "486c8d30ee46e925975bccf561aff3a9acd916ce8227ea5a21a7b731093b9692",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.eca2c6eff4a5": {
+      "text": "当前：最终画面模式将画面复制到 D3D12，神经渲染也在此运行。",
+      "state": "machine_translated",
+      "source_hash": "15a9823f3e5fe7baa404c34b42b0f08c9b1b841d3670bee139228237b12264d3",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.7b97715bbef3": {
+      "text": "当前：游戏的超分辨率仍在 D3D12 副本上运行，神经渲染也在此运行。",
+      "state": "machine_translated",
+      "source_hash": "7cd575ded33c4650c0549a5188b37de7a22ae91df5e88c13038c255682a7997c",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.da07ec019430": {
+      "text": "当前：神经渲染未运行（最终画面模式仍在等待，请查看其状态）。",
+      "state": "machine_translated",
+      "source_hash": "d2b9bb18055cbc4c6a6c4a3c39b6758d306abd873a4acb4607ca6a0af81a1d3e",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.119e89f4dda8": {
+      "text": "当前：神经渲染在 D3D12 上运行。",
+      "state": "machine_translated",
+      "source_hash": "5455476fdd19afcc15f211eb67e0592f8adac1f9c06003a8858e2ee6d8a3acc9",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.88790ea6303b": {
+      "text": "运行在：",
+      "state": "machine_translated",
+      "source_hash": "1488dd01abf26c52d80dc44522f31a7ad6c528162174372a73fb45f3af877ab4",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.440c433b9aaf": {
+      "text": "），因此神经渲染也在 D3D12 上运行。",
+      "state": "machine_translated",
+      "source_hash": "3eaa0444b606d5135c81c437a537cd813f9885cf8c0cbb38c40a63dfe72ec623",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.017271f68a42": {
+      "text": "游戏的超分辨率在 D3D12 副本上运行（",
+      "state": "machine_translated",
+      "source_hash": "4712903704641b4aa54129d356096c4c646dca2d4e8bfe36756bbf2fa67c6142",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.05a00c8b802b": {
+      "text": "原生交换链：支持 FSR FG、DLSS-G 或 F5Low 帧生成，比桥接更省资源。",
+      "state": "machine_translated",
+      "source_hash": "5e4edbbb45642c26ac7cc7130a8f61281c5e3ba51276cafb70317debe01889b7",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.0c849582d218": {
+      "text": "桥接：额外支持 XeFG，需要另建 D3D12 设备并复制画面。",
+      "state": "machine_translated",
+      "source_hash": "66ffca88f10b4f3c20eb96f13abe05b19cfdf60fcd13441285f410873cba0dac",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.a0781150bb07": {
+      "text": "桥接，使用游戏超分辨率",
+      "state": "machine_translated",
+      "source_hash": "689d599a92370025cfacb095e16eed5b5539c22bdd3fa599ee52ef54b8bd94cc",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.80a14d250b78": {
+      "text": "桥接，使用Optical F5Low 神经渲染和帧生成",
+      "state": "machine_translated",
+      "source_hash": "ec4a48321caeb83bc3a939ffebad3e4ca4ce00d40aee9fbdfd82cdcc178addb7",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.b009cf5fa5fe": {
+      "text": "原生交换链，但超分辨率仍是 ",
+      "state": "machine_translated",
+      "source_hash": "b8ef97d140b3173dfa11598f655aaba6e2e260f476cb835a7f3a2b246cd3cd7c",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.326aac67262a": {
+      "text": "重启后使用原生交换链（桥接仍在运行）",
+      "state": "machine_translated",
+      "source_hash": "6cad41314f285bcc6855c3bc816e8364f75906094977691cd9341442ba9d4954",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.8189e3e5df33": {
+      "text": "原生交换链",
+      "state": "machine_translated",
+      "source_hash": "caf2a046c20e2681335362ef4f40cba1b03a9118436bdc81938528178691f217",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.216bbef92c88": {
+      "text": "（神经渲染已关闭）",
+      "state": "machine_translated",
+      "source_hash": "63268e14e3c5d40c69198e7bd8ab5686916c65b36d41c9aba05896d23f2b3651",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.4a9ab813586b": {
+      "text": "（神经渲染在 Vulkan 上运行）",
+      "state": "machine_translated",
+      "source_hash": "3c4d9a164128f389d12a89793d182101ee9299139b084ae738f4614358de4ae3",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.7ee426f90d13": {
+      "text": "（神经渲染在 D3D12 上运行，使用Optical F5Low 复制的画面）",
+      "state": "machine_translated",
+      "source_hash": "ce27f996d4a9fdf47258c7d29f4f698822b2134bf79ade75a10dc3b93f5bd1db",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.74079eb59c8d": {
+      "text": "（神经渲染在 D3D12 上运行，使用最终画面模式复制的画面）",
+      "state": "machine_translated",
+      "source_hash": "a2f9ee7997f0c3d5acfa408f41157294951cb3be9629a5a6078a9ee01e8d390f",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.aa0c27044307": {
+      "text": "（最终画面模式未运行）",
+      "state": "machine_translated",
+      "source_hash": "6e99cff1c03d1bedad5f64b05c19cb01cb3638936452cbdb8a27dc86682fc405",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.50313a443ce4": {
+      "text": "（神经渲染在 D3D12 上运行）",
+      "state": "machine_translated",
+      "source_hash": "a74c22f12c68420f2a59a4b6a8fc1e1ae2d9555f905239b3ecd9df070b8e9394",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.02ef2d760e18": {
+      "text": "F5Low 不可用：{}",
+      "state": "machine_translated",
+      "source_hash": "5c580140c8c41160d24797a2673484e09f164da718e6e39891d284dd34453eef",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.74a9b8a5e11a": {
+      "text": "F5Low：{}（格式 {}，色彩空间 {}）",
+      "state": "machine_translated",
+      "source_hash": "6a5f5f9b0079b99f30c80dad5558adffe0faa7ffe693682f0d3e26ec48c8e128",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.3929dbc564b9": {
+      "text": "游戏显卡上没有可用的 D3D12 设备：{}",
+      "state": "machine_translated",
+      "source_hash": "18eca578669f0b50c00af18c199600e3ade265644935a82cb32bac3504cb2370",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.8644d2a11a32": {
+      "text": "无法共享生成帧：{}",
+      "state": "machine_translated",
+      "source_hash": "a3599f5de0659b76bdd10de12c61bedc3d74d5724d880e69615603fa3b71173f",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.7457c79eb4d4": {
+      "text": "无法共享无 HUD 画面：{}",
+      "state": "machine_translated",
+      "source_hash": "c9f31973785d51b805fa5e18725739644a5c9cc67ed80873a002104f6ded3859",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.82b9aeeade7d": {
+      "text": "无法共享深度数据：{}",
+      "state": "machine_translated",
+      "source_hash": "cae419380ca3ba20df24615c4d3c17f877e0b55a6b6530e017b8e605bb19d120",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.bd49e9106fed": {
+      "text": "无法共享运动矢量：{}",
+      "state": "machine_translated",
+      "source_hash": "91df22bc657d686e71427978cf9f422389dcba132240842ad5272281b1973ad5",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.98d3d2ac9d36": {
+      "text": "无法共享画面：{}",
+      "state": "machine_translated",
+      "source_hash": "6394567f1e5a4044afbf7ba813668fed3e960b2657fa9f820e6f26c4533f5bee",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.3a15463e9087": {
+      "text": "无法与 D3D12 设备共享：{}",
+      "state": "machine_translated",
+      "source_hash": "f190be926b56dbdfd5ee207c4faf964e4f4a7acea34de811e1d0ead7be2b578f",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.5545857d1658": {
+      "text": "f5low 无法创建帧：{}",
+      "state": "machine_translated",
+      "source_hash": "42ccbc741be703b863b048dab9344e3dec08fe01ab5d1e76d5aa2fe2bb50a0b8",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.294ee44d86c1": {
+      "text": "f5low 无法调整帧大小：{}",
+      "state": "machine_translated",
+      "source_hash": "b750506b93b0e71b82bd53431a8348e990da98518ce1c43d900adee1a528846f",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.5bfff542998d": {
+      "text": "f5low 拒绝处理此帧（{}）：{}",
+      "state": "machine_translated",
+      "source_hash": "e416c71bbccb8ab160f83b7716b2b77810a999dda656fc2d65012e6df3bc0475",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.75631935f49e": {
+      "text": "vkQueueSubmit 执行失败：{}",
+      "state": "machine_translated",
+      "source_hash": "f7d4ff70fdd3e2331665d786fff9d7f3fde14a12492dfecb087a77fd8680233c",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.9c0835b83673": {
+      "text": "Vulkan 原生交换链仅支持 XeFG Tensor。",
+      "state": "machine_translated",
+      "source_hash": "90c0b44912cefe1a6fba46e11011b9412950df675b3a8964508e00f2549d758c",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.174831760793": {
+      "text": "F5Low 不可用：",
+      "state": "machine_translated",
+      "source_hash": "ba439b818fa8f6086cc9c9a979b1d461ac07629c263d26db55cc0165f71adf89",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.41f7a0364734": {
+      "text": "当前 f5low.dll 不含仅处理帧的 API（如 f5lowFramesCreate），请更新 f5low.dll。",
+      "state": "machine_translated",
+      "source_hash": "15db386f6228e6ed762a8bc90c76d86eec28128ce36f3f28a1db52b711d1d90b",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.35149d9f1a50": {
+      "text": "当前显示表面不允许复制交换链图像。",
+      "state": "machine_translated",
+      "source_hash": "9f46d72d345fb19543c11d562b1bf5fc73db022c97450c5c3de33bf8375985b9",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.59064c9b1396": {
+      "text": "D3D12 设备已移除。",
+      "state": "machine_translated",
+      "source_hash": "80eb3dde12754f4294dfb40cce75cf91d734079b05d9c907f2900e6bcd4c1d33",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.196bc7354798": {
+      "text": "交换链没有可用于生成帧的空闲图像。",
+      "state": "machine_translated",
+      "source_hash": "b31dcd4d1ce9ad73e5eaafa9bf9a20d5be24df4d93567094322c95126d203236",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.de69cdac3930": {
+      "text": "游戏使用的呈现队列不是第一个图形队列。",
+      "state": "machine_translated",
+      "source_hash": "fc2ca1cb39248ad2e0ac36186bdfd6877ec20706a5920670ea0f27ebf8252c7f",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.597903ebc609": {
+      "text": "无法为帧创建命令缓冲区或信号量。",
+      "state": "machine_translated",
+      "source_hash": "72f8bbd589de17345e9bf58f13e65bbce1742dcda3543164ebe3b00c7a43d985",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.1a3eb1df4506": {
+      "text": "交换链的格式无法与帧生成器共享。",
+      "state": "machine_translated",
+      "source_hash": "8422c5aeb6f671bfa58de855189c8f0b02ff909bb3b297bf640fa1f19cd5c149",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.ef373ca81329": {
+      "text": "游戏使用的 GPU 上没有 D3D12 设备：",
+      "state": "machine_translated",
+      "source_hash": "fcaac9346f737f3330612f1ecfd71beccfb291ca1753940be76928d5c2a08781",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.e98ee84e4892": {
+      "text": "无法创建 D3D12 队列、命令列表或栅栏。",
+      "state": "machine_translated",
+      "source_hash": "bb4de1488b4bc446550ba345aa4450d85cdd26b92624f187b1fc575a3c891c86",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.ca6027bd32f1": {
+      "text": "与 D3D12 设备共享失败：",
+      "state": "machine_translated",
+      "source_hash": "f7c2c0aedf8af29465af9d4599dc7d4d4f1c979f2bc6db2a549122abdc7dfa36",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.342abe88f7cb": {
+      "text": "共享画面失败：",
+      "state": "machine_translated",
+      "source_hash": "8d050bfe9786b0e70e5533d482fe72cf7c63190c8f692e087778dd4fbbfee103",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.2fa35c23fc6a": {
+      "text": "F5Low 无法调整帧尺寸：",
+      "state": "machine_translated",
+      "source_hash": "3ff7b3dd83941e67096adfebe4960379bbb9739b0e9a9cc3a7abb81c3778bfa4",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.821a5dc8337a": {
+      "text": "F5Low 无法创建帧：",
+      "state": "machine_translated",
+      "source_hash": "fdc78f0bee484979255b45bd9800783e5021e93d92b180de68b936fd26273db0",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.a98e7907583a": {
+      "text": "共享生成帧失败：",
+      "state": "machine_translated",
+      "source_hash": "8e5c2de855698c594c1e693b676291b7db8f40415d222148447212623548be61",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.b66ebdbd523e": {
+      "text": "共享无 HUD 画面失败：",
+      "state": "machine_translated",
+      "source_hash": "63be6011bbe823d9b87e61b9581c854a03b9ca41ac5378b1a7ff4954671c8e96",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.98af2864c9fb": {
+      "text": "不支持运动矢量格式 {}（支持 R16G16 和 R32G32 浮点格式）。",
+      "state": "machine_translated",
+      "source_hash": "03b7a7556be33622536584148d4a50758e5c715bd03a25a2ecd85e1229964232",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.94226e9702eb": {
+      "text": "运动矢量当前不可读。",
+      "state": "machine_translated",
+      "source_hash": "c3664201933949ae061d3af0b823097713b70c2fcef95f354ba406e2d8217624",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.89d46fd742a4": {
+      "text": "共享运动矢量失败：",
+      "state": "machine_translated",
+      "source_hash": "305e01f0508c50f2f1900643b43200e41c4e68ca0b5ca5de8d4eedff5caec53d",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.6b0815ed8bce": {
+      "text": "深度数据当前不可读。",
+      "state": "machine_translated",
+      "source_hash": "0f83f7fe5437e16a43a6dc302629ab2798e114d41d20145c79a3540758c3fcee",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.2b1959b473ee": {
+      "text": "共享深度失败：",
+      "state": "machine_translated",
+      "source_hash": "df02f4b1b0ccc6e6a9b6775313689c8b2252ff704208357ae643a9aa909505db",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.6dad7c96bea6": {
+      "text": "不支持深度格式 {}。",
+      "state": "machine_translated",
+      "source_hash": "755d6ed3387777482a81bc4db7d4c3befba23f1a49e0320d0724eae8d28b3e53",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.4344244e53a5": {
+      "text": "无法在 D3D12 设备上创建深度纹理。",
+      "state": "machine_translated",
+      "source_hash": "fed5f69fa5f482d7aad60a497f855bde16b1a814a136a2ae2a1b40f59b4584bf",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.05204286c3d5": {
+      "text": "vkQueueSubmit 失败：",
+      "state": "machine_translated",
+      "source_hash": "27fbdeaeb9e822450b29c9ec3e3257c91fda26f48d5e9695c7651f9489928507",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.5f5fc3af7cb3": {
+      "text": "无法记录 D3D12 深度复制命令。",
+      "state": "machine_translated",
+      "source_hash": "ad842289f13b31aded96df7f176ae1345a02dc140e739160fa6823e23b9c32a9",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.9d27a75cdb03": {
+      "text": "交换链只有 {} 张空闲图像。游戏重建交换链之前，生成帧数会小于所选倍率要求。",
+      "state": "machine_translated",
+      "source_hash": "ea075519fe5b7b97f0916810ed513640478ed168f9ba6e37ee4413e90a53b71d",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.bc0792d8dc81": {
+      "text": "系统",
+      "state": "machine_translated",
+      "source_hash": "6725e7bbcd28f3a8a586fa34bf191fd72dde8b61756932cd3237c17a6f196f1a",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.a6a6318544c9": {
+      "text": "GPU",
+      "state": "machine_translated",
+      "source_hash": "ea49523d744c40bc900b4462c43132d1c8a8de5216fa8436cc0e8b3e89dddbe3",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.34892dc90695": {
+      "text": "兼容性特例",
+      "state": "machine_translated",
+      "source_hash": "12d0b77aba947d1c47867cde1ebe140847d84828da2b419a511ba23be226e604",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.6e50469e8eba": {
+      "text": "ASI",
+      "state": "machine_translated",
+      "source_hash": "fc676c4f82a534e903723dc8f10b4e5e3a35ef76928f4a5535e8be52de0f9aa4",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.d93d10ff0fbe": {
+      "text": "API",
+      "state": "machine_translated",
+      "source_hash": "c8e5998f6a3955c21d858936fe05c69621724d7f825c6e17793002a0fa798bf9",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.10e62b670007": {
+      "text": "交换链",
+      "state": "machine_translated",
+      "source_hash": "6dbdfa949f9f45cb9d275abed838bf099dc6d419c708650c63eb9809d4aca929",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.bdba05d839dd": {
+      "text": "%s %u.%u.%u%s",
+      "state": "machine_translated",
+      "source_hash": "d7583bc4da0d58bb579808d51166a022839a43f4e7952528e68efb7a0bdb5daf",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.558f578a3d87": {
+      "text": "%dx%d",
+      "state": "machine_translated",
+      "source_hash": "fc30954278e97cefadfdacba81c44fe9cabb3371ce1597d0de8a5b096edd4106",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.b2e402b4da01": {
+      "text": "渲染",
+      "state": "machine_translated",
+      "source_hash": "6d89eb7d0938564938636b4a5ee73c09e55c2e6e5aaa9e3016781bf54805e8d3",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.aa0593277eae": {
+      "text": "%dx%d (%.2fx)",
+      "state": "machine_translated",
+      "source_hash": "775c9b3fd22b99d60ebbd7b1ecc42d226d2dbe1d17599a5ac36da5fc531acefb",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.574ff9b0c49c": {
+      "text": "显示",
+      "state": "machine_translated",
+      "source_hash": "34e108c0896d0158ca4f2797d4f12a143943803be2151aa5d2136ea1bcd9a468",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.e3e7a3833d19": {
+      "text": "帧数",
+      "state": "machine_translated",
+      "source_hash": "2c447e8d059850552a75c6a6b35a2f49a9af88ac428a73e533bfd44ca099c39a",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.6b9629afedde": {
+      "text": "比例覆盖",
+      "state": "machine_translated",
+      "source_hash": "9c7290c3475f1d5edbc3fef957b12d37064f0188b958e49816cb0c6841b3dc90",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.970654e8aa7d": {
+      "text": "纹理细节偏移",
+      "state": "machine_translated",
+      "source_hash": "32bdaa366633f8e6f5c6897a5f7f0d2248015c8f4e2ca5e51140ddc71884c728",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.964eb2fd822f": {
+      "text": "各向异性过滤",
+      "state": "machine_translated",
+      "source_hash": "8d92c2498f5ca083b4554452796bb60e0c21fed9667a057002c36465571d949d",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.74fb2cc6c8de": {
+      "text": "检测结果",
+      "state": "machine_translated",
+      "source_hash": "756a8ba97dce249a0f1d377b9756d370aee12fc9e43a6750109fd12dc880bd8e",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.3acbb47959d9": {
+      "text": "nvngx.dll",
+      "state": "machine_translated",
+      "source_hash": "2bf62b42c789a78de87bc20543d0972e1c9e811823045bef649b7230efa3253c",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.55dbd3cd2af9": {
+      "text": "nvngx_dlss",
+      "state": "machine_translated",
+      "source_hash": "c6338bfe154ea2dc9cc9ef9a26fea6b0d8d918fb63066983803726675a5d36e5",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.7cc3a082ff2a": {
+      "text": "nvngx_dlssd",
+      "state": "machine_translated",
+      "source_hash": "9c682769b21567ad4ada4a842cdbd1207fd7f0ca1ac45ca17c616ed32e117063",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.077fadd0e1aa": {
+      "text": "nvngx 替代模块",
+      "state": "machine_translated",
+      "source_hash": "1a75ad67225b5e2ac875084ec248f62e79578deadb309683a2f64d8278eafdde",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.cabf00125c1f": {
+      "text": "libxess",
+      "state": "machine_translated",
+      "source_hash": "eec13b5c48201edffb43accdaa7946205c5c42103b4d5d9bcc60731f1be876b6",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.9b79894fc469": {
+      "text": "FSR 挂钩",
+      "state": "machine_translated",
+      "source_hash": "11e462e5526ae3bf36d66c53308ab71407ba271be3992fcc91f80b5edaa3d2bc",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.2bcba76d422f": {
+      "text": "FFX 3.1",
+      "state": "machine_translated",
+      "source_hash": "19a5d7aaf52e7adbbeeb74140f6f04c23067ec5cc4656ce3de338c3962d59f8f",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.a3dde958dd14": {
+      "text": "FFX SR",
+      "state": "machine_translated",
+      "source_hash": "7b6ebad8fdffe6a11cb0469f67ffb61d1f45a78362ace02d3cd2719b2bb27535",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.a8aee33113a8": {
+      "text": "FFX Vk",
+      "state": "machine_translated",
+      "source_hash": "835e600a461098bac2e1de0ae3ce30b8441559b0c42631e408cce0b1975b9a86",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.fdfc34616b42": {
+      "text": "FFX Vk SR",
+      "state": "machine_translated",
+      "source_hash": "5e2eae691367ef32a1c91fcf7bc9dab8c223abd8d409cfc054fed8879891e538",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.0ba82cf159d7": {
+      "text": "FFX Vk FG",
+      "state": "machine_translated",
+      "source_hash": "24370f711fbc8bc29a6860dfe0c94ae55ce9e04c3ee128a8f27258fdf366436f",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.382442cbdf93": {
+      "text": "OptiPatcher",
+      "state": "machine_translated",
+      "source_hash": "15b6f007701ea8872283811d7a58c51a07420ba0f5181d2984f7622293e2ddbc",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.83ad8510bbd3": {
+      "text": "Linux",
+      "state": "machine_translated",
+      "source_hash": "4828e60247c1636f57b7446a314e7f599c12b53d40061cc851a1442004354fed",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.4d0c3b79a7d7": {
+      "text": "显卡支持 DLSS",
+      "state": "machine_translated",
+      "source_hash": "6ac5078ceaa70b562400ab1cbc0d8a0b0c5401897f6c140434891238778e4563",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.599d9082a27f": {
+      "text": "显卡支持 FSR 4",
+      "state": "machine_translated",
+      "source_hash": "6f7a4cab63e1f525ca0146df824e1b5c1682eb94e5080d681d77622a6aa01d1e",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.4bd8f3f03a57": {
+      "text": "挂钩",
+      "state": "machine_translated",
+      "source_hash": "d412a062620ef57bace76558a0384077b1919e66ba0a35af91e5a372f873e65e",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.d0e1289e857d": {
+      "text": "DXGI 伪装",
+      "state": "machine_translated",
+      "source_hash": "98439b2337060d47b68ddf1edd75d7029fc822c4043a2eb243c102bd54ba673d",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.d5cb60b98f4b": {
+      "text": "Vulkan 伪装",
+      "state": "machine_translated",
+      "source_hash": "6b0c87511db87df1da172a2d10db56ef7889f9ff0ada2df3c3688071a1482fe4",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.f8407d02284c": {
+      "text": "Vulkan 扩展伪装",
+      "state": "machine_translated",
+      "source_hash": "b6706a322aa305e8c297c7e43bd4e82acff25a51fb5e66629f7ceb7735be7be2",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.787afc205d44": {
+      "text": "Ntdll 挂钩",
+      "state": "machine_translated",
+      "source_hash": "5c239f4be91150e4081e97c461e3cf1c80948216377a7572823fdcd26f97cd72",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.a9c0f1af34ef": {
+      "text": "禁用叠加层",
+      "state": "machine_translated",
+      "source_hash": "21017d46d520f5f6670d22ed7e4688a4afc17e0cd8208aa2bf128c6b313ee157",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.cd2dce1f77f0": {
+      "text": "ASI 插件",
+      "state": "machine_translated",
+      "source_hash": "777c382fdd4fbec2afb67b2009f3bae7e80dddf0bbe0ce56ce588d0c83a78056",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.f586a10862b1": {
+      "text": "预编译着色器",
+      "state": "machine_translated",
+      "source_hash": "bc65232631129cf54006de5d267e2687054266e4ad2717cbdcea741299cdfd85",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.a7b8c2f6f01b": {
+      "text": "扩展限制",
+      "state": "machine_translated",
+      "source_hash": "a7161a3b39b1174bc370e2cda3078191358171a4fcd3bba5ea7f43471a162a58",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.9b9fb29148f7": {
+      "text": "动态分辨率下限覆盖",
+      "state": "machine_translated",
+      "source_hash": "13e2ea0b64d2d775a0c633ff5aa1015372994e308a9bd4f239aab74112b0c8be",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.bc61c479e738": {
+      "text": "动态分辨率上限覆盖",
+      "state": "machine_translated",
+      "source_hash": "d6a011775e8db1f931f646c80bc30ac773cc79982cfa54bc96c81a4f5b47b263",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.1412444835b0": {
+      "text": "计算根签名",
+      "state": "machine_translated",
+      "source_hash": "65430335a2bc424439e01e32bec6005c1894dcad4f9675e6107bc38152cd448b",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.6bbb5d04e8da": {
+      "text": "图形根签名",
+      "state": "machine_translated",
+      "source_hash": "e25a522c483e9761a033c032d8831f71f85df141a841ca44d15c359420f75a29",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.81dcf82f9938": {
+      "text": "已覆盖资源屏障",
+      "state": "machine_translated",
+      "source_hash": "75416e1c4a59c0d176939859806115beedd130229a2dab68d5ca9ead7f9d28c3",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.7711b0747e13": {
+      "text": "自动曝光",
+      "state": "machine_translated",
+      "source_hash": "69ac233c47b38eb088636a8e72578b823cda1152af53e077d9169cf86571649a",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.82e51fdd8ec3": {
+      "text": "反向深度",
+      "state": "machine_translated",
+      "source_hash": "84c58ba79d3a6c70b26c4a5e3cd9d20cb2371b8835ba322cec2e3e5ae51a2c8e",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.366e8119cfb4": {
+      "text": "显示分辨率运动矢量",
+      "state": "machine_translated",
+      "source_hash": "53ddbebce961c63dee100d03101db11fe1a533c1e35d1dd7c842b190ff1153a6",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.83f8b1495ef2": {
+      "text": "抵消抖动",
+      "state": "machine_translated",
+      "source_hash": "360c72d93125337d2716bfdffb963b10f511940fcfec3138a2ab455422605468",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.42b412184004": {
+      "text": "动态分辨率",
+      "state": "machine_translated",
+      "source_hash": "f342cd15365b73a6462372c2a89fb91510814e38268a26c54cfc82459f73adb8",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.ae02f9118f50": {
+      "text": "输出缩放",
+      "state": "machine_translated",
+      "source_hash": "427200a2a7d232ad4b99ebeafbc182a4f3a66cc71849188b5c922482957744e0",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.e8ecabab16c3": {
+      "text": "锐化覆盖",
+      "state": "machine_translated",
+      "source_hash": "113ac0de84fa25326a16ac4d124eb455c22dec80ba9e7134b0c79254b6242534",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.153a48fbb2cd": {
+      "text": "垂直同步覆盖",
+      "state": "machine_translated",
+      "source_hash": "3ef3c3edbba4806ac6075f8fb961e9b418dcd7b45b03b3697e5629debe5924ee",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.2861b9322719": {
+      "text": "神经渲染与 F5Low",
+      "state": "machine_translated",
+      "source_hash": "c5726a646d7e6bfe0efb2539848a3739215ad7be39087503840f512b8f0cfb7f",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.27e9478903f0": {
+      "text": "  模型",
+      "state": "machine_translated",
+      "source_hash": "c0fd16cea762f4d96ceef1993a46fdb70c0c11c097648b8c67264d754e76c63c",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.55e7ab08e485": {
+      "text": "  处理遍数",
+      "state": "machine_translated",
+      "source_hash": "9adecb433cc77a24058a106ee9269e4e4213b2ebfb17e276e704d1e9d62c7fe0",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.1607c92684a8": {
+      "text": "  处理阶段",
+      "state": "machine_translated",
+      "source_hash": "8a7b4386bff3630c2b656f24827fa41b13c9716ddf3dc0e824449771aa15fe44",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.0c1c34aeda7b": {
+      "text": "  细节复用",
+      "state": "machine_translated",
+      "source_hash": "3784db6c6371a32e3823a0a1b06c384ec3602308cfbb8c1f3502d02a6c69c1db",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.54e99b0b0839": {
+      "text": "  F5LUT",
+      "state": "machine_translated",
+      "source_hash": "f09a866f3f180050849ed81937d08eefef382cf4c369815381e7664a2ffb7b17",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.e977cc1010ab": {
+      "text": "F5Low 帧生成",
+      "state": "machine_translated",
+      "source_hash": "e877e930af306a3577b5b63ee3b343504b5ae7f9dee051c871c99501952a655e",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.600de1184f5e": {
+      "text": "显存保护",
+      "state": "machine_translated",
+      "source_hash": "0a57e9c0d6a6988d950c1718a6640237363fbde40c075d30ebfacb0614be0056",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.7ae80e3e55ce": {
+      "text": "这里显示 OptiScaler 检测到的组件和运行状态。反馈问题时可附上本页截图。",
+      "state": "machine_translated",
+      "source_hash": "82e10117e645aef2e870016970dff42a8438af4d7b289afa60990354eb395b3c",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.8bf427b3d021": {
+      "text": "全部预设 {:.2f}",
+      "state": "machine_translated",
+      "source_hash": "a0ed9afc97f21e8c0d5edf48537bd0fa9b3ef0c8d9469dedbf8e63bc660a0d95",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.be456d350eb6": {
+      "text": "失败：{}",
+      "state": "machine_translated",
+      "source_hash": "44393a93c4369a57b47c9148fa00b3da46f6dca7ed18ed9d406af02380c0eb11",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.4a28f1d24357": {
+      "text": "模型每隔 {} 帧运行一次",
+      "state": "machine_translated",
+      "source_hash": "8f2f9eff51c9ebedc92373d4f53a6b4e3e3c387a6ad7462e7417c6a9aaef9577",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.7fa058ef2915": {
+      "text": "模型每隔 {} 帧运行一次",
+      "state": "machine_translated",
+      "source_hash": "2c1be751c394ced1d4123e75e90b65cb403748ca261ee7df7c5528666ee617f5",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.891d4e0a9bf1": {
+      "text": "模型每隔 {} 帧运行一次",
+      "state": "machine_translated",
+      "source_hash": "27d3a91c33138b64e44f2e0330a8f6bc21d22ffc3c276f527f163785c95272ec",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.5b92659dde3c": {
+      "text": "已开启（{}）",
+      "state": "machine_translated",
+      "source_hash": "fd126d9e3b1ca11f35b5d56397b7d0040166d78e599e46f967d19e8efe5971a0",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.0a0a31245ee6": {
+      "text": "{}（未启用）",
+      "state": "machine_translated",
+      "source_hash": "e89d117fc1c063a819d0f45d0db5353f125308ba2e7fb4ad3049496430f9dbe9",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.d3e7abfbe344": {
+      "text": "{} 次 Pass，工作比例 {:.2f}",
+      "state": "machine_translated",
+      "source_hash": "da3c57d2275a653f3035f755a4b13d487c940d03aca28fbe64cd3da64e202ea5",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.b350b8f69cd0": {
+      "text": "{} 次 Pass，工作比例 {:.2f}",
+      "state": "machine_translated",
+      "source_hash": "bf6a08fb9856de217faa6fb17df6740850f38cc0ca14efa18be5a04b35c75ef1",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.62ab6036de6d": {
+      "text": "{}（经 DXVK）",
+      "state": "machine_translated",
+      "source_hash": "ba86927549eea1a9fca763f59d06f8f00931fa12a40a03200cad95f901832551",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.0e790124fec6": {
+      "text": "{}（经 VKD3D-Proton）",
+      "state": "machine_translated",
+      "source_hash": "7ba328920ed22d9b68cd4be88ad8278752abe5e39650358587e812768ff6de27",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.9e8c0f3615af": {
+      "text": "（DXVK）",
+      "state": "machine_translated",
+      "source_hash": "2975c4f93847692a940240b31bfd09dbbc33a73cad830814066ce667002521ff",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.2a8ef6de0ade": {
+      "text": "（VKD3D）",
+      "state": "machine_translated",
+      "source_hash": "235024dbc74a8114a01bdf76778093b703dabebdcbc971eec91f9aaccc484aa7",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.b9179f764884": {
+      "text": "Nvngx FG",
+      "state": "machine_translated",
+      "source_hash": "0aa63dfb2b56a36fe13c84a0be49d1cba5efda7f921e4dd676999fe8513be808",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.a4b4b046e826": {
+      "text": "FSR FG 3.0",
+      "state": "machine_translated",
+      "source_hash": "3073e0a4a77257f1d700243b4c409e4559678152b56288a9788c307ede1bb48e",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.4f90f9f0f16d": {
+      "text": "仅 XeLL",
+      "state": "machine_translated",
+      "source_hash": "b710203fbce72147f2d20804bab9be41645c3dbb0c865d94e489a573e4f4755d",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.7926798a5871": {
+      "text": "全部 %.2f",
+      "state": "machine_translated",
+      "source_hash": "85c28a1a6ccc50f4527039e0be3656f019279f231a8beb74690f57174293657b",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.27612c036ff0": {
+      "text": "按预设设置",
+      "state": "machine_translated",
+      "source_hash": "892e348df9cd93d07e10e877f9b9822603bcdeffa8e1dfcd9420cf6e07e52063",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.d8153f7ae289": {
+      "text": "OptiScaler 全部显存",
+      "state": "machine_translated",
+      "source_hash": "d569be6480bddf73e777698093dc629dd21695973d1408459e8fa4bef08700e5",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.b6ad21486f86": {
+      "text": "（未生效）",
+      "state": "machine_translated",
+      "source_hash": "60558f953f66e6c5f96a250241d5a47b21a97945c1f7b27052947dd26c2b323a",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.f094ee2fc5c3": {
+      "text": "HDR 输出：",
+      "state": "machine_translated",
+      "source_hash": "9a565344da7af754cc9c9770a216f1318e8b9454bc963e852dc73c3525e9d646",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.9500beffe738": {
+      "text": "失败：",
+      "state": "machine_translated",
+      "source_hash": "c5bc264875d7526e02d3d3ba6d2fee92cf2cb0c3895d08d9063adad1a086e26f",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.e09ff3fc5886": {
+      "text": "已开启（",
+      "state": "machine_translated",
+      "source_hash": "5df6b106ded05f283c4f235bfd5cd6d3cfe8adcdaf5200fe837619ef16e14995",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.eb3bbddbda45": {
+      "text": "已开启，尚未启动",
+      "state": "machine_translated",
+      "source_hash": "fe3e0e2065bff1e1b1cdc9945f963bb3dd20e2e8674624e6c867e7d2333ebfad",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.ef57bf1596c9": {
+      "text": "由 DLL 决定",
+      "state": "machine_translated",
+      "source_hash": "3f5b3231bb4ac8501e2733bb8e4f50c2f805adf0647bc809cfd1d16292d6d7d1",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.170e932fea2d": {
+      "text": "预设 A（主模型）",
+      "state": "machine_translated",
+      "source_hash": "63ed48d03fea741c1b00fe1a324470be53208b2a996514074c991e4a04d02ebc",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.8b87dd1ee71c": {
+      "text": "预设 B（小模型）",
+      "state": "machine_translated",
+      "source_hash": "83b2e06ebd70580753618fedb11150fb6e1f1b612937dba57cbf075d47a5412c",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.44c087809c01": {
+      "text": "，权重 A：",
+      "state": "machine_translated",
+      "source_hash": "ba88b2ce4df23d1ce16300ef6a04fb05afafcdd6756b8788307398b97bf9e9c0",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.ed487e1e87c6": {
+      "text": "原始权重",
+      "state": "machine_translated",
+      "source_hash": "08c4242b5f585628bb8cef8ede40e9895b8719eb8070aee2d96613583ee3904a",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.fc758a55f2f0": {
+      "text": "，B：",
+      "state": "machine_translated",
+      "source_hash": "6ead637b6ed55bc82ede4f11eed1ac757749a0e293fd81498d7a6a151fe24c3d",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.1c7102b1e699": {
+      "text": "%u %s，工作比例 %.2f",
+      "state": "machine_translated",
+      "source_hash": "7ea15c1f90bf68faba19f3ccdabc39e5061ec83a330692b99c7ba72552f6fd8c",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.9d4e1e23bd5b": {
+      "text": "遍",
+      "state": "machine_translated",
+      "source_hash": "d74ff0ee8da3b9806b18c877dbf29bbde50b5bd8e4dad7a3a725000feb82e8f1",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.3132c2078526": {
+      "text": "遍",
+      "state": "machine_translated",
+      "source_hash": "2c28ec094b830e09611d575d50fa0fd006db8f5a51a1b4cc6bb259f0378d5bbc",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.131a61848921": {
+      "text": "超分辨率前生成、超分辨率后应用",
+      "state": "machine_translated",
+      "source_hash": "e213c9a1c31b8e7b0cd2d495b84a5ba71e38c58bf84ca26994d12935141f975c",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.273384487455": {
+      "text": " 帧运行",
+      "state": "machine_translated",
+      "source_hash": "22684eaa409e9c1c214e51a1113f7e7bcf36c1055451f014849a50cbc6303320",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.06ef60cce84f": {
+      "text": "模型每隔 ",
+      "state": "machine_translated",
+      "source_hash": "3c3b6f385c3935c9811d2553ad93ec3a37b02905296582e5f15870b322b71a9a",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.3119f17b3b50": {
+      "text": "nd",
+      "state": "machine_translated",
+      "source_hash": "051603900bc7a27051b385299b0ef6c3dd2da3c6216845df7f501d9e4337cbcd",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.9f6194d012e3": {
+      "text": "rd",
+      "state": "machine_translated",
+      "source_hash": "4573a839ffe27bbd6a9305d6ea6617b7332a5cb8659fbfdc256fe917eda0a79e",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.fa6af6e97d01": {
+      "text": "th",
+      "state": "machine_translated",
+      "source_hash": "6bde0b830d8bd56dea61c5c1cb648c7ffca6ffce2923ad1db9f29079cac947e0",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.e553fe92fe19": {
+      "text": "仅神经渲染",
+      "state": "machine_translated",
+      "source_hash": "0755ef26bda1cf23b0c822a1cc834a4b8b0448c67c2dc7f4bfd329d23885953b",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.f41761e658d6": {
+      "text": "神经渲染和帧生成",
+      "state": "machine_translated",
+      "source_hash": "3543c6b6f9419a9565f685602931d42bbe15fb0044a13037d5da115f7dfdc5da",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.a01b601d8c5a": {
+      "text": "仅运动估计",
+      "state": "machine_translated",
+      "source_hash": "ccc9ae2374a3622ed5b56cbc97440aa8575d81d4d9e179b26f8aa567b6528d7e",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.a51bd2ef56c1": {
+      "text": "，未参与（游戏正在调用超分辨率）",
+      "state": "machine_translated",
+      "source_hash": "fd25d0686e056d4df21e795af52d0a30b1720515dbb128d1b395d36c84686c0e",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.ba786af315a6": {
+      "text": "，正在等待神经渲染",
+      "state": "machine_translated",
+      "source_hash": "0a79dd94dc68e18b9ad12255617e37ab68133049b611c1372b0d71125ec82033",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.befac391fbbf": {
+      "text": "FFX（经 DX12）",
+      "state": "machine_translated",
+      "source_hash": "2161152604574bdfe58431a3f2fb4a59df67f07b0dc7628406d6a1b78b49909f",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.62aeb8960c77": {
+      "text": "DLSS（经 DX12）",
+      "state": "machine_translated",
+      "source_hash": "160b646ff37565f786ff119f44325ec8bcc222aaf8c1f3cadde577e64b92850e",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.a87ebb66e929": {
+      "text": "%s (%s)##custom%d",
+      "state": "machine_translated",
+      "source_hash": "af6ed45f1e5f06ef538ef62cedbbd09df98a103776a2a64b5dc93ad5ee095f37",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.a62203943568": {
+      "text": "%s %u.%u.%u",
+      "state": "machine_translated",
+      "source_hash": "1366b872f2c416283b353faf80438490431d604ff12e756851f9199b55bc5912",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.e23bfea26ef5": {
+      "text": "DLSSD",
+      "state": "machine_translated",
+      "source_hash": "ca33c314259f06cb0e7a9de2157a701e749e3fec5627e7efca8221b490e8ad46",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.4aa6737967fc": {
+      "text": "%s##rr%s",
+      "state": "machine_translated",
+      "source_hash": "d166bdd1167c06e0599b64341fa1b823bb02180e635ee9832481e0785f36984e",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.aa13406640aa": {
+      "text": "关闭##rrOff",
+      "state": "machine_translated",
+      "source_hash": "7722e528eab0875cd22fb9fad7c21760f1657293b7ba5618aab1c5146d8ad8d2",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.f941a0537642": {
+      "text": "%s##rrRegular%d",
+      "state": "machine_translated",
+      "source_hash": "a5f66a044edc15dffaa71ad19dc7b12ec584e7c68d3ce72aad6036f5acedaa70",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.d086ed997636": {
+      "text": "不降噪",
+      "state": "machine_translated",
+      "source_hash": "154d81ccac5cb8d58550b40490ce1dce4b092070520425c4c5ba738fcb65749d",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.097e75c04585": {
+      "text": "光线重建##RROfferCombo",
+      "state": "machine_translated",
+      "source_hash": "217ab3ac09636e1dd06288d195c3b31462096bdd4a69b73b207834b3f05d4e88",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.ff75b94a2369": {
+      "text": "游戏中开启光线重建时使用的超分辨率。",
+      "state": "machine_translated",
+      "source_hash": "9880156c76d3a9098342b62911a418bbff7b735ab20df92689ace3f46339791c",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.39f69b6d9851": {
+      "text": "当前显卡无法运行 DLSSD，因此游戏未提供光线重建选项。\n在此选择一种超分辨率后，即可在游戏中开启该选项。",
+      "state": "machine_translated",
+      "source_hash": "1235f883ae2d953b0e150700faea1305ee10ea717ba8f7685181b76b4de5aec7",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.f4a43116faf0": {
+      "text": "这种超分辨率不能降噪。\n游戏中开启 DLSSD 后，画面可能有颗粒感或噪点。",
+      "state": "machine_translated",
+      "source_hash": "edbac50474cbb7379a405a6135c115d2cbdc2fc1ead3afda5c970633ea1974c2",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.1cbac0fbfa20": {
+      "text": "保存设置并重启游戏后生效",
+      "state": "machine_translated",
+      "source_hash": "9153f6f9802b0c73aa837218d2afc98e4865217501c229cdcc1b504c4a55f303",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.cbbe484651aa": {
+      "text": "游戏已开启 DLSSD，但这种超分辨率不能降噪。\n画面可能有颗粒感或噪点。",
+      "state": "machine_translated",
+      "source_hash": "1ce4d8f1387c75d235dcece8732db84ed8435c94e3b8e04e6a674b8737bc767b",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.5d24d09efed4": {
+      "text": "\n\n原生交换链仅支持 XeFG Tensor",
+      "state": "machine_translated",
+      "source_hash": "6dd93653dd9261a3e8b67d32e9b58bf34d96d1d2a475c48490620f35351e7f92",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.ec17c591e901": {
+      "text": "这里需要桥接：游戏没有使用自身的 Vulkan 交换链呈现画面（例如使用 dxvk）",
+      "state": "machine_translated",
+      "source_hash": "0f503deb05fe4c46957196dbb9876ead343f9f5dde8a89ede28e6e5a7954bbca",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.e9eddf0ebe1d": {
+      "text": "自定义：",
+      "state": "machine_translated",
+      "source_hash": "68d4514a42354ed6dc06c1a7bce239e242aa36a73d987967106c730437a035a0",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.966c1387f9a0": {
+      "text": "来自 OptiScaler 的 custom\\",
+      "state": "machine_translated",
+      "source_hash": "af9c31e48e289499be2565ad37d6c3fc8e88deb30b415750fea240cbe5508fe9",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.624d2aa23022": {
+      "text": "\\dlssg 文件夹",
+      "state": "machine_translated",
+      "source_hash": "125bedd5b1be0f7accd77c76da9f7c2de5a4d9634fee3ba1fc22ac1dad8d4ac7",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.512dd362579a": {
+      "text": "custom\\ 下没有 DLSS-G DLL：",
+      "state": "machine_translated",
+      "source_hash": "2af3de09680874de5b2df7f96a38ef909507eff8a648913bb710fd46ad03e808",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.fe4aa7da620a": {
+      "text": "\\dlssg",
+      "state": "machine_translated",
+      "source_hash": "deba96b86b61ba1b9ba41f909db26b8927c29c28a5de1531cc9ed76f17bc040f",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.d9836caf3b86": {
+      "text": "正在透传帧（尚未生成插帧）",
+      "state": "machine_translated",
+      "source_hash": "23359a8d1d4a3096095a33351b99bc319883578254a0b11dfae8d08798a44120",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.4ec70305e69b": {
+      "text": "A - 默认模型",
+      "state": "machine_translated",
+      "source_hash": "fce667f8a4dd3e333810331f56f0501c9107c01690bcb0b2085f80e9c9d01834",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.66fcb2f6071c": {
+      "text": "B - 优先界面",
+      "state": "machine_translated",
+      "source_hash": "ea99cf1c96cca7be2a29dc08ee38e912542e0e1294dec22ebfe66aee3618144a",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.bdf5e1ddd6a7": {
+      "text": "C - FG Lite（更快）",
+      "state": "machine_translated",
+      "source_hash": "02c8a88c33800d3a247d795fb7df5ec1448a241dfdd0a08ec3e1d373d9d1bb54",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.6dcd4ce23d88": {
+      "text": "A",
+      "state": "machine_translated",
+      "source_hash": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.ae4f281df5a5": {
+      "text": "B",
+      "state": "machine_translated",
+      "source_hash": "df7e70e5021544f4834bbee64a9e3789febc4be81470df629cad6ddb03320a5c",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.32096c2e0eff": {
+      "text": "C",
+      "state": "machine_translated",
+      "source_hash": "6b23c0d5f35d1b11f9b683f0b0a617355deb11277d91ae091d399c655b87940d",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.5d84d1b7a706": {
+      "text": "DLSS-G 预设",
+      "state": "machine_translated",
+      "source_hash": "0cae96f66768f1c5d948b5be4437a800424003398471ba4bea549fb3b0f9a92c",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.fcff4871f1f5": {
+      "text": "%s 不读取 %s 设置，将继续使用自身的模型。",
+      "state": "machine_translated",
+      "source_hash": "b5b83988c00356674209177df93449f5504d11407016fe38256be5df5b9d1b73",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.aef3b3ef7d6d": {
+      "text": "FG Lite",
+      "state": "machine_translated",
+      "source_hash": "671e4ae0c9b5d94db9af8414d49a58a6ef06162ff64c79ba7c77cfc7b4653579",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.de8761cd9b54": {
+      "text": "界面重合成",
+      "state": "machine_translated",
+      "source_hash": "2816e866eaec58242af00ffe8af31975d560d6a65230de1820d4ca91d9c77b79",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.dfe961a77075": {
+      "text": "载入的 nvngx_dlssg.dll 早于 310.9.16，不支持预设 C；\n将继续使用默认模型。",
+      "state": "machine_translated",
+      "source_hash": "f3f25c3d7148858adc9e78c7f23d95bc3685c5f01974b9c9117a8bed65f7fcb3",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.35c78e2f3bb7": {
+      "text": "选择 DLSS-G 使用的帧生成模型。\n默认：遵循 NVIDIA 驱动程序配置文件（通常是 A）。\nA：默认模型。\nB：优先界面（界面重合成，需要游戏提供界面及无 HUD 输入）。\nC：FG Lite，使用更轻量的第二阶段，生成更快但画质略低。\n   需要 nvngx_dlssg.dll 310.9.16 或更新版本。\n\n此设置只在当前游戏中提供给 DLSS-G，不会更改驱动配置文件。\nDLSS-G 启动时读取此设置，请保存设置并重启游戏。",
+      "state": "machine_translated",
+      "source_hash": "b12137958dd2e9eede0d5272c7259b0d114207426dbe3c404874c140adcdb69f",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.678b32ca49f4": {
+      "text": "驱动配置文件（%s）",
+      "state": "machine_translated",
+      "source_hash": "0e06f07216744befbfd2871f0f3a8d33ba8482121b0843aadcc5b87b2df0f6ad",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.d61d02deae2d": {
+      "text": "正在使用：%s（nvngx_dlssg %u.%u.%u）",
+      "state": "machine_translated",
+      "source_hash": "010941ef415728ba273d87ee5d16c0de7b7586e22ccbbfcfc03ea60e3f3d6b25",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.b77a0e00aa5c": {
+      "text": "正在使用：%s",
+      "state": "machine_translated",
+      "source_hash": "589a0374fc2a12e22999350099f5a86a1e56e47759db061f88012c030a5c59e4",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.95a05bbba032": {
+      "text": "%s：找不到 DLL，无法检查支持的预设；将传入所选值",
+      "state": "machine_translated",
+      "source_hash": "47b229ff08e21381e2539f08dc7cbbebe8c4027e27dc521468557c3a70bb282a",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.f7d6616b29f2": {
+      "text": "%s 不支持此预设，将保留驱动配置文件中的值",
+      "state": "machine_translated",
+      "source_hash": "60d579cb7693db55dd3adb18aa319f527cfa2b1af17d38aad406bed86b435368",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.5bf9e4312cca": {
+      "text": "此 nvngx_dlssg.dll 不支持预设 C（需 310.9.16 或更新版本）",
+      "state": "machine_translated",
+      "source_hash": "83d0e4add4fb8ebdff3382b6197698dd2d60fb388a788a03b64e78ddb349f0e2",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.e5994b0a16d1": {
+      "text": "帧生成（F5Low）",
+      "state": "machine_translated",
+      "source_hash": "6168ebf562fb6b95de5d4e9873ea79362d178e2ac235a089a89dd84c02178d8a",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.a6a82aef42c1": {
+      "text": "已启用##f5lowvk",
+      "state": "machine_translated",
+      "source_hash": "2efe2c8e11c22a1f52dbd5f7c6ddb84c2752dab734e79e069edf66b243801e5a",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.0bea48065405": {
+      "text": "倍率##f5lowvk",
+      "state": "machine_translated",
+      "source_hash": "e6e5cd1ba092086b0bca5b7fc8d53462cd66884df4987d8887a0d7efa748ecf1",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.df921952c905": {
+      "text": "每帧游戏画面要显示的帧数（INI：[XeFG] InterpolationCount）。\n降低倍率立即生效。提高倍率需要额外的交换链图像，因此会要求游戏\n重新创建交换链（画面可能闪烁一次）。",
+      "state": "machine_translated",
+      "source_hash": "beb18d791f37f1ab917da132a95dd7575e643a9e1ad3e0e1b607e3544fef2b2b",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.db0b21123e9e": {
+      "text": "最终画面处理无法在此设备上启动（D3D12 命令列表）。",
+      "state": "machine_translated",
+      "source_hash": "3afb6d9c5043fd52a8546e2305ce55bacd540667301736185c9040e2f9ca9688",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.45e772994e57": {
+      "text": "最终画面处理暂不支持 Vulkan 帧生成桥接。请关闭桥接，或选择超分辨率后。",
+      "state": "machine_translated",
+      "source_hash": "ac6b4dce2a90a33a5d6fa9f9be8948a029dcb165ab9592c393ffca43a08c1ba8",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.908799d1ac32": {
+      "text": "不支持此屏幕颜色格式（Vulkan ",
+      "state": "machine_translated",
+      "source_hash": "3e167a9bf98c32f0443a1b3945d3cb08f6a0c54c1d12255a99e29222c34fc8bd",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.4cd1eb5b17b7": {
+      "text": "不支持此屏幕色彩空间（Vulkan ",
+      "state": "machine_translated",
+      "source_hash": "074679e642a0fc1f7c98fc3ec2014f7cd2707506169948298ebba2384a5058c8",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.6ea246e35d69": {
+      "text": "正在等待游戏的深度和运动数据。",
+      "state": "machine_translated",
+      "source_hash": "3c15d79da04b0c3b31ba3901e43f98d0dbe0ea29441f5bac3203c04299861ee5",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.20d57b5a93cb": {
+      "text": "游戏已关闭 Reflex，不会降低延迟；XeLL 只维持 XeFG 运行",
+      "state": "machine_translated",
+      "source_hash": "d523aa583428f0c0aae5dfb6153151936f6e7657027d8bd5d43978698cc1e6c1",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.9d875c08b4e6": {
+      "text": "XeFG 的 XeLL 接收游戏的 Reflex 状态；游戏已关闭 Reflex，所以低延迟已关闭",
+      "state": "machine_translated",
+      "source_hash": "6e398c17a5ec8eea00a3176275a2a9dab525c098bd97485bb051a9687ae64d0f",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.e38d737cdf22": {
+      "text": "无法共享游戏的 {}（{}）",
+      "state": "machine_translated",
+      "source_hash": "7c8216bc80ded2bd6cf902ebdda57ec042e6488edc319f435ec334658ac84393",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.f081bfb92307": {
+      "text": "不支持此屏幕颜色格式（Vulkan {}）。",
+      "state": "machine_translated",
+      "source_hash": "d960a9763e9b771a2dae014a8a86a9eeafb8de442cb77cef4aca39afdd9af530",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.1c38490f5de1": {
+      "text": "此插件在绘制选项卡时崩溃，现已禁用。\n详情请查看日志。",
+      "state": "machine_translated",
+      "source_hash": "8bdc0ce19959a5a0937fdcbef026b6e78d69e510ee6badf38100ce0050736316",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.364094a64055": {
+      "text": "找不到 nvngx.dll_dlssnr.dll。请从发布压缩包复制到 OptiScaler.dll 旁",
+      "state": "machine_translated",
+      "source_hash": "bae1bca3ff3449d3b9df31817c6327f29055352e9c5d7a201c36dde6a7d9bf06",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.cfe147373f9a": {
+      "text": "无法加载 nvngx.dll_dlssnr.dll。请从发布压缩包重新复制（详见 OptiScaler.log）",
+      "state": "machine_translated",
+      "source_hash": "7f85a98cf1ab9cd01f1c2f948cc6098488b7058b06b0b03abe3369bc515d8dd3",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.fd6bc66be2ec": {
+      "text": "此 nvngx.dll_dlssnr.dll 版本过旧。请使用发布压缩包中的版本",
+      "state": "machine_translated",
+      "source_hash": "85827c45388139483e639007eaa2ec0353b26338cbfbd72546e3362f384683e6",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.611ab30f501f": {
+      "text": "无法启动 NVIDIA DLSS。请更新 NVIDIA 驱动（详见 OptiScaler.log）",
+      "state": "machine_translated",
+      "source_hash": "a2492a92b5a4f4fb893e76f42b0a6211ca774561d90995b505b0b595e211281b",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.059c0f71093b": {
+      "text": "此 GPU 不支持 DLSS。神经渲染需要 NVIDIA RTX 显卡",
+      "state": "machine_translated",
+      "source_hash": "4572ed17f512bceb9aebfa7168b7d15d6976c98a674819f06cd982de40875562",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.ee8c71b90baa": {
+      "text": "无法为超分辨率前的神经渲染创建纹理（通常因为显存不足）。请降低模型分辨率或纹理质量，然后重试",
+      "state": "machine_translated",
+      "source_hash": "ff37cf6e95cd958e56970dc1887ed0b3b6fba00d34fca1c5c04200cb2ec5ad81",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.106a0c402171": {
+      "text": "在 OptiScaler 或游戏目录中未找到 nvngx_dlssnr.dll。请从发布压缩包复制该文件",
+      "state": "machine_translated",
+      "source_hash": "15e1b5606b2133e5fb4a1db43b8510f5c0a0edd3902ba0ba5059efcbb7dd41eb",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.4efc790998a6": {
+      "text": "模型无法启动。请降低模型分辨率或 Pass 数，或更新显卡驱动（详见 OptiScaler.log）",
+      "state": "machine_translated",
+      "source_hash": "6b284d63bd00f47592cf9079b820b97c2854902bcb148a1f93c259d0879ca2fa",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.bfa609bc6b21": {
+      "text": "着色器编译失败。请附上 OptiScaler.log 反馈问题",
+      "state": "machine_translated",
+      "source_hash": "68357b178eef7217e258d06d658dfc1697a98398c1da760fc777274a13d96713",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.2f0824d4e2f6": {
+      "text": "模型无法运行。请附上 OptiScaler.log 反馈问题",
+      "state": "machine_translated",
+      "source_hash": "a269f1337f1e40f84c22b13768efb5cafd9edc02783539004a1d218c9850ca09",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.624b1b8871b9": {
+      "text": "模型拒绝运行。请降低模型分辨率或 Pass 数，然后重试（详见 OptiScaler.log）",
+      "state": "machine_translated",
+      "source_hash": "384cfa5f8ad4b0bd4b597f7824d77b05b59eccbd1d6458a440ac1087fa4d2e13",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.1a9736858a93": {
+      "text": "神经渲染在游戏自身的命令中处理超分辨率阶段的输出，位于帧生成之前。",
+      "state": "machine_translated",
+      "source_hash": "d2994edb3264c1db75b3962cc52f2c17b3a7d6a06d8d6c25d465dcd56d706fef",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.5bf961247c49": {
+      "text": "不支持此屏幕颜色格式（{}）。",
+      "state": "machine_translated",
+      "source_hash": "9c8c6596d239fac86554f2beee1a5babc1c3c799be34ec773fe0828c0d144293",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.d3179e9ed9a8": {
+      "text": "不支持此屏幕色彩空间（Vulkan {}）。",
+      "state": "machine_translated",
+      "source_hash": "8bb797810f071520a6aaaad6cde7767c53ba7d6d5d93e5b04234813b0537e220",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.488aa0514993": {
+      "text": "不支持此屏幕颜色格式（",
+      "state": "machine_translated",
+      "source_hash": "b5bbece6b4fe5acca7a533e38aa1e9ec157e9a7a5c8f0a7bb367e2a97c9d67e2",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.abe752ad0365": {
+      "text": "游戏的超分辨率输出与画面尺寸不一致。",
+      "state": "machine_translated",
+      "source_hash": "975ce0cd6fc4b3d78b704d5b53626b8f688d066c27792d1b6769f3e1bceb56aa",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.f753940a7ced": {
+      "text": "\" (A|B)",
+      "state": "machine_translated",
+      "source_hash": "6a353c8bab71557fdf5b3f14922706c7318345e1b82be16ca04ce0833a5e0c4e",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.055934504e30": {
+      "text": "权重组 \"",
+      "state": "machine_translated",
+      "source_hash": "5bead6feea9461daf07a5d78ce2614418e0c3e5e1768fe7c8ac5d3b2dc7ff20d",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.b81f2cd8629f": {
+      "text": "专用 DLSS 执行失败，将使用当前神经渲染的结果。",
+      "state": "machine_translated",
+      "source_hash": "d5e895a4547ca5bd25d20135a9af7650244d89ac9c5ae615eecd646cb753a6a8",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.253c2bf2bfcc": {
+      "text": "无法创建打包的扭曲数据",
+      "state": "machine_translated",
+      "source_hash": "0fd27d04ac3b50ad4411942cd841f463287b2a70312a59a597c1b952c2189ec7",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.c7b6761195d7": {
+      "text": "此处无法使用 NVIDIA DLSS，将使用当前神经渲染的结果。",
+      "state": "machine_translated",
+      "source_hash": "56a0af25b419882a093d568d58aa58285f7118b5098a06dc9685fd3c78dacf11",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.fd099a61e0ca": {
+      "text": "等待上一次专用 DLSS 释放资源，将使用当前神经渲染的结果。",
+      "state": "machine_translated",
+      "source_hash": "3ac574dd31047e7ffa65a4d569aca7bad830b49dcfbacb7de5a0e48222a4f4d7",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.deb6f4edd3b4": {
+      "text": "无法创建专用 DLSS，将使用当前神经渲染的结果。",
+      "state": "machine_translated",
+      "source_hash": "7f33ccbe20383e7622f8a3987af64fddc603fa1f3ed77a137d691134ff1ac407",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.b770c5969cd8": {
+      "text": "未提交专用 DLSS 创建请求，将使用当前神经渲染的结果。",
+      "state": "machine_translated",
+      "source_hash": "5c76f17221dcd1dc7f5b2e98c9caf7fd9f4002b058e3aa25b1c15834c5aa93a2",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.05bbc8729516": {
+      "text": "此 DLSS 版本不包含所选模型，将改用其自身的默认模型。",
+      "state": "machine_translated",
+      "source_hash": "fd6dde7044f882d549f95f184b09a76684bd2ab27e4a8f9d1ff60e396e96ba22",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.2a5d9bc79507": {
+      "text": "无法加载自定义超分辨率模块 %s",
+      "state": "machine_translated",
+      "source_hash": "fce59acb4906379b04244ccbb040c4cac014447ab6e8a4ae53214c8c4db30e75",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.4134068a935c": {
+      "text": "无法加载自定义 DLSSD %s",
+      "state": "machine_translated",
+      "source_hash": "828663dfd82eaed228762861c9e886e2707e8f5dccc402cb2defa08fb0b6e16d",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.4bbaf9aa7fec": {
+      "text": "%s 失败，光线重建回退至 DLSSD",
+      "state": "machine_translated",
+      "source_hash": "50692ab2aed4beaea45f67cd2ff49e3586b95f82347bfdff31b650f20b9920ae",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.71417069c743": {
+      "text": "自定义 DLSSD %s 失败",
+      "state": "machine_translated",
+      "source_hash": "d670e38a5f97ee180c08190bd19fdb6ebb095e414ccfbb7071ec75ebd8bdbbed",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.5dccd3c5165d": {
+      "text": "DLSSD 失败，将回退至 FSR",
+      "state": "machine_translated",
+      "source_hash": "33d18579cfd15dc6fe51d827cb621a6da13377a360a976793bbcd5ad57432186",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.dc0c5182093d": {
+      "text": "自动：原始画面，但收到的是 {}",
+      "state": "machine_translated",
+      "source_hash": "4a49f8e7f92487805ed69e782c790931166961fe4ed2f6f28c980b88962b7231",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.63b034550007": {
+      "text": "改用 Vulkan 超分辨率（{}）",
+      "state": "machine_translated",
+      "source_hash": "5b17476386cdec9304f8c3701bf7ff9574201a4a1ffe2554e4e6817a8429a319",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.bdd864716ff1": {
+      "text": "自定义：{}",
+      "state": "machine_translated",
+      "source_hash": "f4d608008d2c776e9a383ba2745dc782fb0d7727bd252d8474f73594c57e5fb1",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.08bd4e136742": {
+      "text": "来自 OptiScaler 的 custom\\{}\\dlssg 文件夹",
+      "state": "machine_translated",
+      "source_hash": "382bb26a70910cb6ef21e25dfb0e78985e5720da4a56e86cc04c2e3bb9d57832",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
+    },
+    "ui.auto.152256ae49bd": {
+      "text": "custom\\{}\\dlssg 中没有 DLSS-G DLL",
+      "state": "machine_translated",
+      "source_hash": "76db26e6291bab4733472731cdcb8d79dfa1df016e6a174ede31e0ed61f716d4",
+      "note": "AI translation or exact-source translation-memory reuse; not human reviewed"
     }
   }
 }

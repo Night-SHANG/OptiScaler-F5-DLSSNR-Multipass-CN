@@ -87,7 +87,7 @@ class NovemberDisplay(unittest.TestCase):
             self.assertEqual(text.count('OptiScalerCN::UI::PathUtf8('), 7)
             self.assertIn('BeginComboRawPreview("Input LUT"', text)
             self.assertIn('BeginComboRawPreview(label.c_str()', text)
-            self.assertIn('"Loaded: %s", OptiScalerCN::UI::Raw(status.chain.c_str())', text)
+            self.assertIn('"Loaded: %s", OptiScalerCN::UI::Raw((OptiScalerCN::Loc::IsChineseActive() && status.cnChain ? *status.cnChain : status.chain).c_str())', text)
             self.assertIn('const std::string pathStr = path.string();', text)
             self.assertIn(' + "###postlut" + id;', text)
             self.assertIn('OptiScalerCN::UI::SetTooltip(enabled ?', text)

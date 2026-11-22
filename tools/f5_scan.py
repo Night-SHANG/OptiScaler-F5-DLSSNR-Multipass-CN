@@ -12,6 +12,12 @@ DISPLAY_FILES = [
  'OptiScaler/dlssnr/DlssNr_LutFile.h',
 ]
 FUNCTIONS = {
+ 'OptiScaler/dlssnr/DlssNr_LutChain.h': ['DlssNr_DescribeChain'],
+ 'OptiScaler/menu/StatusPageRules.h': ['ApiName', 'GameApiText', 'FgInputName', 'FgOutputName', 'FgNvngxName',
+     'RatioOverrideText', 'ProtectMemoryText', 'HdrOutputText', 'NeuralRenderingText', 'NrModelText',
+     'NrPassesText', 'NrPlacementText', 'NrDetailReuseText', 'OpticalF5LowText'],
+ 'OptiScaler/dlssnr/DlssNr_VulkanRoute.h': ['OutputLabel', 'BridgeNeededLine', 'RunsOnText', 'CardRunsOnLine',
+     'PageRunsOnLine', 'LeftoverLine', 'NativeSummary', 'BridgeSummary', 'StatusText'],
  'OptiScaler/menu/NotificationsPage.cpp': ['LabelOf'],
  'OptiScaler/menu/FgStatusRule.h': ['Describe'],
  'OptiScaler/framegen/f5low/F5LowRules.h': ['GeneratorLabel', 'DlssgFilesMissing', 'IntelFilesMissing', 'CheckAvailable', 'RunStateLabel'],
@@ -49,6 +55,7 @@ TABLES = {
  'OptiScaler/shaders/dlssnr/DlssNr_Spatial.h': [('kNamedLayouts', [0])],
 }
 PRODUCER_FILES = [
+ 'OptiScaler/framegen/f5low/F5Low_Vk.cpp', 'OptiScaler/dlssnr/DlssNr_FinishedVk.cpp',
  'OptiScaler/dlssnr/DlssNr_LutChain.h',
  'OptiScaler/shaders/f5lut/F5Lut_*.cpp',
 
@@ -80,6 +87,14 @@ def literals(text, rel, start, end, tag, rules):
 
 def find_f5_candidates(text, rel, rules):
     result=[]; masked=mask_cpp(text)
+    if rel == 'OptiScaler/menu/StatusPage.cpp':
+        # Only visible local helper parameters. Do not inventory hidden table IDs.
+        for m in re.finditer(r'\b(?:Row|Pair|Flag|addBarrier|StrFmt|MenuCard\s+card)\s*\(', masked):
+            first=masked.find('(', m.start()); last=find_matching(text, first)
+            if last>=0: result+=literals(text,rel,first+1,last,'f5:status-display',rules)
+        for m in re.finditer(r'\bauto\s+text\s*=', masked):
+            end=masked.find(';',m.end())
+            if end>=0: result+=literals(text,rel,m.end(),end,'f5:status-display',rules)
     if any(fnmatch.fnmatch(rel,p) for p in DISPLAY_FILES):
         for c in literals(text,rel,0,len(text),'f5:display-data',rules):
             # Headers, logs and diagnostic-only calls do not enter display inventory.
@@ -124,12 +139,16 @@ def find_f5_candidates(text, rel, rules):
         names=r'(?:_error|_why|_refusal|g_refusal|reason|modelError|status|standsAside|ErrorMessage|TemporalDetail|FlipMetering|why|detail|whyNot|kBelowMinimumFps|kEdgeCompression|err|g_modelError|failure)'
         if rel == 'OptiScaler/dlssnr/DlssNr_LutChain.h':
             names = '(?:' + names + '|error)'
+        if rel == 'OptiScaler/framegen/f5low/F5Low_Vk.cpp':
+            names = '(?:' + names + '|_blocked)'
         if rel == 'OptiScaler/native/SharedFrameVk.cpp':
             names = '(?:' + names + '|error)'  # VkInterop::Load output displayed by DebugPreviewVk
         for m in re.finditer(r'\b'+names+r'\s*=(?!=)',masked):
             semi=masked.find(';',m.end())
             if semi>=0: result+=literals(text,rel,m.end(),semi,'f5:status-assignment',rules)
         calls = r'(?:Fail|Disable|Say|ReportLutStatus|SetStatus|SetError|GiveUpOutput|GiveUp|runtime_error|recordModelError)'
+        if rel == 'OptiScaler/framegen/f5low/F5Low_Vk.cpp': calls = calls[:-1] + '|SetReason)'
+        if rel == 'OptiScaler/dlssnr/DlssNr_FinishedVk.cpp': calls = calls[:-1] + '|fail)'
         if '/shaders/f5lut/' in rel: calls = calls[:-1] + '|Report)'
         for m in re.finditer(r'\b'+calls+r'\s*\(',masked):
             p=masked.find('(',m.start());q=find_matching(text,p)

@@ -228,7 +228,7 @@ class SyncedPublisherTests(unittest.TestCase):
         self.assertIn('GPU/游戏', payload['body'])
         self.assertIn('字体', payload['body'])
         self.assertIn('downloader-only', payload['body'])
-        self.assertIn('F5Low140', payload['body'])
+        self.assertIn('F5Low208', payload['body'])
         self.assertIn('1.3.4.95', payload['body'])
         self.assertIn('默认后端为 xefg_tensor', payload['body'])
         self.assertIn('downloader-only 仅指 NVIDIA', payload['body'])

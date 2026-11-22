@@ -69,7 +69,7 @@ class CurrentContractTests(unittest.TestCase):
         import json
         from f5_upstream_contract import load_contract
         root = Path(__file__).resolve().parents[1]
-        new = load_contract(root / 'upstream-contract.json')
+        new = load_contract(root / 'audit/2026-11-11/upstream-contract.json')
         old = load_contract(root / 'audit/v0.1.32/upstream-contract.json')
         self.assertEqual(new['baseline_commit'], 'f10dedf93a2d5412c753c751c120d52b223800f6')
         self.assertEqual(old['baseline_commit'], 'fadc3bf67f6c8548e94914baec3f2e551ba8d8a4')

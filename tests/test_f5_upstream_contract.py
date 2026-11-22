@@ -431,7 +431,7 @@ class ContractTests(unittest.TestCase):
 
     def test_november_audit_preserves_previous_contract_and_tightens_changed_sources(self):
         previous = self.contract_module.load_contract(ROOT / 'audit/2026-10-31/upstream-contract.json')
-        current = self.contract_module.load_contract(ROOT / 'upstream-contract.json')
+        current = self.contract_module.load_contract(ROOT / 'audit/2026-11-11/upstream-contract.json')
         self.assertEqual(previous['baseline_commit'], '4d72d53e521b34a5cda9dd4f63ee7f4cd0438035')
         self.assertEqual(current['baseline_commit'], 'f10dedf93a2d5412c753c751c120d52b223800f6')
         self.assertEqual(current['gitlinks'], previous['gitlinks'])
@@ -444,6 +444,26 @@ class ContractTests(unittest.TestCase):
             self.assertIn(path, current['protected_files'])
         for path in ('setup_windows.bat', 'setup_linux.sh', 'Streamlined_fetcher_windows.bat',
                      'get_streamline.ps1', 'get_hybrid_assets.ps1', '.gitmodules',
+                     'redist/streamline/manifest.json'):
+            self.assertEqual(current['protected_files'][path], previous['protected_files'][path])
+
+    def test_v0139_changes_only_the_audited_dependency_pin_and_keeps_exact_protection(self):
+        previous = self.contract_module.load_contract(ROOT / 'audit/2026-11-11/upstream-contract.json')
+        current = self.contract_module.load_contract(ROOT / 'upstream-contract.json')
+        self.assertEqual(current['baseline_commit'], '956bb7198e819da857710f7f9ace223790a7ba55')
+        self.assertEqual(set(current['gitlinks']), set(previous['gitlinks']))
+        self.assertEqual({key for key in current['gitlinks'] if current['gitlinks'][key] != previous['gitlinks'][key]},
+                         {'external/FidelityFX-SDK-v2'})
+        self.assertEqual(current['gitlinks']['external/FidelityFX-SDK-v2'], '7539ae8b6568ad29ed78a753404351daf3b5cca7')
+        for path, record in current['audited_sources'].items():
+            self.assertEqual(record, previous['audited_sources'][path])
+            self.assertEqual(record['mutable_literal_ordinals'], [])
+        for path in ('OptiScaler/menu/StatusPage.cpp', 'OptiScaler/menu/StatusPageRules.h',
+                     'OptiScaler/dlssnr/DlssNr_WeightsRules.h', 'OptiScaler/dlssnr/DlssNr_VulkanRoute.h',
+                     'plugin_sdk/LICENSE', 'OptiScaler/dlssnr/forwarder/dlssnr_forwarder.cpp'):
+            self.assertIn(path, current['protected_files'])
+        for path in ('setup_windows.bat', 'setup_linux.sh', 'Streamlined_fetcher_windows.bat',
+                     'get_streamline.ps1', 'get_hybrid_assets.ps1', '.gitmodules', 'package_release.ps1',
                      'redist/streamline/manifest.json'):
             self.assertEqual(current['protected_files'][path], previous['protected_files'][path])
 
