@@ -71,6 +71,42 @@ inline std::string ComparisonValue(std::string_view source)
     result += Runtime::Translate(source.substr(start));
     return result;
 }
+// Status producers format these exact trusted words around externally named
+// modules. Match only statically generated boundaries, never inner path bytes.
+inline std::string StatusReplacementValue(const std::string& source, bool userFolder)
+{
+    return userFolder ? source : TextValue(source.c_str());
+}
+inline std::string StatusWeightsValue(const std::string& base, const std::string& a, const std::string& b)
+{
+    auto text = TextValue(base.c_str());
+    if (!a.empty() || !b.empty())
+        text += TextValue(", weights A: ") + (a.empty() ? TextValue("stock") : a)
+             + TextValue(", B: ") + (b.empty() ? TextValue("stock") : b);
+    return text;
+}
+inline std::string VulkanStatusValue(const std::string& source)
+{
+    if (!Loc::IsChineseActive()) return source;
+    constexpr std::string_view suffixes[] = {
+        " (Neural Rendering off)", " (Neural Rendering on Vulkan)",
+        " (Neural Rendering on D3D12, Optical F5Low copies)",
+        " (Neural Rendering on D3D12, Finished Picture copies)",
+        " (Finished Picture is not running)", " (Neural Rendering on D3D12)"
+    };
+    constexpr std::string_view backendPrefix = "Native swapchain, but the upscaler is still ";
+    for (const auto suffix : suffixes)
+    {
+        if (source.size() < suffix.size() ||
+            source.compare(source.size() - suffix.size(), suffix.size(), suffix) != 0) continue;
+        const auto first = source.substr(0, source.size() - suffix.size());
+        auto label = first.compare(0, backendPrefix.size(), backendPrefix) == 0
+            ? TextValue(backendPrefix.data()) + first.substr(backendPrefix.size())
+            : TextValue(first.c_str());
+        return label + TextValue(suffix.data());
+    }
+    return TextValue(source.c_str());
+}
 struct StringArgument { std::string value; bool isNull; };
 inline StringArgument Wrap(RawText value) { return { value.value ? value.value : "", value.value == nullptr }; }
 inline StringArgument Wrap(const char* value) { return { TextValue(value), value == nullptr }; }

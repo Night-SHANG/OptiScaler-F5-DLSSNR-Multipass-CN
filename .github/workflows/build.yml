@@ -154,7 +154,7 @@ jobs:
           if (-not $?) { throw 'CN packaging failed' }
       - name: Verify the actual official F5Low kit and packaged bytes
         run: |
-          $env:F5LOW_KIT_ZIP = Join-Path $env:GITHUB_WORKSPACE 'dist/_package-work/f5low-kit-1.1.0.140.zip'
+          $env:F5LOW_KIT_ZIP = Join-Path $env:GITHUB_WORKSPACE 'dist/_package-work/f5low-kit-1.1.0.208.zip'
           python -m unittest discover -s tests -p 'test_f5low*' -v 2>&1 | Tee-Object reports/f5low-after-package-tests.log
           if ($LASTEXITCODE -ne 0) { throw 'F5Low official-kit regression failed' }
           python -c "import json,sys; from pathlib import Path; sys.path.insert(0,'tools'); from f5low_kit import verify_package_f5low; root=Path('dist'); metadata=json.loads((root/'build-metadata.json').read_text(encoding='utf-8-sig')); verify_package_f5low(root/metadata['package'],metadata); print('Official F5Low package bytes, notices, metadata and defaults verified')"

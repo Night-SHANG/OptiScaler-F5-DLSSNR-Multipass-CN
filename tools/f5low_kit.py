@@ -15,22 +15,22 @@ import re
 import stat
 import zipfile
 
-KIT_VERSION = '1.1.0.140'
-KIT_URL = 'https://github.com/janblade/f5low-fg/releases/download/v1.1.0.140/f5low-kit-1.1.0.140%2B1f17d38.zip'
-KIT_SHA256 = '97fa6fb53a2278dfc651e4de2b2201f399f40ce49474b5f8199a2e5794d87f56'
+KIT_VERSION = '1.1.0.208'
+KIT_URL = 'https://github.com/janblade/f5low-fg/releases/download/v1.1.0.208/f5low-kit-1.1.0.208%2B46af9a0.zip'
+KIT_SHA256 = '1463f5d5851f3f82b1b79f6c113a2d9db195cec5b1aa547c85a9f924102839be'
 SOURCE_REPOSITORY = 'https://github.com/janblade/f5low-fg'
-SOURCE_COMMIT = '1f17d38621270dd1fc0f835ea79f1b90bf1d6c7a'
+SOURCE_COMMIT = '46af9a0b5167d6a2ad56f350750e84ed34c8070f'
 INTEL_VERSION = '1.3.4.95'
 FILE_SHA256 = {
-    'f5low.dll': '0993352a97a05537a88bd1d0266cb62ae581f219b75fc588fbc15eeeacb48fa4',
+    'f5low.dll': '6b09aa568e042e693e7e66b307c088ec86001cb50029abe0f054d2c18db847d1',
     'libxess_fg.dll': '752b1491350a29fb2850fa4d0d14f62d79980e0b3cd067d147bb2469c1ec3182',
     'LICENSE': '1ecec4c8ae6cd206ecab7be3457953616a5d497dc438d53bc726287724f77a58',
     'XeSS_LICENSE.txt': '784be42c39a4a4d03cf85d88e15e59d75828fca773ce45b8dbfffbd7eaf208df',
     'zstd_LICENSE.txt': 'd3baadc2e1dd7a7e0b483633e6b39743c16a16f28d696baff507fcd451f3d4ad',
-    'README-KIT.txt': 'b34da9e444ca20d6157105722d3bfae64f1d996218b8d37289687e4c199d30f0',
-    'kit_hashes.txt': '02ef995f35e19d69647005e93b7cd485d8da3b5e50901fb91e4520e6bf2c32d4',
+    'README-KIT.txt': '9bbaa34ce657c345af24df1e7126ea922b374694caac91eeb6fe5f3012ccb6d1',
+    'kit_hashes.txt': '8f2e9153dad7c1f2f82709a14e1d67c179d95c92911ea1895d81e0790033e49c',
 }
-FILE_SIZES = {'f5low.dll': 6350848, 'libxess_fg.dll': 22866056, 'LICENSE': 37871,
+FILE_SIZES = {'f5low.dll': 6241280, 'libxess_fg.dll': 22866056, 'LICENSE': 37871,
               'XeSS_LICENSE.txt': 4194, 'zstd_LICENSE.txt': 1579,
               'README-KIT.txt': 1596, 'kit_hashes.txt': 484}
 STAGED_PATHS = {

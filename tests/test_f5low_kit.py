@@ -24,7 +24,7 @@ FILES = {
     'LICENSE': b'GPL-3.0 with linking exception fixture',
     'XeSS_LICENSE.txt': b'Intel licence fixture',
     'zstd_LICENSE.txt': b'zstd licence fixture',
-    'README-KIT.txt': b'Source: https://github.com/janblade/f5low-fg (commit 1f17d38621270dd1fc0f835ea79f1b90bf1d6c7a)',
+    'README-KIT.txt': b'Source: https://github.com/janblade/f5low-fg (commit 46af9a0b5167d6a2ad56f350750e84ed34c8070f)',
 }
 FILES['kit_hashes.txt'] = ''.join(f'{hashlib.sha256(data).hexdigest()}  {name}\n' for name, data in FILES.items()).encode()
 MAPPING = {
@@ -80,8 +80,8 @@ class F5LowKitTests(unittest.TestCase):
         with self.fixture_pins(path):
             files, metadata = kit.read_verified_kit(path)
         self.assertEqual(files, FILES)
-        self.assertEqual(metadata['version'], '1.1.0.140')
-        self.assertEqual(metadata['source_commit'], '1f17d38621270dd1fc0f835ea79f1b90bf1d6c7a')
+        self.assertEqual(metadata['version'], '1.1.0.208')
+        self.assertEqual(metadata['source_commit'], '46af9a0b5167d6a2ad56f350750e84ed34c8070f')
         self.assertEqual({entry['path'] for entry in metadata['files']}, set(FILES))
 
     def test_archive_hash_is_not_taken_from_its_own_manifest(self):
@@ -216,8 +216,8 @@ class F5LowKitTests(unittest.TestCase):
         if not archive:
             self.skipTest('Optional official-kit integration fixture not supplied')
         files, metadata = kit.read_verified_kit(Path(archive))
-        self.assertEqual(hashlib.sha256(files['f5low.dll']).hexdigest(), '0993352a97a05537a88bd1d0266cb62ae581f219b75fc588fbc15eeeacb48fa4')
-        self.assertEqual(metadata['archive_sha256'], '97fa6fb53a2278dfc651e4de2b2201f399f40ce49474b5f8199a2e5794d87f56')
+        self.assertEqual(hashlib.sha256(files['f5low.dll']).hexdigest(), '6b09aa568e042e693e7e66b307c088ec86001cb50029abe0f054d2c18db847d1')
+        self.assertEqual(metadata['archive_sha256'], '1463f5d5851f3f82b1b79f6c113a2d9db195cec5b1aa547c85a9f924102839be')
 
 
 if __name__ == '__main__':

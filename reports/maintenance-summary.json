@@ -1,29 +1,29 @@
 {
-  "upstream_commit": "f10dedf93a2d5412c753c751c120d52b223800f6",
-  "total": 2967,
+  "upstream_commit": "956bb7198e819da857710f7f9ace223790a7ba55",
+  "total": 3281,
   "reviewed": 241,
-  "machine_translated": 2726,
+  "machine_translated": 3040,
   "missing": 0,
   "stale": 0,
-  "changed_display_translations": 2735,
-  "retained_technical_entries": 232,
-  "effective": 2967,
+  "changed_display_translations": 3006,
+  "retained_technical_entries": 275,
+  "effective": 3281,
   "coverage": 100.0,
   "scan_raw": {
-    "added": 295,
-    "changed": 7,
-    "removed": 24
+    "added": 366,
+    "changed": 16,
+    "removed": 52
   },
   "scan_unique": {
-    "added": 295,
-    "changed": 7,
-    "removed": 24
+    "added": 366,
+    "changed": 15,
+    "removed": 52
   },
   "scan_active_unique": {
-    "added": 295,
-    "changed": 7,
+    "added": 366,
+    "changed": 15,
     "removed": 0
   },
-  "scan_removed_obsolete_unique": 24,
-  "newly_effective": 295
+  "scan_removed_obsolete_unique": 52,
+  "newly_effective": 366
 }

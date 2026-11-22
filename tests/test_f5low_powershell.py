@@ -57,7 +57,6 @@ class F5LowPowerShellTests(unittest.TestCase):
         pairs = [
             ('external/xess/LICENSE.txt', 'Licenses/XeSS_LICENSE.txt'),
             ('external/FidelityFX-SDK/docs/license.md', 'OptiScaler/Licenses/FidelityFX_v1_LICENSE.md'),
-            ('external/FidelityFX-SDK/PrebuiltSignedDLL/amd_fidelityfx_vk.dll', 'OptiScaler/amd_fidelityfx_vk.dll'),
             ('external/FidelityFX-SDK-v2/docs/license.md', 'Licenses/FidelityFX_v2_LICENSE.md'),
             ('external/directx_agility_sdk/LICENSE.txt', 'Licenses/DirectX_LICENSE.txt'),
             ('external/xess/bin/libxess_fg.dll', 'OptiScaler/libxess_fg.dll'),
@@ -65,7 +64,8 @@ class F5LowPowerShellTests(unittest.TestCase):
             ('external/directx_agility_sdk/lib/D3D12Core.dll', 'OptiScaler/D3D12_OptiScaler/D3D12Core.dll'),
             ('Licenses/other.txt', 'Licenses/other.txt'), ('LUTs/fixture.bin', 'OptiScaler/LUTs/fixture.bin'),
         ]
-        for name in ('amd_fidelityfx_loader_dx12.dll', 'amd_fidelityfx_upscaler_dx12.dll', 'amd_fidelityfx_framegeneration_dx12.dll'):
+        for name in ('amd_fidelityfx_loader_dx12.dll', 'amd_fidelityfx_upscaler_dx12.dll', 'amd_fidelityfx_framegeneration_dx12.dll',
+                     'amd_fidelityfx_loader_vk.dll', 'amd_fidelityfx_upscaler_vk.dll', 'amd_fidelityfx_framegeneration_vk.dll'):
             pairs.append((f'external/FidelityFX-SDK-v2/Kits/FidelityFX/signedbin/{name}', f'OptiScaler/{name}'))
         for original, target in pairs:
             data = ('inert unchanged dependency ' + original).encode()

@@ -9,8 +9,8 @@ $ErrorActionPreference = 'Stop'
 $repo = [IO.Path]::GetFullPath((Split-Path -Parent $PSScriptRoot))
 $hybridArchiveHash = '3e735f825b85872d20c35c0d75404c1a28b7b6e11ca28ef06243a18225191037'
 $hybridArchiveUrl = 'https://github.com/wilsjo2/OptiScaler-DLSSNR-PreSR-Multipass/releases/download/v0.7.5-nr-fixes/OptiScaler-DLSSNR-v0.7.5-nr-fixes.zip'
-$f5lowArchiveHash = '97fa6fb53a2278dfc651e4de2b2201f399f40ce49474b5f8199a2e5794d87f56'
-$f5lowArchiveUrl = 'https://github.com/janblade/f5low-fg/releases/download/v1.1.0.140/f5low-kit-1.1.0.140%2B1f17d38.zip'
+$f5lowArchiveHash = '1463f5d5851f3f82b1b79f6c113a2d9db195cec5b1aa547c85a9f924102839be'
+$f5lowArchiveUrl = 'https://github.com/janblade/f5low-fg/releases/download/v1.1.0.208/f5low-kit-1.1.0.208%2B46af9a0.zip'
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 
 function Assert-UpstreamConfig($Config) {
@@ -113,7 +113,7 @@ function Assert-NoForbiddenPayload([string]$Stage, [switch]$AllowForwarderBuildI
         # Only this exact final-stage path and these official kit bytes are allowed.
         # The unchanged build stage must still reject every f5low.dll.
         $plugin = [IO.Path]::GetFullPath((Join-Path $Stage 'OptiScaler/plugins/f5low.dll'))
-        Assert-Hash $plugin '0993352a97a05537a88bd1d0266cb62ae581f219b75fc588fbc15eeeacb48fa4'
+        Assert-Hash $plugin '6b09aa568e042e693e7e66b307c088ec86001cb50029abe0f054d2c18db847d1'
         $bad = @($bad | Where-Object { $_.FullName -cne $plugin })
     }
     if ($bad.Count) { throw "Forbidden public payload: $($bad.Name -join ', ')" }
@@ -135,11 +135,11 @@ function Assert-StagedDependencies([string]$Stage, [switch]$PackageStage) {
     $pairs = @(
         @('external/xess/LICENSE.txt', 'Licenses/XeSS_LICENSE.txt'),
         @('external/FidelityFX-SDK/docs/license.md', 'OptiScaler/Licenses/FidelityFX_v1_LICENSE.md'),
-        @('external/FidelityFX-SDK/PrebuiltSignedDLL/amd_fidelityfx_vk.dll', 'OptiScaler/amd_fidelityfx_vk.dll'),
         @('external/FidelityFX-SDK-v2/docs/license.md', 'Licenses/FidelityFX_v2_LICENSE.md'),
         @('external/directx_agility_sdk/LICENSE.txt', 'Licenses/DirectX_LICENSE.txt')
     )
-    foreach ($name in @('amd_fidelityfx_loader_dx12.dll', 'amd_fidelityfx_upscaler_dx12.dll', 'amd_fidelityfx_framegeneration_dx12.dll')) {
+    foreach ($name in @('amd_fidelityfx_loader_dx12.dll', 'amd_fidelityfx_upscaler_dx12.dll', 'amd_fidelityfx_framegeneration_dx12.dll',
+                        'amd_fidelityfx_loader_vk.dll', 'amd_fidelityfx_upscaler_vk.dll', 'amd_fidelityfx_framegeneration_vk.dll')) {
         $pairs += ,@("external/FidelityFX-SDK-v2/Kits/FidelityFX/signedbin/$name", "OptiScaler/$name")
     }
     foreach ($mapping in @(@('external/xess/bin', '*.dll', 'OptiScaler'),
@@ -200,7 +200,7 @@ $upstreamPackager = Join-Path $SourceRoot 'package_release.ps1'
 $hybridFetcher = Join-Path $SourceRoot 'get_hybrid_assets.ps1'
 Assert-Hash $upstreamPackager '08eedbba9154b2f09685c7eddbd40b1c6cb3b24156a4bc58f43419de383600c8'
 Assert-Hash $hybridFetcher '5fcd0c8018c1030e63e664d5df56e9a757bdafda77df688354cd4527e90172b1'
-Assert-Hash (Join-Path $SourceRoot 'OptiScaler/OptiScaler.vcxproj') 'fd4c54668bb3ebc5f0e6bd6e43c33193c7c565bce6ac4f109592be1597ac05ac'
+Assert-Hash (Join-Path $SourceRoot 'OptiScaler/OptiScaler.vcxproj') '482c3bffc4f07eb31ac7e769636931aa9dcf67f8e1fe5abfcec3a0fb29dd3cb7'
 $buildEvidencePath = Join-Path $repo 'reports/build-evidence.json'
 Assert-Leaf $buildEvidencePath
 $buildEvidence = Get-Content -LiteralPath $buildEvidencePath -Raw | ConvertFrom-Json
@@ -236,7 +236,7 @@ Invoke-PinnedPowerShellScript $hybridFetcher @('-Destination', $hybridScratch, '
 $hybridManifestPath = Join-Path $hybridScratch 'asset-manifest.json'
 $hybridManifest = Get-Content -LiteralPath $hybridManifestPath -Raw | ConvertFrom-Json
 if (@($hybridManifest.files).Count -ne 15) { throw 'Expected exactly 15 verified hybrid assets' }
-$f5lowArchivePath = Join-Path $work 'f5low-kit-1.1.0.140.zip'
+$f5lowArchivePath = Join-Path $work 'f5low-kit-1.1.0.208.zip'
 Invoke-WebRequest -Uri $f5lowArchiveUrl -OutFile $f5lowArchivePath
 Assert-Hash $f5lowArchivePath $f5lowArchiveHash
 Assert-SafeArchive $f5lowArchivePath
@@ -246,7 +246,7 @@ if ($LASTEXITCODE -ne 0) { throw 'Pinned F5Low kit verification failed before up
 $packageVersion = "$version-cn-$($cnCommit.Substring(0, 12))"
 $packageArguments = @('-Version', $packageVersion, '-SkipBuild', '-F5LowKit', $f5lowArchivePath, '-F5LowKitSha256', $f5lowArchiveHash, '-HybridAssetsDirectory', $hybridScratch)
 # The unchanged audited packager checks Intel's signature/version and both auto
-# defaults before returning. The kit matches the upstream 0.1.37.2 main package.
+# defaults before returning. The kit matches the upstream 0.1.39 main package.
 # No NVIDIA runtime inclusion or license-acceptance switches are forwarded.
 Invoke-PinnedPowerShellScript $upstreamPackager $packageArguments
 $sourceZip = Join-Path $SourceRoot "release/OptiScaler-DLSSNR-F5-$packageVersion.zip"

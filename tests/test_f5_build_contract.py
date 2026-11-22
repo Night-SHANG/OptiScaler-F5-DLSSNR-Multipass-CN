@@ -277,7 +277,7 @@ class BuildContractTests(unittest.TestCase):
                         text.index('Invoke-PinnedPowerShellScript $hybridFetcher'))
         for fingerprint in ('08eedbba9154b2f09685c7eddbd40b1c6cb3b24156a4bc58f43419de383600c8',
                             '5fcd0c8018c1030e63e664d5df56e9a757bdafda77df688354cd4527e90172b1',
-                            'fd4c54668bb3ebc5f0e6bd6e43c33193c7c565bce6ac4f109592be1597ac05ac'):
+                            '482c3bffc4f07eb31ac7e769636931aa9dcf67f8e1fe5abfcec3a0fb29dd3cb7'):
             self.assertIn(fingerprint, text)
 
     def test_build_import_exception_is_not_used_for_public_stage(self):

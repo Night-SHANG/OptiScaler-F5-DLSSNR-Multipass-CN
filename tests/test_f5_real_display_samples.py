@@ -72,6 +72,10 @@ CASES = [
     ("F5Low: waiting for the game's swap chain", 'F5Low：正在等待游戏交换链'),
     ('F5Low: paused', 'F5Low：已暂停'),
     ('Auto: ARRI LogC4 AWG4 (header)', '自动：ARRI LogC4 AWG4（文件头）'),
+    ('Auto: the picture, but gets ARRI LogC4 AWG4', '自动：原始画面，但收到的是 ARRI LogC4 AWG4'),
+    ('Use the Vulkan upscaler (DLSS)', '改用 Vulkan 超分辨率（DLSS）'),
+    ('Custom: Off', '自定义：Off'),
+    ('No DLSS-G dll in custom\\Off\\dlssg', 'custom\\Off\\dlssg 中没有 DLSS-G DLL'),
     ('Post LUT 3', '后置 LUT 3'),
     ('Look input 2', '调色输入空间 2'),
     ('LUT_1D_SIZE given twice, without its number or out of range (2..65536) (line 4)', 'LUT_1D_SIZE 重复指定、缺少数值或超出范围（2..65536）（第 4 行）'),
@@ -99,7 +103,7 @@ def run(repo,source):
     assert menu.count('OptiScalerCN::UI::PathUtf8(')==7, 'Expected four Input LUT and three post-stack filename display paths in UTF-8'
     assert 'BeginComboRawPreview("Input LUT"' in menu
     assert 'BeginComboRawPreview(label.c_str()' in menu
-    assert '"Loaded: %s", OptiScalerCN::UI::Raw(status.chain.c_str())' in menu, 'LUT chain filenames must remain raw'
+    assert '"Loaded: %s", OptiScalerCN::UI::Raw((OptiScalerCN::Loc::IsChineseActive() && status.cnChain ? *status.cnChain : status.chain).c_str())' in menu, 'LUT chain filenames must remain raw'
     assert 'std::string pathStr = path.string();' in menu, 'LUT stored path semantics were unexpectedly changed'
     common=(source/'OptiScaler/menu/menu_common.cpp').read_text(encoding='utf-8-sig')
     assert 'OptiScalerCN::UI::SeparatorTextEx(0, label, ImGui::FindRenderedTextEnd(label)' in common, 'help-separator labels are not localized'
