@@ -1,0 +1,290 @@
+name: Rename fixed F5 prerelease once
+'on':
+  push:
+    branches: ["release-metadata/20261122-v0.1.39-cn.1"]
+    paths: [".github/workflows/rename-v0139-prerelease-once.yml"]
+permissions:
+  contents: read
+concurrency:
+  group: rename-fixed-454205155
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - name: Exact release verify
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          """One exact GitHub release PATCH. No upload, tag, branch, merge, or deletion API."""
+          import hashlib,json,os,re,sys,urllib.request,urllib.error
+          REPO='Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN'
+          TAG='v0.1.39-cn.1'
+          RID=454205155
+          HEAD='9baf0d104184ea5cc0492e1f9108df0dd3bc0bdc'
+          MAIN='0af315ae0e3e7dd832aa75ca2b3db870e6b501bf'
+          BRANCH='release-metadata/20261122-v0.1.39-cn.1'
+          PATH='.github/workflows/rename-v0139-prerelease-once.yml'
+          ROOT='/repos/'+REPO
+          TARGET=ROOT+'/releases/'+str(RID)
+          OLD_TITLE='OptiScaler F5 CN 0.1.39 · 汉化预发布'
+          NEW_TITLE=TAG
+          OLD_ID=441404359
+          OLD_TAG='v0.1.37.2-cn.1'
+          OLD_HEAD='8253788399dfb97f4478e2f0c5e845cfa41a2e74'
+          PACKAGE='OptiScaler-F5-DLSSNR-Multipass-CN-v0.1.39-cn-9946fd63fdb6-956bb7198e81.zip'
+          PACKAGE_DIGEST='sha256:f1636bdde927f49ec838407c5c88ffac308cdd5c59b6fc3b7ec6962362e16197'
+          class Stop(RuntimeError): pass
+          def require(value,msg):
+              if not value: raise Stop(msg)
+          def unique(pairs):
+              result={}
+              for key,val in pairs:
+                  require(key not in result,'duplicate JSON key');result[key]=val
+              return result
+          def parse(raw): return json.loads(raw,object_pairs_hook=unique)
+          def asset(a):
+              return {k:a.get(k) for k in ('id','name','label','size','digest','state')}
+          def assets(obj):
+              out=[asset(a) for a in obj]
+              require(len({x['id'] for x in out})==len(out)==len({x['name'] for x in out}),'asset identity duplicate')
+              for x in out:
+                  require(type(x['id']) is int and x['id']>0 and type(x['size']) is int and x['size']>0
+                          and re.fullmatch(r'[A-Za-z0-9_.-]+',x.get('name') or '')
+                          and x['state']=='uploaded' and re.fullmatch(r'sha256:[0-9a-f]{64}',x['digest'] or ''),'invalid immutable asset identity')
+              return sorted(out,key=lambda x:x['id'])
+          def snapshot(d):
+              return {**{k:d.get(k) for k in ('id','tag_name','target_commitish','name','body','draft','prerelease','immutable')},'assets':assets(d['assets'])}
+          EXPECTED_RELEASE_ASSETS=[
+           (777886112,'build-metadata.json',6089,'95fb4282a17fd8bd8eb2deaa641daee0f499d49aae4a0614396523624ec1636d'),
+           (777886135,PACKAGE,233573884,'f1636bdde927f49ec838407c5c88ffac308cdd5c59b6fc3b7ec6962362e16197'),
+           (777886421,PACKAGE+'.sha256',141,'d04f123b47e79b52d1477a16b30ccf22b687e99f89d87bcff739f2b461840e7b'),
+           (777886444,'provenance.json',6420,'4292474af54d2f7917a0043b143b737f1289c296e331bc8ddc9854001d7ded4d'),
+           (777886474,'SHA256SUMS',457,'ef9a3108f0cad0e12e3dab6866d2d98706cce82f780080695a82dfeec477ee56'),
+          ]
+          def patch():
+              return {'name':NEW_TITLE,'body':''}
+          def check_assets(a):
+              require([(x['id'],x['name'],x['size'],x['digest']) for x in a]
+                  ==[(i,n,size,'sha256:'+dig) for i,n,size,dig in EXPECTED_RELEASE_ASSETS],'exact immutable asset identities changed')
+          def guard(env,event):
+              wanted={'GITHUB_ACTIONS':'true','GITHUB_EVENT_NAME':'push','GITHUB_REPOSITORY':REPO,'GITHUB_REF':'refs/heads/'+BRANCH,
+                      'GITHUB_RUN_ATTEMPT':'1','GITHUB_WORKFLOW_REF':REPO+'/'+PATH+'@refs/heads/'+BRANCH}
+              require(all(env.get(k)==v for k,v in wanted.items()),'invalid push context')
+              sha=env.get('GITHUB_SHA','')
+              require(re.fullmatch('[0-9a-f]{40}',sha) and event.get('before')==HEAD and event.get('after')==sha
+                      and event.get('ref')==wanted['GITHUB_REF'] and event.get('repository',{}).get('full_name')==REPO
+                      and event.get('forced') is False and event.get('deleted') is False,'unexpected publisher push')
+              return sha
+          class NoRedirect(urllib.request.HTTPRedirectHandler):
+              def redirect_request(self,*a,**kw): return None
+          class API:
+              def __init__(self, token, expected_patch=None):
+                  require(token,'missing ephemeral token');self.token=token;self.expected_patch=expected_patch
+                  self.patched=False;self.opener=urllib.request.build_opener(NoRedirect)
+              def request(self,method,path,body=None):
+                  require(path.startswith(ROOT+'/') and '://' not in path and not path.startswith('//'),'wrong API destination')
+                  if method!='GET':
+                      require(self.expected_patch is not None and not self.patched and method=='PATCH' and path==TARGET
+                              and body==self.expected_patch,'write not in exact one-PATCH scope')
+                      self.patched=True
+                  b=json.dumps(body).encode() if body else None
+                  request=urllib.request.Request('https://api.github.com'+path,data=b,method=method,headers={
+                      'Authorization':'Bearer '+self.token,'Accept':'application/vnd.github+json','Content-Type':'application/json',
+                      'X-GitHub-Api-Version':'2022-11-28'})
+                  try:
+                      with self.opener.open(request,timeout=60) as response:
+                          raw=response.read(5*1024**2+1)
+                  except Exception as e:
+                      msg='HTTP '+str(e.code) if isinstance(e,urllib.error.HTTPError) else 'network failure'
+                      raise Stop(f'{method} {path} {msg}; never retry writes without reconciliation') from None
+                  require(len(raw)<=5*1024**2,'response too large')
+                  return parse(raw)
+          def refs(api,sha):
+              for typ,name,want in [('heads',BRANCH,sha),('heads','main',MAIN),('tags',TAG,HEAD),('tags',OLD_TAG,OLD_HEAD)]:
+                  o=api.request('GET',ROOT+'/git/ref/'+typ+'/'+name)['object']
+                  require(o['sha']==want and o['type']=='commit','ref changed: '+name)
+              c=api.request('GET',ROOT+'/commits/'+sha)
+              require([p['sha'] for p in c['parents']]==[HEAD] and len(c['files'])==1
+                      and c['files'][0]['filename']==PATH and c['files'][0]['status']=='added','publisher must add only fixed workflow')
+          def state(api,sha):
+              refs(api,sha)
+              require(api.request('GET',ROOT+'/releases/latest')['id']==OLD_ID,'Latest must remain older release')
+              old=snapshot(api.request('GET',ROOT+'/releases/'+str(OLD_ID)))
+              require(old['id']==OLD_ID and old['tag_name']==OLD_TAG and old['draft'] is False
+                      and old['prerelease'] is False,'previous stable identity changed')
+              cur=snapshot(api.request('GET',TARGET))
+              require(cur['id']==RID and cur['tag_name']==TAG and cur['target_commitish']==HEAD
+                      and cur['draft'] is False and cur['prerelease'] is True and not cur['immutable'],'target prerelease identity changed')
+              check_assets(cur['assets'])
+              return old,cur
+          def run(old_notes,mode):
+              require(mode in ('verify','rename'),'invalid mode')
+              with open(os.environ['GITHUB_EVENT_PATH'],'rb') as f: event=parse(f.read())
+              sha=guard(os.environ,event);token=os.environ['GITHUB_TOKEN']
+              old,cur=state(API(token),sha)
+              require(cur['name']==OLD_TITLE and cur['body']==old_notes,'target original title/body changed')
+              if mode=='verify':
+                  print('Read-only verification passed: exact target prerelease, older Latest, assets and refs');return
+              expected={**cur,**patch()}
+              writer=API(token,patch())
+              try:
+                  result=writer.request('PATCH',TARGET,patch())
+                  latest,after=state(writer,sha)
+                  require(latest==old and after==expected and snapshot(result)==expected,
+                          'readback changed fields outside requested title/body or original assets')
+                  print('Verified only name/body updated:',RID,TAG,'prerelease and older Latest unchanged')
+              except Exception as e:
+                  raise Stop('PATCH may have been applied; reconcile exact release before any retry; '+str(e)) from None
+
+          try:
+              run('## OptiScaler F5 CN 0.1.39 · 中文预发布\n\n基于上游 [v0.1.39](https://github.com/janblade/OptiScaler-F5-DLSSNR-Multipass/releases/tag/v0.1.39)。上游正文标注为预发布，本版不替换旧正式版。\n\n- 补译状态页、NR 模型权重和 Vulkan 相关界面，修正旧版 LUT 动态说明、自定义 DLSS-G 提示等漏译。自定义文件、目录和模型名保持原样。扫描覆盖 3,281 条：3,006 条汉化、275 条有意保留；缺译／过期均为 0。扫描并不等于逐屏验收。\n- 安装包包含新的 NR 转发器 `nvngx.dll_dlssnr.dll`、F5Low 1.1.0.208、Intel XeSS-FG 1.3.4.95 及对应许可。NR 模型 `nvngx_dlssnr.dll` 不随包。\n- NVIDIA Streamline / DLSS-G 的 6 个 DLL 不随包。需要时使用包内 `get_streamline.ps1` 从 NVIDIA 官方仓库获取固定的 Streamline 2.14.16；脚本验证哈希和签名，不会开启帧生成或覆盖不同版本的现有文件。手动下载时以[官方资产](https://github.com/NVIDIA-RTX/Streamline/releases/tag/v2.14.16)及包内 `redist/streamline/manifest.json` 为准：x64 SDK ZIP SHA-256 为 `32041e51db0cab709a271b72a352281b690c2abbd669a827809401a5dd23956b`，不要用随包上游英文说明中的旧校验值。\n- 40 系的内置 MFG 解锁独立于下载器和 F5Low。当前入口见[上游插件说明](https://github.com/janblade/OptiScaler-F5-DLSSNR-Multipass/blob/v0.1.39/docs/PLUGINS.md)，不要把旧 `AdaMfgUnlock` 设置与新版 `[MFGUnlock]` 混用。不与外置解锁器同时使用。\n\nWindows MSVC Release x64 构建、可移植检查和归档校验通过后才发布。未进行游戏/GPU实测；请备份现有安装，只在支持修改的单人游戏中测试。\n\n[源码草稿 PR](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/pull/1) · [本版 CI](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/actions/runs/44984570604)\n', 'verify')
+          except Stop as e:
+              print(str(e),file=sys.stderr)
+              sys.exit(1)
+          PY
+  rename:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    needs: verify
+    permissions:
+      contents: write
+    steps:
+      - name: Exact release rename
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          """One exact GitHub release PATCH. No upload, tag, branch, merge, or deletion API."""
+          import hashlib,json,os,re,sys,urllib.request,urllib.error
+          REPO='Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN'
+          TAG='v0.1.39-cn.1'
+          RID=454205155
+          HEAD='9baf0d104184ea5cc0492e1f9108df0dd3bc0bdc'
+          MAIN='0af315ae0e3e7dd832aa75ca2b3db870e6b501bf'
+          BRANCH='release-metadata/20261122-v0.1.39-cn.1'
+          PATH='.github/workflows/rename-v0139-prerelease-once.yml'
+          ROOT='/repos/'+REPO
+          TARGET=ROOT+'/releases/'+str(RID)
+          OLD_TITLE='OptiScaler F5 CN 0.1.39 · 汉化预发布'
+          NEW_TITLE=TAG
+          OLD_ID=441404359
+          OLD_TAG='v0.1.37.2-cn.1'
+          OLD_HEAD='8253788399dfb97f4478e2f0c5e845cfa41a2e74'
+          PACKAGE='OptiScaler-F5-DLSSNR-Multipass-CN-v0.1.39-cn-9946fd63fdb6-956bb7198e81.zip'
+          PACKAGE_DIGEST='sha256:f1636bdde927f49ec838407c5c88ffac308cdd5c59b6fc3b7ec6962362e16197'
+          class Stop(RuntimeError): pass
+          def require(value,msg):
+              if not value: raise Stop(msg)
+          def unique(pairs):
+              result={}
+              for key,val in pairs:
+                  require(key not in result,'duplicate JSON key');result[key]=val
+              return result
+          def parse(raw): return json.loads(raw,object_pairs_hook=unique)
+          def asset(a):
+              return {k:a.get(k) for k in ('id','name','label','size','digest','state')}
+          def assets(obj):
+              out=[asset(a) for a in obj]
+              require(len({x['id'] for x in out})==len(out)==len({x['name'] for x in out}),'asset identity duplicate')
+              for x in out:
+                  require(type(x['id']) is int and x['id']>0 and type(x['size']) is int and x['size']>0
+                          and re.fullmatch(r'[A-Za-z0-9_.-]+',x.get('name') or '')
+                          and x['state']=='uploaded' and re.fullmatch(r'sha256:[0-9a-f]{64}',x['digest'] or ''),'invalid immutable asset identity')
+              return sorted(out,key=lambda x:x['id'])
+          def snapshot(d):
+              return {**{k:d.get(k) for k in ('id','tag_name','target_commitish','name','body','draft','prerelease','immutable')},'assets':assets(d['assets'])}
+          EXPECTED_RELEASE_ASSETS=[
+           (777886112,'build-metadata.json',6089,'95fb4282a17fd8bd8eb2deaa641daee0f499d49aae4a0614396523624ec1636d'),
+           (777886135,PACKAGE,233573884,'f1636bdde927f49ec838407c5c88ffac308cdd5c59b6fc3b7ec6962362e16197'),
+           (777886421,PACKAGE+'.sha256',141,'d04f123b47e79b52d1477a16b30ccf22b687e99f89d87bcff739f2b461840e7b'),
+           (777886444,'provenance.json',6420,'4292474af54d2f7917a0043b143b737f1289c296e331bc8ddc9854001d7ded4d'),
+           (777886474,'SHA256SUMS',457,'ef9a3108f0cad0e12e3dab6866d2d98706cce82f780080695a82dfeec477ee56'),
+          ]
+          def patch():
+              return {'name':NEW_TITLE,'body':''}
+          def check_assets(a):
+              require([(x['id'],x['name'],x['size'],x['digest']) for x in a]
+                  ==[(i,n,size,'sha256:'+dig) for i,n,size,dig in EXPECTED_RELEASE_ASSETS],'exact immutable asset identities changed')
+          def guard(env,event):
+              wanted={'GITHUB_ACTIONS':'true','GITHUB_EVENT_NAME':'push','GITHUB_REPOSITORY':REPO,'GITHUB_REF':'refs/heads/'+BRANCH,
+                      'GITHUB_RUN_ATTEMPT':'1','GITHUB_WORKFLOW_REF':REPO+'/'+PATH+'@refs/heads/'+BRANCH}
+              require(all(env.get(k)==v for k,v in wanted.items()),'invalid push context')
+              sha=env.get('GITHUB_SHA','')
+              require(re.fullmatch('[0-9a-f]{40}',sha) and event.get('before')==HEAD and event.get('after')==sha
+                      and event.get('ref')==wanted['GITHUB_REF'] and event.get('repository',{}).get('full_name')==REPO
+                      and event.get('forced') is False and event.get('deleted') is False,'unexpected publisher push')
+              return sha
+          class NoRedirect(urllib.request.HTTPRedirectHandler):
+              def redirect_request(self,*a,**kw): return None
+          class API:
+              def __init__(self, token, expected_patch=None):
+                  require(token,'missing ephemeral token');self.token=token;self.expected_patch=expected_patch
+                  self.patched=False;self.opener=urllib.request.build_opener(NoRedirect)
+              def request(self,method,path,body=None):
+                  require(path.startswith(ROOT+'/') and '://' not in path and not path.startswith('//'),'wrong API destination')
+                  if method!='GET':
+                      require(self.expected_patch is not None and not self.patched and method=='PATCH' and path==TARGET
+                              and body==self.expected_patch,'write not in exact one-PATCH scope')
+                      self.patched=True
+                  b=json.dumps(body).encode() if body else None
+                  request=urllib.request.Request('https://api.github.com'+path,data=b,method=method,headers={
+                      'Authorization':'Bearer '+self.token,'Accept':'application/vnd.github+json','Content-Type':'application/json',
+                      'X-GitHub-Api-Version':'2022-11-28'})
+                  try:
+                      with self.opener.open(request,timeout=60) as response:
+                          raw=response.read(5*1024**2+1)
+                  except Exception as e:
+                      msg='HTTP '+str(e.code) if isinstance(e,urllib.error.HTTPError) else 'network failure'
+                      raise Stop(f'{method} {path} {msg}; never retry writes without reconciliation') from None
+                  require(len(raw)<=5*1024**2,'response too large')
+                  return parse(raw)
+          def refs(api,sha):
+              for typ,name,want in [('heads',BRANCH,sha),('heads','main',MAIN),('tags',TAG,HEAD),('tags',OLD_TAG,OLD_HEAD)]:
+                  o=api.request('GET',ROOT+'/git/ref/'+typ+'/'+name)['object']
+                  require(o['sha']==want and o['type']=='commit','ref changed: '+name)
+              c=api.request('GET',ROOT+'/commits/'+sha)
+              require([p['sha'] for p in c['parents']]==[HEAD] and len(c['files'])==1
+                      and c['files'][0]['filename']==PATH and c['files'][0]['status']=='added','publisher must add only fixed workflow')
+          def state(api,sha):
+              refs(api,sha)
+              require(api.request('GET',ROOT+'/releases/latest')['id']==OLD_ID,'Latest must remain older release')
+              old=snapshot(api.request('GET',ROOT+'/releases/'+str(OLD_ID)))
+              require(old['id']==OLD_ID and old['tag_name']==OLD_TAG and old['draft'] is False
+                      and old['prerelease'] is False,'previous stable identity changed')
+              cur=snapshot(api.request('GET',TARGET))
+              require(cur['id']==RID and cur['tag_name']==TAG and cur['target_commitish']==HEAD
+                      and cur['draft'] is False and cur['prerelease'] is True and not cur['immutable'],'target prerelease identity changed')
+              check_assets(cur['assets'])
+              return old,cur
+          def run(old_notes,mode):
+              require(mode in ('verify','rename'),'invalid mode')
+              with open(os.environ['GITHUB_EVENT_PATH'],'rb') as f: event=parse(f.read())
+              sha=guard(os.environ,event);token=os.environ['GITHUB_TOKEN']
+              old,cur=state(API(token),sha)
+              require(cur['name']==OLD_TITLE and cur['body']==old_notes,'target original title/body changed')
+              if mode=='verify':
+                  print('Read-only verification passed: exact target prerelease, older Latest, assets and refs');return
+              expected={**cur,**patch()}
+              writer=API(token,patch())
+              try:
+                  result=writer.request('PATCH',TARGET,patch())
+                  latest,after=state(writer,sha)
+                  require(latest==old and after==expected and snapshot(result)==expected,
+                          'readback changed fields outside requested title/body or original assets')
+                  print('Verified only name/body updated:',RID,TAG,'prerelease and older Latest unchanged')
+              except Exception as e:
+                  raise Stop('PATCH may have been applied; reconcile exact release before any retry; '+str(e)) from None
+
+          try:
+              run('## OptiScaler F5 CN 0.1.39 · 中文预发布\n\n基于上游 [v0.1.39](https://github.com/janblade/OptiScaler-F5-DLSSNR-Multipass/releases/tag/v0.1.39)。上游正文标注为预发布，本版不替换旧正式版。\n\n- 补译状态页、NR 模型权重和 Vulkan 相关界面，修正旧版 LUT 动态说明、自定义 DLSS-G 提示等漏译。自定义文件、目录和模型名保持原样。扫描覆盖 3,281 条：3,006 条汉化、275 条有意保留；缺译／过期均为 0。扫描并不等于逐屏验收。\n- 安装包包含新的 NR 转发器 `nvngx.dll_dlssnr.dll`、F5Low 1.1.0.208、Intel XeSS-FG 1.3.4.95 及对应许可。NR 模型 `nvngx_dlssnr.dll` 不随包。\n- NVIDIA Streamline / DLSS-G 的 6 个 DLL 不随包。需要时使用包内 `get_streamline.ps1` 从 NVIDIA 官方仓库获取固定的 Streamline 2.14.16；脚本验证哈希和签名，不会开启帧生成或覆盖不同版本的现有文件。手动下载时以[官方资产](https://github.com/NVIDIA-RTX/Streamline/releases/tag/v2.14.16)及包内 `redist/streamline/manifest.json` 为准：x64 SDK ZIP SHA-256 为 `32041e51db0cab709a271b72a352281b690c2abbd669a827809401a5dd23956b`，不要用随包上游英文说明中的旧校验值。\n- 40 系的内置 MFG 解锁独立于下载器和 F5Low。当前入口见[上游插件说明](https://github.com/janblade/OptiScaler-F5-DLSSNR-Multipass/blob/v0.1.39/docs/PLUGINS.md)，不要把旧 `AdaMfgUnlock` 设置与新版 `[MFGUnlock]` 混用。不与外置解锁器同时使用。\n\nWindows MSVC Release x64 构建、可移植检查和归档校验通过后才发布。未进行游戏/GPU实测；请备份现有安装，只在支持修改的单人游戏中测试。\n\n[源码草稿 PR](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/pull/1) · [本版 CI](https://github.com/Night-SHANG/OptiScaler-F5-DLSSNR-Multipass-CN/actions/runs/44984570604)\n', 'rename')
+          except Stop as e:
+              print(str(e),file=sys.stderr)
+              sys.exit(1)
+          PY
